@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#FFFFFF"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/bottom_tab_community"
+            android:textColor="@color/purple_main"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/community_main_follow"
+            android:layout_width="30dp"
+            android:layout_height="24dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_addfriend_purple" />
+
+        <ImageView
+            android:id="@+id/community_main_search"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_search_purple" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F6F6F6"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/community_main_tablayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                app:tabIndicatorFullWidth="false">
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/community_main_hot_tab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="热门" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/community_main_follow_tab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="关注" />
+
+            </com.google.android.material.tabs.TabLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--<androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/community_main_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#F6F6F6"
+                tools:listitem="@layout/community_item_post" />-->
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/community_main_viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#F6F6F6"
+                tools:listitem="@layout/community_item_post" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/float_button"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="25dp"
+                android:backgroundTint="@color/purple_main"
+                android:src="@drawable/ic_camera_white"
+                app:borderWidth="0dp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#F6F6F6"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#FFFFFF"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center_vertical"
+            android:text="首页"
+            android:textColor="@color/purple_main"
+            android:textSize="24sp" />
+
+
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="27dp"
+                android:layout_marginBottom="27dp"
+                android:background="@drawable/homepage_nav_radius_white"
+                android:gravity="center"
+                android:paddingLeft="35dp"
+                android:paddingTop="20dp"
+                android:paddingRight="35dp"
+                android:paddingBottom="20dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/ivNavItem1"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/homepage_nav_1" />
+
+                    <ImageView
+                        android:id="@+id/ivNavItem2"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="60dp"
+                        android:layout_marginRight="60dp"
+                        android:src="@drawable/homepage_nav_2" />
+
+                    <ImageView
+                        android:id="@+id/ivNavItem3"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/homepage_nav_3" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tvNavItem1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="人气课"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black_homepage_nav_text" />
+
+                    <TextView
+                        android:id="@+id/tvNavItem2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="亲子运动"
+                        android:textAlignment="center"
+                        android:textColor="@color/black_homepage_nav_text" />
+
+                    <TextView
+                        android:id="@+id/tvNavItem3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="体育达标"
+                        android:textAlignment="center"
+                        android:textColor="@color/black_homepage_nav_text" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/ivNavItem4"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/homepage_nav_4" />
+
+                    <ImageView
+                        android:id="@+id/ivNavItem5"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="60dp"
+                        android:layout_marginRight="60dp"
+                        android:src="@drawable/homepage_nav_5" />
+
+                    <ImageView
+                        android:id="@+id/ivNavItem6"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/homepage_nav_6" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tvNavItem4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="网球"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black_homepage_nav_text" />
+
+                    <TextView
+                        android:id="@+id/tvNavItem5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="篮球"
+                        android:textAlignment="center"
+                        android:textColor="@color/black_homepage_nav_text" />
+
+                    <TextView
+                        android:id="@+id/tvNavItem6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="更多课程"
+                        android:textAlignment="center"
+                        android:textColor="@color/black_homepage_nav_text" />
+                </TableRow>
+
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/homepage_types_radius_white"
+                android:paddingBottom="10dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="67dp"
+                    android:background="@drawable/homepage_types_radius_purple"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="16dp">
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical"
+                        android:text="年龄分类"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp">
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="查看更多年龄分类"
+                        android:textAlignment="center"
+                        android:textColor="@color/black_homepage_nav_text"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </TableRow>
+            </TableLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>
