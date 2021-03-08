@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="248dp"
+    android:layout_height="145dp"
+    android:orientation="vertical">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/course_item_bgImg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/course_background"
+        app:riv_corner_radius="11dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/item_course_bar_bg"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/course_item_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="textStart"
+            android:textColor="#101010"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="篮球培优课类似课" />
+
+        <TextView
+            android:id="@+id/course_item_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="textEnd"
+            android:textColor="#101010"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="4-6岁" />
+
+    </LinearLayout>
+
+</FrameLayout>
