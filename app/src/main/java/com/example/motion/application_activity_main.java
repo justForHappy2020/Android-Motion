@@ -1,41 +1,35 @@
 package com.example.motion;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class application_activity_main extends FragmentActivity implements View.OnClickListener {
+public class application_activity_main extends FragmentActivity {
     //声明ViewPager
     private ViewPager mViewPager;
     //适配器
     private FragmentPagerAdapter mAdapter;
-
     //装载Fragment的集合
     private List<Fragment> mFragments;
+    //底部导航栏
+    private BottomNavigationView bottomNavigation;
 
-    //四个Tab对应的布局
-    private LinearLayout llHomepage;
-    private LinearLayout llSport;
-    private LinearLayout llCommunity;
-    private LinearLayout llDiet;
-    private LinearLayout llMe;
-
-    private ImageView ivHomePage;
-    private ImageView ivSport;
-    private ImageView ivCommunity;
-    private ImageView ivDiet;
-    private ImageView ivMe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +75,7 @@ public class application_activity_main extends FragmentActivity implements View.
             public void onPageSelected(int position) {
                 //设置position对应的集合中的Fragment
                 mViewPager.setCurrentItem(position);
-                resetImgs();
-                selectTab(position);
+                bottomNavigation.getMenu().getItem(position).setChecked(true);
             }
 
             @Override
@@ -96,89 +89,47 @@ public class application_activity_main extends FragmentActivity implements View.
     }
 
     private void initEvents() {
-        llHomepage.setOnClickListener(this);
-        llSport.setOnClickListener(this);
-        llCommunity.setOnClickListener(this);
-        llDiet.setOnClickListener(this);
-        llMe.setOnClickListener(this);
-
+        bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
     }
 
     //初始化控件
     private void initViews() {
         mViewPager = (ViewPager) findViewById(R.id.id_viewpager);
-
-        llHomepage = (LinearLayout) findViewById(R.id.ll_homepage);
-        llSport = (LinearLayout) findViewById(R.id.ll_sport);
-        llCommunity = (LinearLayout) findViewById(R.id.ll_communnity);
-        llDiet = (LinearLayout) findViewById(R.id.ll_diet);
-        llMe = (LinearLayout) findViewById(R.id.ll_me);
-
-        ivHomePage = findViewById(R.id.iv_homepage);
-        ivSport = findViewById(R.id.iv_sport);
-        ivCommunity = findViewById(R.id.iv_community);
-        ivDiet = findViewById(R.id.iv_diet);
-        ivMe = findViewById(R.id.iv_me);
+        bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
 
     }
 
-    @Override
-    public void onClick(View v) {
-        resetImgs();
-        //根据点击的Tab切换不同的页面及设置对应的ImageButton为深色
-        switch (v.getId()) {
-            case R.id.ll_homepage:
-                selectTab(0);
-                break;
-            case R.id.ll_sport:
-                selectTab(1);
-                break;
-            case R.id.ll_communnity:
-                selectTab(2);
-                break;
-            case R.id.ll_diet:
-                selectTab(3);
-                break;
-            case R.id.ll_me:
-                selectTab(4);
-                break;
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            switch (menuItem.getItemId()){
+                case R.id.main_homepage:
+                    mViewPager.setCurrentItem(0);
+                    return true;
+                case R.id.main_sport:
+                    mViewPager.setCurrentItem(1);
+                    return true;
+                case R.id.main_community:
+                    mViewPager.setCurrentItem(2);
+                    return true;
+                case R.id.main_diet:
+                    mViewPager.setCurrentItem(3);
+                    return true;
+                case R.id.main_me:
+                    mViewPager.setCurrentItem(4);
+                    return true;
+            }
+                return false;
+
         }
+    };
 
 
-    }
 
-    private void selectTab(int i) {
 
-        //根据点击的Tab设置对应的ImageButton为深色
-        switch (i) {
-            case 0:
-                ivHomePage.setImageResource(R.drawable.ic_homepage_main_clicked);
-                break;
-            case 1:
-                ivSport.setImageResource(R.drawable.ic_sport_main_clicked);
-                break;
-            case 2:
-                ivCommunity.setImageResource(R.drawable.ic_community_main_clicked);
-                break;
-            case 3:
-                ivDiet.setImageResource(R.drawable.ic_diet_main_clicked);
-                break;
-            case 4:
-                ivMe.setImageResource(R.drawable.ic_me_main_clicked);
-                break;
-        }
-        //设置当前点击的Tab所对应的页面
-        mViewPager.setCurrentItem(i);
-    }
 
-    //将四个ImageButton设置为浅灰色
-    private void resetImgs() {
-        ivHomePage.setImageResource(R.drawable.ic_homepage_main_unclicked);
-        ivSport.setImageResource(R.drawable.ic_sport_main_unclicked);
-        ivCommunity.setImageResource(R.drawable.ic_community_main_unclicked);
-        ivDiet.setImageResource(R.drawable.ic_diet_main_unclicked);
-        ivMe.setImageResource(R.drawable.ic_me_main_unclicked);
-    }
 
 }
