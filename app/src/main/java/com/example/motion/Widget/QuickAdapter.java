@@ -1,4 +1,4 @@
-package com.example.motion;
+package com.example.motion.Widget;
 
 import android.widget.ImageView;
 
@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.chad.library.adapter.base.module.UpFetchModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.example.motion.Entity.Course;
+import com.example.motion.R;
 
 import java.util.List;
 

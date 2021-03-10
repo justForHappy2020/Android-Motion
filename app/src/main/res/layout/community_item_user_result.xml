@@ -44,7 +44,7 @@
             android:layout_gravity="center"
             android:layout_margin="15dp"
             android:background="@drawable/button_radius_purple"
-            android:text="关注"
+            android:text="@string/community_share_btn_follow"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold">

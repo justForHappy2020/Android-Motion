@@ -6,12 +6,45 @@
     <string name="top_titlebar_community">社区</string>
     <string name="top_titlebar_diet">饮食健康</string>
 
-
     <!--底部导航栏String-->
     <string name="bottom_tab_homepage">首页</string>
     <string name="bottom_tab_sport">运动中心</string>
     <string name="bottom_tab_community">社区</string>
     <string name="bottom_tab_diet">饮食|健康</string>
     <string name="bottom_tab_me">我</string>
+
+    <!--首页String-->
+    <string name="homepage_nav_item1">人气课</string>
+    <string name="homepage_nav_item2">亲子运动</string>
+    <string name="homepage_nav_item3">体育达标</string>
+    <string name="homepage_nav_item4">网球</string>
+    <string name="homepage_nav_item5">篮球</string>
+    <string name="homepage_nav_item6">更多课程</string>
+
+    <string name="homepage_type_age">年龄分类</string>
+    <string name="homepage_checkmore_age">查看更多年龄分类</string>
+
+    <!--社区String-->
+    <string name="community_tab_hot">热门</string>
+    <string name="community_tab_followed">关注</string>
+
+    <!--饮食健康String-->
+    <string name="diet_tab_diet">饮食</string>
+    <string name="diet_tab_health">健康</string>
+
+    <!--课程详情String-->
+    <string name="course_detail_title_main">课程详情</string>
+    <string name="course_detail_title_movement">动作详情</string>
+    <string name="course_detail_title_intro">课程介绍</string>
+    <string name="course_detail_title_releated">相关热门好课</string>
+
+    <string name="course_detail_title_intro_advice">练习建议</string>
+    <string name="course_detail_title_intro_suitable">适合人群</string>
+    <string name="course_detail_title_intro_effect">练习效果</string>
+
+    <string name="course_detail_button_bottom">预定课程</string>
+
+    <!--帖子界面String-->
+    <string name="community_share_btn_follow">关注</string>
 
 </resources>

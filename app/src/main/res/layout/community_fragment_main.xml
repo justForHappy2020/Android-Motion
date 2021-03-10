@@ -62,19 +62,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                app:tabIndicatorFullWidth="false">
+                app:tabRippleColor="@null"
+                app:tabIndicatorFullWidth="false"
+                app:tabIndicatorColor="@color/purple_main"
+                app:tabSelectedTextColor="@color/purple_main"
+                app:tabTextColor="@color/gray"
+                app:tabTextAppearance="@style/TopNavigationTextStyle">
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/community_main_hot_tab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="热门" />
+                    android:text="@string/community_tab_hot"/>
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/community_main_follow_tab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="关注" />
+                    android:text="@string/community_tab_followed" />
 
             </com.google.android.material.tabs.TabLayout>
 
@@ -101,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="#F6F6F6"
-                tools:listitem="@layout/community_item_post" />
+                tools:listitem="@layout/community_item_share" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/float_button"
@@ -115,7 +120,7 @@
                 android:layout_marginEnd="25dp"
                 android:layout_marginBottom="25dp"
                 android:backgroundTint="@color/purple_main"
-                android:src="@drawable/ic_camera_white"
+                android:src="@drawable/ic_camera"
                 app:borderWidth="0dp" />
         </RelativeLayout>
 

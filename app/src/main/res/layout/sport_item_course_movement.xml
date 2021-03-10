@@ -37,10 +37,10 @@
             android:id="@+id/item_movement_duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="00:00"
             android:textColor="@android:color/holo_purple"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="00:00" />
     </LinearLayout>
 
 </LinearLayout>

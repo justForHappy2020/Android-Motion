@@ -20,7 +20,7 @@
             android:layout_marginBottom="19dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="@string/bottom_tab_diet"
+            android:text="@string/top_titlebar_diet"
             android:textColor="@color/purple_main"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -56,17 +56,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                app:tabIndicatorFullWidth="false">
+                app:tabIndicatorColor="@color/purple_main"
+                app:tabIndicatorFullWidth="false"
+                app:tabRippleColor="@null"
+                app:tabSelectedTextColor="@color/purple_main"
+                app:tabTextColor="@color/gray"
+                app:tabTextAppearance="@style/TopNavigationTextStyle">
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="热门" />
+                    android:text="@string/diet_tab_diet" />
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="关注" />
+                    android:text="@string/diet_tab_health" />
 
             </com.google.android.material.tabs.TabLayout>
 
@@ -81,7 +86,7 @@
             android:id="@+id/diet_main_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/community_item_post" />
+            tools:listitem="@layout/community_item_share" />
 
     </LinearLayout>
 </LinearLayout>

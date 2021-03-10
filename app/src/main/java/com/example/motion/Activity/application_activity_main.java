@@ -1,12 +1,8 @@
-package com.example.motion;
+package com.example.motion.Activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,6 +10,12 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.motion.R;
+import com.example.motion.Fragment.community_fragment_main;
+import com.example.motion.Fragment.diet_fragment_main;
+import com.example.motion.Fragment.homepage_fragment_main;
+import com.example.motion.Fragment.me_fragment_main;
+import com.example.motion.Fragment.sport_fragment_main;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;

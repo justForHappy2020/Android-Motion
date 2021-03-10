@@ -1,4 +1,4 @@
-package com.example.motion;
+package com.example.motion.Widget;
 
 import android.graphics.Rect;
 import android.view.View;
