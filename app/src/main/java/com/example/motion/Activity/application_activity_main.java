@@ -10,12 +10,12 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.motion.R;
 import com.example.motion.Fragment.community_fragment_main;
 import com.example.motion.Fragment.diet_fragment_main;
 import com.example.motion.Fragment.homepage_fragment_main;
 import com.example.motion.Fragment.me_fragment_main;
 import com.example.motion.Fragment.sport_fragment_main;
+import com.example.motion.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -38,6 +38,7 @@ public class application_activity_main extends FragmentActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.application_activity_main);
+
         initViews();//初始化控件
         initEvents();//初始化事件
         initDatas();//初始化数据

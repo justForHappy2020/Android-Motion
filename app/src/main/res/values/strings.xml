@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Motion</string>
+    <string name="NULL">null</string>
+
     <!--顶部标题栏String-->
     <string name="top_titlebar_homepage">首页</string>
     <string name="top_titlebar_sport">运动中心</string>
@@ -43,6 +45,9 @@
     <string name="course_detail_title_intro_effect">练习效果</string>
 
     <string name="course_detail_button_bottom">预定课程</string>
+
+    <string name="course_detail_failed_actions">加载动作失败</string>
+    <string name="course_detail_failed_related_course">加载相关课程失败</string>
 
     <!--帖子界面String-->
     <string name="community_share_btn_follow">关注</string>

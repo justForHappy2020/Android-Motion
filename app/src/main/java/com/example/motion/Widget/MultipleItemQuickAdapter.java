@@ -29,7 +29,7 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
         addItemType(MultipleItem.MASONRYPOST, R.layout.community_item_share_simplified);
         addItemType(MultipleItem.USER, R.layout.community_item_user_result);
         addItemType(MultipleItem.SHAREABB, R.layout.community_item_share);
-        addItemType(MultipleItem.ACTION, R.layout.sport_item_course_movement);
+        addItemType(MultipleItem.ACTION, R.layout.sport_item_course_action);
         addItemType(MultipleItem.SHAREFULL,R.layout.community_item_share_full);
 
     }
@@ -103,7 +103,6 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
                 helper.setText(R.id.item_movement_name, item.getAction().getActionName())
                         .setText(R.id.item_movement_duration, item.getAction().getDuration());
                 Glide.with(getContext()).load(item.getAction().getActionImgs()).placeholder(R.drawable.ic_placeholder).into((ImageView) helper.getView(R.id.item_movement_img));
-                        //.setImageResource(R.id.item_movement_img,R.drawable.course_movement);//item.getAction().getBackgroundUrl()
                 break;
 
             case MultipleItem.ADDIMAGE:
