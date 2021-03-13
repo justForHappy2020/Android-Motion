@@ -1,4 +1,4 @@
-package com.example.motion;
+package com.example.motion.Widget;
 
 import android.content.Context;
 import android.util.AttributeSet;

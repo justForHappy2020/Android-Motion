@@ -34,8 +34,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".sport_activity_course_detail"></activity>
-        <activity android:name=".application_activity_main">
+        <activity android:name=".Activity.sport_activity_course_detail"></activity>
+        <activity android:name=".Activity.application_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
