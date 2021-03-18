@@ -1,4 +1,4 @@
-package com.example.motion;
+package com.example.motion.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,8 @@ import androidx.viewpager.widget.ViewPager;
 import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.example.motion.Entity.MultipleItem;
 import com.example.motion.Entity.ShareAbb;
+import com.example.motion.R;
+import com.example.motion.Widget.MultipleItemQuickAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;

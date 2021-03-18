@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".sport_activity_course_detail">
+    tools:context=".Activity.sport_activity_course_detail">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -13,13 +13,13 @@
         android:layout_weight="1"
         android:fillViewport="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white_background"
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/ll_title_bar"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
@@ -32,11 +32,11 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/iv_arrow_left"
+                    android:id="@+id/iv_back"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center_vertical"
-                    app:srcCompat="@drawable/arrow_left_titlebar" />
+                    android:src ="@drawable/ic_arrow_left" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -44,123 +44,266 @@
                     android:layout_marginRight="20dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="课程详情"
+                    android:text="@string/course_detail_title_main"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/iv_course_img_main"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ll_title_bar"
-                app:srcCompat="@drawable/course_background" />
-
-            <TextView
-                android:id="@+id/tv_course_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:textColor="#212121"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_course_img_main"
-                tools:text="篮球陪优课（适合4-6岁孩子练习）" />
-
-            <TextView
-                android:id="@+id/tv_course_type"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:textColor="#757575"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_course_name"
-                tools:text="减脂/人气课/亲子运动系列" />
-
-            <TextView
-                android:id="@+id/tv_title_course_movments"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
-                android:textColor="#757575"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/rv_course_movments"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_course_type"
-                tools:text="动作详情" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_course_movments"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_course_movments"
-                tools:itemCount="1"
-                tools:listitem="@layout/sport_item_course_movement" />
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_title_course_intro"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
-                android:textColor="#212121"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_course_movments"
-                tools:text="课程介绍" />
+                <ImageView
+                    android:id="@+id/iv_course_img_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/course_background" />
 
-            <TextView
-                android:id="@+id/tv_title_course_related"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
-                android:textColor="#212121"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_title_course_intro"
-                tools:text="相关热门好课" />
+                <TextView
+                    android:id="@+id/tv_course_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/NULL"
+                    android:textColor="#212121"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:text="篮球陪优课（适合4-6岁孩子练习）" />
 
-            <androidx.recyclerview.widget.RecyclerView
+                <TextView
+                    android:id="@+id/tv_course_classification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/NULL"
+                    android:textColor="@color/gray_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_course_name"
+                    tools:text="减脂/人气课/亲子运动系列" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="25dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_course_duriation"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableStart="@drawable/ic_course_detail_clock"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/NULL"
+                        android:textColor="@color/purple_main"
+                        android:textStyle="bold"
+                        tools:text="15分钟" />
+
+                    <TextView
+                        android:id="@+id/tv_course_nums_movement"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableStart="@drawable/ic_course_detail_nums"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/NULL"
+                        android:textColor="@color/purple_main"
+                        android:textStyle="bold"
+                        tools:text="15个动作" />
+
+                    <TextView
+                        android:id="@+id/tv_course_online_date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableStart="@drawable/ic_course_detail_canlender"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/NULL"
+                        android:textColor="@color/purple_main"
+                        android:textStyle="bold"
+                        tools:text="2021/12/31" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_course_related"
-                tools:itemCount="1"
-                tools:listitem="@layout/sport_item_course_related" />
+                android:layout_height="match_parent"
+                android:layout_marginBottom="30dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="40dp">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/tv_title_course_movments"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/course_detail_title_movement"
+                    android:textColor="#757575"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_course_movements"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="10dp"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/sport_item_course_action" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="30dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingTop="20dp"
+                android:paddingBottom="40dp"
+                tools:layout_editor_absoluteY="144dp">
+
+                <TextView
+                    android:id="@+id/tv_title_course_intro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/course_detail_title_intro"
+                    android:textColor="#212121"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_subtitle_advice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="10dp"
+                    android:drawableStart="@drawable/ic_line_vertical_purple"
+                    android:drawablePadding="10dp"
+                    android:gravity="left|center_vertical"
+                    android:text="@string/course_detail_title_intro_advice"
+                    android:textColor="#101010"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_content_advice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/NULL"
+                    android:textColor="@color/gray_text"
+                    android:textStyle="bold"
+                    tools:text="1天1节，家长陪同练习" />
+
+                <TextView
+                    android:id="@+id/tv_subtitle_suitable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="10dp"
+                    android:drawableStart="@drawable/ic_line_vertical_purple"
+                    android:drawablePadding="10dp"
+                    android:gravity="left|center_vertical"
+                    android:text="@string/course_detail_title_intro_suitable"
+                    android:textColor="#101010"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_content_suitable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/NULL"
+                    android:textColor="@color/gray_text"
+                    android:textStyle="bold"
+                    tools:text="3-6岁儿童" />
+
+                <TextView
+                    android:id="@+id/tv_subtitle_effect"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="10dp"
+                    android:drawableStart="@drawable/ic_line_vertical_purple"
+                    android:drawablePadding="10dp"
+                    android:gravity="left|center_vertical"
+                    android:text="@string/course_detail_title_intro_effect"
+                    android:textColor="#101010"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_content_effect"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/NULL"
+                    android:textColor="@color/gray_text"
+                    android:textStyle="bold"
+                    tools:text="学习篮球" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp">
+
+                <TextView
+                    android:id="@+id/tv_title_course_related"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/course_detail_title_releated"
+                    android:textColor="#212121"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_course_related"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="10dp"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/sport_item_course_related" />
+            </LinearLayout>
+
+        </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
@@ -170,20 +313,20 @@
         android:padding="10dp">
 
         <ImageButton
-            android:id="@+id/im_course_like"
+            android:id="@+id/ib_course_like"
             android:layout_width="54dp"
             android:layout_height="54dp"
             android:background="@drawable/button_round_purple"
-            app:srcCompat="@drawable/ic_heart_orange" />
+            android:src="@drawable/ic_heart" />
 
         <Button
-            android:id="@+id/bt_course_reserve"
-            android:layout_width="wrap_content"
+            android:id="@+id/btn_course_select"
+            android:layout_width="0dp"
             android:layout_height="54dp"
             android:layout_marginLeft="18dp"
             android:layout_weight="1"
             android:background="@drawable/button_radius_purple"
-            android:text="预定课程"
+            android:text="@string/course_detail_button_bottom"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />

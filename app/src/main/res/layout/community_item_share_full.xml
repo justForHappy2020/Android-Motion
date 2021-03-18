@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -28,9 +29,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="15dp"
-            android:text="UserName"
             android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            tools:text="UserName" />
 
     </LinearLayout>
 
@@ -40,9 +41,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="20dp"
-        android:text="@string/community1_playertext"
         android:textColor="#353535"
-        android:textSize="16sp">
+        android:textSize="16sp"
+        tools:text="Content">
 
     </TextView>
 
@@ -78,9 +79,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="like_num"
             android:textColor="#999999"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            tools:text="like_num" />
 
         <ImageView
             android:id="@+id/item_post_full_comment"
@@ -97,9 +98,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="comment_num"
             android:textColor="#999999"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            tools:text="comment_num" />
     </LinearLayout>
 
     <View

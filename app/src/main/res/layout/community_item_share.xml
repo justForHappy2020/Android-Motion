@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="15dp"
@@ -31,8 +32,8 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="7dp"
             android:layout_weight="0.5"
-            android:text="USER_NAME"
-            android:textColor="#353535" />
+            android:textColor="#353535"
+            tools:text="USER_NAME" />
 
         <Button
             android:id="@+id/share_follow"
@@ -40,7 +41,7 @@
             android:layout_height="32dp"
             android:layout_gravity="right|center_vertical"
             android:background="@drawable/button_radius_white_stroke"
-            android:text="关注" />
+            android:text="@string/community_share_btn_follow" />
 
     </LinearLayout>
 
@@ -50,9 +51,9 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:singleLine="true"
-        android:text="运动减肥打卡 慢跑10公里，最近都是笑得腹肌都出来了哈哈哈哈这后面会被自动省略"
         android:textColor="#383837"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:text="运动减肥打卡 慢跑10公里，最近都是笑得腹肌都出来了哈哈哈哈这后面会被自动省略" />
 
     <ImageView
         android:id="@+id/content_pics"
@@ -83,9 +84,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="like_num"
             android:textColor="#999999"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            tools:text="like_num" />
 
         <ImageView
             android:id="@+id/postcomment"
@@ -102,9 +103,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="comment_num"
             android:textColor="#999999"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            tools:text="comment_num" />
 
         <Space
             android:layout_width="wrap_content"
