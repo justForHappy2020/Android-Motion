@@ -55,7 +55,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.my_activity_me_data);
+        setContentView(R.layout.me_activity_me_data);
         initView();
     }
 
