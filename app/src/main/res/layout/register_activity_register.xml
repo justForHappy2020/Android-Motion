@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="33dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:id="@+id/iv_delete"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/delete" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:paddingStart="50dp"
+        android:paddingTop="70dp"
+        android:text="验证码登录"
+        android:textColor="#000000"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        android:paddingStart="50dp"
+        android:text="新用户登陆后将创建用户"
+        android:textColor="#000000"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="361dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="1"
+        android:background="@drawable/register_register_et"
+        android:orientation="horizontal"
+        android:paddingStart="10dp">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="92dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:text=" +86 "
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/et_phonenum"
+            android:layout_width="363dp"
+            android:layout_height="37dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="2"
+            android:background="@null"
+            android:drawableStart="@drawable/line"
+            android:ems="10"
+            android:hint="请输入手机号"
+            android:inputType="phone"
+            android:paddingStart="0dp"
+            android:singleLine="false"
+            android:textAlignment="textStart" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="361dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_weight="1"
+        android:background="@drawable/register_register_et"
+        android:orientation="horizontal"
+        android:paddingStart="10dp">
+
+        <EditText
+            android:id="@+id/et_code"
+            android:layout_width="117dp"
+            android:layout_height="37dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="4"
+            android:background="@null"
+            android:ems="10"
+            android:hint="请输入验证码"
+            android:inputType="phone"
+            android:paddingStart="20dp"
+            android:singleLine="false"
+            android:textAlignment="textStart" />
+
+        <Button
+            android:id="@+id/btn_getcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@null"
+            android:stateListAnimator="@null"
+            android:text="获取验证码" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/btn_agree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="30dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:stateListAnimator="@null"
+            android:text="我已经阅读并同意Motion的《用户需知》"
+            android:textSize="18sp"
+            style="@style/Widget.AppCompat.CompoundButton.RadioButton"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="259dp"
+        android:layout_height="14dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:background="@drawable/register_register_et"
+        android:stateListAnimator="@null"
+        android:text="登录"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/btn_wechat"
+        android:layout_width="75dp"
+        android:layout_height="17dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/wechat" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:text="微信登录"
+        android:textSize="18sp" />
+
+</LinearLayout>
