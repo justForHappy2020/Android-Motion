@@ -17,7 +17,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
+
+
+def dbflow_version = "4.2.4"
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -43,4 +50,10 @@ dependencies {
     implementation 'com.jaeger.ninegridimageview:library:1.0.0'
     implementation 'com.github.wanglu1209:PhotoViewer:0.50'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
+
+    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
+    implementation "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
+    implementation "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
+
+    compile 'com.danikula:videocache:2.7.1'
 }

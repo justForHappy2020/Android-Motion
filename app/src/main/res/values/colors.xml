@@ -17,6 +17,7 @@
     <color name="black_homepage_nav_text">#2B2C2E</color>
     <color name="black_overlay">#66000000</color>
     <color name="purple_main">#673AB7</color>
+    <color name="purple_light">#C0AEE1</color>
     <color name="white_background">#F9F9F9</color>
     <color name="orange_main">#FF9800</color>
     <color name="whitle_light_pagebg">#FAFAFA</color>

@@ -5,6 +5,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -12,7 +13,7 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.chad.library.adapter.base.module.UpFetchModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
-import com.example.motion.GlideTransforms.GlideRoundTransform;
+import com.example.motion.GlideTransforms.GlideRadiusTransform;
 import com.example.motion.Entity.MultipleItem;
 import com.example.motion.R;
 import com.jaeger.ninegridimageview.NineGridImageView;
@@ -74,7 +75,7 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
                         .load(item.getUser().getHeadPortraitUrl())
                         .placeholder(R.drawable.headprotrait)
                         .error(R.drawable.ic_load_pic_error)
-                        .transform(new CenterCrop(getContext()), new GlideRoundTransform(getContext(),15))
+                        .transform(new CenterCrop(getContext()), new GlideRadiusTransform(getContext(),15))
                         .into((ImageView) helper.getView(R.id.user_head));
             break;
             case MultipleItem.SHAREABB:
@@ -102,7 +103,14 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
             case MultipleItem.ACTION:
                 helper.setText(R.id.item_movement_name, item.getAction().getActionName())
                         .setText(R.id.item_movement_duration, item.getAction().getDuration());
-                Glide.with(getContext()).load(item.getAction().getActionImgs()).placeholder(R.drawable.ic_placeholder).into((ImageView) helper.getView(R.id.item_movement_img));
+                /*
+                Glide.with(getContext())
+                        .load(item.getAction().getActionImgs())
+                        .placeholder(R.drawable.ic_placeholder)
+                        .transform(new FitCenter(getContext()), new GlideRadiusTransform(getContext(),20))
+                        .into((ImageView) helper.getView(R.id.item_movement_img));
+
+                 */
                 break;
 
             case MultipleItem.ADDIMAGE:

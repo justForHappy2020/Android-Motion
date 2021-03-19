@@ -15,7 +15,7 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
  * Glide 圆角 Transform
  */
 
-public class GlideRoundTransform extends BitmapTransformation {
+public class GlideRadiusTransform extends BitmapTransformation {
 
     private static float radius = 0f;
 
@@ -24,7 +24,7 @@ public class GlideRoundTransform extends BitmapTransformation {
      *
      * @param context Context
      */
-    public GlideRoundTransform(Context context) {
+    public GlideRadiusTransform(Context context) {
         this(context, 4);
     }
 
@@ -34,7 +34,7 @@ public class GlideRoundTransform extends BitmapTransformation {
      * @param context Context
      * @param dp 圆角半径
      */
-    public GlideRoundTransform(Context context, int dp) {
+    public GlideRadiusTransform(Context context, int dp) {
         super(context);
         radius = Resources.getSystem().getDisplayMetrics().density * dp;
     }

@@ -1,5 +1,6 @@
 package com.example.motion.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Window;
@@ -38,6 +39,11 @@ public class application_activity_main extends FragmentActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.application_activity_main);
+
+        //---only for test---
+        Intent intent = new Intent(this,sport_activity_course_detail.class);
+        startActivity(intent);
+        //-------------------
 
         initViews();//初始化控件
         initEvents();//初始化事件

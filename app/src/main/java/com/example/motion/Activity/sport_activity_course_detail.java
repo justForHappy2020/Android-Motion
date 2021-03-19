@@ -1,7 +1,6 @@
 package com.example.motion.Activity;
 
-import android.app.Activity;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -14,22 +13,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.example.motion.Entity.Action;
 import com.example.motion.Entity.Course;
+import com.example.motion.Entity.MultipleItem;
 import com.example.motion.R;
 import com.example.motion.Widget.MultipleItemQuickAdapter;
 import com.example.motion.Widget.RelatedCoursesAdapter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Thread.sleep;
 
-public class sport_activity_course_detail extends Activity implements View.OnClickListener {
+public class sport_activity_course_detail extends BaseNetworkActivity implements View.OnClickListener{
 
     private ImageView ivBack;
     private ImageView ivBackgroundImg;
@@ -48,8 +52,9 @@ public class sport_activity_course_detail extends Activity implements View.OnCli
     private RecyclerView rvRelatedCourses;
 
     private Course course;
-    private List<Action> courseActionsList;
+    private List<MultipleItem> courseActionsList;
     private List<Course> relatedCoursesList;
+    private List<Action> actionList;
     private MultipleItemQuickAdapter actionAdapter;
     private RelatedCoursesAdapter courseAdapter;
 
@@ -119,18 +124,41 @@ public class sport_activity_course_detail extends Activity implements View.OnCli
         ivBack.setOnClickListener(this);
         ibLikeCourse.setOnClickListener(this);
         btSelectCourse.setOnClickListener(this);
+
     }
 
     private void initData(){
-        course = (Course)getIntent().getSerializableExtra("course");
+        //course = (Course)getIntent().getSerializableExtra("course");
+
+        //--only for test--
+        course = new Course();
+        actionList = new ArrayList<>();
+
+        course.setCourseId(Long.valueOf(10086));
+        course.setBackgroundUrl("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimage.biaobaiju.com%2Fuploads%2F20190508%2F14%2F1557298531-XCGFxUNypS.jpg&refer=http%3A%2F%2Fimage.biaobaiju.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1618219760&t=fad175df947a43f0813cba0c11f335bc");
+        course.setCourseName("初级健身");
+        course.setDuration("00:30");
+        course.setIFOnline("online");
+        course.setTargetAge("4-6");
+        course.setType("减脂/人气课/亲子运动系列");
+        Action action1 = new Action(Long.valueOf(1),"抱腿","https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=134894814,3258319714&fm=26&gp=0.jpg",getCacheDir().toString()+"/movement1.mp4","00:12",Long.valueOf(1),"介绍");
+        Action action2 = new Action(Long.valueOf(1),"前爬","https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1828457785,1350485149&fm=26&gp=0.jpg",getCacheDir().toString()+"/movement2.mp4","00:18",Long.valueOf(1),"介绍");
+        action1.setType(Action.COUNTING);
+        action1.setTime(2);
+
+        action2.setType(Action.TIMING);
+        action2.setTime(3);
+
+        actionList.add(action1);
+        actionList.add(action2);
+
+        //-----------------
 
         if(null != course){
-            tvCourseName.setText(course.getCourseName());
-            tvCourseClassification.setText("");//getCourseClassification
+            tvCourseName.setText(course.getCourseName() + course.getTargetAge());
+            tvCourseClassification.setText(course.getType());//getCourseClassification
             tvCourseDuration.setText(course.getDuration());
-            tvCourseMovementsNum.setText("");
-
-            tvCourseOnlineData.setText("");//判断是不是
+            tvCourseMovementsNum.setText(String.valueOf(actionList.size()));
 
             tvCourseIntroAdvice.setText("");
             tvCourseIntroSuitable.setText("");
@@ -141,20 +169,52 @@ public class sport_activity_course_detail extends Activity implements View.OnCli
                     .error(R.drawable.ic_load_pic_error)
                     .placeholder(R.drawable.ic_placeholder)
                     .into(ivBackgroundImg);
+
+            switch (course.getIFOnline()){
+                case "online":
+                    tvCourseOnlineData.setVisibility(View.GONE);
+                    tvCourseOnlineData.setVisibility(View.GONE);
+                    btSelectCourse.setText(R.string.course_detail_button_bottom_attend);
+                    break;
+                case "comming":
+                    tvCourseOnlineData.setVisibility(View.VISIBLE);
+                    tvCourseOnlineData.setText("");
+                    btSelectCourse.setText(R.string.course_detail_button_bottom_reserved);
+                    break;
+            }
         }
     }
 
     private void initCourseActions(){
         courseActionsList = new ArrayList();
 
+        for(int i=0;i<actionList.size();i++){
+            courseActionsList.add(new MultipleItem(MultipleItem.ACTION,actionList.get(i)));
+        }
+
+        LinearLayoutManager layoutM = new LinearLayoutManager(this);
+        layoutM.setOrientation(LinearLayoutManager.HORIZONTAL);
+
         actionAdapter = new MultipleItemQuickAdapter(courseActionsList);
-        rvCourseActions.setLayoutManager(new LinearLayoutManager(this));
+        rvCourseActions.setLayoutManager(layoutM);
         rvCourseActions.setAdapter(actionAdapter);
 
+        actionAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                Intent intent = new Intent(getBaseContext(),sport_activity_course_action_detail.class);
+                intent.putExtra("courseActionPosition",position);
+                intent.putExtra("actionList",(Serializable) actionList);
+                startActivity(intent);
+            }
+        });
+
+        /*
         final Thread getCourseActions = new Thread(new Runnable() {
             @Override
             public void run() {
-                //process here
+
+                //courseActionsList = course.getActionList();
 
                 Message handlerMsg = handler.obtainMessage();
                 if(courseActionsList.isEmpty()){//should use http code to decide here
@@ -171,6 +231,8 @@ public class sport_activity_course_detail extends Activity implements View.OnCli
                 getCourseActions.start();
             }
         });
+         */
+
     }
 
     private void initRelatedCourses(){
@@ -188,7 +250,7 @@ public class sport_activity_course_detail extends Activity implements View.OnCli
                     sleep(3000);
                     Course testCourse = new Course();
                     testCourse.setCourseName("测试名称");
-                    testCourse.setDegree("3-6岁");
+                    testCourse.setTargetAge("3-6岁");
                     testCourse.setBackgroundUrl("https://iknow-pic.cdn.bcebos.com/10dfa9ec8a136327fcb788d99f8fa0ec09fac786?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1/quality,q_85");
                     Log.i("initRelatedCourses","test_course_added");
                     relatedCoursesList.add(testCourse);
@@ -226,8 +288,16 @@ public class sport_activity_course_detail extends Activity implements View.OnCli
                 //
                 break;
             case R.id.btn_course_select:
-                //
+
+                //---only for test---
+                Intent intent = new Intent(this,sport_activity_course_start.class);
+                intent.putExtra("course",course);
+                intent.putExtra("actionList", (Serializable) actionList);
+                startActivity(intent);
+                //-------------------
+
                 break;
         }
     }
+
 }

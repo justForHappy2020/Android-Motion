@@ -3,34 +3,38 @@ package com.example.motion.Entity;
 import java.io.Serializable;
 
 public class Action implements Serializable {
-    private Long actionId;
+    static final public int COUNTING = 1;
+    static final public int TIMING = 2;
+
+    private Long actionID;
     private String actionName;
     private String actionImgs;
     private String actionUrl;
     private String duration;
-    private Long introId;
     private String intro;
+    private int time;
+    private int type;
 
     public Action() {
 
     }
 
-    public Action(Long actionId, String actionName, String actionImgs, String actionUrl, String duration, Long introId, String intro) {
-        this.actionId = actionId;
+    public Action(Long ActionID, String actionName, String actionImgs, String actionUrl, String duration, Long introId, String intro) {
+        this.actionID = ActionID;
         this.actionName = actionName;
         this.actionImgs = actionImgs;
         this.actionUrl = actionUrl;
         this.duration = duration;
-        this.introId = introId;
+        this.actionID = introId;
         this.intro = intro;
     }
 
-    public Long getActionId() {
-        return actionId;
+    public Long getActionID() {
+        return actionID;
     }
 
-    public void setActionId(Long actionId) {
-        this.actionId = actionId;
+    public void setActionID(Long actionID) {
+        this.actionID = actionID;
     }
 
     public String getActionName() {
@@ -65,19 +69,27 @@ public class Action implements Serializable {
         this.duration = duration;
     }
 
-    public Long getIntroId() {
-        return introId;
-    }
-
-    public void setIntroId(Long introId) {
-        this.introId = introId;
-    }
-
     public String getIntro() {
         return intro;
     }
 
     public void setIntro(String intro) {
         this.intro = intro;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }
