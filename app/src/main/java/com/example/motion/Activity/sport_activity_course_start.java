@@ -130,9 +130,11 @@ public class sport_activity_course_start extends Activity implements View.OnClic
                         courseActionPosition++;
                         nowPlayTimes = 0;
                         mVideoView.seekTo(0);
+                        progressBar.setProgress(0);
                         if(courseActionPosition<actionList.size()){
                             tvActionName.setText(actionList.get(courseActionPosition).getActionName());
                         }else{
+                            progressBar.setMax(progressBar.getMax());
                             Intent intent = new Intent(getBaseContext(),sport_activity_course_completed.class);
                             startActivity(intent);
                             finish();

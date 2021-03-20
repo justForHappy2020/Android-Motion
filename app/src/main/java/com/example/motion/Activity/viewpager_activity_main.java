@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class application_activity_main extends FragmentActivity {
+public class viewpager_activity_main extends FragmentActivity {
     //声明ViewPager
     private ViewPager mViewPager;
     //适配器
@@ -38,7 +38,7 @@ public class application_activity_main extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.application_activity_main);
+        setContentView(R.layout.viewpager_activity_main);
 
         //---only for test---
         Intent intent = new Intent(this,sport_activity_course_detail.class);

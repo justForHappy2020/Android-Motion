@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Motion</string>
     <string name="NULL">null</string>
+    <string name="NO_NETWORK">无网络连接</string>
 
     <!--顶部标题栏String-->
     <string name="top_titlebar_homepage">首页</string>
@@ -52,7 +53,6 @@
 
     <!--帖子界面String-->
     <string name="community_share_btn_follow">关注</string>
-    <string name="NO_NETWORK">无网络连接</string>
 
     <!--视频播放界面String-->
     <string name="sport_course_start_check_detail">动作详解</string>
@@ -64,5 +64,22 @@
     <string name="sport_course_action_detail_content">动作详情</string>
     <string name="sport_course_action_detail_start">开始训练</string>
 
-    
+    <!--课程休息界面String-->
+    <string name="sport_course_start_skip_break">跳过休息</string>
+    <string name="sport_course_start_break_text">距离休息结束还有</string>
+
+    <!--课程完成界面String-->
+    <string name="sport_course_completed_ok">完成</string>
+    <string name="sport_completed_course_post_it">打卡到M圈</string>
+    <string name="sport_completed_course_title_name">完成课程</string>
+    <string name="sport_completed_course_title_count">累计完成次数</string>
+    <string name="sport_completed_course_title_usedtime">用时</string>
+
+
+    <string name="sport_completed_course_feelings_title">本次训练感觉如何？</string>
+    <string name="sport_completed_course_feelings_easy">太简单了</string>
+    <string name="sport_completed_course_feelings_hard">太难了</string>
+    <string name="sport_completed_course_feelings_notbad">还不错</string>
+    <string name="sport_completed_course_post_it_hint">“让其他小朋友看到你的努力～“</string>
+
 </resources>

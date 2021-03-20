@@ -56,6 +56,7 @@
         android:id="@+id/tv_action_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:forceDarkAllowed="false"
         android:layout_margin="15dp"
         android:textColor="#000000"
         android:textSize="27sp"
@@ -155,15 +156,11 @@
 
         <ProgressBar
             android:id="@+id/progressBar"
-            style="@android:style/Widget.ProgressBar.Horizontal"
+            style="@style/VideoPlayProgressBar"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="#00FFFFFF"
-            android:indeterminate="false"
-            android:indeterminateOnly="false"
-            android:indeterminateTint="@color/transparent"
             android:max="100"
-            android:progress="0"
+            android:progress="20"
             android:secondaryProgress="0"
             android:visibility="visible" />
 

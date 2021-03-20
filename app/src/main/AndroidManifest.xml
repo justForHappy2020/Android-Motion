@@ -27,7 +27,7 @@
     <application
         android:name=".MotionApplication"
         android:allowBackup="true"
-        android:hardwareAccelerated="false"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
@@ -41,7 +41,7 @@
         <activity android:name=".Activity.sport_activity_course_detail" />
         <activity android:name=".Activity.sport_activity_course_start" />
         <activity android:name=".Activity.sport_activity_course_action_detail" />
-        <activity android:name=".Activity.application_activity_main">
+        <activity android:name=".Activity.viewpager_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
