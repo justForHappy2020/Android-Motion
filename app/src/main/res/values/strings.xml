@@ -52,4 +52,11 @@
     <!--帖子界面String-->
     <string name="community_share_btn_follow">关注</string>
 
+    <!--个人界面String-->
+    <string-array name="me_choose_sex">
+        <item >男</item>
+        <item >女</item>
+    </string-array>
+    <string name="me_close_alert">对话框已关闭</string>
+    <string name="me_choose_sex1">请选择性别</string>
 </resources>
