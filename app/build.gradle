@@ -42,5 +42,6 @@ dependencies {
     implementation 'com.alibaba:fastjson:1.1.72.android'
     implementation 'com.jaeger.ninegridimageview:library:1.0.0'
     implementation 'com.github.wanglu1209:PhotoViewer:0.50'
+    implementation 'com.haibin:calendarview:3.7.1'
     //implementation 'androidx.gridlayout:gridlayout:1.0.0'
 }

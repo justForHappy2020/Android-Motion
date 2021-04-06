@@ -20,6 +20,10 @@ public class MultipleItem implements MultiItemEntity {
     public static final int NORMCOURSE = 9;
     public static final int SHAREFULL = 10;
 
+    public static final int Me_mycourse_history = 11;
+    public static final int Me_mycourse_collections = 12;
+    public static final int Me_mycourse_reserve = 13;
+    public static final int Me_mycollections_articals = 14;
 
 
     private int itemType;
@@ -30,6 +34,10 @@ public class MultipleItem implements MultiItemEntity {
     private Action action;
     private AddImage addimage;
     private NineGridImageViewAdapter<String> nineGridAdapter;
+    private me_mycourse_history me_mycourse_history;
+    private me_mycourse_collections me_mycourse_collections;
+    private me_mycourse_reserve me_mycourse_reserve;
+    private me_mycollections_articals me_mycollections_articals;
 
     public MultipleItem(int itemType,String text) {
         this.itemType = itemType;
@@ -65,7 +73,22 @@ public class MultipleItem implements MultiItemEntity {
         this.shareAbb = shareAbb;
         this.nineGridAdapter = nineGridAdapter;
     }
-
+    public MultipleItem(int itemType, me_mycourse_history me_mycourse_history){
+        this.itemType = itemType;
+        this.me_mycourse_history = me_mycourse_history;
+    }
+    public MultipleItem(int itemType,me_mycourse_collections me_mycourse_collections){
+        this.itemType = itemType;
+        this.me_mycourse_collections = me_mycourse_collections;
+    }
+    public MultipleItem(int itemType,me_mycourse_reserve me_mycourse_reserve){
+        this.itemType = itemType;
+        this.me_mycourse_reserve = me_mycourse_reserve;
+    }
+    public MultipleItem(int itemType,me_mycollections_articals me_mycollections_articals){
+        this.itemType = itemType;
+        this.me_mycollections_articals = me_mycollections_articals;
+    }
     @Override
     public int getItemType() {
         return itemType;
@@ -96,5 +119,21 @@ public class MultipleItem implements MultiItemEntity {
 
     public NineGridImageViewAdapter<String> getNineGridAdapter(){
         return nineGridAdapter;
+    }
+
+    public com.example.motion.Entity.me_mycollections_articals getMe_mycollections_articals() {
+        return me_mycollections_articals;
+    }
+
+    public com.example.motion.Entity.me_mycourse_reserve getMe_mycourse_reserve() {
+        return me_mycourse_reserve;
+    }
+
+    public com.example.motion.Entity.me_mycourse_collections getMe_mycourse_collections() {
+        return me_mycourse_collections;
+    }
+
+    public com.example.motion.Entity.me_mycourse_history getMe_mycourse_history() {
+        return me_mycourse_history;
     }
 }
