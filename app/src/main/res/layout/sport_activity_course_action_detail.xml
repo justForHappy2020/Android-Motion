@@ -71,20 +71,22 @@
         android:orientation="horizontal"
         android:padding="10dp">
 
-        <ImageView
+        <ImageButton
             android:id="@+id/movement_detail_last"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_sport_action_detail_last" />
+            android:background="@drawable/ic_sport_action_detail_last"
+            android:backgroundTint="@color/button_selector_action_detail_last_color" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/movement_detail_next"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"
             android:layout_marginHorizontal="25dp"
-            android:src="@drawable/ic_sport_action_detail_next" />
+            android:background="@drawable/ic_sport_action_detail_next"
+            android:backgroundTint="@color/button_selector_action_detail_last_color"/>
 
         <Button
             android:id="@+id/movement_detail_start"

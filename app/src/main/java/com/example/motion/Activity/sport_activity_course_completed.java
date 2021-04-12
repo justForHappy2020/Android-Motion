@@ -1,8 +1,5 @@
 package com.example.motion.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,20 +7,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.motion.R;
+import com.example.motion.Widget.SportBreakDialog;
+
+import java.text.DecimalFormat;
 
 public class sport_activity_course_completed extends BaseNetworkActivity implements View.OnClickListener {
 
-    TextView tvOK;
-    TextView tvNickname;
-    TextView tvCurrentTime;
-    TextView tvCourseName;
-    TextView tvCount;
-    TextView tvUsedTime;
-    TextView tvBtnFeelingHard;
-    TextView tvBtnFeelingEasy;
-    TextView tvBtnFeelingNotBad;
-    ImageView ivUserHead;
-    Button btnPostIt;
+    private TextView tvOK;
+    private TextView tvNickname;
+    private TextView tvCurrentTime;
+    private TextView tvCourseName;
+    private TextView tvCount;
+    private TextView tvUsedTime;
+    private TextView tvBtnFeelingHard;
+    private TextView tvBtnFeelingEasy;
+    private TextView tvBtnFeelingNotBad;
+    private ImageView ivUserHead;
+    private Button btnPostIt;
+
+    private int timeSeconds;
+
+    private DecimalFormat decimalFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,7 @@ public class sport_activity_course_completed extends BaseNetworkActivity impleme
 
         initView();
         initEvent();
+        initData();
     }
 
     private void initView(){
@@ -56,6 +61,11 @@ public class sport_activity_course_completed extends BaseNetworkActivity impleme
         btnPostIt.setOnClickListener(this);
     }
 
+    private void initData(){
+        decimalFormat = new DecimalFormat("00");
+        timeSeconds = getIntent().getIntExtra("timeSeconds",0);
+        tvUsedTime.setText(decimalFormat.format(timeSeconds/60)+":"+decimalFormat.format(timeSeconds%60));
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -73,6 +83,9 @@ public class sport_activity_course_completed extends BaseNetworkActivity impleme
                 break;
             case R.id.btn_post_it:
 
+                //---only for test---
+
+                //------------------
                 break;
         }
     }

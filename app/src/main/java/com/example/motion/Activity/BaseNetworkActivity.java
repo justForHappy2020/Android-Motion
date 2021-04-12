@@ -1,6 +1,5 @@
 package com.example.motion.Activity;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;

@@ -28,7 +28,6 @@ public class MultipleItem implements MultiItemEntity {
     private User user;
     private String text;
     private Action action;
-    private AddImage addimage;
     private NineGridImageViewAdapter<String> nineGridAdapter;
 
     public MultipleItem(int itemType,String text) {
@@ -55,10 +54,6 @@ public class MultipleItem implements MultiItemEntity {
         this.action = action;
     }
 
-    public MultipleItem(int itemType,AddImage addimage) {
-        this.itemType = itemType;
-        this.addimage = addimage;
-    }
 
     public MultipleItem(int itemType, ShareAbb shareAbb, NineGridImageViewAdapter<String> nineGridAdapter) {
         this.itemType = itemType;
@@ -91,8 +86,6 @@ public class MultipleItem implements MultiItemEntity {
     public Action getAction(){
         return action;
     }
-
-    public AddImage getAddimage() { return addimage;}
 
     public NineGridImageViewAdapter<String> getNineGridAdapter(){
         return nineGridAdapter;

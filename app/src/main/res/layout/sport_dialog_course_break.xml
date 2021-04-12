@@ -20,7 +20,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="250dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:src="@drawable/ic_homepage_nav_item_2" />
@@ -35,7 +35,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tv_break_tiem"
+            android:id="@+id/tv_break_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"

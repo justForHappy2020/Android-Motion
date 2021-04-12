@@ -3,9 +3,9 @@ package com.example.motion.Activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,20 +15,21 @@ import com.example.motion.Entity.Course;
 import com.example.motion.R;
 import com.zzhoujay.richtext.RichText;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class sport_activity_course_action_detail extends Activity implements View.OnClickListener {
 
-    private int currentOne=0;
+    private int currentOne;
 
-    private ImageView lastMovement;
-    private ImageView nextMovement;
-    private ImageView mainImage;
-    private Button startMovement;
-    private TextView movementNameTextView;
-    private TextView contentTextView;
+    private ImageButton ivLastAction;
+    private ImageButton ivNextAction;
+    private ImageView ivHeaderImage;
+    private Button btnStartAction;
+    private TextView tvActionName;
+    private TextView tvActionContent;
 
     private Course course;
     private List<Action> actionList;
@@ -40,25 +41,25 @@ public class sport_activity_course_action_detail extends Activity implements Vie
         setContentView(R.layout.sport_activity_course_action_detail);
 
         Intent intent = getIntent();
-        course=(Course)intent.getSerializableExtra("course");
+        course = (Course)intent.getSerializableExtra("course");
         actionList =(List<Action>) intent.getSerializableExtra("actionList");
-        currentOne=intent.getIntExtra("courseActionPosition",0);
+        currentOne = intent.getIntExtra("courseActionPosition",0);
 
         initIntroData();
         initView();
     }
 
     private void initView(){
-        movementNameTextView=findViewById(R.id.movement_detail_name);
-        lastMovement=findViewById(R.id.movement_detail_last);
-        nextMovement=findViewById(R.id.movement_detail_next);
-        mainImage=findViewById(R.id.movement_detail_mainimage);
-        startMovement=findViewById(R.id.movement_detail_start);
-        contentTextView=findViewById(R.id.movement_detail_content);
+        tvActionName =findViewById(R.id.movement_detail_name);
+        ivLastAction =findViewById(R.id.movement_detail_last);
+        ivNextAction =findViewById(R.id.movement_detail_next);
+        ivHeaderImage =findViewById(R.id.movement_detail_mainimage);
+        btnStartAction =findViewById(R.id.movement_detail_start);
+        tvActionContent =findViewById(R.id.movement_detail_content);
 
-        lastMovement.setOnClickListener(this);
-        nextMovement.setOnClickListener(this);
-        startMovement.setOnClickListener(this);
+        ivLastAction.setOnClickListener(this);
+        ivNextAction.setOnClickListener(this);
+        btnStartAction.setOnClickListener(this);
 
         switchContent(currentOne);
 
@@ -66,19 +67,26 @@ public class sport_activity_course_action_detail extends Activity implements Vie
 
 
     private void switchContent(int position){
-        Glide.with(this).load(actionList.get(currentOne).getActionImgs()).placeholder(R.drawable.ic_placeholder).into(mainImage);
-        movementNameTextView.setText(actionList.get(position).getActionName());
+        if(currentOne == 0) {
+            ivLastAction.setEnabled(false);
+            ivNextAction.setEnabled(true);
+        }
+        if(currentOne == actionList.size()-1){
+            ivLastAction.setEnabled(true);
+            ivNextAction.setEnabled(false);
+        }
+        if(currentOne>0 && currentOne<actionList.size()-1){
+            ivLastAction.setEnabled(true);
+            ivNextAction.setEnabled(true);
+        }
 
+        Glide.with(this).load(actionList.get(currentOne).getActionImgs()).placeholder(R.drawable.ic_placeholder).into(ivHeaderImage);
+        tvActionName.setText(actionList.get(position).getActionName());
         RichText.initCacheDir(this);
-
         RichText.from(introList.get(position))
                 .showBorder(false)
                 .bind(this)
-                .into(contentTextView);//也可改用markdown,即fromMarkdown()
-
-        //Spanned spanned = HtmlCompat.fromHtml(introList.get(position),0);
-        //contentTextView.setText(spanned);
-
+                .into(tvActionContent);//也可改用markdown,即fromMarkdown()
     }
 
     private void initIntroData(){
@@ -95,27 +103,13 @@ public class sport_activity_course_action_detail extends Activity implements Vie
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.movement_detail_last:
-                if(currentOne>1){
-                    //lastMovement.setImageResource(R.drawable.ic_back_black);
-                    //nextMovement.setImageResource(R.drawable.ic_more_black);
+                if(currentOne>=1){
                     switchContent(--currentOne);
-                }else if(currentOne==1){
-                    switchContent(--currentOne);
-                    //lastMovement.setImageResource(R.drawable.ic_back_gray);
-                }else{
-                    //lastMovement.setImageResource(R.drawable.ic_back_gray);
                 }
                 break;
             case R.id.movement_detail_next:
-                if(currentOne<actionList.size()-2){
-                    //nextMovement.setImageResource(R.drawable.ic_more_black);
-                    //lastMovement.setImageResource(R.drawable.ic_back_black);
+                if(currentOne<=actionList.size()-1){
                     switchContent(++currentOne);
-                }else if(currentOne==actionList.size()-2){
-                    switchContent(++currentOne);
-                    //nextMovement.setImageResource(R.drawable.ic_more_gray);
-                }else{
-                    //nextMovement.setImageResource(R.drawable.ic_more_gray);
                 }
                 break;
             case R.id.movement_detail_start:

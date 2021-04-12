@@ -24,9 +24,17 @@ import com.example.motion.Entity.Action;
 import com.example.motion.Entity.Course;
 import com.example.motion.Entity.MultipleItem;
 import com.example.motion.R;
+import com.example.motion.Utils.CourseCacheUtil;
+import com.example.motion.Utils.HttpUtils;
+import com.example.motion.Utils.OnActionProcessStateChangeListener;
 import com.example.motion.Widget.MultipleItemQuickAdapter;
 import com.example.motion.Widget.RelatedCoursesAdapter;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,8 +59,8 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
     private RecyclerView rvCourseActions;
     private RecyclerView rvRelatedCourses;
 
-    private Course course;
-    private List<MultipleItem> courseActionsList;
+    private Course course = new Course();;
+    private List<MultipleItem> actionInMutiList;
     private List<Course> relatedCoursesList;
     private List<Action> actionList;
     private MultipleItemQuickAdapter actionAdapter;
@@ -66,6 +74,9 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
     private static final int INIT_COURSE_ACTIONS_SUCCESS = 3;
     private static final int INIT_COURSE_ACTIONS_FAILED= 4;
 
+    private static final int GET_SUCCESS = 5;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,8 +84,10 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
 
         initHandler();
         initView();
+
+        courseId2Course(1,course);
+
         initEvent();
-        initData();
         initCourseActions();
         initRelatedCourses();
     }
@@ -97,6 +110,12 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
                     case INIT_COURSE_ACTIONS_FAILED:
                         Log.i("course_detail","INIT_COURSE_ACTIONS_FAILED");
                         Toast.makeText(getBaseContext(), getText(R.string.course_detail_failed_actions), Toast.LENGTH_SHORT).show();
+                        break;
+                    case GET_SUCCESS:
+                        Log.d("HANDLER","GET_SUCCESS");
+                        initData();
+                        Log.d("HANDLER_courseActionList.size",String.valueOf(actionInMutiList.size()));
+                        actionAdapter.notifyDataSetChanged();
                         break;
                 }
             }
@@ -127,10 +146,77 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
 
     }
 
+    private void courseId2Course(int courseId, Course course){
+        //String url = "http://10.34.25.45:8080/api/course/courseId2Course?courseId="+courseId;
+        String url = "https://www.fastmock.site/mock/1f8fe01c6b3cdb34a1d2ad4b1a45a8c0/motion/api/courseId2Course?courseId="+courseId;
+        actionList = new ArrayList<>();
+        actionInMutiList = new ArrayList<>();
+
+        final Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String responseData = null;
+                try {
+                    responseData = HttpUtils.connectHttpGet(url);
+                    JSONObject jsonObject1 = new JSONObject(responseData);
+                    int httpcode = jsonObject1.getInt("code");
+                    if(httpcode == 200){
+                        //Log.i("responseData ",responseData);
+                        
+                        JSONObject jsonObject2 = jsonObject1.getJSONObject("data");
+                        //得到course
+                        course.setCourseId(jsonObject2.getLong("courseId"));
+                        course.setCourseName(jsonObject2.getString("courseName"));
+                        course.setBackgroundUrl(jsonObject2.getString("backgroundUrl"));
+                        course.setDuration(jsonObject2.getString("duration"));
+                        course.setHit(jsonObject2.getInt("hits"));
+                        course.setCreateTime(jsonObject2.getString("createTime"));
+                        course.setCourseIntro(jsonObject2.getString("courseIntro"));
+                        course.setTargetAge(jsonObject2.getString("targetAge"));
+                        course.setIsOnline("online");
+                        JSONArray JSONArrayAction = jsonObject2.getJSONArray("actionList");
+                        for (int i = 0; i < JSONArrayAction.length(); i++) {
+                            JSONObject jsonObject = JSONArrayAction.getJSONObject(i);
+                            //相应的内容
+                            Action action = new Action();
+                            action.setActionID(jsonObject.getLong("actionId"));
+                            action.setActionName(jsonObject.getString("actionName"));
+                            action.setActionImgs(jsonObject.getString("actionImgs"));
+                            action.setActionUrl(jsonObject.getString("actionUrl"));
+                            action.setDuration(jsonObject.getInt("duration"));
+                            action.setIntro(jsonObject.getString("intro"));
+                            action.setType(jsonObject.getInt("type"));//
+                            action.setCount(jsonObject.getInt("count"));
+                            action.setTotal(jsonObject.getInt("total"));
+                            action.setRestDuration(jsonObject.getInt("restDuration"));
+                            actionList.add(action);
+                            actionInMutiList.add(new MultipleItem(MultipleItem.ACTION,action));
+                        }
+
+                        Message msg = handler.obtainMessage();
+                        msg.what = GET_SUCCESS;
+                        handler.sendMessage(msg);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+        try {
+            thread.join(8000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     private void initData(){
         //course = (Course)getIntent().getSerializableExtra("course");
-
         //--only for test--
+/*
         course = new Course();
         actionList = new ArrayList<>();
 
@@ -152,50 +238,58 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
         actionList.add(action1);
         actionList.add(action2);
 
+ */
         //-----------------
 
-        if(null != course){
-            tvCourseName.setText(course.getCourseName() + course.getTargetAge());
-            tvCourseClassification.setText(course.getType());//getCourseClassification
-            tvCourseDuration.setText(course.getDuration());
-            tvCourseMovementsNum.setText(String.valueOf(actionList.size()));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(null != course){
+                            tvCourseName.setText(course.getCourseName() + course.getTargetAge());
+                            tvCourseClassification.setText(course.getType());//getCourseClassification
+                            tvCourseDuration.setText(course.getDuration());
+                            tvCourseMovementsNum.setText(String.valueOf(actionList.size()));
 
-            tvCourseIntroAdvice.setText("");
-            tvCourseIntroSuitable.setText("");
-            tvCourseIntroEffect.setText("");
+                            tvCourseIntroAdvice.setText("");
+                            tvCourseIntroSuitable.setText("");
+                            tvCourseIntroEffect.setText("");
 
-            Glide.with(this)
-                    .load(course.getBackgroundUrl())
-                    .error(R.drawable.ic_load_pic_error)
-                    .placeholder(R.drawable.ic_placeholder)
-                    .into(ivBackgroundImg);
+                            Glide.with(getBaseContext())
+                                    .load(course.getBackgroundUrl())
+                                    .error(R.drawable.ic_load_pic_error)
+                                    .placeholder(R.drawable.ic_placeholder)
+                                    .into(ivBackgroundImg);
 
-            switch (course.getIFOnline()){
-                case "online":
-                    tvCourseOnlineData.setVisibility(View.GONE);
-                    tvCourseOnlineData.setVisibility(View.GONE);
-                    btSelectCourse.setText(R.string.course_detail_button_bottom_attend);
-                    break;
-                case "comming":
-                    tvCourseOnlineData.setVisibility(View.VISIBLE);
-                    tvCourseOnlineData.setText("");
-                    btSelectCourse.setText(R.string.course_detail_button_bottom_reserved);
-                    break;
+                            switch (course.getIsOnline()){
+                                case "online":
+                                    tvCourseOnlineData.setVisibility(View.GONE);
+                                    tvCourseOnlineData.setVisibility(View.GONE);
+                                    btSelectCourse.setText(R.string.course_detail_button_bottom_attend);
+                                    break;
+                                case "comming":
+                                    tvCourseOnlineData.setVisibility(View.VISIBLE);
+                                    tvCourseOnlineData.setText("");
+                                    btSelectCourse.setText(R.string.course_detail_button_bottom_reserved);
+                                    break;
+                            }
+                        }
+                    }
+                });
             }
-        }
+        }).start();
+
+
     }
 
     private void initCourseActions(){
-        courseActionsList = new ArrayList();
 
-        for(int i=0;i<actionList.size();i++){
-            courseActionsList.add(new MultipleItem(MultipleItem.ACTION,actionList.get(i)));
-        }
-
-        LinearLayoutManager layoutM = new LinearLayoutManager(this);
+        LinearLayoutManager layoutM = new LinearLayoutManager(getBaseContext());
         layoutM.setOrientation(LinearLayoutManager.HORIZONTAL);
 
-        actionAdapter = new MultipleItemQuickAdapter(courseActionsList);
+        actionAdapter = new MultipleItemQuickAdapter(actionInMutiList);
         rvCourseActions.setLayoutManager(layoutM);
         rvCourseActions.setAdapter(actionAdapter);
 
@@ -232,6 +326,7 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
             }
         });
          */
+
 
     }
 
@@ -279,21 +374,56 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+
+    @Override
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.iv_back:
                 finish();
                 break;
             case R.id.ib_course_like:
-                //
+                //test
+                actionList.get(0).save();
+                //like here
                 break;
             case R.id.btn_course_select:
 
                 //---only for test---
+
+                CourseCacheUtil ccu = new CourseCacheUtil(this,getCacheDir());
+                ccu.setOnChangeListener(new OnActionProcessStateChangeListener() {
+                    @Override
+                    public void onActionsProcessDone(boolean isSuccess, List<Action> processedActionList) {
+                        if(isSuccess){
+                            actionList = processedActionList;
+
+                            Intent intent = new Intent(getBaseContext(),sport_activity_course_start.class);
+                            intent.putExtra("course",course);
+                            intent.putExtra("actionList",(Serializable)processedActionList);
+                            startActivity(intent);
+
+                            Log.d("course_detail","CourseCacheUtil_cache_success");
+                        }else{
+                            Log.d("course_detail","CourseCacheUtil_cache_fail");
+                        }
+                    }
+
+
+                });
+                ccu.processActions(actionList);
+
+
+
+                /*
                 Intent intent = new Intent(this,sport_activity_course_start.class);
                 intent.putExtra("course",course);
-                intent.putExtra("actionList", (Serializable) actionList);
+                intent.putExtra("actionList", (Serializable) ccu.cacheCourse(course,actionList));
                 startActivity(intent);
+                 */
                 //-------------------
 
                 break;

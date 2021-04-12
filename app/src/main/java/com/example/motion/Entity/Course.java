@@ -1,21 +1,47 @@
 package com.example.motion.Entity;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
-public class Course implements Serializable {
+import java.io.Serializable;
+
+@Table(database = CourseCahceDatabase.class)
+public class Course extends BaseModel implements Serializable {
+    @PrimaryKey()
+    @Column
     private Long courseId;
+
+    @Column
     private String courseName;
+
+    @Column
     private String backgroundUrl;
+
+    @Column
     private String duration;
+
+    @Column
     private int hit;//建议改为String
+
+    @Column
     private String createTime;
+
+    @Column
     private String courseIntro;
+
+    @Column
     private String type;
+
+    @Column
     private String targetAge;
+
+    @Column
     private Long collectionNumber;
-    private String IFOnline;
+
+    @Column
+    private String isOnline;
 
     public Long getCourseId() {
         return courseId;
@@ -97,11 +123,11 @@ public class Course implements Serializable {
         this.collectionNumber = collectionNumber;
     }
 
-    public String getIFOnline() {
-        return IFOnline;
+    public String getIsOnline() {
+        return isOnline;
     }
 
-    public void setIFOnline(String IFOnline) {
-        this.IFOnline = IFOnline;
+    public void setIsOnline(String isOnline) {
+        this.isOnline = isOnline;
     }
 }

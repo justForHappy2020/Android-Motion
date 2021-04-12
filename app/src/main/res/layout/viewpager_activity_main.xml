@@ -9,15 +9,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:itemTextColor="@drawable/main_bottom_navigation_color"
-        app:itemIconTint="@drawable/main_bottom_navigation_color"
-        app:itemHorizontalTranslationEnabled="false"
-        app:labelVisibilityMode="labeled"
         app:itemBackground="@color/main_bottom_navigation_bgcolor"
-        app:menu="@menu/navigation_bottom"/>
+        app:itemHorizontalTranslationEnabled="false"
+        app:itemIconTint="@color/main_bottom_navigation_color"
+        app:itemTextColor="@color/main_bottom_navigation_color"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/navigation_bottom" />
 
 </LinearLayout>

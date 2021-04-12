@@ -19,9 +19,9 @@ import com.example.motion.R;
 import com.jaeger.ninegridimageview.NineGridImageView;
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseViewHolder> implements UpFetchModule, LoadMoreModule{
 
@@ -32,7 +32,6 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
         addItemType(MultipleItem.SHAREABB, R.layout.community_item_share);
         addItemType(MultipleItem.ACTION, R.layout.sport_item_course_action);
         addItemType(MultipleItem.SHAREFULL,R.layout.community_item_share_full);
-
     }
 
     @Override
@@ -101,16 +100,17 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
                 break;
 
             case MultipleItem.ACTION:
+                DecimalFormat decimalFormat = new DecimalFormat("00");
                 helper.setText(R.id.item_movement_name, item.getAction().getActionName())
-                        .setText(R.id.item_movement_duration, item.getAction().getDuration());
-                /*
+                        .setText(R.id.item_movement_duration, decimalFormat.format(item.getAction().getDuration()*item.getAction().getTotal()/item.getAction().getCount() /60)+"'"+decimalFormat.format(item.getAction().getDuration()*item.getAction().getTotal()/item.getAction().getCount() %60)+"\"");
+
                 Glide.with(getContext())
                         .load(item.getAction().getActionImgs())
                         .placeholder(R.drawable.ic_placeholder)
                         .transform(new FitCenter(getContext()), new GlideRadiusTransform(getContext(),20))
                         .into((ImageView) helper.getView(R.id.item_movement_img));
 
-                 */
+
                 break;
 
             case MultipleItem.ADDIMAGE:
