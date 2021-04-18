@@ -134,69 +134,78 @@ public class CourseCacheUtil {
             rawActionList.get(needCachePositions.get(i));
             int finalI = i;
 
-            WolfDownloader wolfDownloader = new DownloaderConfig()
-                    .setThreadNum(3)
-                    .setDownloadUrl(rawActionList.get(needCachePositions.get(i)).getActionUrl())
-                    .setSaveDir(new File(cachePathRoot.toString() + "/ActionVideos"))
-                    .setFileName(String.valueOf(rawActionList.get(needCachePositions.get(i)).getActionID())+".mp4")
-                    .setDownloadListener(new DownloadProgressListener() {
-                        @Override
-                        public void onDownloadTotalSize(int totalSize) {
-                            Log.d("onDownloadTotalSize","位置："+needCachePositions.get(finalI)+" totalSize:"+totalSize);
-                            allFileSize += totalSize;
-                        }
 
-                        @Override
-                        public void updateDownloadProgress(int size, float percent, float speed) {
-                            int nowDownloadedSize = 0;
-                            nowDownloadedSizes[finalI] = size;
-                            Log.d("updateDownloadProgress","位置："+needCachePositions.get(finalI)+" size：" + size);
-
-                            for(int j=0;j<nowDownloadedSizes.length;j++){
-                                Log.d("updateDownloadProgress","for looping, j="+j+"nowDownloadedSizes[j]="+nowDownloadedSizes[j]);
-                                nowDownloadedSize += nowDownloadedSizes[j];
+            if(new File(cachePathRoot.toString() + "/ActionVideos/"+rawActionList.get(needCachePositions.get(i)).getActionID().toString()+".mp4").exists()){
+                rawActionList.get(finalI).setActionLocUrl(cachePathRoot.toString() + "/ActionVideos/"+ rawActionList.get(finalI).getActionID()+".mp4");
+                rawActionList.get(finalI).save();
+                downloadSuccessList.put(rawActionList.get(needCachePositions.get(finalI)).getActionID(),true);
+                if(downloadSuccessList.size() == needCachePositions.size()){
+                    cacheStateChangeListener.onActionsCacheDone(true,rawActionList);
+                    downloadDialog.dismiss();
+                }
+            }else{
+                WolfDownloader wolfDownloader = new DownloaderConfig()
+                        .setThreadNum(3)
+                        .setDownloadUrl(rawActionList.get(needCachePositions.get(i)).getActionUrl())
+                        .setSaveDir(new File(cachePathRoot.toString() + "/ActionVideos"))
+                        .setFileName(String.valueOf(rawActionList.get(needCachePositions.get(i)).getActionID())+".mp4")
+                        .setDownloadListener(new DownloadProgressListener() {
+                            @Override
+                            public void onDownloadTotalSize(int totalSize) {
+                                Log.d("onDownloadTotalSize","位置："+needCachePositions.get(finalI)+" totalSize:"+totalSize);
+                                allFileSize += totalSize;
                             }
 
-                            Log.d("updateDownloadProgress","nowDownloadedSize:"+nowDownloadedSize);
+                            @Override
+                            public void updateDownloadProgress(int size, float percent, float speed) {
+                                int nowDownloadedSize = 0;
+                                nowDownloadedSizes[finalI] = size;
+                                Log.d("updateDownloadProgress","位置："+needCachePositions.get(finalI)+" size：" + size);
 
-                            downloadDialog.setProgress(nowDownloadedSize);
-                            downloadDialog.setProgressMax(allFileSize);
-                            downloadDialog.setProgressText(nowDownloadedSize,allFileSize);
-                        }
+                                for(int j=0;j<nowDownloadedSizes.length;j++){
+                                    Log.d("updateDownloadProgress","for looping, j="+j+"nowDownloadedSizes[j]="+nowDownloadedSizes[j]);
+                                    nowDownloadedSize += nowDownloadedSizes[j];
+                                }
 
-                        @Override
-                        public void onDownloadSuccess(String apkPath) {
-                            rawActionList.get(finalI).setActionLocUrl(cachePathRoot.toString() + "/ActionVideos/"+ rawActionList.get(finalI).getActionID()+".mp4");
+                                Log.d("updateDownloadProgress","nowDownloadedSize:"+nowDownloadedSize);
 
-                            rawActionList.get(finalI).save();
-
-                            downloadSuccessList.put(rawActionList.get(needCachePositions.get(finalI)).getActionID(),true);
-                            if(downloadSuccessList.size() == needCachePositions.size()){
-                                cacheStateChangeListener.onActionsCacheDone(true,rawActionList);
-                                downloadDialog.dismiss();
-
-                                onStopDownload();
+                                downloadDialog.setProgress(nowDownloadedSize);
+                                downloadDialog.setProgressMax(allFileSize);
+                                downloadDialog.setProgressText(nowDownloadedSize,allFileSize);
                             }
 
-                        }
+                            @Override
+                            public void onDownloadSuccess(String apkPath) {
+                                rawActionList.get(finalI).setActionLocUrl(cachePathRoot.toString() + "/ActionVideos/"+ rawActionList.get(finalI).getActionID()+".mp4");
+                                rawActionList.get(finalI).save();
+                                downloadSuccessList.put(rawActionList.get(needCachePositions.get(finalI)).getActionID(),true);
+                                if(downloadSuccessList.size() == needCachePositions.size()){
+                                    cacheStateChangeListener.onActionsCacheDone(true,rawActionList);
+                                    downloadDialog.dismiss();
+                                    onStopDownload();
+                                }
+                            }
 
-                        @Override
-                        public void onDownloadFailed() {
+                            @Override
+                            public void onDownloadFailed() {
 
-                        }
+                            }
 
-                        @Override
-                        public void onPauseDownload() {
+                            @Override
+                            public void onPauseDownload() {
 
-                        }
+                            }
 
-                        @Override
-                        public void onStopDownload() {
+                            @Override
+                            public void onStopDownload() {
 
-                        }
-                    })
-                    .buildWolf(context);
-            wolfDownloader.startDownload();
+                            }
+                        })
+                        .buildWolf(context);
+                wolfDownloader.startDownload();
+            }
+
+
         }
 
         downloadDialog.show();
