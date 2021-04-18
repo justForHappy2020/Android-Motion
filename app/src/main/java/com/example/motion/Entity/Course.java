@@ -1,11 +1,15 @@
 package com.example.motion.Entity;
 
 import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.OneToMany;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.raizlabs.android.dbflow.sql.language.Select;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Table(database = CourseCahceDatabase.class)
 public class Course extends BaseModel implements Serializable {
@@ -42,6 +46,20 @@ public class Course extends BaseModel implements Serializable {
 
     @Column
     private String isOnline;
+
+    List<com.example.motion.Entity.Action> actionList;
+
+    @OneToMany(methods = {OneToMany.Method.ALL},variableName = "actionList")
+    public List<com.example.motion.Entity.Action> getActionList(){
+        if (actionList == null || actionList.isEmpty()){
+            actionList = new Select().from(com.example.motion.Entity.Action.class).where(Action_Table.ownerCourse_courseId.eq(courseId)).queryList();
+        }
+        return actionList;
+    }
+
+    public void setActionList(List<com.example.motion.Entity.Action> actionList) {
+        this.actionList = actionList;
+    }
 
     public Long getCourseId() {
         return courseId;

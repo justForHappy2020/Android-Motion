@@ -3,6 +3,7 @@ package com.example.motion.Activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -13,12 +14,13 @@ import com.bumptech.glide.Glide;
 import com.example.motion.Entity.Action;
 import com.example.motion.Entity.Course;
 import com.example.motion.R;
+import com.example.motion.Utils.CourseCacheUtil;
+import com.example.motion.Utils.OnProcessStateChangeListener;
 import com.zzhoujay.richtext.RichText;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class sport_activity_course_action_detail extends Activity implements View.OnClickListener {
 
@@ -41,12 +43,12 @@ public class sport_activity_course_action_detail extends Activity implements Vie
         setContentView(R.layout.sport_activity_course_action_detail);
 
         Intent intent = getIntent();
-        course = (Course)intent.getSerializableExtra("course");
         actionList =(List<Action>) intent.getSerializableExtra("actionList");
         currentOne = intent.getIntExtra("courseActionPosition",0);
 
         initIntroData();
         initView();
+
     }
 
     private void initView(){
@@ -61,6 +63,7 @@ public class sport_activity_course_action_detail extends Activity implements Vie
         ivNextAction.setOnClickListener(this);
         btnStartAction.setOnClickListener(this);
 
+        RichText.initCacheDir(this);
         switchContent(currentOne);
 
     }
@@ -82,11 +85,10 @@ public class sport_activity_course_action_detail extends Activity implements Vie
 
         Glide.with(this).load(actionList.get(currentOne).getActionImgs()).placeholder(R.drawable.ic_placeholder).into(ivHeaderImage);
         tvActionName.setText(actionList.get(position).getActionName());
-        RichText.initCacheDir(this);
-        RichText.from(introList.get(position))
+        RichText.fromMarkdown(introList.get(position))
                 .showBorder(false)
                 .bind(this)
-                .into(tvActionContent);//也可改用markdown,即fromMarkdown()
+                .into(tvActionContent);
     }
 
     private void initIntroData(){
@@ -113,28 +115,47 @@ public class sport_activity_course_action_detail extends Activity implements Vie
                 }
                 break;
             case R.id.movement_detail_start:
+                CourseCacheUtil ccu = new CourseCacheUtil(this,getCacheDir());
+                ccu.setOnChangeListener(new OnProcessStateChangeListener() {
+
+                    @Override
+                    public void onProcessDone(boolean isSuccess, Course courseWithActions) {
+                        if(isSuccess){
+                            course = courseWithActions;
+                            Intent intent = new Intent(getBaseContext(),sport_activity_course_start.class);
+                            intent.putExtra("courseWithActions",courseWithActions);
+                            startActivity(intent);
+
+                            Log.d("course_detail","CourseCacheUtil_cache_success");
+                        }else{
+                            Log.d("course_detail","CourseCacheUtil_cache_fail");
+                        }
+                    }
+
+                });
+                ccu.process(actionList.get(currentOne).getOwnerCourse(),actionList);
                 /*
-                Intent intent;
-                //String rootDir = this.getCacheDir().getPath() + "/videoCache/"+course.getCourseId()+"/";
+                CourseCacheUtil ccu = new CourseCacheUtil(this,getCacheDir());
+                ccu.setOnChangeListener(new OnProcessStateChangeListener() {
+                    @Override
+                    public void onActionsProcessDone(boolean isSuccess, List<Action> processedActionList) {
+                        if(isSuccess){
+                            actionList = processedActionList;
 
-                actionVideoUrl = actionList.get(currentOne).getActionUrl();
 
-                VideoCacheUtil vcu = new VideoCacheUtil(rootDir,getApplicationContext());
-                if(vcu.isExistInLocal(actionVideoUrl)){
-                    intent = new Intent(this,play.class);
-                    intent.putExtra("movementVideoLocPath",vcu.getVideoLocPath(actionVideoUrl));
-                    Log.d("movementVideoLocPath",vcu.getVideoLocPath(actionVideoUrl));
-                }else{
-                    intent = new Intent(this,activity_download.class);
-                    intent.putExtra("movementVideoUrl",actionVideoUrl);
-                    intent.putExtra("cacheRootDir",rootDir);
-                }
-                intent.putExtra("currentOne",currentOne);
-                intent.putExtra("course",(Serializable) course);
-                startActivity(intent);
+
+                            Log.d("course_detail","CourseCacheUtil_cache_success");
+                        }else{
+                            Log.d("course_detail","CourseCacheUtil_cache_fail");
+                        }
+                    }
+
+
+                });
+                ccu.processActions(actionList);
+                 */
+
                 break;
-
- */
 
         }
     }

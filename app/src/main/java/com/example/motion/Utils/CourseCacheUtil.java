@@ -25,7 +25,7 @@ public class CourseCacheUtil {
     private Context context;
     private File cachePathRoot;
     private List<Course> cachedCourseList;
-    private OnActionProcessStateChangeListener stateChangeListener;
+    private OnProcessStateChangeListener stateChangeListener;
     private onCacheStateChangeListener cacheStateChangeListener;
     private int allFileSize;//byte
     private int[] nowDownloadedSizes;//byte
@@ -38,7 +38,7 @@ public class CourseCacheUtil {
     }
 
     // 提供注册事件监听的方法
-    public void setOnChangeListener(OnActionProcessStateChangeListener stateChangeListener) {
+    public void setOnChangeListener(OnProcessStateChangeListener stateChangeListener) {
         this.stateChangeListener = stateChangeListener;
     }
 
@@ -47,9 +47,44 @@ public class CourseCacheUtil {
     }
 
     public void onActionsProcessDone(boolean isSuccess, List<Action> processedActionList) {
-        stateChangeListener.onActionsProcessDone(isSuccess,processedActionList);
+        //stateChangeListener.onActionsProcessDone(isSuccess,processedActionList);
     }
 
+    public void onProcessDone(boolean isSuccess,Course course, List<Action> processedActionList){
+        stateChangeListener.onProcessDone(isSuccess,course);
+    }
+
+    public void process(Course course,List<Action> actionList){
+        course.save();
+
+        boolean isActionsSaveSuccess = false;
+        ArrayList<Integer> needCacheActionIds = new ArrayList<>();
+
+        for(int i=0;i<actionList.size();i++){
+            if(isActionExistLocal(actionList.get(i).getActionID())){
+                actionList.get(i).setActionLocUrl(getCachedAction(actionList.get(i).getActionID()).getActionLocUrl());
+            }else {
+                needCacheActionIds.add(i);
+            }
+        }
+
+        if(needCacheActionIds.isEmpty()){
+            onProcessDone(true,course,actionList);
+        }else{
+            cacheActions(actionList,needCacheActionIds, new onCacheStateChangeListener() {
+                @Override
+                public void onActionsCacheDone(boolean isSuccess, List<Action> cachedRawActionList) {
+                    if(isSuccess){
+                        onProcessDone(true,course,cachedRawActionList);
+                    }else{
+                        Log.d("onActionsCacheDone","isSuccess == failed");
+                    }
+                }
+            });
+        }
+    }
+
+    /*
     public void processActions(List<Action> actionList){
 
         boolean isActionsSaveSuccess = false;
@@ -64,7 +99,7 @@ public class CourseCacheUtil {
         }
 
         if(needCacheActionIds.isEmpty()){
-            onActionsProcessDone(true,actionList);
+            onProcessDone(true,);
         }else{
             cacheActions(actionList,needCacheActionIds, new onCacheStateChangeListener() {
                 @Override
@@ -79,6 +114,8 @@ public class CourseCacheUtil {
         }
 
     }
+
+     */
 
     public Course getCachedCourse(Long courseId){
         Course course = new SQLite().select().from(Course.class).where(Course_Table.courseId.eq(courseId)).querySingle();
@@ -216,23 +253,19 @@ public class CourseCacheUtil {
         }
     }
 
-    //未完善
     public List<Course> getCachedCourseList() {
         cachedCourseList = new ArrayList<>();
         cachedCourseList.addAll(new SQLite().select().from(Course.class).queryList());
         return cachedCourseList;
     }
 
-
-    //未完善
-    public List<Action> getCachedActionList(Long[] actionIds){
+    public List<Action> getAllCachedActionList(Long[] actionIds){
         List<Action> actionList = new ArrayList<>();
         for(int i = 0;i<actionIds.length;i++){
             actionList.add(new SQLite().select().from(Action.class).where(Action_Table.actionID.eq(actionIds[i])).querySingle());
         }
         return actionList;
     }
-
 
     interface onCacheStateChangeListener {
         void onActionsCacheDone(boolean isSuccess,List<Action> cachedActionList);

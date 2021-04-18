@@ -107,8 +107,8 @@ public class sport_activity_course_start extends Activity implements View.OnClic
         setContentView(R.layout.sport_activity_course_start);
 
         Intent intent = getIntent();
-        course = (Course)intent.getSerializableExtra("course");
-        actionList = (ArrayList<Action>)intent.getSerializableExtra("actionList");
+        course = (Course)intent.getSerializableExtra("courseWithActions");
+        actionList = course.getActionList();
 
         courseActionPosition = intent.getIntExtra("courseActionPosition",0);
 

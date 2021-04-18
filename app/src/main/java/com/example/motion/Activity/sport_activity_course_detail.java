@@ -26,7 +26,7 @@ import com.example.motion.Entity.MultipleItem;
 import com.example.motion.R;
 import com.example.motion.Utils.CourseCacheUtil;
 import com.example.motion.Utils.HttpUtils;
-import com.example.motion.Utils.OnActionProcessStateChangeListener;
+import com.example.motion.Utils.OnProcessStateChangeListener;
 import com.example.motion.Widget.MultipleItemQuickAdapter;
 import com.example.motion.Widget.RelatedCoursesAdapter;
 
@@ -40,6 +40,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Thread.sleep;
+
+/**
+ * Intent传入参数：
+ * 1)Long courseId 需要查看详情的课程id
+ */
 
 public class sport_activity_course_detail extends BaseNetworkActivity implements View.OnClickListener{
 
@@ -59,7 +64,8 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
     private RecyclerView rvCourseActions;
     private RecyclerView rvRelatedCourses;
 
-    private Course course = new Course();;
+    private Long courseId;
+    private Course course = new Course();
     private List<MultipleItem> actionInMutiList;
     private List<Course> relatedCoursesList;
     private List<Action> actionList;
@@ -76,17 +82,16 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
 
     private static final int GET_SUCCESS = 5;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sport_activity_course_detail);
 
+        courseId = getIntent().getLongExtra("courseId",0);
+
         initHandler();
         initView();
-
-        courseId2Course(1,course);
-
+        courseId2Course(courseId,course);
         initEvent();
         initCourseActions();
         initRelatedCourses();
@@ -146,7 +151,7 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
 
     }
 
-    private void courseId2Course(int courseId, Course course){
+    private void courseId2Course(Long courseId, Course course){
         //String url = "http://10.34.25.45:8080/api/course/courseId2Course?courseId="+courseId;
         String url = "https://www.fastmock.site/mock/1f8fe01c6b3cdb34a1d2ad4b1a45a8c0/motion/api/courseId2Course?courseId="+courseId;
         actionList = new ArrayList<>();
@@ -162,18 +167,18 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
                     int httpcode = jsonObject1.getInt("code");
                     if(httpcode == 200){
                         //Log.i("responseData ",responseData);
-                        
                         JSONObject jsonObject2 = jsonObject1.getJSONObject("data");
                         //得到course
                         course.setCourseId(jsonObject2.getLong("courseId"));
                         course.setCourseName(jsonObject2.getString("courseName"));
                         course.setBackgroundUrl(jsonObject2.getString("backgroundUrl"));
                         course.setDuration(jsonObject2.getString("duration"));
-                        course.setHit(jsonObject2.getInt("hits"));
+                        course.setHit(jsonObject2.getInt("hit"));
                         course.setCreateTime(jsonObject2.getString("createTime"));
                         course.setCourseIntro(jsonObject2.getString("courseIntro"));
                         course.setTargetAge(jsonObject2.getString("targetAge"));
-                        course.setIsOnline("online");
+                        course.setIsOnline(jsonObject2.getString("isOnline"));
+                        //course.save();//?
                         JSONArray JSONArrayAction = jsonObject2.getJSONArray("actionList");
                         for (int i = 0; i < JSONArrayAction.length(); i++) {
                             JSONObject jsonObject = JSONArrayAction.getJSONObject(i);
@@ -189,6 +194,8 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
                             action.setCount(jsonObject.getInt("count"));
                             action.setTotal(jsonObject.getInt("total"));
                             action.setRestDuration(jsonObject.getInt("restDuration"));
+                            action.setSizeMByte(jsonObject.getDouble("size"));
+                            action.setOwnerCourse(course);
                             actionList.add(action);
                             actionInMutiList.add(new MultipleItem(MultipleItem.ACTION,action));
                         }
@@ -214,33 +221,6 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
     }
 
     private void initData(){
-        //course = (Course)getIntent().getSerializableExtra("course");
-        //--only for test--
-/*
-        course = new Course();
-        actionList = new ArrayList<>();
-
-        course.setCourseId(Long.valueOf(10086));
-        course.setBackgroundUrl("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimage.biaobaiju.com%2Fuploads%2F20190508%2F14%2F1557298531-XCGFxUNypS.jpg&refer=http%3A%2F%2Fimage.biaobaiju.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1618219760&t=fad175df947a43f0813cba0c11f335bc");
-        course.setCourseName("初级健身");
-        course.setDuration("00:30");
-        course.setIFOnline("online");
-        course.setTargetAge("4-6");
-        course.setType("减脂/人气课/亲子运动系列");
-        Action action1 = new Action(Long.valueOf(1),"抱腿","https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=134894814,3258319714&fm=26&gp=0.jpg",getCacheDir().toString()+"/movement1.mp4","00:12",Long.valueOf(1),"介绍");
-        Action action2 = new Action(Long.valueOf(1),"前爬","https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1828457785,1350485149&fm=26&gp=0.jpg",getCacheDir().toString()+"/movement2.mp4","00:18",Long.valueOf(1),"介绍");
-        action1.setType(Action.COUNTING);
-        action1.setTime(2);
-
-        action2.setType(Action.TIMING);
-        action2.setTime(3);
-
-        actionList.add(action1);
-        actionList.add(action2);
-
- */
-        //-----------------
-
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -269,9 +249,9 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
                                     tvCourseOnlineData.setVisibility(View.GONE);
                                     btSelectCourse.setText(R.string.course_detail_button_bottom_attend);
                                     break;
-                                case "comming":
+                                case "coming":
                                     tvCourseOnlineData.setVisibility(View.VISIBLE);
-                                    tvCourseOnlineData.setText("");
+                                    tvCourseOnlineData.setText(course.getCreateTime());
                                     btSelectCourse.setText(R.string.course_detail_button_bottom_reserved);
                                     break;
                             }
@@ -326,8 +306,6 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
             }
         });
          */
-
-
     }
 
     private void initRelatedCourses(){
@@ -376,7 +354,6 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
     }
 
     @Override
@@ -386,37 +363,38 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
                 finish();
                 break;
             case R.id.ib_course_like:
-                //test
-                actionList.get(0).save();
                 //like here
                 break;
             case R.id.btn_course_select:
 
+                switch (course.getIsOnline()){
+                    case "online":
+                        CourseCacheUtil ccu = new CourseCacheUtil(this,getCacheDir());
+                        ccu.setOnChangeListener(new OnProcessStateChangeListener() {
+
+                            @Override
+                            public void onProcessDone(boolean isSuccess, Course courseWithActions) {
+                                if(isSuccess){
+
+                                    Intent intent = new Intent(getBaseContext(),sport_activity_course_start.class);
+                                    intent.putExtra("courseWithActions",courseWithActions);
+                                    startActivity(intent);
+
+                                    Log.d("course_detail","CourseCacheUtil_cache_success");
+                                }else{
+                                    Log.d("course_detail","CourseCacheUtil_cache_fail");
+                                }
+                            }
+
+                        });
+                        ccu.process(course,actionList);
+                        break;
+                    case "coming":
+                        Toast.makeText(this, "预定成功", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+
                 //---only for test---
-
-                CourseCacheUtil ccu = new CourseCacheUtil(this,getCacheDir());
-                ccu.setOnChangeListener(new OnActionProcessStateChangeListener() {
-                    @Override
-                    public void onActionsProcessDone(boolean isSuccess, List<Action> processedActionList) {
-                        if(isSuccess){
-                            actionList = processedActionList;
-
-                            Intent intent = new Intent(getBaseContext(),sport_activity_course_start.class);
-                            intent.putExtra("course",course);
-                            intent.putExtra("actionList",(Serializable)processedActionList);
-                            startActivity(intent);
-
-                            Log.d("course_detail","CourseCacheUtil_cache_success");
-                        }else{
-                            Log.d("course_detail","CourseCacheUtil_cache_fail");
-                        }
-                    }
-
-
-                });
-                ccu.processActions(actionList);
-
-
 
                 /*
                 Intent intent = new Intent(this,sport_activity_course_start.class);
