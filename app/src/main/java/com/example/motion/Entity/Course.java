@@ -1,52 +1,46 @@
 package com.example.motion.Entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Course implements Serializable {
     private Long courseId;
 
     private String courseName;
 
-    //private String courseUrl;
+    private String backgroundUrl;
 
-    private String courseUrl;
-
-
-    private String bodyPart;
-
-    private String degree;
+    private String action;
 
     private String duration;
 
-    private int hits;//建议改为String
-
     private String createTime;
 
-    private String backgroundUrl;
-
-    private int calorie;
+    private int hits;//建议改为String
 
     private String courseIntro;
 
-    private List<Action> actionList = new ArrayList();
+    private String type;
 
+    private String targetAge;
 
-    public String getCourseIntro() {
-        return courseIntro;
+    private int collectionNumber;
+
+    private char ifOnlion;
+
+    public Long getCourseId() {
+        return courseId;
     }
 
-    public void setCourseIntro(String courseIntro) {
-        this.courseIntro = courseIntro;
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
     }
 
-    public int getCalorie() {
-        return calorie;
+    public String getCourseName() {
+        return courseName;
     }
 
-    public void setCalorie(int calorie) {
-        this.calorie = calorie;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
     public String getBackgroundUrl() {
@@ -57,76 +51,76 @@ public class Course implements Serializable {
         this.backgroundUrl = backgroundUrl;
     }
 
-    public Long getCourseId() {
-        return courseId;
+    public String getAction() {
+        return action;
     }
 
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public String getCourseUrl() {
-        return courseUrl;
-    }
-
-    public String getBodyPart() {
-        return bodyPart;
-    }
-
-    public String getDegree() {
-        return degree;
+    public void setAction(String action) {
+        this.action = action;
     }
 
     public String getDuration() {
         return duration;
     }
 
-    public int getHits() {
-        return hits;
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 
     public String getCreateTime() {
         return createTime;
     }
 
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
-
-
-    public void setCourseUrl(String courseUrl) {
-        this.courseUrl = courseUrl;
-    }
-
-    public void setBodyPart(String bodyPart) {
-        this.bodyPart = bodyPart;
-    }
-
-    public void setDegree(String degree) {
-        this.degree = degree;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration;
+    public int getHits() {
+        return hits;
     }
 
     public void setHits(int hits) {
         this.hits = hits;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
+    public String getCourseIntro() {
+        return courseIntro;
     }
 
-    public List<Action> getActionList() {
-        return actionList;
+    public void setCourseIntro(String courseIntro) {
+        this.courseIntro = courseIntro;
     }
 
-    public void setActionList(List<Action> actionList) {
-        this.actionList = actionList;
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getTargetAge() {
+        return targetAge;
+    }
+
+    public void setTargetAge(String targetAge) {
+        this.targetAge = targetAge;
+    }
+
+    public int getCollectionNumber() {
+        return collectionNumber;
+    }
+
+    public void setCollectionNumber(int collectionNumber) {
+        this.collectionNumber = collectionNumber;
+    }
+
+    public char getIfOnlion() {
+        return ifOnlion;
+    }
+
+    public void setIfOnlion(char ifOnlion) {
+        this.ifOnlion = ifOnlion;
     }
 }
+

@@ -99,8 +99,8 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/et_parents_brith"
+        <TextView
+            android:id="@+id/tv_parents_brith"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -144,8 +144,8 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/et_sex_name"
+        <TextView
+            android:id="@+id/tv_sex_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -166,6 +166,7 @@
             android:layout_weight="1"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/rightarrow" />
+        0
 
     </LinearLayout>
 

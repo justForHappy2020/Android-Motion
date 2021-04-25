@@ -50,6 +50,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
     private TextView tvName;
     private TextView tvSex;
     private TextView tvBirth;
+    private Button btnSave;
 
     //dialog的组件
     private EditText etInput_name;
@@ -63,6 +64,8 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
     private Context mContext;
     private AlertDialog alert = null;
     private AlertDialog.Builder builder = null;
+    private AlertDialog alert1 = null;
+    private AlertDialog.Builder builder1 = null;
     private View alertView;
     private String birth = "";
     private String name = "";
@@ -80,14 +83,19 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
         tvName = findViewById(R.id.tv_name);
         tvSex = findViewById(R.id.tv_sex);
         tvBirth  = findViewById(R.id.tv_birth);
-        etInput_name = alertView.findViewById(R.id.et_input_name);
-        btnCancel = alertView.findViewById(R.id.btn_cancel);
-        btnAgree = alertView.findViewById(R.id.btn_agree);
+        btnSave = findViewById(R.id.btn_save);
 
         mContext = my_activity_me_data.this;
 
         final LayoutInflater inflater = my_activity_me_data.this.getLayoutInflater();
         alertView = inflater.inflate(R.layout.me_dialog_me_data, null,false);
+        etInput_name = alertView.findViewById(R.id.et_input_name);
+        btnCancel = alertView.findViewById(R.id.btn_cancel);
+        btnAgree = alertView.findViewById(R.id.btn_agree);
+        builder = new AlertDialog.Builder(mContext);
+        builder.setView(alertView);
+        builder.setCancelable(false);
+        alert = builder.create();
 
         ivBack.setOnClickListener(this);
         ivChangeportrait.setOnClickListener(this);
@@ -96,6 +104,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
         tvBirth.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
         btnAgree.setOnClickListener(this);
+        btnSave.setOnClickListener(this);
 
         saveSP = getSharedPreferences("saved_photo",Context.MODE_PRIVATE);
     }
@@ -308,18 +317,13 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                 }
                 break;
             case R.id.tv_name:
-                alert = null;
-                builder = new AlertDialog.Builder(mContext);
-                builder.setView(alertView);
-                builder.setCancelable(false);
-                alert = builder.create();
                 alert.show();
                 break;
             case R.id.tv_sex:
                 final String[] sex = getResources().getStringArray(R.array.me_choose_sex);
-                alert = null;
-                builder = new AlertDialog.Builder(mContext);
-                alert = builder.setTitle(getResources().getString(R.string.me_choose_sex1))
+                alert1 = null;
+                builder1 = new AlertDialog.Builder(mContext);
+                alert1 = builder1.setTitle(getResources().getString(R.string.me_choose_sex1))
                                 .setSingleChoiceItems(sex, 0, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -327,8 +331,8 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                                         tvSex.setText(sex[which]);
                                     }
                                 }).create();
-                alert.show();
-                alert.setCanceledOnTouchOutside(true);
+                alert1.show();
+                alert1.setCanceledOnTouchOutside(true);
                 break;
             case R.id.tv_birth:
                 birth = "";
@@ -337,7 +341,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         birth = year+"-"+ (month+1)+"-"+dayOfMonth;
-                        Toast.makeText(getApplicationContext(), birth, Toast.LENGTH_SHORT).show();
+                        tvBirth.setText(birth);
                     }
                 }
                         ,calendar.get(Calendar.YEAR)
@@ -352,6 +356,9 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                 name = etInput_name.getText().toString();
                 alert.dismiss();
                 tvName.setText(name);
+                break;
+            case R.id.btn_save:
+                //http请求，保存数据。
                 break;
         }
     }
