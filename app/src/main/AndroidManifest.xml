@@ -41,7 +41,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>\
+        </activity>
         <activity
             android:name=".Activity.me_activity_bindphone_usephone"
             android:launchMode="singleTop"

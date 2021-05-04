@@ -2,6 +2,7 @@ package com.example.motion.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -41,10 +42,15 @@ public class register_activity_register extends AppCompatActivity implements Vie
     private CheckBox btn_agree;
     private Button btn_login;
     private ImageView iv_wechat;
+    private SharedPreferences saveSP;
 
     private int httpcode;
     private String mobile;
+    private  Boolean isNewUser;
+    private String message;
+    private String token;
     private String str_phone;//查询到的UserID对应的号码
+
 
 
     @Override
@@ -129,11 +135,11 @@ public class register_activity_register extends AppCompatActivity implements Vie
                                 //设置JSON数据
                                 JSONObject json = new JSONObject();
                                 try {
-                                    json.put("PhoneNumber", mobile);
+                                    json.put("phoneNumber", mobile);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                                String url = "";// url
+                                String url = "http://10.34.25.45:8080/api/user/getVerificationCode";// url
                                 //String url = "http://159.75.2.94:8080/api/user/getCode";
                                 String responseData = connectHttp(url,json);
                                 getfeedback(responseData);
@@ -201,49 +207,55 @@ public class register_activity_register extends AppCompatActivity implements Vie
                 break;
 
             case R.id.btn_login:
-                final String code = et_code.getText().toString().trim();
-                Thread thread2 = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            //设置JSON数据
-                            JSONObject json = new JSONObject();
+                final String login_code = et_code.getText().toString().trim();
+                final String login_phone = et_phone.getText().toString().trim();
+                if (login_code.length()!=6 || login_phone.length()!=11 || !btn_agree.isChecked()){
+                    Toast.makeText(register_activity_register.this,"缺少选项",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Thread thread2 = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
                             try {
-                                json.put("code", code);
-                                json.put("PhoneNumber",mobile);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            String responseData = connectHttp("http://159.75.2.94:8080/api/user/login",json);//okhttp
-                            //getfeedback(responseData);
-                            try {
-                                JSONObject jsonObject = new JSONObject(responseData);
-                                //message = jsonObject.getString("message");
-                                httpcode = jsonObject.getInt("code");
-                                //JSONObject jsonObject1 = jsonObject.getJSONObject("data");
-//                                isNewUser = jsonObject1.getBoolean("newUser");
+                                //设置JSON数据
+                                JSONObject json = new JSONObject();
+                                try {
+                                    json.put("code", login_code);
+                                    json.put("phoneNumber",login_phone);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                String responseData = connectHttp("http:/10.34.25.45:8080/api/user/login",json);//okhttp
+                                //getfeedback(responseData);
+                                try {
+                                    JSONObject jsonObject = new JSONObject(responseData);
+                                    message = jsonObject.getString("message");
+                                    httpcode = jsonObject.getInt("code");
+                                    JSONObject jsonObject1 = jsonObject.getJSONObject("data");
+                                    isNewUser = jsonObject1.getBoolean("newUser");
 //                                userId = jsonObject1.getLong("userId");
-//                                token = jsonObject1.getString("token");
-                            } catch (JSONException e){
+                                    token = jsonObject1.getString("token");
+                                } catch (JSONException e){
+                                    e.printStackTrace();
+                                }
+                                SharedPreferences.Editor editor = saveSP.edit();
+//                            editor.putLong("userId",userId).commit();
+                                editor.putString("phoneNumber",login_phone).commit();
+                                editor.putString("token",token).commit();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
-//                            SharedPreferences.Editor editor = saveSP.edit();
-//                            editor.putLong("userId",userId).commit();
-//                            editor.putString("token",token).commit();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        if(httpcode==200){
+                            if(httpcode==200){
 //                            //判定是否新用户，新用户跳转注册页面，旧用户跳转主页
 //                            if(isNewUser) startActivity(intent);
 //                            else startActivity(intent2);
-                            //更改成功 跳转回首页
+                                //更改成功 跳转回首页
 //                            Intent intent = new Intent(this,homepage_activity_homepage);
 //                            startActivity(intent);
+                            }
                         }
-                    }
 
 /*                    private void getfeedback(String responseData) {
                         try {
@@ -261,17 +273,21 @@ public class register_activity_register extends AppCompatActivity implements Vie
                         }
                     }*/
 
-                });
-                thread2.start();
-                try {
-                    thread2.join(10000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    });
+                    thread2.start();
+                    try {
+                        thread2.join(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if(httpcode!=200)Toast.makeText(register_activity_register.this,"验证码有误，请重新输入",Toast.LENGTH_SHORT).show();
+
                 }
-                if(httpcode!=200)Toast.makeText(register_activity_register.this,"验证码有误，请重新输入",Toast.LENGTH_SHORT).show();
                 break;
         }
     }
 }
 
 //iv_back 注释
+// 跳转主页242
+// 初始跳转没弄

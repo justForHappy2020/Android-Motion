@@ -119,7 +119,7 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                                String url = "";// url
+                                String url = "http://10.34.25.45:8080/api/user/getVerificationCode";// url
                                 //String url = "http://159.75.2.94:8080/api/user/getCode";
                                 String responseData = connectHttp(url,json);
                                 getfeedback(responseData);
@@ -197,7 +197,7 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            String responseData = connectHttp("http://159.75.2.94:8080/api/user/login",json);//okhttp
+                            String responseData = connectHttp("",json);//okhttp
                             //getfeedback(responseData);
                             try {
                                 JSONObject jsonObject = new JSONObject(responseData);
@@ -256,3 +256,5 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
 }
 
 // 更改成功按保存跳回首页注释
+// 没有统一token 只是等于重新注册了一个号
+// btn_save 需要求助

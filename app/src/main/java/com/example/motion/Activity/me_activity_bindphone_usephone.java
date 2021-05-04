@@ -1,6 +1,7 @@
 package com.example.motion.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -28,7 +29,10 @@ public class me_activity_bindphone_usephone extends AppCompatActivity implements
     private ImageView iv_back;
     private TextView tv_phone_number;
 
+    private SharedPreferences saveSP;
     private int UserID;
+    private String token;
+    private String phoneNumber;
 
     private int httpcode;
 
@@ -113,3 +117,4 @@ public class me_activity_bindphone_usephone extends AppCompatActivity implements
     }
 }
 //显示phone号码 v_your_phone
+// 是用sharedPreference 获得本地存储得电话号码还是发请求获得电话号码
