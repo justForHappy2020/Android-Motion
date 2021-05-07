@@ -227,6 +227,7 @@ public class sport_activity_course_start extends Activity implements View.OnClic
                             progressBar.setMax(progressBar.getMax());
                             Intent intent = new Intent(getBaseContext(),sport_activity_course_completed.class);
                             intent.putExtra("timeSeconds", totalTimeSeconds);
+                            intent.putExtra("course",course);
                             startActivity(intent);
                             finish();
                             break;
@@ -419,7 +420,19 @@ public class sport_activity_course_start extends Activity implements View.OnClic
                 new MediaPlayer.OnPreparedListener() {
                     @Override
                     public void onPrepared(MediaPlayer mediaPlayer) {
-                        progressBar.setMax(mVideoView.getDuration()*(actionList.get(courseActionPosition).getTotal()/actionList.get(courseActionPosition).getCount()));
+                        int shouldPlayTimes = (actionList.get(courseActionPosition).getTotal()/actionList.get(courseActionPosition).getCount());
+                        if(shouldPlayTimes<=0){
+                            shouldPlayTimes = actionList.get(courseActionPosition).getTotal();
+                        }
+                        int max = mVideoView.getDuration()*shouldPlayTimes;
+                        Log.d("mVideoView","onPrepared,max="+max);
+                        Log.d("mVideoView","mVideoView.getDuration()="+mVideoView.getDuration());
+                        Log.d("mVideoView","actionList.get(courseActionPosition).getTotal()="+actionList.get(courseActionPosition).getTotal());
+                        Log.d("mVideoView","actionList.get(courseActionPosition).getCount()="+actionList.get(courseActionPosition).getCount());
+
+
+                        progressBar.setMax(max);
+
                         // Hide buffering message.
                         mBufferingTextView.setVisibility(VideoView.INVISIBLE);
                         //改变视频的大小和位置

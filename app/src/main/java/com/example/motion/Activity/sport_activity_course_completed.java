@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.motion.Entity.Course;
 import com.example.motion.R;
 import com.example.motion.Widget.SportBreakDialog;
 
@@ -26,6 +27,7 @@ public class sport_activity_course_completed extends BaseNetworkActivity impleme
     private Button btnPostIt;
 
     private int timeSeconds;
+    private Course course;
 
     private DecimalFormat decimalFormat;
 
@@ -64,7 +66,14 @@ public class sport_activity_course_completed extends BaseNetworkActivity impleme
     private void initData(){
         decimalFormat = new DecimalFormat("00");
         timeSeconds = getIntent().getIntExtra("timeSeconds",0);
+        course = (Course)getIntent().getSerializableExtra("course");
+
+
         tvUsedTime.setText(decimalFormat.format(timeSeconds/60)+":"+decimalFormat.format(timeSeconds%60));
+        if(course!=null){
+            tvCourseName.setText(course.getCourseName());
+        }
+
     }
     @Override
     public void onClick(View view) {

@@ -14,11 +14,10 @@ public class MultipleItem implements MultiItemEntity {
     public static final int MASONRYPOST = 4;
     public static final int USER = 5;
     public static final int SHAREABB = 6;
-
     public static final int ACTION = 7;
     public static final int ADDIMAGE = 8;
-    public static final int NORMCOURSE = 9;
     public static final int SHAREFULL = 10;
+    public static final int COURSEFULL = 11;
 
 
 

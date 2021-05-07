@@ -8,5 +8,5 @@ import java.util.List;
 public interface OnProcessStateChangeListener {
     // 回调方法
     //void onActionsProcessDone(boolean isSuccess, List<Action> processedActionList);
-    void onProcessDone(boolean isSuccess,Course courseWithActions);
+    void onProcessDone(boolean isSuccess,Course courseWithActions,Object message);
 }

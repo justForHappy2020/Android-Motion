@@ -13,6 +13,7 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.chad.library.adapter.base.module.UpFetchModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
+import com.example.motion.Entity.CourseTag;
 import com.example.motion.GlideTransforms.GlideRadiusTransform;
 import com.example.motion.Entity.MultipleItem;
 import com.example.motion.R;
@@ -23,6 +24,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.motion.Entity.MultipleItem.COURSEFULL;
+
 public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseViewHolder> implements UpFetchModule, LoadMoreModule{
 
     public MultipleItemQuickAdapter(List data) {
@@ -32,6 +35,8 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
         addItemType(MultipleItem.SHAREABB, R.layout.community_item_share);
         addItemType(MultipleItem.ACTION, R.layout.sport_item_course_action);
         addItemType(MultipleItem.SHAREFULL,R.layout.community_item_share_full);
+        addItemType(MultipleItem.COURSEFULL,R.layout.sport_item_course_full);
+
     }
 
     @Override
@@ -149,6 +154,19 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
                 imgUrls.add(item.getShareAbb().getImgUrls());
                 imgUrls.add(item.getShareAbb().getImgUrls());
                 nineGridImageView.setImagesData(imgUrls);//后期需要改接口返回图片为list
+                break;
+            case COURSEFULL:
+                helper.setText(R.id.item_course_name, item.getCourse().getCourseName())
+                        .setText(R.id.item_course_tag, item.getCourse().getLabels());
+                if(item.getCourse().getIsOnline()== CourseTag.TAG_ONLINE_NO){
+                    helper.setText(R.id.item_course_online_state,getContext().getString(R.string.course_selection_tag_online_no));
+                }else{
+                    helper.setText(R.id.item_course_online_state,null);
+                }
+                Glide.with(getContext())
+                        .load(item.getCourse().getBackgroundUrl())
+                        .error(R.drawable.ic_load_pic_error)
+                        .into((ImageView) helper.getView(R.id.item_course_img));
                 break;
         }
     }

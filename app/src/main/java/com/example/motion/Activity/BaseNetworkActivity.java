@@ -10,14 +10,17 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.example.motion.R;
 
 public class BaseNetworkActivity extends Activity{
-    
-    
+    protected RequestQueue requestQueue;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestQueue = Volley.newRequestQueue(this);
     }
 
     @Override

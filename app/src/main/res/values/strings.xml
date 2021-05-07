@@ -86,4 +86,16 @@
     <string name="sport_dialog_download_downloading">正在下载</string>
     <string name="MByte">MB</string>
 
+
+    <string name="course_selection_reselect">重新选择</string>
+    <string name="course_selection_select_ok">确定</string>
+
+    <string name="course_selection_tag_online_yes">已经上线</string>
+    <string name="course_selection_tag_online_no">即将上线</string>
+    <string name="course_selection_tag_sort_hot">按照人气排序</string>
+    <string name="course_selection_tag_sort_date">按照日期排序</string>
+    <string name="course_selection_nodata">没有相关数据,点击重试</string>
+    <string name="course_selection_loading">加载中</string>
+
+
 </resources>

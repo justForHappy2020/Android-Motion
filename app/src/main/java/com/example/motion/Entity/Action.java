@@ -2,8 +2,6 @@ package com.example.motion.Entity;
 
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
-import com.raizlabs.android.dbflow.annotation.ForeignKeyAction;
-import com.raizlabs.android.dbflow.annotation.ForeignKeyReference;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
@@ -50,7 +48,7 @@ public class Action extends BaseModel implements Serializable {
     private int restDuration;
 
     @Column
-    private double sizeMByte;
+    private int sizeByte;
 
     @ForeignKey(stubbedRelationship = true)
     private Course ownerCourse;
@@ -169,11 +167,11 @@ public class Action extends BaseModel implements Serializable {
         this.ownerCourse = ownerCourse;
     }
 
-    public double getSizeMByte() {
-        return sizeMByte;
+    public int getSizeByte() {
+        return sizeByte;
     }
 
-    public void setSizeMByte(double sizeMByte) {
-        this.sizeMByte = sizeMByte;
+    public void setSizeByte(int sizeByte) {
+        this.sizeByte = sizeByte;
     }
 }

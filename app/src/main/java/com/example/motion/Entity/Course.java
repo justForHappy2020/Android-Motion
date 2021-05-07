@@ -4,7 +4,6 @@ import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.OneToMany;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
-import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.sql.language.Select;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
@@ -36,7 +35,7 @@ public class Course extends BaseModel implements Serializable {
     private String courseIntro;
 
     @Column
-    private String type;
+    private String labels;
 
     @Column
     private String targetAge;
@@ -45,7 +44,10 @@ public class Course extends BaseModel implements Serializable {
     private Long collectionNumber;
 
     @Column
-    private String isOnline;
+    private int isOnline;
+
+    @Column
+    private boolean collected;
 
     List<com.example.motion.Entity.Action> actionList;
 
@@ -117,12 +119,12 @@ public class Course extends BaseModel implements Serializable {
         this.courseIntro = courseIntro;
     }
 
-    public String getType() {
-        return type;
+    public String getLabels() {
+        return labels;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setLabels(String labels) {
+        this.labels = labels;
     }
 
     public String getTargetAge() {
@@ -141,11 +143,19 @@ public class Course extends BaseModel implements Serializable {
         this.collectionNumber = collectionNumber;
     }
 
-    public String getIsOnline() {
+    public int getIsOnline() {
         return isOnline;
     }
 
-    public void setIsOnline(String isOnline) {
+    public void setIsOnline(int isOnline) {
         this.isOnline = isOnline;
+    }
+
+    public boolean isCollected() {
+        return collected;
+    }
+
+    public void setCollected(boolean collected) {
+        this.collected = collected;
     }
 }

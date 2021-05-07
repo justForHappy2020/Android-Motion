@@ -119,7 +119,7 @@ public class sport_activity_course_action_detail extends Activity implements Vie
                 ccu.setOnChangeListener(new OnProcessStateChangeListener() {
 
                     @Override
-                    public void onProcessDone(boolean isSuccess, Course courseWithActions) {
+                    public void onProcessDone(boolean isSuccess, Course courseWithActions,Object message) {
                         if(isSuccess){
                             course = courseWithActions;
                             Intent intent = new Intent(getBaseContext(),sport_activity_course_start.class);
@@ -128,7 +128,7 @@ public class sport_activity_course_action_detail extends Activity implements Vie
 
                             Log.d("course_detail","CourseCacheUtil_cache_success");
                         }else{
-                            Log.d("course_detail","CourseCacheUtil_cache_fail");
+                            Log.d("course_detail","CourseCacheUtil_cache_fail,"+(String)message);
                         }
                     }
 

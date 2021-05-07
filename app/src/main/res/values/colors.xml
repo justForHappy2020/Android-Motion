@@ -27,4 +27,8 @@
 
     <color name="main_bottom_navigation_gray_unselected">#CFCED5</color>
     <color name="main_bottom_navigation_bgcolor">#FFFFFF</color>
+
+    <color name="tag_unselected">#CFCED5</color>
+    <color name="tag_selected">#673AB7</color>
+
 </resources>
