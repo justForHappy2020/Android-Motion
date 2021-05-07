@@ -4,8 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorSecondary">@color/colorPrimary</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -50,6 +49,14 @@
     <style name="TopNavigationTextStyle">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="VideoPlayProgressBar_Horizontal">
+        <item name="android:maxHeight">80dp</item>
+        <item name="android:minHeight">10dp</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:background">@color/purple_light</item>
+        <item name="android:progressDrawable">@drawable/progressbar_purple_horizontal</item>
     </style>
 
 </resources>

@@ -14,10 +14,10 @@
 
         <ImageView
             android:id="@+id/iv_back"
-            app:srcCompat="@drawable/leftarrow_white"
             android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:paddingStart="10dp" />
+            android:paddingStart="10dp"
+            android:src="@drawable/ic_arrow_left" />
 
         <TextView
             android:layout_width="match_parent"
@@ -37,32 +37,32 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="false"
             android:paddingEnd="10dp"
-            app:srcCompat="@drawable/search_white" />
+            android:src="@drawable/ic_search_orange" />
 
     </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="363dp"
-                android:layout_weight="6"
-                android:orientation="vertical"
-                android:paddingTop="20dp">
+                android:layout_height="wrap_content">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_course_typechoose"
+                    android:id="@+id/rv_course_tags"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:listitem="@layout/sport_recycle_item_btn" />
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/sport_item_tag_menu" />
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -74,13 +74,13 @@
                 android:paddingBottom="10dp">
 
                 <Button
-                    android:id="@+id/btn_deselect"
+                    android:id="@+id/btn_unselect"
                     android:layout_width="wrap_content"
-                    android:layout_height="45dp"
+                    android:layout_height="35dp"
                     android:layout_weight="2"
-                    android:background="@drawable/button_radius_purple_stroke"
-                    android:text="取消选择"
-                    android:textColor="#673ab7"
+                    android:background="@drawable/button_radius_white_stroke_purple"
+                    android:text="@string/course_selection_reselect"
+                    android:textColor="@color/purple_main"
                     android:textSize="18sp" />
 
                 <Space
@@ -91,26 +91,26 @@
                 <Button
                     android:id="@+id/btn_select"
                     android:layout_width="wrap_content"
-                    android:layout_height="45dp"
+                    android:layout_height="35dp"
                     android:layout_weight="2"
-                    android:background="@drawable/button_radius_purple_stroke"
-                    android:text="确定"
-                    android:textColor="#673ab7"
+                    android:background="@drawable/button_radius_purple_16dp"
+                    android:text="@string/course_selection_select_ok"
+                    android:textColor="@color/white"
                     android:textSize="18sp" />
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_course_show"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:listitem="@layout/sport_recycle_item_course" />
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/sport_item_course_full" />
+            </RelativeLayout>
+
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>

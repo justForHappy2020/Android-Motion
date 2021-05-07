@@ -1,52 +1,82 @@
 package com.example.motion.Entity;
 
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.OneToMany;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.sql.language.Select;
+import com.raizlabs.android.dbflow.structure.BaseModel;
+
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-public class Course implements Serializable {
+@Table(database = CourseCahceDatabase.class)
+public class Course extends BaseModel implements Serializable {
+    @PrimaryKey()
+    @Column
     private Long courseId;
 
+    @Column
     private String courseName;
 
-    //private String courseUrl;
-
-    private String courseUrl;
-
-
-    private String bodyPart;
-
-    private String degree;
-
-    private String duration;
-
-    private int hits;//建议改为String
-
-    private String createTime;
-
+    @Column
     private String backgroundUrl;
 
-    private int calorie;
+    @Column
+    private String duration;
 
+    @Column
+    private int hit;//建议改为String
+
+    @Column
+    private String createTime;
+
+    @Column
     private String courseIntro;
 
-    private List<Action> actionList = new ArrayList();
+    @Column
+    private String labels;
 
+    @Column
+    private String targetAge;
 
-    public String getCourseIntro() {
-        return courseIntro;
+    @Column
+    private Long collectionNumber;
+
+    @Column
+    private int isOnline;
+
+    @Column
+    private boolean collected;
+
+    List<com.example.motion.Entity.Action> actionList;
+
+    @OneToMany(methods = {OneToMany.Method.ALL},variableName = "actionList")
+    public List<com.example.motion.Entity.Action> getActionList(){
+        if (actionList == null || actionList.isEmpty()){
+            actionList = new Select().from(com.example.motion.Entity.Action.class).where(Action_Table.ownerCourse_courseId.eq(courseId)).queryList();
+        }
+        return actionList;
     }
 
-    public void setCourseIntro(String courseIntro) {
-        this.courseIntro = courseIntro;
+    public void setActionList(List<com.example.motion.Entity.Action> actionList) {
+        this.actionList = actionList;
     }
 
-    public int getCalorie() {
-        return calorie;
+    public Long getCourseId() {
+        return courseId;
     }
 
-    public void setCalorie(int calorie) {
-        this.calorie = calorie;
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
     public String getBackgroundUrl() {
@@ -57,76 +87,75 @@ public class Course implements Serializable {
         this.backgroundUrl = backgroundUrl;
     }
 
-    public Long getCourseId() {
-        return courseId;
-    }
-
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public String getCourseUrl() {
-        return courseUrl;
-    }
-
-    public String getBodyPart() {
-        return bodyPart;
-    }
-
-    public String getDegree() {
-        return degree;
-    }
-
     public String getDuration() {
         return duration;
-    }
-
-    public int getHits() {
-        return hits;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
-
-
-    public void setCourseUrl(String courseUrl) {
-        this.courseUrl = courseUrl;
-    }
-
-    public void setBodyPart(String bodyPart) {
-        this.bodyPart = bodyPart;
-    }
-
-    public void setDegree(String degree) {
-        this.degree = degree;
     }
 
     public void setDuration(String duration) {
         this.duration = duration;
     }
 
-    public void setHits(int hits) {
-        this.hits = hits;
+    public int getHit() {
+        return hit;
+    }
+
+    public void setHit(int hit) {
+        this.hit = hit;
+    }
+
+    public String getCreateTime() {
+        return createTime;
     }
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
-    public List<Action> getActionList() {
-        return actionList;
+    public String getCourseIntro() {
+        return courseIntro;
     }
 
-    public void setActionList(List<Action> actionList) {
-        this.actionList = actionList;
+    public void setCourseIntro(String courseIntro) {
+        this.courseIntro = courseIntro;
+    }
+
+    public String getLabels() {
+        return labels;
+    }
+
+    public void setLabels(String labels) {
+        this.labels = labels;
+    }
+
+    public String getTargetAge() {
+        return targetAge;
+    }
+
+    public void setTargetAge(String targetAge) {
+        this.targetAge = targetAge;
+    }
+
+    public Long getCollectionNumber() {
+        return collectionNumber;
+    }
+
+    public void setCollectionNumber(Long collectionNumber) {
+        this.collectionNumber = collectionNumber;
+    }
+
+    public int getIsOnline() {
+        return isOnline;
+    }
+
+    public void setIsOnline(int isOnline) {
+        this.isOnline = isOnline;
+    }
+
+    public boolean isCollected() {
+        return collected;
+    }
+
+    public void setCollected(boolean collected) {
+        this.collected = collected;
     }
 }

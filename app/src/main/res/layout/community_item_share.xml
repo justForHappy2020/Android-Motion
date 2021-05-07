@@ -40,7 +40,7 @@
             android:layout_width="84dp"
             android:layout_height="32dp"
             android:layout_gravity="right|center_vertical"
-            android:background="@drawable/button_radius_white_stroke"
+            android:background="@drawable/button_radius_white_stroke_gray"
             android:text="@string/community_share_btn_follow" />
 
     </LinearLayout>
