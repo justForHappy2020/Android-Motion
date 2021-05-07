@@ -111,7 +111,8 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:stateListAnimator="@null"
-                android:text="获取验证码" />
+                android:text="获取验证码"
+                android:textColor="#757575"/>
 
         </LinearLayout>
 
