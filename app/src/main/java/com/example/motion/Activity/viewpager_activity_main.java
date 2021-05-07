@@ -42,7 +42,7 @@ public class viewpager_activity_main extends FragmentActivity {
 
         //---only for test---
         Intent intent = new Intent(this,sport_activity_course_detail.class);
-        startActivity(intent);
+        //startActivity(intent);
         //-------------------
 
         initViews();//初始化控件
