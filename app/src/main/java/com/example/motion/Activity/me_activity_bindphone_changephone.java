@@ -58,6 +58,7 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
         btn_getcode = findViewById(R.id.btn_getcode);
         btn_save = findViewById(R.id.btn_save);
 
+        iv_back.setOnClickListener(this);
         btn_getcode.setOnClickListener(this);
         btn_getcode.setEnabled(Boolean.FALSE);
 
@@ -179,8 +180,9 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
                 break;
 
             case R.id.iv_back:
-              Intent intent = new Intent(this,me_activity_me_homepage.class);
-              startActivity(intent);
+              //Intent intent = new Intent(this,me_activity_me_homepage.class);
+              //startActivity(intent);
+                finish();
                 break;
 
             case R.id.btn_save:

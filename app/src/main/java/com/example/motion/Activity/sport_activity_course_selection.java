@@ -86,10 +86,14 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
         initHandler();
         //test
         builder = new AlertDialog.Builder(this);
+        initData();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         getHttpCourse(new HashMap());
         getHttpCourseTags();
-        initData();
     }
 
     private void initView() {

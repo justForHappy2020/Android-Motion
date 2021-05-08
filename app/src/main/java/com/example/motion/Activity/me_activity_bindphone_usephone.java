@@ -41,7 +41,7 @@ public class me_activity_bindphone_usephone extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_activity_bindphone_usephone);
         initview();
-        initPhone_number();
+        //initPhone_number();
     }
 
     private void initview(){
@@ -49,6 +49,7 @@ public class me_activity_bindphone_usephone extends AppCompatActivity implements
         iv_back = findViewById(R.id.iv_back);
         tv_phone_number = findViewById(R.id.tv_your_phone);
 
+        iv_back.setOnClickListener(this);
         btn_changephone.setOnClickListener(this);
 
     }
@@ -103,6 +104,7 @@ public class me_activity_bindphone_usephone extends AppCompatActivity implements
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_back:
+                finish();
 //                Intent intent = new Intent(this,me_activity_me_homepage);
 //                startActivity(intent);
                 break;

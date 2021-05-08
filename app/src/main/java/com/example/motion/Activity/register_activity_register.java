@@ -199,8 +199,9 @@ public class register_activity_register extends AppCompatActivity implements Vie
                 break;
 
             case R.id.iv_back:
-              Intent intent = new Intent(this,me_activity_me_homepage.class);
-              startActivity(intent);
+              //Intent intent = new Intent(this,me_activity_me_homepage.class);
+              //startActivity(intent);
+                finish();
                 break;
             case R.id.btn_agree:
                 btn_agree.setChecked(true);
