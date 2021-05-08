@@ -45,12 +45,13 @@ public class me_fragment_mycourse_reserve extends Fragment {
         me_mycourse_reserve reserve;
         for (int i = 0; i < 5; i++) {
             reserve = new me_mycourse_reserve();
-            reserveList.add(new MultipleItem(13,reserve));
             reserve.setImgUrls("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3385472845,2539383542&fm=11&gp=0.jpg");
             reserve.setReserveName1("写代码");
             reserve.setReserveName2("数据结构");
             reserve.setReserveName3("学习");
             reserve.setReserveTime("2月30号上线");
+
+            reserveList.add(new MultipleItem(MultipleItem.Me_mycourse_reserve,reserve));
         }
         dataSet.add(reserveList);
     }

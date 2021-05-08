@@ -51,12 +51,12 @@ public class me_fragment_mycourse_history extends Fragment {
         me_mycourse_history history;
         for (int i = 0; i < 5; i++) {
             history = new me_mycourse_history();
-            historyList.add(new MultipleItem(11,history));
             history.setImgUrls("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3385472845,2539383542&fm=11&gp=0.jpg");
             history.setHistoryName1("写代码");
             history.setHistoryName2("数据结构");
             history.setHistoryName3("学习");
             history.setHistoryTimes("x1");
+            historyList.add(new MultipleItem(MultipleItem.Me_mycourse_history,history));
         }
         dataSet.add(historyList);
     }

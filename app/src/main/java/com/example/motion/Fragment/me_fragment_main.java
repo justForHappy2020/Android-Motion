@@ -84,6 +84,10 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
         TextView orderCenter = view.findViewById(R.id.tv_ordercenter);
         TextView download = view.findViewById(R.id.tv_mydownload);
 
+
+        tr_bindphone = view.findViewById(R.id.tr_bingphone);
+        tr_bindphone.setOnClickListener(this);
+
         bodyData.setOnClickListener(this);
         myCourse.setOnClickListener(this);
         myCollections.setOnClickListener(this);
@@ -92,8 +96,6 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
         dailyMission.setOnClickListener(this);
         orderCenter.setOnClickListener(this);
         download.setOnClickListener(this);
-
-
 
     }
 

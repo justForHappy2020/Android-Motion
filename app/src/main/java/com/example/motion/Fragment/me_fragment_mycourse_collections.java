@@ -45,11 +45,12 @@ public class me_fragment_mycourse_collections extends Fragment {
         me_mycourse_collections collections;
         for (int i = 0; i < 5; i++) {
             collections = new me_mycourse_collections();
-            collectionsList.add(new MultipleItem(12,collections));
+
             collections.setImgUrls("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3385472845,2539383542&fm=11&gp=0.jpg");
             collections.setCollectionsName1("写代码");
             collections.setCollectionsName2("数据结构");
             collections.setCollectionsName3("学习");
+            collectionsList.add(new MultipleItem(MultipleItem.Me_mycourse_collections,collections));
         }
         dataSet.add(collectionsList);
     }

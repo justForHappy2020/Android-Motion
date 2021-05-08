@@ -19,10 +19,10 @@ public class MultipleItem implements MultiItemEntity {
     public static final int SHAREFULL = 10;
     public static final int COURSEFULL = 11;
 
-    public static final int Me_mycourse_history = 11;
-    public static final int Me_mycourse_collections = 12;
-    public static final int Me_mycourse_reserve = 13;
-    public static final int Me_mycollections_articals = 14;
+    public static final int Me_mycourse_history = 12;
+    public static final int Me_mycourse_collections = 13;
+    public static final int Me_mycourse_reserve = 14;
+    public static final int Me_mycollections_articals = 15;
 
 
     private int itemType;

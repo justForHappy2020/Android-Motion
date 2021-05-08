@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="5dp"
-                app:srcCompat="@drawable/ic_share" />
+                android:src="@drawable/ic_share" />
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="5dp"
-                app:srcCompat="@drawable/ic_envelope" />
+                android:src="@drawable/ic_envelope" />
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -358,7 +358,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/rightarrow" />
+                        android:src="@drawable/rightarrow" />
                 </TableRow>
 
                 <TableRow
@@ -396,7 +396,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/rightarrow" />
+                        android:src="@drawable/rightarrow" />
                 </TableRow>
 
                 <TableRow
@@ -434,7 +434,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/rightarrow" />
+                        android:src="@drawable/rightarrow" />
                 </TableRow>
 
                 <TableRow
@@ -472,7 +472,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/rightarrow" />
+                        android:src="@drawable/rightarrow" />
                 </TableRow>
 
             </TableLayout>
