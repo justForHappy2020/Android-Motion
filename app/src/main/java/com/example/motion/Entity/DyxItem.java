@@ -23,6 +23,7 @@ public class DyxItem implements MultiItemEntity {
     private Course course;
     private ShareAbb shareAbb;
     private User user;
+    private Member member;
     private String text;
     private Action action;
     private AddImage addimage;
@@ -69,6 +70,11 @@ public class DyxItem implements MultiItemEntity {
         this.addimage = addimage;
     }
 
+    public DyxItem(int itemType, Member member) {
+        this.itemType = itemType;
+        this.member = member;
+    }
+
     public DyxItem(int itemType, ShareAbb shareAbb, NineGridImageViewAdapter<String> nineGridAdapter) {
         this.itemType = itemType;
         this.shareAbb = shareAbb;
@@ -113,5 +119,9 @@ public class DyxItem implements MultiItemEntity {
 
     public HealthRecord getHealthRecord() {
         return healthRecord;
+    }
+
+    public Member getMember() {
+        return member;
     }
 }

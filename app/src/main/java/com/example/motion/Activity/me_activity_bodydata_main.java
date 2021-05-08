@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.motion.Entity.DyxItem;
+import com.example.motion.Entity.Member;
 import com.example.motion.R;
 import com.example.motion.Widget.DyxQuickAdapter;
 
@@ -28,7 +29,7 @@ public class me_activity_bodydata_main  extends Activity implements View.OnClick
     private RecyclerView rvRecord;
 
     private Context mContext;
-    private List<DyxItem> userList = new ArrayList();
+    private List<DyxItem> memberList = new ArrayList();
     private List<DyxItem> recordList = new ArrayList();
     private List<List> dataSet = new  ArrayList<>();
     private int httpcode;
@@ -41,6 +42,7 @@ public class me_activity_bodydata_main  extends Activity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_activity_bodydata_main);
+        initData();
         initView();
     }
 
@@ -64,7 +66,7 @@ public class me_activity_bodydata_main  extends Activity implements View.OnClick
 
         initData();
 
-        portraitAdapter = new DyxQuickAdapter(userList);
+        portraitAdapter = new DyxQuickAdapter(memberList);
         rvPortrait.setAdapter(portraitAdapter);
         recordAdater = new DyxQuickAdapter(recordList);
         rvRecord.setAdapter(recordAdater);
@@ -72,6 +74,12 @@ public class me_activity_bodydata_main  extends Activity implements View.OnClick
 
     private void initData() {
         ////http请求数据实体，存入2个list中。
+        Member member1 = new Member((long) 1,"mom","woman","http://bpic.588ku.com/element_pic/18/05/04/a4605af6e0f30bad35d0556f71b8e44c.jpg","1975-04-09");
+        Member member2 = new Member((long) 2,"kid","man","http://5b0988e595225.cdn.sohucs.com/images/20170819/eaf8683041844976b3a45b9325628a5a.jpeg","2010-04-09");
+        memberList.add(new DyxItem(DyxItem.PORTRAIT , member1));
+        memberList.add(new DyxItem(DyxItem.PORTRAIT , member2));
+
+
     }
 
 

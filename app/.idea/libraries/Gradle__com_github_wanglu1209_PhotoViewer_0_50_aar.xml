@@ -1,12 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.wanglu1209:PhotoViewer:0.50@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3cbb1af61ca7f9c28929e9cbf67640e6/PhotoViewer-0.50/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3cbb1af61ca7f9c28929e9cbf67640e6/PhotoViewer-0.50/res" />
+      <root url="jar://D:/gradle-5.4.1/respositry/caches/transforms-2/files-2.1/3cbb1af61ca7f9c28929e9cbf67640e6/PhotoViewer-0.50/jars/classes.jar!/" />
+      <root url="file://D:/gradle-5.4.1/respositry/caches/transforms-2/files-2.1/3cbb1af61ca7f9c28929e9cbf67640e6/PhotoViewer-0.50/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.wanglu1209/PhotoViewer/0.50/990b3193d1db5121a32f960fed963cb2175ef206/PhotoViewer-0.50-sources.jar!/" />
+      <root url="jar://D:/gradle-5.4.1/respositry/caches/modules-2/files-2.1/com.github.wanglu1209/PhotoViewer/0.50/990b3193d1db5121a32f960fed963cb2175ef206/PhotoViewer-0.50-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

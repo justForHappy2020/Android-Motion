@@ -1,14 +1,14 @@
 <component name="libraryTable">
   <library name="Gradle: com.jaeger.ninegridimageview:library:1.0.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/94e37e7e113d83e4b4bd4de906fb4c7c/library-1.0.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/94e37e7e113d83e4b4bd4de906fb4c7c/library-1.0.0/res" />
+      <root url="jar://D:/gradle-5.4.1/respositry/caches/transforms-2/files-2.1/94e37e7e113d83e4b4bd4de906fb4c7c/library-1.0.0/jars/classes.jar!/" />
+      <root url="file://D:/gradle-5.4.1/respositry/caches/transforms-2/files-2.1/94e37e7e113d83e4b4bd4de906fb4c7c/library-1.0.0/res" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jaeger.ninegridimageview/library/1.0.0/6a3a967837c322f2d7c0f7c8466b3ab45e4a1819/library-1.0.0-javadoc.jar!/" />
+      <root url="jar://D:/gradle-5.4.1/respositry/caches/modules-2/files-2.1/com.jaeger.ninegridimageview/library/1.0.0/6a3a967837c322f2d7c0f7c8466b3ab45e4a1819/library-1.0.0-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jaeger.ninegridimageview/library/1.0.0/b3e5e10ee131af25a099881f00269e285ed28aa1/library-1.0.0-sources.jar!/" />
+      <root url="jar://D:/gradle-5.4.1/respositry/caches/modules-2/files-2.1/com.jaeger.ninegridimageview/library/1.0.0/b3e5e10ee131af25a099881f00269e285ed28aa1/library-1.0.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
