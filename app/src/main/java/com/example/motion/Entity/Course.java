@@ -1,31 +1,67 @@
 package com.example.motion.Entity;
 
-import java.io.Serializable;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.OneToMany;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.sql.language.Select;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
-public class Course implements Serializable {
+import java.io.Serializable;
+import java.util.List;
+
+@Table(database = CourseCahceDatabase.class)
+public class Course extends BaseModel implements Serializable {
+    @PrimaryKey()
+    @Column
     private Long courseId;
 
+    @Column
     private String courseName;
 
+    @Column
     private String backgroundUrl;
 
-    private String action;
-
+    @Column
     private String duration;
 
+    @Column
+    private int hit;//建议改为String
+
+    @Column
     private String createTime;
 
-    private int hits;//建议改为String
-
+    @Column
     private String courseIntro;
 
-    private String type;
+    @Column
+    private String labels;
 
+    @Column
     private String targetAge;
 
-    private int collectionNumber;
+    @Column
+    private Long collectionNumber;
 
-    private char ifOnlion;
+    @Column
+    private int isOnline;
+
+    @Column
+    private boolean collected;
+
+    List<com.example.motion.Entity.Action> actionList;
+
+    @OneToMany(methods = {OneToMany.Method.ALL},variableName = "actionList")
+    public List<com.example.motion.Entity.Action> getActionList(){
+        if (actionList == null || actionList.isEmpty()){
+            actionList = new Select().from(com.example.motion.Entity.Action.class).where(Action_Table.ownerCourse_courseId.eq(courseId)).queryList();
+        }
+        return actionList;
+    }
+
+    public void setActionList(List<com.example.motion.Entity.Action> actionList) {
+        this.actionList = actionList;
+    }
 
     public Long getCourseId() {
         return courseId;
@@ -51,20 +87,20 @@ public class Course implements Serializable {
         this.backgroundUrl = backgroundUrl;
     }
 
-    public String getAction() {
-        return action;
-    }
-
-    public void setAction(String action) {
-        this.action = action;
-    }
-
     public String getDuration() {
         return duration;
     }
 
     public void setDuration(String duration) {
         this.duration = duration;
+    }
+
+    public int getHit() {
+        return hit;
+    }
+
+    public void setHit(int hit) {
+        this.hit = hit;
     }
 
     public String getCreateTime() {
@@ -75,14 +111,6 @@ public class Course implements Serializable {
         this.createTime = createTime;
     }
 
-    public int getHits() {
-        return hits;
-    }
-
-    public void setHits(int hits) {
-        this.hits = hits;
-    }
-
     public String getCourseIntro() {
         return courseIntro;
     }
@@ -91,12 +119,12 @@ public class Course implements Serializable {
         this.courseIntro = courseIntro;
     }
 
-    public String getType() {
-        return type;
+    public String getLabels() {
+        return labels;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setLabels(String labels) {
+        this.labels = labels;
     }
 
     public String getTargetAge() {
@@ -107,20 +135,28 @@ public class Course implements Serializable {
         this.targetAge = targetAge;
     }
 
-    public int getCollectionNumber() {
+    public Long getCollectionNumber() {
         return collectionNumber;
     }
 
-    public void setCollectionNumber(int collectionNumber) {
+    public void setCollectionNumber(Long collectionNumber) {
         this.collectionNumber = collectionNumber;
     }
 
-    public char getIfOnlion() {
-        return ifOnlion;
+    public int getIsOnline() {
+        return isOnline;
     }
 
-    public void setIfOnlion(char ifOnlion) {
-        this.ifOnlion = ifOnlion;
+    public void setIsOnline(int isOnline) {
+        this.isOnline = isOnline;
+    }
+
+    public boolean isCollected() {
+        return collected;
+    }
+
+    public void setCollected(boolean collected) {
+        this.collected = collected;
     }
 }
 

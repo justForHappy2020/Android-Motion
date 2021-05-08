@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "30.0.2"
     defaultConfig {
         applicationId "com.example.motion"
@@ -17,7 +17,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
+
+
+def dbflow_version = "4.2.4"
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -42,5 +49,13 @@ dependencies {
     implementation 'com.alibaba:fastjson:1.1.72.android'
     implementation 'com.jaeger.ninegridimageview:library:1.0.0'
     implementation 'com.github.wanglu1209:PhotoViewer:0.50'
-    //implementation 'androidx.gridlayout:gridlayout:1.0.0'
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
+
+    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
+    implementation "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
+    implementation "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
+
+    implementation 'com.lijunhuayc.downloader:easyfiledownloader:1.1.5'//文件下载
+    implementation 'com.android.volley:volley:1.1.1'
+
 }

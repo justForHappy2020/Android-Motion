@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="7dp">
+
+    <TextView
+        android:id="@+id/tv_tag_menu_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black_text"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="menu" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tl_tags"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabBackground="@drawable/button_tag_radius_selector"
+        app:tabGravity="center"
+        app:tabIndicatorColor="@color/transparent"
+        app:tabIndicatorFullWidth="true"
+        app:tabMode="scrollable"
+        app:tabPaddingEnd="24dp"
+        app:tabPaddingStart="24dp"
+        app:tabRippleColor="@color/transparent"
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:tabTextColor="@color/black_text"/>
+</LinearLayout>

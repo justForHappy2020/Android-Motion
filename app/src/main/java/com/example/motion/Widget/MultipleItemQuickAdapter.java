@@ -5,6 +5,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -12,15 +13,18 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.chad.library.adapter.base.module.UpFetchModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
-import com.example.motion.GlideTransforms.GlideRoundTransform;
+import com.example.motion.Entity.CourseTag;
+import com.example.motion.GlideTransforms.GlideRadiusTransform;
 import com.example.motion.Entity.MultipleItem;
 import com.example.motion.R;
 import com.jaeger.ninegridimageview.NineGridImageView;
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.motion.Entity.MultipleItem.COURSEFULL;
 
 public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseViewHolder> implements UpFetchModule, LoadMoreModule{
 
@@ -31,6 +35,7 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
         addItemType(MultipleItem.SHAREABB, R.layout.community_item_share);
         addItemType(MultipleItem.ACTION, R.layout.sport_item_course_action);
         addItemType(MultipleItem.SHAREFULL,R.layout.community_item_share_full);
+        addItemType(MultipleItem.COURSEFULL,R.layout.sport_item_course_full);
 
     }
 
@@ -74,7 +79,7 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
                         .load(item.getUser().getHeadPortraitUrl())
                         .placeholder(R.drawable.headprotrait)
                         .error(R.drawable.ic_load_pic_error)
-                        .transform(new CenterCrop(getContext()), new GlideRoundTransform(getContext(),15))
+                        .transform(new CenterCrop(getContext()), new GlideRadiusTransform(getContext(),15))
                         .into((ImageView) helper.getView(R.id.user_head));
             break;
             case MultipleItem.SHAREABB:
@@ -100,9 +105,17 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
                 break;
 
             case MultipleItem.ACTION:
+                DecimalFormat decimalFormat = new DecimalFormat("00");
                 helper.setText(R.id.item_movement_name, item.getAction().getActionName())
-                        .setText(R.id.item_movement_duration, item.getAction().getDuration());
-                Glide.with(getContext()).load(item.getAction().getActionImgs()).placeholder(R.drawable.ic_placeholder).into((ImageView) helper.getView(R.id.item_movement_img));
+                        .setText(R.id.item_movement_duration, decimalFormat.format(item.getAction().getDuration()*item.getAction().getTotal()/item.getAction().getCount() /60)+"'"+decimalFormat.format(item.getAction().getDuration()*item.getAction().getTotal()/item.getAction().getCount() %60)+"\"");
+
+                Glide.with(getContext())
+                        .load(item.getAction().getActionImgs())
+                        .placeholder(R.drawable.ic_placeholder)
+                        .transform(new FitCenter(getContext()), new GlideRadiusTransform(getContext(),20))
+                        .into((ImageView) helper.getView(R.id.item_movement_img));
+
+
                 break;
 
             case MultipleItem.ADDIMAGE:
@@ -141,6 +154,19 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
                 imgUrls.add(item.getShareAbb().getImgUrls());
                 imgUrls.add(item.getShareAbb().getImgUrls());
                 nineGridImageView.setImagesData(imgUrls);//后期需要改接口返回图片为list
+                break;
+            case COURSEFULL:
+                helper.setText(R.id.item_course_name, item.getCourse().getCourseName())
+                        .setText(R.id.item_course_tag, item.getCourse().getLabels());
+                if(item.getCourse().getIsOnline()== CourseTag.TAG_ONLINE_NO){
+                    helper.setText(R.id.item_course_online_state,getContext().getString(R.string.course_selection_tag_online_no));
+                }else{
+                    helper.setText(R.id.item_course_online_state,null);
+                }
+                Glide.with(getContext())
+                        .load(item.getCourse().getBackgroundUrl())
+                        .error(R.drawable.ic_load_pic_error)
+                        .into((ImageView) helper.getView(R.id.item_course_img));
                 break;
         }
     }

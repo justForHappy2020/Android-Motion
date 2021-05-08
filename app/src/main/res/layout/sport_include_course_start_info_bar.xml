@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_info_next_action"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="@color/purple_light"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:visibility="visible"
+    app:layout_constraintBottom_toTopOf="@id/progressBar"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
+
+
+
+        <TextView
+            android:id="@+id/tv_info_next_action"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:textAlignment="textStart"
+            android:textColor="@color/purple_main"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            tools:text="下一个动作 休息休息" />
+
+</LinearLayout>
