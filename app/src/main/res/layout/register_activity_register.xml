@@ -147,7 +147,7 @@
         android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/btn_wechat"
+        android:id="@+id/iv_wechat"
         android:layout_width="75dp"
         android:layout_height="17dp"
         android:layout_gravity="center_horizontal"

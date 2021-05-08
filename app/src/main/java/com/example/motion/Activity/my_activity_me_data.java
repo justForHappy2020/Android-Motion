@@ -303,7 +303,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                 break;
             case R.id.iv_changeportrait:
                 //  6.0之后动态申请权限 SD卡写入权限
-                ivChangeportrait.setVisibility(View.GONE);
+                //ivChangeportrait.setVisibility(View.GONE);
                 if (ContextCompat.checkSelfPermission(my_activity_me_data.this,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED) {

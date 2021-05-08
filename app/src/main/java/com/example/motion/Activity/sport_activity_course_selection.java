@@ -228,54 +228,54 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
         //end of test tool
 
         MyStringRequest stringRequest = new MyStringRequest(Request.Method.GET,  url, new Response.Listener<String>() {
-           @Override
-           public void onResponse(String responseStr) {
+            @Override
+            public void onResponse(String responseStr) {
 
-               try {
-                   JSONObject jsonRootObject = new JSONObject(responseStr);
+                try {
+                    JSONObject jsonRootObject = new JSONObject(responseStr);
 
-                   //Log.d("sport_activity_course_selection","getHttpCourse_responseStr:" + jsonRootObject.toString());
+                    //Log.d("sport_activity_course_selection","getHttpCourse_responseStr:" + jsonRootObject.toString());
 
-                   JSONObject jsonObject2 = jsonRootObject.getJSONObject("data");
-                   hasNext = jsonObject2.getBoolean("hasNext");
-                   //TOTAL_PAGES = jsonObject2.getInt("totalPages");
-                   //得到筛选的课程list
-                   JSONArray JSONArrayCourse = jsonObject2.getJSONArray("courseList");
-                   for (int i = 0; i < JSONArrayCourse.length(); i++) {
-                       JSONObject jsonCourseObject = JSONArrayCourse.getJSONObject(i);
-                       //相应的内容
-                       Course course = new Course();
-                       course.setCourseId(jsonCourseObject.getLong("courseId"));
-                       course.setCourseName(jsonCourseObject.getString("courseName"));
-                       course.setBackgroundUrl(jsonCourseObject.getString("backgroundUrl"));
-                       course.setTargetAge(jsonCourseObject.getString("targetAge"));
-                       course.setIsOnline(jsonCourseObject.getInt("online"));
+                    JSONObject jsonObject2 = jsonRootObject.getJSONObject("data");
+                    hasNext = jsonObject2.getBoolean("hasNext");
+                    //TOTAL_PAGES = jsonObject2.getInt("totalPages");
+                    //得到筛选的课程list
+                    JSONArray JSONArrayCourse = jsonObject2.getJSONArray("courseList");
+                    for (int i = 0; i < JSONArrayCourse.length(); i++) {
+                        JSONObject jsonCourseObject = JSONArrayCourse.getJSONObject(i);
+                        //相应的内容
+                        Course course = new Course();
+                        course.setCourseId(jsonCourseObject.getLong("courseId"));
+                        course.setCourseName(jsonCourseObject.getString("courseName"));
+                        course.setBackgroundUrl(jsonCourseObject.getString("backgroundUrl"));
+                        course.setTargetAge(jsonCourseObject.getString("targetAge"));
+                        course.setIsOnline(jsonCourseObject.getInt("online"));
 
-                       JSONArray JSONArrayLabels = jsonCourseObject.getJSONArray("labels");
-                       String labels = "";
-                       for (int j = 0; j < JSONArrayLabels.length(); j++) {
-                           labels += (JSONArrayLabels.get(j) + "/");
-                       }
-                       course.setLabels(labels);
-                       onePageCourses.add(new MultipleItem(MultipleItem.COURSEFULL, course));
-                   }
-                   showingCourseList.addAll(onePageCourses);
+                        JSONArray JSONArrayLabels = jsonCourseObject.getJSONArray("labels");
+                        String labels = "";
+                        for (int j = 0; j < JSONArrayLabels.length(); j++) {
+                            labels += (JSONArrayLabels.get(j) + "/");
+                        }
+                        course.setLabels(labels);
+                        onePageCourses.add(new MultipleItem(MultipleItem.COURSEFULL, course));
+                    }
+                    showingCourseList.addAll(onePageCourses);
 
 
-                   Log.d("sport_activity_course_selection","getHttpCourse_responseStr:"+responseStr);
-                   Message msg = handler.obtainMessage();
-                   msg.what = LOAD_COURSES_SUCCESS;
-                   handler.sendMessage(msg);
+                    Log.d("sport_activity_course_selection","getHttpCourse_responseStr:"+responseStr);
+                    Message msg = handler.obtainMessage();
+                    msg.what = LOAD_COURSES_SUCCESS;
+                    handler.sendMessage(msg);
 
-                   //test tool
-                   dialogMessage+="\n\ngetHttpCourse response:\n"+jsonRootObject.toString();
-                   //end of test tool
+                    //test tool
+                    dialogMessage+="\n\ngetHttpCourse response:\n"+jsonRootObject.toString();
+                    //end of test tool
 
-               }catch (JSONException e) {
-                   e.printStackTrace();
-               }
-           }
-       }, new Response.ErrorListener() {
+                }catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 Log.d("sport_activity_course_selection","getHttpCourse_onErrorResponse");
