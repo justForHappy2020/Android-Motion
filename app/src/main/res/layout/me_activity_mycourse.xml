@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EFEFEF"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="@color/me_view_bg_color"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/meMyCourseGoBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/left_arrow_white"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:text="我的课程"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="30dp"
+                 />
+            <Space
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="#3E3C42"
+                android:src="@drawable/left_arrow_white"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:orientation="horizontal">
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/meMyCourseTabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_weight="1"
+                app:tabIndicatorFullWidth="false"
+                app:tabTextAppearance="@style/MyCustomTabTextAppearance"
+                >
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/community_main_hot_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="最近练过"
+                    />
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/community_main_follow_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="我的收藏"
+                    />
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/meMyCollectionsTab"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="我的预定" />
+
+
+            </com.google.android.material.tabs.TabLayout>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:backgroundTint="#48FFFFFF"/>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/meMyCourseViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+</LinearLayout>

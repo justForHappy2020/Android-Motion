@@ -36,6 +36,10 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
         addItemType(MultipleItem.ACTION, R.layout.sport_item_course_action);
         addItemType(MultipleItem.SHAREFULL,R.layout.community_item_share_full);
         addItemType(MultipleItem.COURSEFULL,R.layout.sport_item_course_full);
+        addItemType(MultipleItem.Me_mycourse_history,R.layout.me_item_mycourse_history);
+        addItemType(MultipleItem.Me_mycourse_collections,R.layout.me_item_mycourse_collections);
+        addItemType(MultipleItem.Me_mycourse_reserve,R.layout.me_item_mycourse_reserve);
+        addItemType(MultipleItem.Me_mycollections_articals,R.layout.me_item_mycollections_articals);
 
     }
 
@@ -167,6 +171,34 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
                         .load(item.getCourse().getBackgroundUrl())
                         .error(R.drawable.ic_load_pic_error)
                         .into((ImageView) helper.getView(R.id.item_course_img));
+            case MultipleItem.Me_mycourse_history:
+                helper//.setImageResource(R.id.meMycourseHistoryImg,item.getMe_mycourse_history().getImgUrls())
+                        .setText(R.id.meMycourseHistoryName1,item.getMe_mycourse_history().getHistoryName1())
+                        .setText(R.id.meMycourseHistoryName2,item.getMe_mycourse_history().getHistoryName2())
+                        .setText(R.id.meMycourseHistoryName3,item.getMe_mycourse_history().getHistoryName3())
+                        .setText(R.id.meMycourseHistoryTimes,item.getMe_mycourse_history().getHistoryTimes());
+
+                break;
+
+            case MultipleItem.Me_mycourse_collections:
+                helper.setText(R.id.meMycourseCollectionsName1,item.getMe_mycourse_collections().getCollectionsName1())
+                        .setText(R.id.meMycourseCollectionsName2,item.getMe_mycourse_collections().getCollectionsName2())
+                        .setText(R.id.meMycourseCollectionsName3,item.getMe_mycourse_collections().getCollectionsName3());
+
+                break;
+
+            case MultipleItem.Me_mycourse_reserve:
+                helper.setText(R.id.meMycourseReserveName1,item.getMe_mycourse_reserve().getReserveName1())
+                        .setText(R.id.meMycourseReserveName2,item.getMe_mycourse_reserve().getReserveName2())
+                        .setText(R.id.meMycourseReserveName3,item.getMe_mycourse_reserve().getReserveName3())
+                        .setText(R.id.meMycourseReserveTime,item.getMe_mycourse_reserve().getReserveTime());
+
+                break;
+
+            case MultipleItem.Me_mycollections_articals:
+                helper.setText(R.id.meMyCollectionArticalName,item.getMe_mycollections_articals().getArticalName())
+                        .setText(R.id.meMyCollectionsArticalTime,item.getMe_mycollections_articals().getArticalTime())
+                        .setText(R.id.meMyCollectionsArticalAuthor,item.getMe_mycollections_articals().getArticalAuthor());
                 break;
         }
     }

@@ -8,7 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/my_me_homepage_background"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
         <LinearLayout
             android:id="@+id/ll2"
@@ -21,24 +22,31 @@
             <Space
                 android:id="@+id/space1"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_weight="4" />
+                android:layout_height="match_parent"
+                android:layout_weight="5" />
 
             <ImageView
-                android:id="@+id/iv_share"
+                android:id="@+id/iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="5dp"
-                app:srcCompat="@drawable/delete" />
-
+                app:srcCompat="@drawable/ic_share" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="20" />
             <ImageView
-                android:id="@+id/iv_email"
+                android:id="@+id/imageView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="5dp"
-                app:srcCompat="@drawable/delete" />
+                app:srcCompat="@drawable/ic_envelope" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="20" />
         </LinearLayout>
 
 
@@ -90,7 +98,7 @@
                 android:paddingTop="30dp">
 
                 <TextView
-                    android:id="@+id/tv_name"
+                    android:id="@+id/textView16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="喝酸奶的云朵"
@@ -99,7 +107,7 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/iv_name"
+                    android:id="@+id/tv_name"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
                     android:scaleType="fitCenter"
@@ -122,8 +130,8 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/tv_focus_num"
-                        android:layout_width="28dp"
+                        android:id="@+id/tv_focus"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
@@ -131,17 +139,16 @@
                         android:textColor="#000000"
                         android:textSize="18sp"
                         android:textStyle="bold" />
-
                     <TextView
-                        android:id="@+id/tv_focus"
+                        android:id="@+id/textView36"
                         android:layout_width="wrap_content"
-                        android:layout_height="24dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="关注" />
 
                     <TextView
-                        android:id="@+id/tv_fans_num"
+                        android:id="@+id/tv_fans"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -152,7 +159,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tv_fans"
+                        android:id="@+id/textView34"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -160,7 +167,7 @@
                         android:text="粉丝" />
 
                     <TextView
-                        android:id="@+id/tv_m_num"
+                        android:id="@+id/tv_m"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -171,7 +178,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tv_m"
+                        android:id="@+id/textView32"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -201,21 +208,22 @@
                     <TextView
                         android:id="@+id/tv_bodydata"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:drawableTop="@mipmap/ic_launcher_round"
+                        android:drawableTop="@drawable/ic_body_data"
                         android:gravity="center_horizontal"
                         android:text="身体数据"
                         android:textColor="#000000"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        />
 
                     <TextView
                         android:id="@+id/tv_myclass"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:drawableTop="@mipmap/ic_launcher_round"
+                        android:drawableTop="@drawable/ic_my_courses"
                         android:gravity="center_horizontal"
                         android:text="我的课程"
                         android:textColor="#000000"
@@ -225,9 +233,9 @@
                     <TextView
                         android:id="@+id/tv_mycollection"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:drawableTop="@mipmap/ic_launcher_round"
+                        android:drawableTop="@drawable/ic_my_collections"
                         android:gravity="center_horizontal"
                         android:text="我的收藏"
                         android:textColor="#000000"
@@ -237,7 +245,7 @@
                     <TextView
                         android:id="@+id/tv_identify"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:drawableTop="@mipmap/ic_launcher_round"
                         android:gravity="center_horizontal"
@@ -251,6 +259,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
+
 
                     <TextView
                         android:id="@+id/tv_mall"
@@ -327,7 +336,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@android:drawable/star_big_on" />
+                        android:src="@android:drawable/star_big_on" />
 
                     <TextView
                         android:id="@+id/tv1_phone"
@@ -365,7 +374,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@android:drawable/star_big_on" />
+                        android:src="@android:drawable/star_big_on" />
 
                     <TextView
                         android:id="@+id/tv2_phone"
@@ -403,7 +412,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@android:drawable/star_big_on" />
+                        android:src="@android:drawable/star_big_on" />
 
                     <TextView
                         android:id="@+id/tv3_phone"
@@ -441,7 +450,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@android:drawable/star_big_on" />
+                        android:src="@android:drawable/star_big_on" />
 
                     <TextView
                         android:id="@+id/tv4_phone"

@@ -22,6 +22,10 @@
     <color name="white_background">#F9F9F9</color>
     <color name="orange_main">#FF9800</color>
     <color name="whitle_light_pagebg">#FAFAFA</color>
+    <color name="gray_tab">#CFCED5</color>
+    <color name="me_view_bg_color">#673AB7</color>
+    <color name="me_tab_unselect">#9B9B9B</color>
+    <color name="feedback">#F9F9F9</color>
 
     <color name="black_text">#101010</color>
 
