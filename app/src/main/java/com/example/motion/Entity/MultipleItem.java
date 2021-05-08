@@ -16,13 +16,13 @@ public class MultipleItem implements MultiItemEntity {
     public static final int SHAREABB = 6;
     public static final int ACTION = 7;
     public static final int ADDIMAGE = 8;
-    public static final int SHAREFULL = 10;
-    public static final int COURSEFULL = 11;
+    public static final int SHAREFULL = 9;
+    public static final int COURSEFULL = 10;
 
-    public static final int Me_mycourse_history = 12;
-    public static final int Me_mycourse_collections = 13;
-    public static final int Me_mycourse_reserve = 14;
-    public static final int Me_mycollections_articals = 15;
+    public static final int Me_mycourse_history = 11;
+    public static final int Me_mycourse_collections = 12;
+    public static final int Me_mycourse_reserve = 13;
+    public static final int Me_mycollections_articals = 14;
 
 
     private int itemType;
@@ -125,7 +125,7 @@ public class MultipleItem implements MultiItemEntity {
         return me_mycourse_collections;
     }
 
-    public com.example.motion.Entity.me_mycourse_history getMe_mycourse_history() {
+    public me_mycourse_history getMe_mycourse_history() {
         return me_mycourse_history;
     }
 }

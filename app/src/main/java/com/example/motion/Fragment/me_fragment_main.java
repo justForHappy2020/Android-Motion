@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.example.motion.Activity.me_activity_bindphone_usephone;
 import com.example.motion.Activity.me_activity_mycollections;
 import com.example.motion.Activity.me_activity_mycourse;
+import com.example.motion.Activity.my_activity_me_data;
 import com.example.motion.R;
 import com.makeramen.roundedimageview.RoundedImageView;
 
@@ -28,7 +29,7 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
     private TextView tv_myplace;
     private ImageView iv_myplace;//我的空间右箭头
     private TextView tv_name;
-    private ImageView iv_name;//名字右箭头
+    private ImageView iv_edit_profile;//名字右箭头
 
     private TextView tv_focus_num;// 关注数目
     private TextView tv_focus;//关注
@@ -86,7 +87,9 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
 
 
         tr_bindphone = view.findViewById(R.id.tr_bingphone);
+        iv_edit_profile = view.findViewById(R.id.iv_edit_profile);
         tr_bindphone.setOnClickListener(this);
+        iv_edit_profile.setOnClickListener(this);
 
         bodyData.setOnClickListener(this);
         myCourse.setOnClickListener(this);
@@ -128,6 +131,13 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
             case R.id.tr_setting:
                 //Intent intent = new Intent();//我的.我.设置
                 //startActivity(intent);
+                break;
+            case R.id.tv_bodydata:
+
+                break;
+            case R.id.iv_edit_profile:
+                intent = new Intent(getActivity(), my_activity_me_data.class);
+                startActivity(intent);
                 break;
         }
     }

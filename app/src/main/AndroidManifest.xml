@@ -74,6 +74,11 @@
             android:name=".Activity.register_activity_register"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.my_activity_me_data"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+
 
     </application>
 

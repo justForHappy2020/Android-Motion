@@ -98,7 +98,7 @@
                 android:paddingTop="30dp">
 
                 <TextView
-                    android:id="@+id/textView16"
+                    android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="喝酸奶的云朵"
@@ -107,11 +107,11 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/tv_name"
+                    android:id="@+id/iv_edit_profile"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/rightarrow" />
+                    android:src="@drawable/ic_me_edit_profile" />
 
                 <Space
                     android:layout_width="wrap_content"

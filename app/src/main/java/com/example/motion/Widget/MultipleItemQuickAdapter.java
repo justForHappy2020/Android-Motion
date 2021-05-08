@@ -1,6 +1,7 @@
 package com.example.motion.Widget;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -24,7 +25,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.motion.Entity.MultipleItem.COURSEFULL;
 
 public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseViewHolder> implements UpFetchModule, LoadMoreModule{
 
@@ -159,7 +159,7 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
                 imgUrls.add(item.getShareAbb().getImgUrls());
                 nineGridImageView.setImagesData(imgUrls);//后期需要改接口返回图片为list
                 break;
-            case COURSEFULL:
+            case MultipleItem.COURSEFULL:
                 helper.setText(R.id.item_course_name, item.getCourse().getCourseName())
                         .setText(R.id.item_course_tag, item.getCourse().getLabels());
                 if(item.getCourse().getIsOnline()== CourseTag.TAG_ONLINE_NO){
@@ -171,9 +171,9 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
                         .load(item.getCourse().getBackgroundUrl())
                         .error(R.drawable.ic_load_pic_error)
                         .into((ImageView) helper.getView(R.id.item_course_img));
+                break;
             case MultipleItem.Me_mycourse_history:
-                helper//.setImageResource(R.id.meMycourseHistoryImg,item.getMe_mycourse_history().getImgUrls())
-                        .setText(R.id.meMycourseHistoryName1,item.getMe_mycourse_history().getHistoryName1())
+                helper.setText(R.id.meMycourseHistoryName1,item.getMe_mycourse_history().getHistoryName1())
                         .setText(R.id.meMycourseHistoryName2,item.getMe_mycourse_history().getHistoryName2())
                         .setText(R.id.meMycourseHistoryName3,item.getMe_mycourse_history().getHistoryName3())
                         .setText(R.id.meMycourseHistoryTimes,item.getMe_mycourse_history().getHistoryTimes());
