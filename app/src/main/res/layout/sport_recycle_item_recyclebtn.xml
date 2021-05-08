@@ -14,7 +14,8 @@
         android:background="@drawable/button_radius_gray"
         android:text="全部"
         android:textColor="#615D64"
-        android:textSize="18sp">
+        android:textSize="18sp"
+        android:layout_gravity="center_horizontal">
 
     </Button>
 </LinearLayout>

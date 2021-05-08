@@ -49,7 +49,17 @@
     <string name="course_detail_failed_actions">加载动作失败</string>
     <string name="course_detail_failed_related_course">加载相关课程失败</string>
 
+    <!--课程筛选String-->
+    <string name="course_select_online">即将上线</string>
+
     <!--帖子界面String-->
     <string name="community_share_btn_follow">关注</string>
 
+    <!--个人界面String-->
+    <string-array name="me_choose_sex">
+        <item>男</item>
+        <item>女</item>
+    </string-array>
+    <string name="me_close_alert">对话框已关闭</string>
+    <string name="me_choose_sex1">请选择性别</string>
 </resources>

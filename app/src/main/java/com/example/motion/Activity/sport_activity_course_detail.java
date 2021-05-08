@@ -1,7 +1,6 @@
 package com.example.motion.Activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -188,7 +187,7 @@ public class sport_activity_course_detail extends Activity implements View.OnCli
                     sleep(3000);
                     Course testCourse = new Course();
                     testCourse.setCourseName("测试名称");
-                    testCourse.setDegree("3-6岁");
+                    //testCourse.setDegree("3-6岁");
                     testCourse.setBackgroundUrl("https://iknow-pic.cdn.bcebos.com/10dfa9ec8a136327fcb788d99f8fa0ec09fac786?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1/quality,q_85");
                     Log.i("initRelatedCourses","test_course_added");
                     relatedCoursesList.add(testCourse);

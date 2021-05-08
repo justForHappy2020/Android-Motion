@@ -44,7 +44,7 @@
 
 
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:orientation="horizontal">
@@ -59,7 +59,7 @@
                     android:paddingStart="20dp"
                     android:scrollbars="none"
                     tools:listitem="@layout/me_recycle_item_portraitbig" />
-            </LinearLayout>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

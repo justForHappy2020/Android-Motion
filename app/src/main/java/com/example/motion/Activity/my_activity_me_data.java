@@ -4,8 +4,10 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -17,7 +19,11 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +39,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Calendar;
 
 import static com.example.motion.Utils.ClientUploadUtils.upload;
 
@@ -43,6 +50,12 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
     private TextView tvName;
     private TextView tvSex;
     private TextView tvBirth;
+    private Button btnSave;
+
+    //dialog的组件
+    private EditText etInput_name;
+    private Button btnCancel;
+    private Button btnAgree;
 
     private SharedPreferences saveSP;
     private int httpCode;
@@ -51,6 +64,11 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
     private Context mContext;
     private AlertDialog alert = null;
     private AlertDialog.Builder builder = null;
+    private AlertDialog alert1 = null;
+    private AlertDialog.Builder builder1 = null;
+    private View alertView;
+    private String birth = "";
+    private String name = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,14 +83,28 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
         tvName = findViewById(R.id.tv_name);
         tvSex = findViewById(R.id.tv_sex);
         tvBirth  = findViewById(R.id.tv_birth);
+        btnSave = findViewById(R.id.btn_save);
+
         mContext = my_activity_me_data.this;
 
+        final LayoutInflater inflater = my_activity_me_data.this.getLayoutInflater();
+        alertView = inflater.inflate(R.layout.me_dialog_me_data, null,false);
+        etInput_name = alertView.findViewById(R.id.et_input_name);
+        btnCancel = alertView.findViewById(R.id.btn_cancel);
+        btnAgree = alertView.findViewById(R.id.btn_agree);
+        builder = new AlertDialog.Builder(mContext);
+        builder.setView(alertView);
+        builder.setCancelable(false);
+        alert = builder.create();
 
         ivBack.setOnClickListener(this);
         ivChangeportrait.setOnClickListener(this);
         tvName.setOnClickListener(this);
         tvSex.setOnClickListener(this);
         tvBirth.setOnClickListener(this);
+        btnCancel.setOnClickListener(this);
+        btnAgree.setOnClickListener(this);
+        btnSave.setOnClickListener(this);
 
         saveSP = getSharedPreferences("saved_photo",Context.MODE_PRIVATE);
     }
@@ -285,11 +317,48 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                 }
                 break;
             case R.id.tv_name:
+                alert.show();
                 break;
             case R.id.tv_sex:
-                final String[] sex = new String[]{"男", "女"};
+                final String[] sex = getResources().getStringArray(R.array.me_choose_sex);
+                alert1 = null;
+                builder1 = new AlertDialog.Builder(mContext);
+                alert1 = builder1.setTitle(getResources().getString(R.string.me_choose_sex1))
+                                .setSingleChoiceItems(sex, 0, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                        tvSex.setText(sex[which]);
+                                    }
+                                }).create();
+                alert1.show();
+                alert1.setCanceledOnTouchOutside(true);
                 break;
             case R.id.tv_birth:
+                birth = "";
+                Calendar calendar = Calendar.getInstance();
+                new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        birth = year+"-"+ (month+1)+"-"+dayOfMonth;
+                        tvBirth.setText(birth);
+                    }
+                }
+                        ,calendar.get(Calendar.YEAR)
+                        ,calendar.get(Calendar.MONTH)
+                        ,calendar.get(Calendar.DAY_OF_MONTH)).show();
+                break;
+            case R.id.btn_cancel:
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.me_close_alert), Toast.LENGTH_SHORT).show();
+                alert.dismiss();
+                break;
+            case R.id.btn_agree:
+                name = etInput_name.getText().toString();
+                alert.dismiss();
+                tvName.setText(name);
+                break;
+            case R.id.btn_save:
+                //http请求，保存数据。
                 break;
         }
     }
