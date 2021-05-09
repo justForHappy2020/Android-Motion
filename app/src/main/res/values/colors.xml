@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#673AB7</color>
+    <color name="colorPrimaryDark">#673AB7</color>
     <color name="colorAccent">#D81B60</color>
     <color name="white">#ffffffff</color>
     <color name="gray">#ff808080</color>
@@ -13,14 +13,26 @@
     <color name="transparent">#00FFFFFF</color>
 
     <color name="gray_text">#757575</color>
+    <color name="gray_light">#CFCED5</color>
 
     <color name="black_homepage_nav_text">#2B2C2E</color>
     <color name="black_overlay">#66000000</color>
     <color name="purple_main">#673AB7</color>
+    <color name="purple_light">#C0AEE1</color>
     <color name="white_background">#F9F9F9</color>
     <color name="orange_main">#FF9800</color>
     <color name="whitle_light_pagebg">#FAFAFA</color>
+    <color name="gray_tab">#CFCED5</color>
+    <color name="me_view_bg_color">#673AB7</color>
+    <color name="me_tab_unselect">#9B9B9B</color>
+    <color name="feedback">#F9F9F9</color>
+
+    <color name="black_text">#101010</color>
 
     <color name="main_bottom_navigation_gray_unselected">#CFCED5</color>
     <color name="main_bottom_navigation_bgcolor">#FFFFFF</color>
+
+    <color name="tag_unselected">#CFCED5</color>
+    <color name="tag_selected">#673AB7</color>
+
 </resources>

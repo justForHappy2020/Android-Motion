@@ -21,7 +21,7 @@
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
                     android:paddingStart="10dp"
-                    app:srcCompat="@drawable/leftarrow_white" />
+                    android:src="@drawable/leftarrow_white" />
 
                 <TextView
                     android:id="@+id/textView"
@@ -91,7 +91,7 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/rightarrow" />
+            android:src="@drawable/rightarrow" />
     </LinearLayout>
 
     <LinearLayout
@@ -127,7 +127,7 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/rightarrow" />
+            android:src="@drawable/rightarrow" />
     </LinearLayout>
 
     <LinearLayout
@@ -163,7 +163,7 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/rightarrow" />
+            android:src="@drawable/rightarrow" />
     </LinearLayout>
 
 

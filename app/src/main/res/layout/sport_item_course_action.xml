@@ -9,12 +9,12 @@
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/item_movement_img"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="120dp"
-        android:adjustViewBounds="false"
-        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
         app:riv_corner_radius="20dp"
-        android:src="@drawable/course_movement" />
+        tools:src="@drawable/course_movement" />
 
     <LinearLayout
         android:layout_width="match_parent"
