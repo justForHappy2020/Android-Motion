@@ -78,6 +78,9 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
     private AlertDialog.Builder builder;
     private String dialogMessage = "";
 
+    private int SelectedGroupId;
+    private int SelectedTagId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,6 +128,7 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
                         Toast.makeText(sport_activity_course_selection.this, "LOAD_COURSES_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
 
                     case LOAD_TAGS_SUCCESS:
+
                         for(int i=0;i<courseTagGroupList.size();i++){
                             for(int j=0;j<courseTagGroupList.get(i).getCourseTagList().size();j++){
                                 Log.d("LOAD_TAGS_SUCCESS","courseTagGroupList.get"+i+".getCourseTagList.get"+j+"= "+courseTagGroupList.get(i).getCourseTagList().get(j).getTagName());
@@ -142,6 +146,10 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
     }
 
     private void initData(){
+        SelectedGroupId = getIntent().getIntExtra("SelectedGroupId",1);
+        SelectedTagId = getIntent().getIntExtra("SelectedTagId",1);
+
+        Log.d("getIntent","SelectedGroupId="+SelectedGroupId+"SelectedTagId="+SelectedTagId);
 
         LinearLayoutManager layoutM = new LinearLayoutManager(getBaseContext());
         LinearLayoutManager layoutM2 = new LinearLayoutManager(getBaseContext());
@@ -187,6 +195,7 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
 
         courseTagGroupList = new ArrayList<>();
         tagsAdapter = new SelectionTagsAdapter(R.layout.sport_item_tag_menu,courseTagGroupList);
+        tagsAdapter.setSelectedGroupAndTagId(SelectedGroupId,SelectedTagId);
 
         rvCourseTags.setAdapter(tagsAdapter);
         rvCourseTags.setNestedScrollingEnabled(false);
@@ -374,6 +383,22 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
 
     }
 
+    private void setTagSelected(int SelectedGroupId,int SelectedTagId){
+        for(int i=0;i<courseTagGroupList.size();i++){
+            if(courseTagGroupList.get(i).getGroupId() == SelectedGroupId){
+                for(int j=0;j<courseTagGroupList.get(i).getCourseTagList().size();j++){
+                    if(courseTagGroupList.get(i).getCourseTagList().get(j).getTagId() == SelectedTagId){
+                        TabLayout groupRootView = (TabLayout)tagsAdapter.getViewByPosition(i,R.id.tl_tags);
+                        if(groupRootView.getTabAt(j) != null){
+                            groupRootView.getTabAt(j).select();
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
     private void startSelection(int page){
         String courseClassIdstr = "";
         Map params = new HashMap();
@@ -381,6 +406,10 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
 
         for(int i=0;i<courseTagGroupList.size();i++){
             TabLayout groupRootView = (TabLayout)tagsAdapter.getViewByPosition(i,R.id.tl_tags);
+            if(groupRootView == null){
+                return;
+            }
+
             Log.d("startSelection","Group_Name:"+courseTagGroupList.get(i).getGroupName()+" selected_tag_name:"+courseTagGroupList.get(i).getCourseTagList().get(groupRootView.getSelectedTabPosition()).getTagName());
 
             if(courseTagGroupList.get(i).getGroupId() > 0){
@@ -440,6 +469,7 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
             case R.id.btn_select:
                 //开始筛选课程
                 if(!courseTagGroupList.isEmpty()){
+
                     //test tool
                     dialogMessage="";
                     //end
@@ -455,6 +485,7 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
     protected void onStop() {
         super.onStop();
     }
+
 
     @Override
     protected void onDestroy() {

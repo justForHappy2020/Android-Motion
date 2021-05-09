@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="#F6F6F6"
     android:orientation="vertical">
 
@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="#FFFFFF"
-        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="15dp">
 
@@ -21,14 +20,15 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:fontFamily="sans-serif-black"
-            android:text="@string/top_titlebar_homepage"
+            android:gravity="center_vertical"
+            android:text="首页"
             android:textColor="@color/purple_main"
             android:textSize="24sp" />
 
 
     </LinearLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
@@ -62,7 +62,7 @@
                         android:id="@+id/ivNavItem1"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:src="@drawable/ic_homepage_nav_item_1" />
+                        android:src="@drawable/homepage_nav_1" />
 
                     <ImageView
                         android:id="@+id/ivNavItem2"
@@ -70,13 +70,13 @@
                         android:layout_height="48dp"
                         android:layout_marginLeft="60dp"
                         android:layout_marginRight="60dp"
-                        android:src="@drawable/ic_homepage_nav_item_2" />
+                        android:src="@drawable/homepage_nav_2" />
 
                     <ImageView
                         android:id="@+id/ivNavItem3"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:src="@drawable/ic_homepage_nav_item_3" />
+                        android:src="@drawable/homepage_nav_3" />
                 </TableRow>
 
                 <TableRow
@@ -89,7 +89,7 @@
                         android:id="@+id/tvNavItem1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/homepage_nav_item1"
+                        android:text="人气课"
                         android:textAlignment="center"
                         android:textAllCaps="false"
                         android:textColor="@color/black_homepage_nav_text" />
@@ -98,7 +98,7 @@
                         android:id="@+id/tvNavItem2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/homepage_nav_item2"
+                        android:text="亲子运动"
                         android:textAlignment="center"
                         android:textColor="@color/black_homepage_nav_text" />
 
@@ -106,7 +106,7 @@
                         android:id="@+id/tvNavItem3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/homepage_nav_item3"
+                        android:text="体育达标"
                         android:textAlignment="center"
                         android:textColor="@color/black_homepage_nav_text" />
                 </TableRow>
@@ -120,7 +120,7 @@
                         android:id="@+id/ivNavItem4"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:src="@drawable/ic_homepage_nav_item_4" />
+                        android:src="@drawable/homepage_nav_4" />
 
                     <ImageView
                         android:id="@+id/ivNavItem5"
@@ -128,13 +128,13 @@
                         android:layout_height="48dp"
                         android:layout_marginLeft="60dp"
                         android:layout_marginRight="60dp"
-                        android:src="@drawable/ic_homepage_nav_item_5" />
+                        android:src="@drawable/homepage_nav_5" />
 
                     <ImageView
                         android:id="@+id/ivNavItem6"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:src="@drawable/ic_homepage_nav_item_6" />
+                        android:src="@drawable/homepage_nav_6" />
                 </TableRow>
 
                 <TableRow
@@ -146,7 +146,7 @@
                         android:id="@+id/tvNavItem4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/homepage_nav_item4"
+                        android:text="网球"
                         android:textAlignment="center"
                         android:textAllCaps="false"
                         android:textColor="@color/black_homepage_nav_text" />
@@ -155,7 +155,7 @@
                         android:id="@+id/tvNavItem5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/homepage_nav_item5"
+                        android:text="篮球"
                         android:textAlignment="center"
                         android:textColor="@color/black_homepage_nav_text" />
 
@@ -163,77 +163,38 @@
                         android:id="@+id/tvNavItem6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/homepage_nav_item6"
+                        android:text="更多课程"
                         android:textAlignment="center"
                         android:textColor="@color/black_homepage_nav_text" />
                 </TableRow>
 
             </TableLayout>
 
-            <TableLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/homepage_types_radius_white"
-                android:elevation="30dp"
-                android:paddingBottom="10dp">
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="25dp"
+                android:paddingStart="20dp"
+                android:text="@string/homepage_subtitle_classification"
+                android:textColor="#000000"
+                android:textSize="26sp"
+                android:textStyle="bold" />
 
-                <TableRow
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_homepage_course_tag_group"
                     android:layout_width="match_parent"
-                    android:layout_height="67dp"
-                    android:background="@drawable/homepage_types_radius_purple"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/homepage_type_age"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/textView8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="60dp" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp">
-
-                    <TextView
-                        android:id="@+id/textView9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="60dp" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/tv_checkmore_age"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/homepage_checkmore_age"
-                        android:textAlignment="center"
-                        android:textColor="@color/black_homepage_nav_text"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-                </TableRow>
-            </TableLayout>
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/homepage_item_tag_group" />
+            </RelativeLayout>
 
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
 
 </LinearLayout>
