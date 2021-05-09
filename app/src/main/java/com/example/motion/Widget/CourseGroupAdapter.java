@@ -1,7 +1,9 @@
 package com.example.motion.Widget;
 
+import android.content.res.ColorStateList;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
@@ -23,7 +25,9 @@ public class CourseGroupAdapter extends BaseQuickAdapter<CourseTagGroup, BaseVie
 
     @Override
     protected void convert(BaseViewHolder helper, CourseTagGroup tagGroup) {
-
+        if(helper.getLayoutPosition()%2!=0){
+            helper.getView(R.id.ll_course_tag_group_header).setBackgroundResource(R.drawable.homepage_course_group_header_orange);
+        }
             helper.setText(R.id.tv_course_tag_group_name, tagGroup.getGroupName())
                     .setText(R.id.tv_course_name_1,tagGroup.getCourseTagList().get(0).getTagName())
                     .setText(R.id.tv_course_name_2,tagGroup.getCourseTagList().get(1).getTagName())
