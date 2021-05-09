@@ -47,13 +47,39 @@
 
         <activity android:name=".Activity.sport_activity_course_selection" />
 
+        <activity android:name=".Activity.me_activity_mycourse"/>
+        <activity android:name=".Activity.me_activity_mycollections"/>
+
         <activity android:name=".Activity.viewpager_activity_main">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Activity.me_activity_bindphone_usephone"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.me_activity_bindphone_changephone"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.me_activity_bindphone_usewechat"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.register_activity_register"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.my_activity_me_data"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+
+
     </application>
 
 </manifest>

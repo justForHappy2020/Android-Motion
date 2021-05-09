@@ -53,7 +53,6 @@ public class Action extends BaseModel implements Serializable {
     @ForeignKey(stubbedRelationship = true)
     private Course ownerCourse;
 
-
     public Action() {
 
     }

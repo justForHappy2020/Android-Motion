@@ -342,6 +342,14 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
         courseAdapter = new RelatedCoursesAdapter(R.layout.sport_item_course_related, relatedCoursesList);
         rvRelatedCourses.setLayoutManager(new LinearLayoutManager(this));
         rvRelatedCourses.setAdapter(courseAdapter);
+        courseAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                Intent intent = new Intent(getBaseContext(),sport_activity_course_detail.class);
+                intent.putExtra("courseId",relatedCoursesList.get(position).getCourseId());
+                startActivity(intent);
+            }
+        });
 
         final Thread getRelatedCourses = new Thread(new Runnable() {
             @Override
@@ -351,7 +359,8 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
                     sleep(3000);
                     Course testCourse = new Course();
                     testCourse.setCourseName("测试名称");
-                    testCourse.setTargetAge("3-6岁");
+                    testCourse.setCourseId(Long.valueOf(97));
+                    testCourse.setTargetAge("9-11岁");
                     testCourse.setBackgroundUrl("https://iknow-pic.cdn.bcebos.com/10dfa9ec8a136327fcb788d99f8fa0ec09fac786?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1/quality,q_85");
                     Log.i("initRelatedCourses","test_course_added");
                     relatedCoursesList.add(testCourse);

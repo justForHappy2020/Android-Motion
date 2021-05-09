@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="110dp"
+    android:layout_height="110dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/Riv_portrait_big"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:padding="10dp"
+        android:src="@mipmap/ic_launcher"
+        app:riv_oval="true"
+        android:layout_centerInParent="true">
+
+    </com.makeramen.roundedimageview.RoundedImageView>
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/Riv_portrait_small"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@mipmap/ic_launcher"
+        app:riv_border_color="#ffffff"
+        app:riv_border_width="4dp"
+        app:riv_oval="true"
+        android:paddingTop="20dp"
+        android:paddingStart="10dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="visible">
+<!--        visibility 更改可见性-->
+
+    </com.makeramen.roundedimageview.RoundedImageView>
+
+</RelativeLayout>
