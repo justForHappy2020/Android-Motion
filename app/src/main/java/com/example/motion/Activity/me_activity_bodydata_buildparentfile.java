@@ -41,7 +41,7 @@ public class me_activity_bodydata_buildparentfile  extends Activity implements V
         mContext = me_activity_bodydata_buildparentfile.this;
         ivBack = findViewById(R.id.iv_back);
         etParentsName = findViewById(R.id.et_parents_name);
-        tvParentsBrith = findViewById(R.id.tv_parents_birth);
+        tvParentsBrith = findViewById(R.id.tv_parents_brith);
         tvSexName = findViewById(R.id.tv_sex_name);
         tvFinish = findViewById(R.id.tv_finish);
 
@@ -58,27 +58,26 @@ public class me_activity_bodydata_buildparentfile  extends Activity implements V
             case R.id.iv_back:
                 finish();
                 break;
-            case R.id.tv_parents_birth:
+            case R.id.tv_parents_brith:
                 birth = "";
                 Calendar calendar = Calendar.getInstance();
                 new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         birth = year+"-"+ (month+1)+"-"+dayOfMonth;
-                        Toast.makeText(getApplicationContext(), birth, Toast.LENGTH_SHORT).show();
+                        tvParentsBrith.setText(birth);
                     }
                 }
                         ,calendar.get(Calendar.YEAR)
                         ,calendar.get(Calendar.MONTH)
                         ,calendar.get(Calendar.DAY_OF_MONTH)).show();
-                tvParentsBrith.setText(birth);
                 break;
             case R.id.tv_sex_name:
                 final String[] sex = getResources().getStringArray(R.array.me_choose_sex);
                 alert = null;
                 builder = new AlertDialog.Builder(mContext);
                 alert = builder.setTitle(getResources().getString(R.string.me_choose_sex1))
-                        .setSingleChoiceItems(sex, 0, new DialogInterface.OnClickListener() {
+                        .setSingleChoiceItems(sex, -1, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();

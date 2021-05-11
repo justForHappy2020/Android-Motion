@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.motion.Activity.me_activity_bindphone_usephone;
+import com.example.motion.Activity.me_activity_bodydata_main;
 import com.example.motion.Activity.me_activity_mycollections;
 import com.example.motion.Activity.me_activity_mycourse;
 import com.example.motion.Activity.my_activity_me_data;
@@ -133,7 +134,9 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
                 //startActivity(intent);
                 break;
             case R.id.tv_bodydata:
-
+                Log.d("onclick","tv_bodydata");
+                intent = new Intent(getActivity(), me_activity_bodydata_main.class);//我的.我.绑定手机号主页
+                startActivity(intent);
                 break;
             case R.id.iv_edit_profile:
                 intent = new Intent(getActivity(), my_activity_me_data.class);

@@ -1,5 +1,6 @@
 package com.example.motion.Widget;
 
+import android.view.View;
 import android.widget.ImageView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -54,13 +55,14 @@ public class DyxQuickAdapter extends BaseMultiItemQuickAdapter<DyxItem, BaseView
                 Glide.with(getContext()).load(item.getCourse().getBackgroundUrl()).placeholder(R.drawable.ic_placeholder).into((ImageView)helper.getView(R.id.iv_course_img));
                 break;
             case DyxItem.PORTRAIT:
-                Glide.with(getContext()).load(item.getUser().getHeadPortraitUrl()).placeholder(R.mipmap.ic_launcher).into((ImageView)helper.getView(R.id.Riv_portrait_big));
+                Glide.with(getContext()).load(item.getMember().getHeadPortraitUrl()).placeholder(R.mipmap.ic_launcher).into((ImageView)helper.getView(R.id.Riv_portrait_big));
+                helper.getView(R.id.Riv_portrait_small).setVisibility(View.GONE);
                 break;
             case DyxItem.HEALTHRECORD:
                 helper.setText(R.id.tv_time , item.getHealthRecord().getCreateTime())
-                        .setText(R.id.tv_weight , item.getHealthRecord().getWeight())
-                        .setText(R.id.tv_height , item.getHealthRecord().getHeight())
-                        .setText(R.id.et_age , item.getHealthRecord().getBmi());
+                        .setText(R.id.tv_weight , String.valueOf(item.getHealthRecord().getWeight()))
+                        .setText(R.id.tv_height , String.valueOf(item.getHealthRecord().getHeight()))
+                        .setText(R.id.tv_bmi , String.valueOf(item.getHealthRecord().getBmi()));
                 Glide.with(getContext()).load(item.getHealthRecord().getPictureURL()).placeholder(R.drawable.wechat).into((ImageView)helper.getView(R.id.imageView3));
                 break;
         }

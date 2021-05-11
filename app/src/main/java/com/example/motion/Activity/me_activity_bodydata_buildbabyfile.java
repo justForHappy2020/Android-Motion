@@ -73,7 +73,7 @@ public class me_activity_bodydata_buildbabyfile extends Activity implements View
                 alert = null;
                 builder = new AlertDialog.Builder(mContext);
                 alert = builder.setTitle(getResources().getString(R.string.me_choose_sex1))
-                        .setSingleChoiceItems(sex, 0, new DialogInterface.OnClickListener() {
+                        .setSingleChoiceItems(sex, -1, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
