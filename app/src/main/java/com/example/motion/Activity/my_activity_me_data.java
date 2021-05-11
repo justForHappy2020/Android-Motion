@@ -324,7 +324,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                 alert1 = null;
                 builder1 = new AlertDialog.Builder(mContext);
                 alert1 = builder1.setTitle(getResources().getString(R.string.me_choose_sex1))
-                                .setSingleChoiceItems(sex, 0, new DialogInterface.OnClickListener() {
+                                .setSingleChoiceItems(sex, -1, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
@@ -358,7 +358,9 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                 tvName.setText(name);
                 break;
             case R.id.btn_save:
+                Toast.makeText(getApplicationContext(), "保存个人信息", Toast.LENGTH_SHORT).show();
                 //http请求，保存数据。
+                finish();
                 break;
         }
     }

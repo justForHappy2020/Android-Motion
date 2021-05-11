@@ -11,6 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e74c2712-356b-4c87-b5b3-c90c3155dc18" name="Default Changelist" comment="">
 <<<<<<< HEAD
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../app-debug-20200429-1704.apk" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../app-debug-20210507-1716.apk" afterDir="false" />
@@ -104,6 +105,21 @@
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
 >>>>>>> 980d3c508bea6b6be32b7c1417aa3c12b2505d38
+=======
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/add.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bodydata_buildbabyfile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bodydata_buildbabyfile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bodydata_buildparentfile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bodydata_buildparentfile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bodydata_main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bodydata_main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/motion/Activity/my_activity_me_data.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/motion/Activity/my_activity_me_data.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/motion/Fragment/me_fragment_main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/motion/Fragment/me_fragment_main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/motion/Widget/DyxQuickAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/motion/Widget/DyxQuickAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/me_activity_bodydata_buildbabyfile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/me_activity_bodydata_buildbabyfile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/me_activity_bodydata_buildparentfile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/me_activity_bodydata_buildparentfile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/me_recycle_item_healthrecord.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/me_recycle_item_healthrecord.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/module_dialog_0420.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/module_dialog_0420.xml" afterDir="false" />
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -127,17 +143,27 @@
   </component>
   <component name="FileEditorManager">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Widget/DyxQuickAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="223">
               <caret line="56" selection-start-line="56" selection-end-line="56" />
+=======
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bodydata_buildparentfile.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1102">
+              <caret line="73" column="22" selection-start-line="73" selection-start-column="22" selection-end-line="73" selection-end-column="22" />
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+<<<<<<< HEAD
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/sport_activity_course_detail.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="665">
@@ -145,11 +171,18 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+=======
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bodydata_addfile.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="817">
+              <caret line="51" column="37" selection-start-line="51" selection-start-column="37" selection-end-line="51" selection-end-column="37" />
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+<<<<<<< HEAD
         <entry file="file://$PROJECT_DIR$/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="947">
@@ -223,11 +256,19 @@
                 <element signature="e#3443#3444#0" expanded="true" />
                 <element signature="e#3475#3476#0" expanded="true" />
               </folding>
+=======
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout/me_activity_bodydata_buildparentfile.xml">
+          <provider editor-type-id="android-designer2" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1919">
+              <caret line="101" column="45" selection-start-line="101" selection-start-column="29" selection-end-line="101" selection-end-column="45" />
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+<<<<<<< HEAD
         <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
           <provider editor-type-id="android-manifest" />
           <provider selected="true" editor-type-id="text-editor">
@@ -242,21 +283,65 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="383">
               <caret line="879" column="10" lean-forward="true" selection-start-line="879" selection-start-column="10" selection-end-line="879" selection-end-column="10" />
+=======
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout/me_activity_bodydata_buildbabyfile.xml">
+          <provider editor-type-id="android-designer2" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="836">
+              <caret line="44" column="17" selection-start-line="44" selection-start-column="17" selection-end-line="44" selection-end-column="17" />
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
     </leaf>
 =======
     <leaf>
+=======
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bodydata_main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="66" column="11" lean-forward="true" selection-start-line="66" selection-start-column="11" selection-end-line="66" selection-end-column="11" />
+            <state relative-caret-position="418">
+              <caret line="131" column="51" selection-start-line="131" selection-start-column="51" selection-end-line="131" selection-end-column="51" />
             </state>
           </provider>
-          <provider editor-type-id="android-manifest" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Widget/DyxQuickAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="551">
+              <caret line="58" column="81" selection-start-line="58" selection-start-column="81" selection-end-line="58" selection-end-column="81" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout/me_recycle_item_healthrecord.xml">
+          <provider editor-type-id="android-designer2" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="596">
+              <caret line="184" column="20" selection-start-line="184" selection-start-column="20" selection-end-line="184" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout/me_recycle_item_portraitbig.xml">
+          <provider editor-type-id="android-designer2" />
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout/me_recycle_item_portraitsmall.xml">
+          <provider editor-type-id="android-designer2" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="133">
+              <caret line="7" column="37" selection-start-line="7" selection-start-column="37" selection-end-line="7" selection-end-column="37" />
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -289,6 +374,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/src/main/java/com/example/motion/Utils/CourseCacheUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/motion/Entity/Member.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/motion/Entity/DyxItem.java" />
@@ -304,6 +390,8 @@
         <option value="$PROJECT_DIR$/../.gitignore" />
         <option value="$PROJECT_DIR$/../.idea/gradle.xml" />
 =======
+=======
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
         <option value="$PROJECT_DIR$/src/main/res/values/me_activity_bindphone_usewechat.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/register_activity_register.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bindphone_usewechat.java" />
@@ -313,13 +401,33 @@
         <option value="$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bindphone_usephone.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/alert_0420.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/me_activity_me_homepage.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/module_dialog_0420.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/motion/Activity/sport_activity_course_detail.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/motion/Entity/Course.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/motion/Widget/RelatedCoursesAdapter.java" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/motion/Activity/sport_activity_course_selection.java" />
         <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
+<<<<<<< HEAD
 >>>>>>> 980d3c508bea6b6be32b7c1417aa3c12b2505d38
+=======
+        <option value="$PROJECT_DIR$/src/main/res/layout/me_fragment_main.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/motion/Fragment/me_fragment_main.java" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/me_recycle_item_healthrecord.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/module_dialog_0420.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/me_activity_bodydata_buildparentfile.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/me_activity_bodydata_buildbabyfile.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bodydata_buildbabyfile.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bodydata_buildparentfile.java" />
+        <option value="$PROJECT_DIR$/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/motion/Activity/my_activity_me_data.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/motion/Widget/DyxQuickAdapter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bodydata_main.java" />
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
+<<<<<<< HEAD
 <<<<<<< HEAD
     <option name="x" value="-8" />
     <option name="y" value="-8" />
@@ -331,16 +439,25 @@
     <option name="width" value="1940" />
     <option name="height" value="1050" />
 >>>>>>> 980d3c508bea6b6be32b7c1417aa3c12b2505d38
+=======
+    <option name="x" value="1912" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       <pane id="PackagesPane" />
+=======
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -370,6 +487,7 @@
           <select />
         </subPane>
       </pane>
+<<<<<<< HEAD
 >>>>>>> 980d3c508bea6b6be32b7c1417aa3c12b2505d38
       <pane id="AndroidView">
         <subPane>
@@ -396,12 +514,31 @@
               <item name="motion" type="cbb59c9e:AndroidPsiDirectoryNode" />
 =======
               <item name="app" type="e9137016:NonAndroidModuleNode" />
+=======
+      <pane id="Scope">
+        <subPane subId="Scope 'Default Changelist'; set:Default Changelist; class com.intellij.packageDependencies.ChangeListScope">
+          <expand>
+            <path>
+              <item name="Motion" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="D:\android-keepMock-master\Motion" type="442cc68d:ScopeViewTreeModel$RootNode" />
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
             </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
             <path>
               <item name="Motion" type="1abcf292:AndroidViewProjectNode" />
+<<<<<<< HEAD
               <item name="app" type="e9137016:NonAndroidModuleNode" />
               <item name="java" type="f7eae187:NonAndroidSourceTypeNode" />
 >>>>>>> 980d3c508bea6b6be32b7c1417aa3c12b2505d38
+=======
+              <item name="app" type="feadf853:AndroidModuleNode" />
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
             </path>
             <path>
               <item name="Motion" type="1abcf292:AndroidViewProjectNode" />
@@ -411,6 +548,7 @@
           <select />
         </subPane>
       </pane>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <pane id="Scope">
         <subPane subId="Scope 'Default Changelist'; set:Default Changelist; class com.intellij.packageDependencies.ChangeListScope">
@@ -428,6 +566,9 @@
 =======
       <pane id="Scope" />
 >>>>>>> 980d3c508bea6b6be32b7c1417aa3c12b2505d38
+=======
+      <pane id="PackagesPane" />
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -435,24 +576,35 @@
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
 <<<<<<< HEAD
+<<<<<<< HEAD
     <property name="android.sdk.path" value="D:/../SDK/sdk29" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
 =======
     <property name="android.sdk.path" value="$PROJECT_DIR$/../../../../SDK/sdk29" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../lst" />
+=======
+    <property name="android.sdk.path" value="D:/../SDK/sdk29" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/res/drawable" />
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
     <property name="project.structure.last.edited" value="Modules" />
 >>>>>>> 980d3c508bea6b6be32b7c1417aa3c12b2505d38
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
   </component>
+<<<<<<< HEAD
   <component name="PsdUISettings">
     <option name="LAST_EDITED_BUILD_TYPE" value="release" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.example.motion.Entity" />
+=======
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\android-keepMock-master\Motion\app\src\main\res\drawable" />
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
     </key>
   </component>
   <component name="RunDashboard">
@@ -553,6 +705,7 @@
   </component>
   <component name="ToolWindowManager">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
@@ -564,6 +717,13 @@
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.23592493" />
 >>>>>>> 980d3c508bea6b6be32b7c1417aa3c12b2505d38
+=======
+    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.19936034" />
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -584,26 +744,50 @@
       <window_info anchor="bottom" id="Find" order="9" />
 =======
       <window_info anchor="bottom" id="Version Control" order="0" />
-      <window_info anchor="bottom" id="Logcat" order="1" />
+      <window_info anchor="bottom" id="Logcat" order="1" weight="0.29175705" />
       <window_info anchor="bottom" id="TODO" order="2" />
-      <window_info anchor="bottom" id="Terminal" order="3" weight="0.4016973" />
+      <window_info anchor="bottom" id="Terminal" order="3" weight="0.3383948" />
       <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" />
+<<<<<<< HEAD
       <window_info active="true" anchor="bottom" id="Build" order="5" visible="true" weight="0.25637394" />
       <window_info anchor="bottom" id="Android Profiler" order="6" show_stripe_button="false" />
 >>>>>>> 980d3c508bea6b6be32b7c1417aa3c12b2505d38
+=======
+      <window_info anchor="bottom" id="Build" order="5" weight="0.2516269" />
+      <window_info anchor="bottom" id="Android Profiler" order="6" />
+      <window_info anchor="bottom" id="Run" order="7" />
+      <window_info active="true" anchor="bottom" id="Debug" order="8" visible="true" weight="0.2624729" />
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
 <<<<<<< HEAD
+<<<<<<< HEAD
       <window_info anchor="right" id="Preview" order="5" weight="0.23827292" />
 =======
       <window_info anchor="right" id="Preview" order="5" weight="0.17158177" />
 >>>>>>> 980d3c508bea6b6be32b7c1417aa3c12b2505d38
+=======
+      <window_info anchor="right" id="Preview" order="5" weight="0.27985075" />
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
     </layout>
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bodydata_main.java</url>
+          <line>123</line>
+          <properties />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/viewpager_activity_main.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/sport_activity_course_action_detail.java" />
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/sport_activity_course_detail.xml">
@@ -622,11 +806,69 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/register_activity_register.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3420">
+          <caret line="201" lean-forward="true" selection-start-line="201" selection-end-line="201" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/me_activity_bindphone_usephone.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
+      <provider editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bindphone_usewechat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="303" column="34" selection-start-line="303" selection-start-column="34" selection-end-line="303" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bindphone_changephone.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="257" column="10" selection-start-line="257" selection-start-column="10" selection-end-line="257" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/alert_0420.xml" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_me_homepage.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/me_activity_me_homepage.xml" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bindphone_usephone.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="65" column="41" lean-forward="true" selection-start-line="65" selection-start-column="41" selection-end-line="65" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Entity/DyxItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="496">
+          <caret line="43" column="47" lean-forward="true" selection-start-line="43" selection-start-column="47" selection-end-line="43" selection-end-column="47" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/sport_activity_course_detail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/GlideTransforms/GlideCircleTransform.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="414">
           <caret line="36" column="43" lean-forward="true" selection-start-line="36" selection-start-column="43" selection-end-line="36" selection-end-column="43" />
         </state>
@@ -730,23 +972,75 @@
     <entry file="file://$PROJECT_DIR$/proguard-rules.pro">
 =======
       <provider editor-type-id="android-designer2" />
+=======
+        <state relative-caret-position="1121">
+          <caret line="59" selection-start-line="59" selection-end-line="59" />
+        </state>
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/application_include_bottom_navigation.xml" />
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/community_fragment_main.xml">
-      <provider editor-type-id="text-editor" />
-      <provider selected="true" editor-type-id="android-designer2" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Entity/Course.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2717">
+          <caret line="158" column="35" selection-start-line="158" selection-start-column="35" selection-end-line="158" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2184#2185#0" expanded="true" />
+            <element signature="e#2215#2216#0" expanded="true" />
+            <element signature="e#2263#2264#0" expanded="true" />
+            <element signature="e#2303#2304#0" expanded="true" />
+            <element signature="e#2330#2331#0" expanded="true" />
+            <element signature="e#2356#2357#0" expanded="true" />
+            <element signature="e#2458#2459#0" expanded="true" />
+            <element signature="e#2491#2492#0" expanded="true" />
+            <element signature="e#2543#2544#0" expanded="true" />
+            <element signature="e#2587#2588#0" expanded="true" />
+            <element signature="e#2625#2626#0" expanded="true" />
+            <element signature="e#2659#2660#0" expanded="true" />
+            <element signature="e#2713#2714#0" expanded="true" />
+            <element signature="e#2759#2760#0" expanded="true" />
+            <element signature="e#2792#2793#0" expanded="true" />
+            <element signature="e#2821#2822#0" expanded="true" />
+            <element signature="e#2865#2866#0" expanded="true" />
+            <element signature="e#2901#2902#0" expanded="true" />
+            <element signature="e#2937#2938#0" expanded="true" />
+            <element signature="e#2969#2970#0" expanded="true" />
+            <element signature="e#3019#3020#0" expanded="true" />
+            <element signature="e#3061#3062#0" expanded="true" />
+            <element signature="e#3102#3103#0" expanded="true" />
+            <element signature="e#3141#3142#0" expanded="true" />
+            <element signature="e#3291#3292#0" expanded="true" />
+            <element signature="e#3322#3323#0" expanded="true" />
+            <element signature="e#3367#3368#0" expanded="true" />
+            <element signature="e#3407#3408#0" expanded="true" />
+            <element signature="e#3443#3444#0" expanded="true" />
+            <element signature="e#3475#3476#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/community_item_post.xml" />
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/community_item_post_full.xml" />
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/community_item_post_simplified.xml" />
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/community_item_user_result.xml">
-      <provider editor-type-id="text-editor" />
-      <provider selected="true" editor-type-id="android-designer2" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Fragment/BaseNetworkFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/diet_fragment_main.xml">
-      <provider editor-type-id="text-editor" />
-      <provider selected="true" editor-type-id="android-designer2" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Fragment/community_fragment_main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+        </state>
+      </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/MotionApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/me_fragment_main.xml">
 >>>>>>> 980d3c508bea6b6be32b7c1417aa3c12b2505d38
       <provider selected="true" editor-type-id="text-editor" />
@@ -906,30 +1200,98 @@
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/homepage_fragment_main.xml">
       <provider editor-type-id="text-editor" />
       <provider selected="true" editor-type-id="android-designer2" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Widget/RelatedCoursesAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="31" column="74" selection-start-line="31" selection-start-column="74" selection-end-line="31" selection-end-column="74" />
+        </state>
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/sport_fragment_main.xml">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-266">
+          <caret line="25" column="65" selection-start-line="25" selection-start-column="65" selection-end-line="25" selection-end-column="65" />
+        </state>
+      </provider>
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/me_activity_me_data.xml">
       <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/sport_item_course_movement.xml" />
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/sport_item_course_related.xml">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/me_fragment_main.xml">
       <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="208" column="52" selection-start-line="208" selection-start-column="41" selection-end-line="208" selection-end-column="52" />
+        </state>
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/values/me_activity_bindphone_usewechat.xml" />
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/me_activity_bindphone_usewechat.xml">
-      <provider editor-type-id="text-editor" />
-      <provider selected="true" editor-type-id="android-designer2" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Entity/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/homepage_recycle_item.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Fragment/me_fragment_main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="451">
+          <caret line="138" column="38" lean-forward="true" selection-start-line="138" selection-start-column="38" selection-end-line="138" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/mipmap-hdpi/ic_launcher.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/mipmap-xxhdpi/ic_launcher_round.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/mipmap-mdpi/ic_launcher_round.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml">
       <provider selected="true" editor-type-id="text-editor" />
-      <provider editor-type-id="android-designer2" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/me_activity_bodydata_main.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Entity/Member.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/sport_activity_courseselection.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="63" column="55" selection-start-line="63" selection-start-column="55" selection-end-line="63" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/me_activity_me_data.xml">
 >>>>>>> 980d3c508bea6b6be32b7c1417aa3c12b2505d38
       <provider selected="true" editor-type-id="text-editor" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/sport_item_tag_menu.xml">
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
       <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="19" column="45" selection-start-line="19" selection-start-column="45" selection-end-line="19" selection-end-column="45" />
+        </state>
+      </provider>
     </entry>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/local.properties">
       <provider selected="true" editor-type-id="text-editor">
@@ -1031,10 +1393,16 @@
         <state relative-caret-position="123">
           <caret line="111" selection-start-line="111" selection-end-line="111" />
 >>>>>>> 980d3c508bea6b6be32b7c1417aa3c12b2505d38
+=======
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Widget/MultipleItemQuickAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1976">
+          <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
         </state>
       </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bodydata_main.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1083,87 +1451,146 @@
       <provider editor-type-id="text-editor">
         <state relative-caret-position="2280">
           <caret line="120" column="41" selection-start-line="120" selection-start-column="41" selection-end-line="120" selection-end-column="41" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/me_activity_bindphone_changephone.xml">
-      <provider editor-type-id="text-editor" />
-      <provider selected="true" editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/register_activity_register.java">
+=======
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Widget/CourseTagGroupListRequest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3420">
-          <caret line="201" lean-forward="true" selection-start-line="201" selection-end-line="201" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="76">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/me_activity_bindphone_usephone.xml">
-      <provider editor-type-id="text-editor" />
-      <provider selected="true" editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bindphone_usewechat.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Widget/SelectionTagsAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="303" column="34" selection-start-line="303" selection-start-column="34" selection-end-line="303" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="285">
+          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bindphone_changephone.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="257" column="10" selection-start-line="257" selection-start-column="10" selection-end-line="257" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/alert_0420.xml" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_me_homepage.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/sport_activity_course_selection.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="437">
-          <caret line="310" column="12" selection-start-line="310" selection-start-column="12" selection-end-line="310" selection-end-column="12" />
+          <caret line="146" column="10" lean-forward="true" selection-start-line="146" selection-start-column="10" selection-end-line="146" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/me_activity_me_homepage.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/sport_activity_course_completed.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="502" column="33" lean-forward="true" selection-start-line="502" selection-start-column="33" selection-end-line="502" selection-end-column="33" />
+        <state relative-caret-position="76">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/me_dialog_me_data.xml">
       <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/module_dialog_0420.xml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="54" column="60" lean-forward="true" selection-start-line="54" selection-start-column="60" selection-end-line="54" selection-end-column="60" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bindphone_usephone.java">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="65" column="41" lean-forward="true" selection-start-line="65" selection-start-column="41" selection-end-line="65" selection-end-column="41" />
+        <state relative-caret-position="200">
+          <caret line="22" column="8" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="66" column="11" lean-forward="true" selection-start-line="66" selection-start-column="11" selection-end-line="66" selection-end-column="11" />
+        <state relative-caret-position="266">
+          <caret line="65" column="48" selection-start-line="65" selection-start-column="48" selection-end-line="65" selection-end-column="48" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/my_activity_me_data.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6118">
+          <caret line="363" column="22" selection-start-line="363" selection-start-column="22" selection-end-line="363" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bodydata_buildbabyfile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1387">
+          <caret line="87" column="31" selection-start-line="87" selection-start-column="31" selection-end-line="87" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bodydata_buildparentfile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1102">
+          <caret line="73" column="22" selection-start-line="73" selection-start-column="22" selection-end-line="73" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bodydata_addfile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="817">
+          <caret line="51" column="37" selection-start-line="51" selection-start-column="37" selection-end-line="51" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/me_activity_bodydata_buildparentfile.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1919">
+          <caret line="101" column="45" selection-start-line="101" selection-start-column="29" selection-end-line="101" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/me_activity_bodydata_buildbabyfile.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="836">
+          <caret line="44" column="17" selection-start-line="44" selection-start-column="17" selection-end-line="44" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/me_recycle_item_portraitbig.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/me_recycle_item_portraitsmall.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="37" selection-start-line="7" selection-start-column="37" selection-end-line="7" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/me_recycle_item_healthrecord.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="596">
+          <caret line="184" column="20" selection-start-line="184" selection-start-column="20" selection-end-line="184" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/drawable-v24/wechat.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/drawable-v24/ic_placeholder.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Widget/DyxQuickAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="551">
+          <caret line="58" column="81" selection-start-line="58" selection-start-column="81" selection-end-line="58" selection-end-column="81" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/motion/Activity/me_activity_bodydata_main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="131" column="51" selection-start-line="131" selection-start-column="51" selection-end-line="131" selection-end-column="51" />
+        </state>
+      </provider>
+<<<<<<< HEAD
       <provider editor-type-id="android-manifest" />
 >>>>>>> 980d3c508bea6b6be32b7c1417aa3c12b2505d38
+=======
+>>>>>>> aa97475b01c05f42ed4c1f0c671d25d15ec96313
     </entry>
   </component>
 </project>
