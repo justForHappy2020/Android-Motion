@@ -194,7 +194,7 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
                                     course.setTargetAge(jsonObject2.getString("targetAge"));
                                     course.setIsOnline(jsonObject2.getInt("onLine"));
 
-                                    JSONArray JSONArrayLabels = jsonObject2.getJSONArray("labelsname");
+                                    JSONArray JSONArrayLabels = jsonObject2.getJSONArray("labelsName");
                                     String labels = "";
                                     for(int j=0;j<JSONArrayLabels.length();j++){
                                         labels += (JSONArrayLabels.get(j)+"/");
