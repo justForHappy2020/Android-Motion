@@ -1,6 +1,5 @@
 package com.example.motion.Activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,13 +16,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
@@ -32,7 +28,6 @@ import com.example.motion.Entity.CourseTag;
 import com.example.motion.Entity.CourseTagGroup;
 import com.example.motion.Entity.MultipleItem;
 import com.example.motion.R;
-import com.example.motion.Utils.HttpUtils;
 import com.example.motion.Widget.MultipleItemQuickAdapter;
 import com.example.motion.Widget.MyStringRequest;
 import com.example.motion.Widget.SelectionTagsAdapter;
@@ -42,7 +37,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -77,6 +71,7 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
     //test tool
     private AlertDialog.Builder builder;
     private String dialogMessage = "";
+    private int[] preSelectedCourseTagIds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +118,7 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
                     case LOAD_COURSES_FAILED:
                         Log.d("HANDLER","LOAD_COURSES_FAILED");
                         Toast.makeText(sport_activity_course_selection.this, "LOAD_COURSES_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
-
+                        break;
                     case LOAD_TAGS_SUCCESS:
                         for(int i=0;i<courseTagGroupList.size();i++){
                             for(int j=0;j<courseTagGroupList.get(i).getCourseTagList().size();j++){
@@ -142,6 +137,9 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
     }
 
     private void initData(){
+        preSelectedCourseTagIds = new int[2];
+        preSelectedCourseTagIds[0] = getIntent().getIntExtra("SelectedGroupId",0);
+        preSelectedCourseTagIds[1] = getIntent().getIntExtra("SelectedTagId",0);
 
         LinearLayoutManager layoutM = new LinearLayoutManager(getBaseContext());
         LinearLayoutManager layoutM2 = new LinearLayoutManager(getBaseContext());
@@ -187,6 +185,7 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
 
         courseTagGroupList = new ArrayList<>();
         tagsAdapter = new SelectionTagsAdapter(R.layout.sport_item_tag_menu,courseTagGroupList);
+        tagsAdapter.setPreSelectedCourseTagIds(preSelectedCourseTagIds);
 
         rvCourseTags.setAdapter(tagsAdapter);
         rvCourseTags.setNestedScrollingEnabled(false);
@@ -296,8 +295,8 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
 
     private void getHttpCourseTags() {
         courseTagGroupList = new ArrayList<>();
-        //String url ="https://www.fastmock.site/mock/318b7fee143da8b159d3e46048f8a8b3/api/getSorts";
-        String url ="http://10.34.25.45:8080/api/CourseClass/getSorts";
+        String url ="https://www.fastmock.site/mock/318b7fee143da8b159d3e46048f8a8b3/api/getSorts";
+        //String url ="http://10.34.25.45:8080/api/CourseClass/getSorts";
 
         //test tool
         dialogMessage += "\n\ngetHttpCourseTags requestingUrl:\n" + url;

@@ -21,8 +21,14 @@ import java.util.List;
 
 public class SelectionTagsAdapter extends BaseQuickAdapter<CourseTagGroup, BaseViewHolder>{
 
+    private int[] preSelectedCourseTagIds;
+
     public SelectionTagsAdapter(@LayoutRes int layoutResId, @Nullable List<CourseTagGroup> courseTagGroups) {
         super(layoutResId, courseTagGroups);
+    }
+
+    public void setPreSelectedCourseTagIds(int[] preSelectedCourseTagIds) {
+        this.preSelectedCourseTagIds = preSelectedCourseTagIds;
     }
 
     @Override
@@ -33,13 +39,13 @@ public class SelectionTagsAdapter extends BaseQuickAdapter<CourseTagGroup, BaseV
 
         for(int i=0;i<tagGroup.getCourseTagList().size();i++){
             tabLayout.addTab(tabLayout.newTab().setText(tagGroup.getCourseTagList().get(i).getTagName()));
-            /*
-            TabLayout.Tab tab = tabLayout.getTabAt(i);
-            Log.d("SelectionTagsAdapter","tagGroup.getCourseTagList().get(i).getTagName()="+tagGroup.getCourseTagList().get(i).getTagName());
-            if (tab != null) {
-                tab.setText(tagGroup.getCourseTagList().get(i).getTagName());
+
+            if(preSelectedCourseTagIds != null && tagGroup.getGroupId() == preSelectedCourseTagIds[0] && tagGroup.getCourseTagList().get(i).getTagId() == preSelectedCourseTagIds[1]){
+                TabLayout.Tab tab = tabLayout.getTabAt(i);
+                if (tab != null) {
+                   tab.select();
+                }
             }
-             */
         }
 
     }
