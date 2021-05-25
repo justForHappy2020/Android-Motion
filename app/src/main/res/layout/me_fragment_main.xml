@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="5dp"
-                app:srcCompat="@drawable/ic_share" />
+                android:src="@drawable/ic_share" />
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="5dp"
-                app:srcCompat="@drawable/ic_envelope" />
+                android:src="@drawable/ic_envelope" />
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -98,7 +98,7 @@
                 android:paddingTop="30dp">
 
                 <TextView
-                    android:id="@+id/textView16"
+                    android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="喝酸奶的云朵"
@@ -107,11 +107,11 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/tv_name"
+                    android:id="@+id/iv_edit_profile"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/rightarrow" />
+                    android:src="@drawable/ic_me_edit_profile" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -139,7 +139,6 @@
                         android:textColor="#000000"
                         android:textSize="18sp"
                         android:textStyle="bold" />
-
                     <TextView
                         android:id="@+id/textView36"
                         android:layout_width="wrap_content"
@@ -261,10 +260,11 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1">
 
+
                     <TextView
                         android:id="@+id/tv_mall"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:drawableTop="@drawable/ic_point_store"
                         android:gravity="center_horizontal"
@@ -276,7 +276,7 @@
                     <TextView
                         android:id="@+id/tv_dailytasks"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:drawableTop="@drawable/ic_daily_mission"
                         android:gravity="center_horizontal"
@@ -288,7 +288,7 @@
                     <TextView
                         android:id="@+id/tv_ordercenter"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:drawableTop="@drawable/ic_order_center"
                         android:gravity="center_horizontal"
@@ -300,7 +300,7 @@
                     <TextView
                         android:id="@+id/tv_mydownload"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:drawableTop="@drawable/ic_my_download"
                         android:gravity="center_horizontal"
@@ -324,6 +324,7 @@
                 android:paddingEnd="20dp">
 
                 <TableRow
+                    android:id="@+id/tr_bingphone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
@@ -335,7 +336,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/ic_phone" />
+                        android:src="@drawable/ic_phone" />
 
                     <TextView
                         android:id="@+id/tv1_phone"
@@ -357,10 +358,11 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/rightarrow" />
+                        android:src="@drawable/rightarrow" />
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/tr_myadress"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
@@ -372,7 +374,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/ic_location" />
+                        android:src="@drawable/ic_location" />
 
                     <TextView
                         android:id="@+id/tv2_phone"
@@ -394,10 +396,11 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/rightarrow" />
+                        android:src="@drawable/rightarrow" />
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/tr_help"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
@@ -409,7 +412,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/ic_question" />
+                        android:src="@drawable/ic_question" />
 
                     <TextView
                         android:id="@+id/tv3_phone"
@@ -431,10 +434,11 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/rightarrow" />
+                        android:src="@drawable/rightarrow" />
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/tr_setting"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
@@ -446,7 +450,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/ic_setting" />
+                        android:src="@drawable/ic_setting" />
 
                     <TextView
                         android:id="@+id/tv4_phone"
@@ -468,7 +472,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/rightarrow" />
+                        android:src="@drawable/rightarrow" />
                 </TableRow>
 
             </TableLayout>
@@ -483,23 +487,24 @@
         android:paddingTop="40dp">
 
         <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/Riv_portrait"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_weight="1"
             android:paddingStart="20dp"
             android:src="@drawable/head_img"
             app:riv_border_color="#ffffff"
-            app:riv_border_width="1dp"
+            app:riv_border_width="2dp"
             app:riv_oval="true">
 
         </com.makeramen.roundedimageview.RoundedImageView>
+
+
 
         <Space
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="12" />
     </LinearLayout>
-
-
 
 </RelativeLayout>

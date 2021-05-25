@@ -14,11 +14,10 @@ public class MultipleItem implements MultiItemEntity {
     public static final int MASONRYPOST = 4;
     public static final int USER = 5;
     public static final int SHAREABB = 6;
-
     public static final int ACTION = 7;
     public static final int ADDIMAGE = 8;
-    public static final int NORMCOURSE = 9;
-    public static final int SHAREFULL = 10;
+    public static final int SHAREFULL = 9;
+    public static final int COURSEFULL = 10;
 
     public static final int Me_mycourse_history = 11;
     public static final int Me_mycourse_collections = 12;
@@ -32,7 +31,6 @@ public class MultipleItem implements MultiItemEntity {
     private User user;
     private String text;
     private Action action;
-    private AddImage addimage;
     private NineGridImageViewAdapter<String> nineGridAdapter;
     private me_mycourse_history me_mycourse_history;
     private me_mycourse_collections me_mycourse_collections;
@@ -63,10 +61,6 @@ public class MultipleItem implements MultiItemEntity {
         this.action = action;
     }
 
-    public MultipleItem(int itemType,AddImage addimage) {
-        this.itemType = itemType;
-        this.addimage = addimage;
-    }
 
     public MultipleItem(int itemType, ShareAbb shareAbb, NineGridImageViewAdapter<String> nineGridAdapter) {
         this.itemType = itemType;
@@ -115,8 +109,6 @@ public class MultipleItem implements MultiItemEntity {
         return action;
     }
 
-    public AddImage getAddimage() { return addimage;}
-
     public NineGridImageViewAdapter<String> getNineGridAdapter(){
         return nineGridAdapter;
     }
@@ -133,7 +125,7 @@ public class MultipleItem implements MultiItemEntity {
         return me_mycourse_collections;
     }
 
-    public com.example.motion.Entity.me_mycourse_history getMe_mycourse_history() {
+    public me_mycourse_history getMe_mycourse_history() {
         return me_mycourse_history;
     }
 }

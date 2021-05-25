@@ -49,7 +49,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="20" />
                     <ImageView
-                        android:id="@+id/diet_main_search"
+                        android:id="@+id/sport_main_search"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center_vertical"
@@ -288,17 +288,44 @@
                     android:textColor="#673AB7"/>
 
             </LinearLayout>
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content">-->
+
+<!--                <com.haibin.calendarview.CalendarView-->
+<!--                    android:id="@+id/calendarView"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@color/white"-->
+<!--                    app:calendar_height="50dp"-->
+<!--                    app:current_month_text_color="#101010"-->
+<!--                    app:current_month_lunar_text_color="#CFCFCF"-->
+<!--                    app:min_year="2004"-->
+<!--                    app:other_month_text_color="#e1e1e1"-->
+<!--                    app:scheme_text="假"-->
+<!--                    app:scheme_text_color="#333"-->
+<!--                    app:scheme_theme_color="@color/purple_main"-->
+<!--                    app:selected_text_color="@color/white"-->
+<!--                    app:selected_theme_color="#D1C4E9"-->
+<!--                    app:current_day_text_color="@color/gray"-->
+<!--                    app:week_start_with="mon"-->
+<!--                    app:week_background="#fff"-->
+<!--                    app:month_view_show_mode="mode_only_current"-->
+<!--                    app:lunar_text_size="0dp"-->
+<!--                    app:week_text_color="#111"-->
+<!--                    app:calendar_padding="25dp"/>-->
+
+<!--            </LinearLayout>-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:id="@+id/colorfulCalendar">
-<!--                <include layout="@layout/activity_colorful_calendar"/>-->
+                <!--                <include layout="@layout/activity_colorful_calendar"/>-->
                 <RelativeLayout
                     android:id="@+id/rl_tool"
                     android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:background="@color/colorPrimary">
+                    android:layout_height="52dp">
 
                     <TextView
                         android:id="@+id/tv_month_day"

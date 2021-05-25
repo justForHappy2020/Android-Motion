@@ -35,16 +35,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp">
+            android:orientation="vertical">
 
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="27dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginBottom="27dp"
                 android:background="@drawable/homepage_nav_radius_white"
+                android:elevation="30dp"
                 android:gravity="center"
                 android:paddingLeft="35dp"
                 android:paddingTop="20dp"
@@ -183,6 +184,8 @@
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/homepage_types_radius_white"
                 android:paddingBottom="10dp"
                 android:layout_marginTop="20dp">
@@ -419,9 +422,10 @@
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/homepage_types_radius_white"
-                android:paddingBottom="10dp"
-                android:layout_marginTop="20dp">
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/homepage_types_radius_white">
 
                 <TableRow
                     android:layout_width="match_parent"
@@ -431,7 +435,7 @@
                     android:paddingTop="16dp">
 
                     <LinearLayout
-                        android:layout_width="99dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:background="#FF9800"
@@ -462,13 +466,13 @@
                     android:layout_height="match_parent">
 
                     <LinearLayout
-                        android:layout_width="400dp"
+                        android:layout_width="match_parent"
                         android:layout_height="90dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight="2"
+                            android:adjustViewBounds="true"
                             android:src="@drawable/picture2"
                             app:srcCompat="@mipmap/ic_launcher" />
 
@@ -487,7 +491,7 @@
                                 android:text="热身运动系列"
                                 android:textColor="#000000"
                                 android:textSize="20dp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
 
                         </LinearLayout>
@@ -499,7 +503,6 @@
                             android:layout_centerVertical="true"
                             android:layout_gravity="center"
                             android:layout_marginEnd="10dp"
-                            android:layout_weight="4"
                             android:background="@null"
                             android:scaleType="fitCenter"
                             app:srcCompat="@drawable/rightarrow" />
@@ -509,14 +512,15 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="60dp">
+
                     <LinearLayout
-                        android:layout_width="400dp"
+                        android:layout_width="match_parent"
                         android:layout_height="90dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight="2"
+                            android:adjustViewBounds="true"
                             android:src="@drawable/picture1"
                             app:srcCompat="@mipmap/ic_launcher" />
 
@@ -535,7 +539,7 @@
                                 android:text="心肺耐力、有氧系列"
                                 android:textColor="#000000"
                                 android:textSize="20dp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
 
                         </LinearLayout>
@@ -558,14 +562,15 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="60dp">
+
                     <LinearLayout
-                        android:layout_width="400dp"
+                        android:layout_width="match_parent"
                         android:layout_height="90dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight="2"
+                            android:adjustViewBounds="true"
                             android:src="@drawable/picture1"
                             app:srcCompat="@mipmap/ic_launcher" />
 
@@ -584,7 +589,7 @@
                                 android:text="协调、平衡能力系列"
                                 android:textColor="#000000"
                                 android:textSize="20dp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
 
                         </LinearLayout>
@@ -623,9 +628,9 @@
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="20dp"
                 android:background="@drawable/homepage_types_radius_white"
-                android:paddingBottom="10dp"
-                android:layout_marginTop="20dp">
+                android:paddingBottom="10dp">
 
                 <TableRow
                     android:layout_width="match_parent"
@@ -635,7 +640,7 @@
                     android:paddingTop="16dp">
 
                     <LinearLayout
-                        android:layout_width="99dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/homepage_homepage_ll_age"
@@ -667,13 +672,13 @@
                     android:layout_height="match_parent">
 
                     <LinearLayout
-                        android:layout_width="400dp"
+                        android:layout_width="match_parent"
                         android:layout_height="90dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight="2"
+                            android:adjustViewBounds="true"
                             android:src="@drawable/picture2"
                             app:srcCompat="@mipmap/ic_launcher" />
 
@@ -692,18 +697,15 @@
                                 android:text="坐位体前屈系列课程"
                                 android:textColor="#000000"
                                 android:textSize="20dp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
                         <ImageButton
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
                             android:layout_gravity="center"
                             android:layout_marginEnd="10dp"
-                            android:layout_weight="4"
                             android:background="@null"
                             android:scaleType="fitCenter"
                             app:srcCompat="@drawable/rightarrow" />
@@ -713,15 +715,16 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="60dp">
+
                     <LinearLayout
-                        android:layout_width="400dp"
+                        android:layout_width="match_parent"
                         android:layout_height="90dp">
 
                         <ImageView
                             android:id="@+id/imageView5"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight="2"
+                            android:adjustViewBounds="true"
                             android:src="@drawable/picture1"
                             app:srcCompat="@mipmap/ic_launcher" />
 
@@ -741,7 +744,7 @@
                                 android:text="立定跳远系列课程"
                                 android:textColor="#000000"
                                 android:textSize="20dp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -764,21 +767,23 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="60dp">
+
                     <LinearLayout
-                        android:layout_width="400dp"
-                        android:layout_height="90dp">
+                        android:layout_width="match_parent"
+                        android:layout_height="90dp"
+                        android:gravity="center_vertical">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight="2"
+                            android:adjustViewBounds="true"
                             android:src="@drawable/picture1"
                             app:srcCompat="@mipmap/ic_launcher" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:gravity="center_vertical"
                             android:orientation="vertical">
 
                             <TextView
@@ -786,11 +791,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="15dp"
                                 android:layout_toEndOf="@id/imageView5"
-                                android:paddingTop="20dp"
                                 android:text="实心球投掷系列课程"
                                 android:textColor="#000000"
                                 android:textSize="20dp"
-                                android:textStyle="bold"/>
+                                android:textStyle="bold" />
 
 
                         </LinearLayout>
@@ -798,11 +802,8 @@
                         <ImageButton
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
                             android:layout_gravity="center"
                             android:layout_marginEnd="10dp"
-                            android:layout_weight="4"
                             android:background="@null"
                             android:scaleType="fitCenter"
                             app:srcCompat="@drawable/rightarrow" />

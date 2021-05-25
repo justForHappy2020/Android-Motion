@@ -4,8 +4,6 @@ package com.example.motion.Activity.calendar;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -19,6 +17,7 @@ import com.haibin.calendarview.CalendarView;
 
 import java.util.HashMap;
 import java.util.Map;
+
 public class ColorfulActivity extends BaseActivity implements
         CalendarView.OnCalendarSelectListener,
         CalendarView.OnYearChangeListener,

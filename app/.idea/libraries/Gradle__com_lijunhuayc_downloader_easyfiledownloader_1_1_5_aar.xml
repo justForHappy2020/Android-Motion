@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: com.lijunhuayc.downloader:easyfiledownloader:1.1.5@aar">
+    <CLASSES>
+      <root url="jar://D:/gradle-5.4.1/respositry/caches/transforms-2/files-2.1/00b45fdcc92bd6e5d93344831a172e92/easyfiledownloader-1.1.5/jars/classes.jar!/" />
+      <root url="file://D:/gradle-5.4.1/respositry/caches/transforms-2/files-2.1/00b45fdcc92bd6e5d93344831a172e92/easyfiledownloader-1.1.5/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://D:/gradle-5.4.1/respositry/caches/modules-2/files-2.1/com.lijunhuayc.downloader/easyfiledownloader/1.1.5/54344443ca016158e548ae5cee2e95e4de8eb260/easyfiledownloader-1.1.5-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/gradle-5.4.1/respositry/caches/modules-2/files-2.1/com.lijunhuayc.downloader/easyfiledownloader/1.1.5/74c9d1565219632c3549a6cf58407d3d840593d7/easyfiledownloader-1.1.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -20,7 +20,7 @@
 
         <ImageView
             android:layout_marginLeft="20dp"
-            android:id="@+id/meMycollectionsImg"
+            android:id="@+id/meMycollectionsArticalImg"
             android:layout_width="60dp"
             android:layout_height="50dp"
             android:layout_gravity="center_vertical"

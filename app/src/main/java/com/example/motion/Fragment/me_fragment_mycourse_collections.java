@@ -1,7 +1,12 @@
 package com.example.motion.Fragment;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,137 +18,201 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
+import com.example.motion.Activity.sport_activity_course_detail;
+import com.example.motion.Activity.sport_activity_course_selection;
+import com.example.motion.Entity.Course;
 import com.example.motion.Entity.MultipleItem;
 import com.example.motion.Entity.me_mycourse_collections;
 import com.example.motion.R;
-import com.example.motion.Utils.HttpUtils;
 import com.example.motion.Widget.MultipleItemQuickAdapter;
+import com.example.motion.Widget.MyStringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
-public class me_fragment_mycourse_collections extends Fragment {
+public class me_fragment_mycourse_collections extends BaseNetworkFragment {
+    private final int LOAD_COURSES_SUCCESS = 1;
+    private final int LOAD_COURSES_FAILED = 3;
 
-    private List<List> dataSet = new ArrayList();
-    private List<MultipleItem> collectionsList = new ArrayList();
+    private final int COURSE_NUM_IN_ONE_PAGE = 10;
 
-    MultipleItemQuickAdapter quickAdapter;
-    RecyclerView recyclerView;
-    private int httpcode;
-    private int currentPage; //要分页查询的页面
-    private Boolean hasNext;
-    private String token = "123";
-    private int TOTAL_PAGES;
+    private RecyclerView rvCourseCollected;
+    private MultipleItemQuickAdapter courseAdapter;
+
+    private List<MultipleItem> showingCourseList;
+
+
+
+    private View emptyView;
+    private Handler handler;
+
+    private int currentPage = 1;//要分页查询的页面
+    private boolean hasNext;
+
+    private AlertDialog.Builder builder;
+    private String dialogMessage = "";
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.me_fragment_mycourse_collections,container,false);
+
         initView(view);
+        initHandler();
+        builder = new AlertDialog.Builder(getActivity());
+        getHttpCourse(new HashMap());
+        initData();
         return view;
     }
 
     public void initView(View view){
-        recyclerView = (RecyclerView) view.findViewById(R.id.meMyCollectionsRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        quickAdapter = new MultipleItemQuickAdapter(collectionsList);
+        rvCourseCollected = view.findViewById(R.id.meMyCollectionsRecyclerView);
 
-        configLoadMoreData();
+    }
+    private void initHandler(){
+        handler = new Handler(Looper.getMainLooper()){
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what){
+                    case LOAD_COURSES_SUCCESS:
+                        Log.d("HANDLER","LOAD_COURSES_SUCCESS");
+                        courseAdapter.notifyDataSetChanged();
+                        courseAdapter.getLoadMoreModule().loadMoreComplete();
 
-        quickAdapter.getLoadMoreModule().setOnLoadMoreListener(new OnLoadMoreListener() {
-            //int mCurrentCunter = 0;
+                        Toast.makeText(getActivity(), "请求成功", Toast.LENGTH_SHORT).show();
+                        break;
+                    case LOAD_COURSES_FAILED:
+                        Log.d("HANDLER","LOAD_COURSES_FAILED");
+                        Toast.makeText(getActivity(), "LOAD_COURSES_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
+
+                }
+            }
+        };
+    }
+    private void getHttpCourse(Map params){
+        List<MultipleItem> onePageCourses = new ArrayList<>();
+
+        String url = "http://localhost:8080/api/course/getCollectionCourse?size=" + COURSE_NUM_IN_ONE_PAGE;
+        if(params.isEmpty()){
+            url+="&page=1&token=12123";
+        }else{
+            Iterator iter = params.keySet().iterator();
+            while (iter.hasNext()) {
+                Object key = iter.next();
+                Object val = params.get(key);
+                url+=("&"+key.toString()+"="+val.toString());
+            }
+        }
+        Log.d("me_fragment_mycourse_collections","requestUrl:" + url);
+        dialogMessage += "\n\ngetHttpCourse requestingUrl:\n" + url;
+
+        MyStringRequest stringRequest = new MyStringRequest(Request.Method.GET,  url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String responseStr) {
+
+                try {
+                    JSONObject jsonRootObject = new JSONObject(responseStr);
+
+                    //Log.d("sport_activity_course_selection","getHttpCourse_responseStr:" + jsonRootObject.toString());
+
+                    JSONObject jsonObject2 = jsonRootObject.getJSONObject("data");
+                    hasNext = jsonObject2.getBoolean("hasNext");
+                    //TOTAL_PAGES = jsonObject2.getInt("totalPages");
+                    //得到筛选的课程list
+                    JSONArray JSONArrayCourse = jsonObject2.getJSONArray("courseList");
+                    for (int i = 0; i < JSONArrayCourse.length(); i++) {
+                        JSONObject jsonCourseObject = JSONArrayCourse.getJSONObject(i);
+                        //相应的内容
+                        me_mycourse_collections courseCollected = new me_mycourse_collections();
+                        courseCollected.setCourseId(jsonCourseObject.getLong("courseId"));
+                        courseCollected.setCollectionsName1(jsonCourseObject.getString("courseName"));
+                        courseCollected.setImgUrls(jsonCourseObject.getString("backgroundUrl"));
+                        courseCollected.setCollectionsName2(jsonCourseObject.getString("targetAge"));
+                        courseCollected.setIsOnline(jsonCourseObject.getInt("online"));
+
+                        JSONArray JSONArrayLabels = jsonCourseObject.getJSONArray("labels");
+                        String labels = "";
+                        for (int j = 0; j < JSONArrayLabels.length(); j++) {
+                            labels += (JSONArrayLabels.get(j) + "/");
+                        }
+                        courseCollected.setLabels(labels);
+                        onePageCourses.add(new MultipleItem(MultipleItem.COURSEFULL, courseCollected));
+                    }
+                    showingCourseList.addAll(onePageCourses);
+
+                    Log.d("me_fragment_mycourse_collections","getHttpCourse_responseStr:"+responseStr);
+                    Message msg = handler.obtainMessage();
+                    msg.what = LOAD_COURSES_SUCCESS;
+                    handler.sendMessage(msg);
+
+                    //test tool
+                    dialogMessage+="\n\ngetHttpCourse response:\n"+jsonRootObject.toString();
+                    //end of test tool
+
+                }catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.d("sport_activity_course_selection","getHttpCourse_onErrorResponse");
+
+                //test tool
+                dialogMessage+="\ngetHttpCourse error: "+volleyError.toString();
+                //end of test tool
+
+                Message msg = handler.obtainMessage();
+                msg.what = LOAD_COURSES_FAILED;
+                msg.obj = volleyError.toString();
+                handler.sendMessage(msg);
+        }
+        });
+        stringRequest.setTag("getHttp");
+        requestQueue.add(stringRequest);
+    }
+    public void initData(){
+
+        rvCourseCollected.setLayoutManager(new LinearLayoutManager(getActivity()));
+        courseAdapter = new MultipleItemQuickAdapter(showingCourseList);
+        rvCourseCollected.setAdapter(courseAdapter);
+
+        showingCourseList = new ArrayList<>();
+        courseAdapter = new MultipleItemQuickAdapter(showingCourseList);
+        rvCourseCollected.setAdapter(courseAdapter);
+        rvCourseCollected.setNestedScrollingEnabled(false);
+
+        emptyView = View.inflate(getActivity(),R.layout.me_fragment_mycollections_courses,null);
+        emptyView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "Retrying", Toast.LENGTH_SHORT).show();
+                getHttpCourse(new HashMap());
+            }
+        });
+        courseAdapter.setEmptyView(emptyView);
+        courseAdapter.setAnimationEnable(true);
+        courseAdapter.getLoadMoreModule().setAutoLoadMore(false);
+        courseAdapter.getLoadMoreModule().setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                if (currentPage > TOTAL_PAGES) {
-                    quickAdapter.getLoadMoreModule().loadMoreEnd();
-                } else {
-                    new Handler().postDelayed(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            configLoadMoreData();
-                        }
-                    }, 1000);
-
-                }
-
+                configLoadMoreCourse();
             }
         });
-        recyclerView.setAdapter(quickAdapter);
     }
-//    public void initData(){
-//
-//        me_mycourse_collections collections;
-//        for (int i = 0; i < 5; i++) {
-//            collections = new me_mycourse_collections();
-//            collectionsList.add(new MultipleItem(12,collections));
-//            collections.setImgUrls("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3385472845,2539383542&fm=11&gp=0.jpg");
-//            collections.setCollectionsName1("写代码");
-//            collections.setCollectionsName2("数据结构");
-//            collections.setCollectionsName3("学习");
-//        }
-//        dataSet.add(collectionsList);
-//    }
-
-    private void getHttpSearch(final String url) {
-        final Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                String responseData = null;
-                try {
-                    responseData = HttpUtils.connectHttpGet(url);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                JSONObject jsonObject1 = null;
-                try {
-                    jsonObject1 = new JSONObject(responseData);
-                    httpcode = jsonObject1.getInt("code");
-                    if (httpcode == 200) {
-                        JSONObject jsonObject2 = jsonObject1.getJSONObject("data");
-                        hasNext = jsonObject2.getBoolean("hasNext");
-                        TOTAL_PAGES = jsonObject2.getInt("pageSize");
-                        //得到筛选的课程list
-                        JSONArray JSONArrayCollections = jsonObject2.getJSONArray("collectionsList");
-                        for (int i = 0; i < JSONArrayCollections.length(); i++) {
-                            JSONObject jsonObject = JSONArrayCollections.getJSONObject(i);
-                            //相应的内容
-                            me_mycourse_collections collections = new me_mycourse_collections();
-                            collections.setCollectionsName1(jsonObject.getString("courseName"));
-                            collections.setCollectionsName2(jsonObject.getString("targetAge"));
-                            collections.setCollectionsName3(jsonObject.getString("labels"));
-                            collectionsList.add(new MultipleItem(12,collections));
-                        }
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        thread.start();
-        try {
-            thread.join(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    private void configLoadMoreCourse() {
+        if(hasNext){
+            Log.d("me_fragment_mycourse_collections","configLoadMoreCourse");
+        }else{
+            courseAdapter.getLoadMoreModule().loadMoreEnd();
         }
-        if (httpcode != 200) {
-            Toast.makeText(getActivity(), "ERROR", Toast.LENGTH_SHORT).show();
-        }
-/*        else for (int i = 0; i <courseList.size(); i++)btCourse[i].setText(courseList.get(i).getCourseName() + "\n" + courseList.get(i).getDegree() + " . " +
-                courseList.get(i).getDuration() + " . " +courseList.get(i).getHits() + "万人已参加");//展示课程*/
     }
-
-    private void configLoadMoreData() {
-        String url;//http请求的url
-        url = "http://10.34.25.45:8080/api/user/userHasCollected?size="+1+"&page="+1+"&token="+token;
-        getHttpSearch(url);
-        dataSet.add(collectionsList);
-        quickAdapter.addData(dataSet.get(currentPage-1));
-        currentPage++;
-        quickAdapter.getLoadMoreModule().loadMoreEnd();
-    }
-
 }

@@ -51,7 +51,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/et_parents_brith"
+            android:id="@+id/et_weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -96,7 +96,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/et_sex_name"
+            android:id="@+id/et_height"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
