@@ -61,20 +61,30 @@
                     tools:listitem="@layout/me_recycle_item_portraitbig" />
             </RelativeLayout>
 
-            <LinearLayout
+<!--            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:orientation="vertical"
+                android:gravity="center"
+                android:orientation="horizontal"
                 android:padding="10dp">
 
-                <ListView
-                    android:id="@+id/lv_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    tools:listitem="@layout/me_recycle_item_name" />
+                <ImageView
+                    android:id="@+id/iv_portraitgirl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/portrait_girl" />
 
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_memberName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:text="妞妞"
+                    android:textColor="#673ab7"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>-->
 
             <Space
                 android:layout_width="match_parent"
@@ -104,6 +114,11 @@
                 android:paddingStart="10dp"
                 android:paddingTop="10dp">
 
+                <!--                <ImageView
+                    android:id="@+id/iv_weight_curve"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/post_img3" />-->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -112,11 +127,12 @@
                     android:textColor="#000000"
                     android:textSize="22sp" />
 
-                <ImageView
-                    android:id="@+id/iv_weight_curve"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@drawable/post_img3" />
+                <lecho.lib.hellocharts.view.LineChartView
+                    android:id="@+id/lcv_chart"
+                    android:layout_width="278dp"
+                    android:layout_height="118dp"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center" />
             </LinearLayout>
             <!--    这里里面要放什么曲线没了解过 是图片还是数据？-->
 
@@ -124,7 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -134,7 +150,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     tools:listitem="@layout/me_recycle_item_healthrecord" />
-            </LinearLayout>
+            </RelativeLayout>
 
         </LinearLayout>
     </ScrollView>

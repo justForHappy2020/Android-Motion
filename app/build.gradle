@@ -59,6 +59,7 @@ dependencies {
     implementation 'com.android.volley:volley:1.1.1'
 
     implementation 'com.haibin:calendarview:3.7.1'
+    implementation 'com.github.lecho:hellocharts-android:v1.5.8'
     //implementation 'androidx.gridlayout:gridlayout:1.0.0'
 
 }

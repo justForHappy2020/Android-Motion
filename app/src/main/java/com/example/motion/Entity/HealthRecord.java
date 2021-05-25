@@ -3,15 +3,13 @@ package com.example.motion.Entity;
 import java.io.Serializable;
 
 public class HealthRecord implements Serializable {
-    private Long UserId;
     private String createTime;
     private int weight;
     private int height;
     private int bmi;
     private String pictureURL;
 
-    public HealthRecord(Long userId, String createTime, int weight, int height, int bmi, String pictureURL) {
-        UserId = userId;
+    public HealthRecord(String createTime, int weight, int height, int bmi, String pictureURL) {
         this.createTime = createTime;
         this.weight = weight;
         this.height = height;
@@ -19,13 +17,6 @@ public class HealthRecord implements Serializable {
         this.pictureURL = pictureURL;
     }
 
-    public Long getUserId() {
-        return UserId;
-    }
-
-    public void setUserId(Long userId) {
-        UserId = userId;
-    }
 
     public String getCreateTime() {
         return createTime;
@@ -66,4 +57,5 @@ public class HealthRecord implements Serializable {
     public void setPictureURL(String pictureURL) {
         this.pictureURL = pictureURL;
     }
+
 }
