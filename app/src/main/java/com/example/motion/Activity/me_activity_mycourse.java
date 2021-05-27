@@ -27,6 +27,7 @@ public class me_activity_mycourse extends AppCompatActivity {
     String[] titles = {"最近练过", "我的收藏", "我的预定"};
     private TabLayout tabLayout;
     private FragmentPagerAdapter mAdapter;
+    private String token = "123456";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

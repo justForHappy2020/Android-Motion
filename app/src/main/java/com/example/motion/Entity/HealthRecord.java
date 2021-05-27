@@ -17,7 +17,6 @@ public class HealthRecord implements Serializable {
         this.pictureURL = pictureURL;
     }
 
-
     public String getCreateTime() {
         return createTime;
     }
@@ -57,5 +56,4 @@ public class HealthRecord implements Serializable {
     public void setPictureURL(String pictureURL) {
         this.pictureURL = pictureURL;
     }
-
 }

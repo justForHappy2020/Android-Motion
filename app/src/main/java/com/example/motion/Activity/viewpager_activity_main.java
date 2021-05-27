@@ -39,7 +39,6 @@ public class viewpager_activity_main extends FragmentActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.viewpager_activity_main);
-
         initViews();//初始化控件
         initEvents();//初始化事件
         initDatas();//初始化数据

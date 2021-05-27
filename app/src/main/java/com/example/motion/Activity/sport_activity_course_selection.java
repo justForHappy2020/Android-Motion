@@ -134,7 +134,6 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
                         Toast.makeText(sport_activity_course_selection.this, "LOAD_COURSES_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
 
                     case LOAD_TAGS_SUCCESS:
-
                         for(int i=0;i<courseTagGroupList.size();i++){
                             for(int j=0;j<courseTagGroupList.get(i).getCourseTagList().size();j++){
                                 Log.d("LOAD_TAGS_SUCCESS","courseTagGroupList.get"+i+".getCourseTagList.get"+j+"= "+courseTagGroupList.get(i).getCourseTagList().get(j).getTagName());
@@ -475,7 +474,6 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
             case R.id.btn_select:
                 //开始筛选课程
                 if(!courseTagGroupList.isEmpty()){
-
                     //test tool
                     dialogMessage="";
                     //end
@@ -491,8 +489,6 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
     protected void onStop() {
         super.onStop();
     }
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();

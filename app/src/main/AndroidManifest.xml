@@ -62,10 +62,11 @@
         <activity android:name=".Activity.sport_activity_course_action_detail" />
 
         <activity android:name=".Activity.sport_activity_course_selection" />
-
+        <activity android:name=".Activity.search_course_activity"/>
         <activity android:name=".Activity.me_activity_mycourse"/>
         <activity android:name=".Activity.me_activity_mycollections"/>
-
+        <activity android:name=".Activity.me_activity_help"/>
+        <activity android:name=".Activity.me_activity_setting"/>
         <activity android:name=".Activity.viewpager_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

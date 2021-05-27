@@ -118,8 +118,6 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
                         .placeholder(R.drawable.ic_placeholder)
                         .transform(new FitCenter(getContext()), new GlideRadiusTransform(getContext(),20))
                         .into((ImageView) helper.getView(R.id.item_movement_img));
-
-
                 break;
 
             case MultipleItem.ADDIMAGE:
@@ -177,6 +175,12 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
                         .setText(R.id.meMycourseHistoryName2,item.getMe_mycourse_history().getHistoryName2())
                         .setText(R.id.meMycourseHistoryName3,item.getMe_mycourse_history().getHistoryName3())
                         .setText(R.id.meMycourseHistoryTimes,item.getMe_mycourse_history().getHistoryTimes());
+                Glide.with(getContext())
+                        .load(item.getMe_mycourse_history().getImgUrls())
+                        .placeholder(R.drawable.headprotrait)
+                        .error(R.drawable.ic_load_pic_error)
+                        .transform(new CenterCrop(getContext()), new GlideRadiusTransform(getContext(),15))
+                        .into((ImageView) helper.getView(R.id.meMycourseHistoryImg));
 
                 break;
 
@@ -184,7 +188,12 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
                 helper.setText(R.id.meMycourseCollectionsName1,item.getMe_mycourse_collections().getCollectionsName1())
                         .setText(R.id.meMycourseCollectionsName2,item.getMe_mycourse_collections().getCollectionsName2())
                         .setText(R.id.meMycourseCollectionsName3,item.getMe_mycourse_collections().getCollectionsName3());
-
+                Glide.with(getContext())
+                        .load(item.getMe_mycourse_collections().getImgUrls())
+                        .placeholder(R.drawable.headprotrait)
+                        .error(R.drawable.ic_load_pic_error)
+                        .transform(new CenterCrop(getContext()), new GlideRadiusTransform(getContext(),15))
+                        .into((ImageView) helper.getView(R.id.meMycourseCollectionsImg));
                 break;
 
             case MultipleItem.Me_mycourse_reserve:
@@ -192,13 +201,24 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
                         .setText(R.id.meMycourseReserveName2,item.getMe_mycourse_reserve().getReserveName2())
                         .setText(R.id.meMycourseReserveName3,item.getMe_mycourse_reserve().getReserveName3())
                         .setText(R.id.meMycourseReserveTime,item.getMe_mycourse_reserve().getReserveTime());
-
+                Glide.with(getContext())
+                        .load(item.getMe_mycourse_reserve().getImgUrls())
+                        .placeholder(R.drawable.headprotrait)
+                        .error(R.drawable.ic_load_pic_error)
+                        .transform(new CenterCrop(getContext()), new GlideRadiusTransform(getContext(),15))
+                        .into((ImageView) helper.getView(R.id.meMycourseReserveImg));
                 break;
 
             case MultipleItem.Me_mycollections_articals:
                 helper.setText(R.id.meMyCollectionArticalName,item.getMe_mycollections_articals().getArticalName())
                         .setText(R.id.meMyCollectionsArticalTime,item.getMe_mycollections_articals().getArticalTime())
                         .setText(R.id.meMyCollectionsArticalAuthor,item.getMe_mycollections_articals().getArticalAuthor());
+                Glide.with(getContext())
+                        .load(item.getMe_mycollections_articals().getImgUrls())
+                        .placeholder(R.drawable.headprotrait)
+                        .error(R.drawable.ic_load_pic_error)
+                        .transform(new CenterCrop(getContext()), new GlideRadiusTransform(getContext(),15))
+                        .into((ImageView) helper.getView(R.id.meMycollectionsArticalImg));
                 break;
         }
     }

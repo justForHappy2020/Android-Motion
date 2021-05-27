@@ -57,6 +57,7 @@ public class homepage_fragment_main extends BaseNetworkFragment {
 
 
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -100,7 +101,6 @@ public class homepage_fragment_main extends BaseNetworkFragment {
     private void initView(View view){
         ivMoreCourse = view.findViewById(R.id.ivNavItem6);
         rvCourseTagGroup = view.findViewById(R.id.rv_homepage_course_tag_group);
-
         ivMoreCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

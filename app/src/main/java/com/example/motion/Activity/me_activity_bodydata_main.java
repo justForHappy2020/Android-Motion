@@ -30,7 +30,6 @@ import com.example.motion.Widget.DyxQuickAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.Line;
@@ -59,7 +58,6 @@ public class me_activity_bodydata_main  extends Activity implements View.OnClick
     private boolean isCubic = false;                 //是否是立方的，线条是直线还是弧线
     private boolean hasLabelForSelected = false;       //每个点是否可以选择（点击效果）
     private boolean hasGradientToTransparent = false;      //是否有梯度的透明
-
     private Context mContext;
     private List<DyxItem> memberList = new ArrayList();
     private List<DyxItem> recordList = new ArrayList();
@@ -174,7 +172,6 @@ public class me_activity_bodydata_main  extends Activity implements View.OnClick
         recordAdater = new DyxQuickAdapter(recordList);
         rvRecord.setAdapter(recordAdater);
     }
-
 
     private void initData() {
         ////http请求数据实体，存入2个list中。
