@@ -82,8 +82,11 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
         //test
         builder = new AlertDialog.Builder(this);
 
+        initPreSelect();
+
         getHttpCourse(new HashMap());
         getHttpCourseTags();
+
         initData();
     }
 
@@ -136,10 +139,14 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
         };
     }
 
-    private void initData(){
+    private void initPreSelect(){
         preSelectedCourseTagIds = new int[2];
         preSelectedCourseTagIds[0] = getIntent().getIntExtra("SelectedGroupId",0);
         preSelectedCourseTagIds[1] = getIntent().getIntExtra("SelectedTagId",0);
+    }
+
+    private void initData(){
+
 
         LinearLayoutManager layoutM = new LinearLayoutManager(getBaseContext());
         LinearLayoutManager layoutM2 = new LinearLayoutManager(getBaseContext());
@@ -211,7 +218,7 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
         String url = "http://10.34.25.45:8080/api/course/getCourseById?size=" + COURSE_NUM_IN_ONE_PAGE;
         //String url = "https://www.fastmock.site/mock/1f8fe01c6b3cdb34a1d2ad4b1a45a8c0/motion/api/getCourseById?size=10";
         if(params.isEmpty()){
-            url+="&page=1&courseClassIdstr=&isOnline=1&isHot=1";
+            url+="&page=1&courseClassIdstr="+preSelectedCourseTagIds[1]+";&isOnline=1&isHot=1";
         }else{
             Iterator iter = params.keySet().iterator();
             while (iter.hasNext()) {

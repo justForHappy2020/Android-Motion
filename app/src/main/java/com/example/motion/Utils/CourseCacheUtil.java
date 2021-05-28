@@ -1,6 +1,7 @@
 package com.example.motion.Utils;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.View;
 
@@ -30,6 +31,7 @@ public class CourseCacheUtil {
     private int allFileSize;//byte
     private int[] nowDownloadedSizes;//byte size of all downloading tasks
     private CourseDownloadDialog downloadDialog;
+    private ArrayList<WolfDownloader> downloaderList;
 
     public CourseCacheUtil(Context context,File cachePathRoot) {
         this.context = context;
@@ -60,9 +62,10 @@ public class CourseCacheUtil {
 
         for(int i=0;i<actionList.size();i++){
             String filePath = cachePathRoot.toString() + "/ActionVideos/"+actionList.get(i).getActionID().toString()+".mp4";
-            if(actionVideoFileAuth(filePath,actionList.get(i))){
+            if(actionVideoFileAuth(filePath,actionList.get(i)) && null != new SQLite().select().from(Action.class).where(Action_Table.actionID.eq(actionList.get(i).getActionID())).querySingle()){
+
                 actionList.get(i).setActionLocUrl(filePath);//getCachedAction(actionList.get(i).getActionID()).getActionLocUrl()
-                actionList.get(i).save();
+                //actionList.get(i).save();
             }else {
                 needCacheActionPositions.add(i);
             }
@@ -77,7 +80,11 @@ public class CourseCacheUtil {
                 public void onActionsCacheDone(boolean isSuccess, List<Action> cachedRawActionList,Object message) {
                     onProcessDone(isSuccess,course,cachedRawActionList,message);
                     if(isSuccess){
+                        Log.d("CourseCacheUtil","process onActionsCacheDone true");
                         course.save();
+                    }else{
+                        Log.d("CourseCacheUtil","process onActionsCacheDone false");
+                        course.delete();
                     }
                 }
             });
@@ -123,6 +130,7 @@ public class CourseCacheUtil {
     }
 
     public void cacheActions(List<Action> rawActionList,ArrayList<Integer> needCachePositions,onCacheStateChangeListener cacheStateChangeListener){
+        downloaderList = new ArrayList<>();
 
         Log.d("cacheActions","rawActionList.size="+rawActionList.size());
         Log.d("cacheActions","needCachePositions.size="+needCachePositions.size());
@@ -130,6 +138,19 @@ public class CourseCacheUtil {
         Map<Long,Boolean> downloadSuccessIdList = new HashMap<>();
         View downloadDialogView = View.inflate(context, R.layout.sport_dialog_download_default,null);
         downloadDialog = new CourseDownloadDialog(context,downloadDialogView);
+
+        downloadDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                if(downloadSuccessIdList.size() < needCachePositions.size()){
+                    for(int i=0;i<downloaderList.size();i++){
+                        downloaderList.get(i).stopDownload();
+                        downloaderList.get(i).exitDownload();
+                    }
+                }
+
+            }
+        });
 
         nowDownloadedSizes = new int[needCachePositions.size()];
 
@@ -140,6 +161,7 @@ public class CourseCacheUtil {
             String filePath = cachePathRoot.toString() + "/ActionVideos/"+rawActionList.get(needCachePositions.get(i)).getActionID().toString()+".mp4";
 
                 rawActionList.get(finalI).delete();
+
                 WolfDownloader wolfDownloader = new DownloaderConfig()
                         .setThreadNum(1)
                         .setDownloadUrl(rawActionList.get(needCachePositions.get(i)).getActionUrl())
@@ -172,9 +194,12 @@ public class CourseCacheUtil {
 
                             @Override
                             public void onDownloadSuccess(String apkPath) {
+                                Log.d("CourseCacheUtil","onDownloadSuccess! actionId:"+rawActionList.get(finalI).getActionID());
+
                                 rawActionList.get(finalI).setActionLocUrl(cachePathRoot.toString() + "/ActionVideos/"+ rawActionList.get(finalI).getActionID()+".mp4");
                                 rawActionList.get(finalI).save();
                                 downloadSuccessIdList.put(rawActionList.get(needCachePositions.get(finalI)).getActionID(),true);
+
                                 if(downloadSuccessIdList.size() == needCachePositions.size()){
 
                                     //size checking here
@@ -202,12 +227,13 @@ public class CourseCacheUtil {
 
                             @Override
                             public void onStopDownload() {
-
+                                //cacheStateChangeListener.onActionsCacheDone(false,rawActionList,"exit");
                                 Log.d("CourseCacheUtil","onStopDownload! actionId:"+rawActionList.get(finalI).getActionID());
                                 //cacheStateChangeListener.onActionsCacheDone(false,rawActionList);
                             }
                         })
                         .buildWolf(context);
+                downloaderList.add(wolfDownloader);
                 wolfDownloader.startDownload();
             }
         //}

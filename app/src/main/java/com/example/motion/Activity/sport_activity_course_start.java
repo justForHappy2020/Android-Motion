@@ -118,11 +118,12 @@ public class sport_activity_course_start extends Activity implements View.OnClic
 
         initHandler();
         initView();
-        initData();
 
-        initializePlayer();
-
-        setVideoViewPosition();
+        if(actionList.size()>0){
+            initData();
+            initializePlayer();
+            setVideoViewPosition();
+        }
     }
 
     @Override
@@ -345,7 +346,11 @@ public class sport_activity_course_start extends Activity implements View.OnClic
         ibLandscape.setOnClickListener(this);
         flTouchArea.setOnClickListener(this);
 
+    }
 
+    private void initData(){
+        breakDialog = new SportBreakDialog(this);
+        progressBarHeight =   new ConstraintLayout.LayoutParams(progressBar.getLayoutParams()).height;
 
         tvActionName.setText(actionList.get(courseActionPosition).getActionName());
         initCountOrTimeTv(actionList.get(courseActionPosition),tvCountOrTime);
@@ -362,11 +367,6 @@ public class sport_activity_course_start extends Activity implements View.OnClic
                 onStart();
             }
         });
-    }
-
-    private void initData(){
-        breakDialog = new SportBreakDialog(this);
-        progressBarHeight =   new ConstraintLayout.LayoutParams(progressBar.getLayoutParams()).height;
 
     }
 
@@ -709,7 +709,7 @@ public class sport_activity_course_start extends Activity implements View.OnClic
     @Override
     protected void onResume() {
         super.onResume();
-        mVideoView.setFocusable(false);
+
     }
 
 }

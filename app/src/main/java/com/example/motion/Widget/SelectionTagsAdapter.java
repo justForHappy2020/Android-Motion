@@ -36,6 +36,7 @@ public class SelectionTagsAdapter extends BaseQuickAdapter<CourseTagGroup, BaseV
         helper.setText(R.id.tv_tag_menu_name, tagGroup.getGroupName());
 
         TabLayout tabLayout = helper.findView(R.id.tl_tags);
+        tabLayout.removeAllTabs();
 
         for(int i=0;i<tagGroup.getCourseTagList().size();i++){
             tabLayout.addTab(tabLayout.newTab().setText(tagGroup.getCourseTagList().get(i).getTagName()));
