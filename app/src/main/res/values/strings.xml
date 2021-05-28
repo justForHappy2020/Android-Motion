@@ -51,9 +51,19 @@
     <string name="course_detail_failed_actions">加载动作失败</string>
     <string name="course_detail_failed_related_course">加载相关课程失败</string>
 
+    <!--课程筛选String-->
+    <string name="course_select_online">即将上线</string>
+
     <!--帖子界面String-->
     <string name="community_share_btn_follow">关注</string>
 
+    <!--个人界面String-->
+    <string-array name="me_choose_sex">
+        <item>男</item>
+        <item>女</item>
+    </string-array>
+    <string name="me_close_alert">对话框已关闭</string>
+    <string name="me_choose_sex1">请选择性别</string>
     <!--视频播放界面String-->
     <string name="sport_course_start_check_detail">动作详解</string>
     <string name="sport_course_start_accumulate_time">累计运动</string>
@@ -97,6 +107,5 @@
     <string name="course_selection_nodata">没有相关数据,点击重试</string>
     <string name="course_selection_loading">加载中</string>
     <string name="homepage_subtitle_classification">分类</string>
-
 
 </resources>

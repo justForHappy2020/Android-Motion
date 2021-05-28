@@ -1,20 +1,12 @@
 package com.example.motion.Widget;
 
-import android.util.Log;
-import android.widget.ImageView;
-
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
-import com.example.motion.Entity.Course;
 import com.example.motion.Entity.CourseTagGroup;
-import com.example.motion.GlideTransforms.GlideRadiusTransform;
 import com.example.motion.R;
-import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;

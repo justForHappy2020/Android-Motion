@@ -56,5 +56,4 @@ public class BaseNetworkFragment extends Fragment {
         }
         return false;
     }
-
 }

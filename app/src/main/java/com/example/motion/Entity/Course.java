@@ -159,3 +159,4 @@ public class Course extends BaseModel implements Serializable {
         this.collected = collected;
     }
 }
+

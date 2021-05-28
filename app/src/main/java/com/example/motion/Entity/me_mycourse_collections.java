@@ -1,13 +1,17 @@
 package com.example.motion.Entity;
 
+import com.raizlabs.android.dbflow.annotation.Column;
+
 public class me_mycourse_collections {
 
     private String imgUrls;
     private String collectionsName1;
     private String collectionsName2;
     private String collectionsName3;
-
-
+    @Column
+    private String labels;
+    private Long courseId;
+    private int isOnline;
     public me_mycourse_collections(){
 
     }
@@ -33,6 +37,30 @@ public class me_mycourse_collections {
 
     public String getCollectionsName3() {
         return collectionsName3;
+    }
+
+    public String getLabels() {
+        return labels;
+    }
+
+    public Long getCourseId() {
+        return courseId;
+    }
+
+    public int getIsOnline() {
+        return isOnline;
+    }
+
+    public void setIsOnline(int isOnline) {
+        this.isOnline = isOnline;
+    }
+
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
+    }
+
+    public void setLabels(String labels) {
+        this.labels = labels;
     }
 
     public void setImgUrls(String imgUrls) {

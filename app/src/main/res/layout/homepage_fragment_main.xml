@@ -185,7 +185,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_homepage_course_tag_group"
                     android:layout_width="match_parent"

@@ -14,8 +14,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.motion.Activity.me_activity_bindphone_usephone;
+import com.example.motion.Activity.me_activity_bodydata_main;
 import com.example.motion.Activity.me_activity_mycollections;
 import com.example.motion.Activity.me_activity_mycourse;
+import com.example.motion.Activity.me_activity_help;
+import com.example.motion.Activity.me_activity_setting;
 import com.example.motion.Activity.my_activity_me_data;
 import com.example.motion.R;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -88,9 +91,12 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
 
         tr_bindphone = view.findViewById(R.id.tr_bingphone);
         iv_edit_profile = view.findViewById(R.id.iv_edit_profile);
+        tr_setting = view.findViewById(R.id.tr_setting);
+        tr_help = view.findViewById(R.id.tr_help);
         tr_bindphone.setOnClickListener(this);
         iv_edit_profile.setOnClickListener(this);
-
+        tr_help.setOnClickListener(this);
+        tr_setting.setOnClickListener(this);
         bodyData.setOnClickListener(this);
         myCourse.setOnClickListener(this);
         myCollections.setOnClickListener(this);
@@ -125,15 +131,19 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
                 //startActivity(intent);
                 break;
             case R.id.tr_help:
-                //Intent intent = new Intent();//我的.我.帮助与反馈
-                //startActivity(intent);
+                Log.d("onclick","tr_help");
+                intent = new Intent(getActivity(), me_activity_help.class);//我的.我.帮助与反馈
+                startActivity(intent);
                 break;
             case R.id.tr_setting:
-                //Intent intent = new Intent();//我的.我.设置
-                //startActivity(intent);
+                Log.d("onclick","tr_setting");
+                intent = new Intent(getActivity(), me_activity_setting.class);//我的.我.设置
+                startActivity(intent);
                 break;
             case R.id.tv_bodydata:
-
+                Log.d("onclick","tv_bodydata");
+                intent = new Intent(getActivity(), me_activity_bodydata_main.class);//我的.我.绑定手机号主页
+                startActivity(intent);
                 break;
             case R.id.iv_edit_profile:
                 intent = new Intent(getActivity(), my_activity_me_data.class);
