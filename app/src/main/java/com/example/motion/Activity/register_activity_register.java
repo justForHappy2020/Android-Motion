@@ -292,6 +292,8 @@ public class register_activity_register extends AppCompatActivity implements Vie
                                         editor.putString("headProtrait",headProtrait).commit();
                                         editor.putString("token",token).commit();
                                         editor.putString("phoneNumber",mobile).commit();
+                                        Intent intent = new Intent(register_activity_register.this, me_fragment_main.class);
+                                        startActivity(intent);
 
                                     } catch (JSONException e) {
                                         e.printStackTrace();
@@ -302,6 +304,7 @@ public class register_activity_register extends AppCompatActivity implements Vie
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             error.getMessage();
+                            Toast.makeText(register_activity_register.this,"登录失败",Toast.LENGTH_SHORT).show();
                         }
 
                     });

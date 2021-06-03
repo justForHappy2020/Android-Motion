@@ -214,6 +214,9 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
                                         editor.putString("token",token).commit();
                                         editor.putString("phoneNumber",mobile).commit();
 
+                                        Intent intent = new Intent(me_activity_bindphone_changephone.this, me_fragment_main.class);
+                                        startActivity(intent);
+
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -223,6 +226,7 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             error.getMessage();
+                            Toast.makeText(me_activity_bindphone_changephone.this,"更改失败",Toast.LENGTH_SHORT).show();
                         }
 
                     });
