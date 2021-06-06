@@ -171,8 +171,9 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
 
 
             case R.id.iv_back:
-              Intent intent = new Intent(this, me_fragment_main.class);
-              startActivity(intent);
+                Intent intent = new Intent(me_activity_bindphone_changephone.this, viewpager_activity_main.class);
+                intent.putExtra("id",4);
+                startActivity(intent);
                 break;
 
             case R.id.btn_login:
@@ -181,7 +182,7 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
                 if (loginCode.isEmpty() || mobile.isEmpty() ){
                     Toast.makeText(me_activity_bindphone_changephone.this,"缺少选项", Toast.LENGTH_SHORT).show();
 //                    btn_login.setBackgroundColor(Color.parseColor("#673AB7"));
-                    btn_save.setEnabled(Boolean.FALSE);
+//                    btn_save.setEnabled(Boolean.FALSE);
                 }
                 else {
                     btn_save.setEnabled(Boolean.TRUE);
@@ -214,7 +215,8 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
                                         editor.putString("token",token).commit();
                                         editor.putString("phoneNumber",mobile).commit();
 
-                                        Intent intent = new Intent(me_activity_bindphone_changephone.this, me_fragment_main.class);
+                                        Intent intent = new Intent(me_activity_bindphone_changephone.this, viewpager_activity_main.class);
+                                        intent.putExtra("id",4);
                                         startActivity(intent);
 
                                     } catch (JSONException e) {

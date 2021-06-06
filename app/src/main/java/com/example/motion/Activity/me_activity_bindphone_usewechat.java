@@ -206,7 +206,7 @@ public class me_activity_bindphone_usewechat extends AppCompatActivity implement
                 if (loginCode.isEmpty() || mobile.isEmpty() ){
                     Toast.makeText(me_activity_bindphone_usewechat.this,"缺少选项", Toast.LENGTH_SHORT).show();
 //                    btn_login.setBackgroundColor(Color.parseColor("#673AB7"));
-                    btn_save.setEnabled(Boolean.FALSE);
+//                    btn_save.setEnabled(Boolean.FALSE);
                 }
                 else {
                     btn_save.setEnabled(Boolean.TRUE);
@@ -253,6 +253,9 @@ public class me_activity_bindphone_usewechat extends AppCompatActivity implement
 
                     });
                     queue.add(getCode);
+                    Intent intent2 = new Intent(me_activity_bindphone_usewechat.this, viewpager_activity_main.class);
+                    intent2.putExtra("id",1);
+                    startActivity(intent2);
                     //判定是否新用户，新用户跳转注册页面，旧用户跳转主页
 //                    更改成功 跳转回首页
 //                            Intent intent_homrpage = new Intent(this,homepage_activity_homepage);

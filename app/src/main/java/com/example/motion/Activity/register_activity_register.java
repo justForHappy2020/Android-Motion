@@ -41,7 +41,7 @@ import java.util.TimerTask;
 public class register_activity_register extends AppCompatActivity implements View.OnClickListener {
 //  phoneNumber 13926292266
 //  code 8888
-    private ImageView iv_back;
+    private ImageView iv_delete;
     private EditText et_phone;
     private EditText et_code;
     private Button btn_getcode;
@@ -69,7 +69,7 @@ public class register_activity_register extends AppCompatActivity implements Vie
     }
 
     private void initview() {
-        iv_back = findViewById(R.id.iv_delete);
+        iv_delete = findViewById(R.id.iv_delete);
         et_phone = findViewById(R.id.et_phonenum);
         et_code = findViewById(R.id.et_code);
         btn_getcode = findViewById(R.id.btn_getcode);
@@ -79,7 +79,7 @@ public class register_activity_register extends AppCompatActivity implements Vie
         tv_callService = findViewById(R.id.tv_callService);//客服
         saveSP = this.getSharedPreferences("saveSp",MODE_PRIVATE);
 
-        iv_back.setOnClickListener(this);
+        iv_delete.setOnClickListener(this);
         btn_getcode.setOnClickListener(this);
         btn_agree.setOnClickListener(this);
         btn_login.setOnClickListener(this);
@@ -195,8 +195,8 @@ public class register_activity_register extends AppCompatActivity implements Vie
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-//                   String url = "http://10.34.25.45:8080/api/user/getVerificationCode";// url
-                    String url = "https://www.fastmock.site/mock/8b3e2487a581d723a901a354dfc6f3fd/data/api/user/getCode";
+                   String url = "http://10.34.25.45:8080/api/user/getVerificationCode";// url
+//                    String url = "https://www.fastmock.site/mock/8b3e2487a581d723a901a354dfc6f3fd/data/api/user/getCode";
                     JsonObjectRequest getCode = new JsonObjectRequest(url, json,
                             new Response.Listener<JSONObject>() {
                                 @Override
@@ -236,10 +236,13 @@ public class register_activity_register extends AppCompatActivity implements Vie
                 }
                 break;
 
-            case R.id.iv_back:
-              Intent intent = new Intent(this, me_fragment_main.class);
+            case R.id.iv_delete:
+              Intent intent = new Intent(this, viewpager_activity_main.class);
+              intent.putExtra("id",4);
               startActivity(intent);
               break;
+
+
             case R.id.btn_agree:
                 btn_agree.setChecked(true);
                 if (!TextUtils.isEmpty(et_phone.getText()) && et_phone.getText().toString().trim().length() == 11 && btn_agree.isChecked()) {
@@ -260,7 +263,7 @@ public class register_activity_register extends AppCompatActivity implements Vie
                 if (loginCode.isEmpty() || mobile.isEmpty() || !btn_agree.isChecked()){
                     Toast.makeText(register_activity_register.this,"缺少选项", Toast.LENGTH_SHORT).show();
 //                    btn_login.setBackgroundColor(Color.parseColor("#673AB7"));
-                    btn_login.setEnabled(Boolean.FALSE);
+//                    btn_login.setEnabled(Boolean.FALSE);
                 }
                 else {
                     btn_login.setEnabled(Boolean.TRUE);
@@ -292,7 +295,8 @@ public class register_activity_register extends AppCompatActivity implements Vie
                                         editor.putString("headProtrait",headProtrait).commit();
                                         editor.putString("token",token).commit();
                                         editor.putString("phoneNumber",mobile).commit();
-                                        Intent intent = new Intent(register_activity_register.this, me_fragment_main.class);
+                                        Intent intent = new Intent(register_activity_register.this, viewpager_activity_main.class);
+                                        intent.putExtra("id",1);
                                         startActivity(intent);
 
                                     } catch (JSONException e) {
@@ -323,6 +327,6 @@ public class register_activity_register extends AppCompatActivity implements Vie
     }
 }
 
-//iv_back 注释
+//iv_delete 注释
 // 跳转主页242
 // 初始跳转没弄
