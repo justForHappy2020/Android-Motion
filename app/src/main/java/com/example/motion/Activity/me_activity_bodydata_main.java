@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -71,19 +72,33 @@ public class me_activity_bodydata_main  extends Activity implements View.OnClick
     private View alertView;
 
     private int memberID;
+    private SharedPreferences readSP;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_activity_bodydata_main);
+        checkToken();
         initView();
+    }
+
+    private void checkToken() {
+        readSP=this.getSharedPreferences("saveSp",MODE_PRIVATE);
+        token = readSP.getString("token","");
+        if (token.isEmpty()){
+            finish();
+            Toast.makeText(this,"请登录", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, register_activity_register.class);
+            startActivity(intent);
+        }
     }
 
     private void initView() {
         mContext = me_activity_bodydata_main.this;
         ivBack = findViewById(R.id.iv_back);
         btAddRecord = findViewById(R.id.btn_add_healthrecord);
-        rvPortrait = findViewById(R.id.rv_portrait);
+        //rvPortrait = findViewById(R.id.rv_portrait);
         rvRecord = findViewById(R.id.rv_health_record);
         lcv_chart = (LineChartView)findViewById(R.id.lcv_chart);
         lcv_chart.setOnValueTouchListener(new LineChartOnValueSelectListener() {
@@ -101,11 +116,10 @@ public class me_activity_bodydata_main  extends Activity implements View.OnClick
         ivBack.setOnClickListener(this);
         btAddRecord.setOnClickListener(this);
 
-        LinearLayoutManager portraitManager = new LinearLayoutManager(this);
+        //LinearLayoutManager portraitManager = new LinearLayoutManager(this);
         LinearLayoutManager recordManager = new LinearLayoutManager(this);
-        portraitManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 
-        rvPortrait.setLayoutManager(portraitManager);
+        //rvPortrait.setLayoutManager(portraitManager);
         rvRecord.setLayoutManager(recordManager);
         rvRecord.setNestedScrollingEnabled(false);
 
@@ -168,7 +182,7 @@ public class me_activity_bodydata_main  extends Activity implements View.OnClick
                 }
             }
         });
-        rvPortrait.setAdapter(portraitAdapter);
+        //rvPortrait.setAdapter(portraitAdapter);
         recordAdater = new DyxQuickAdapter(recordList);
         rvRecord.setAdapter(recordAdater);
     }

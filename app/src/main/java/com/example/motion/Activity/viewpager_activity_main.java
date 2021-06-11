@@ -102,29 +102,25 @@ public class viewpager_activity_main extends FragmentActivity {
         mViewPager = (ViewPager) findViewById(R.id.id_viewpager);
         bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
 
-        //指定跳转
-        String id = getIntent().getStringExtra("id");
-        if(!TextUtils.isEmpty(id)){
-            assert id != null;
+/*        //指定跳转
+        int id = getIntent().getIntExtra("id");
             switch (id){
-                case "0":
+                case 0:
                     mViewPager.setCurrentItem(0);
                     break;
-                case "1":
+                case 1:
                     mViewPager.setCurrentItem(1);
                     break;
-                case "2":
+                case 2:
                     mViewPager.setCurrentItem(2);
                     break;
-                case "3":
+                case 3:
                     mViewPager.setCurrentItem(3);
                     break;
-                case "4":
+                case 4:
                     mViewPager.setCurrentItem(4);
                     break;
-            }
-        }
-
+            }*/
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

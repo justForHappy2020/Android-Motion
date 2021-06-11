@@ -42,6 +42,7 @@ import java.net.URL;
 import java.util.Calendar;
 
 import static com.example.motion.Utils.ClientUploadUtils.upload;
+import static com.example.motion.Utils.HttpUtils.connectHttp;
 
 public class my_activity_me_data extends Activity implements View.OnClickListener{
 
@@ -69,6 +70,10 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
     private View alertView;
     private String birth = "";
     private String name = "";
+    private int gender;
+
+    private String token = "2";
+    private SharedPreferences readSP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,7 +150,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                 Uri photoUri = data.getData();//获取路径
                 //final String filename = photoUri.getPath();
                 final String filepath = getRealPathFromUriAboveApi19(this,photoUri);//获取绝对路径
-                final String httpurl = "http://159.75.2.94:8080/api/user/uploadImageAndroid";
+                final String httpurl = "http://10.34.25.45:8080/api/user/modifyHptAndroid";
 
 
                 //http请求
@@ -328,6 +333,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
+                                        gender = which;
                                         tvSex.setText(sex[which]);
                                     }
                                 }).create();
@@ -358,8 +364,53 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                 tvName.setText(name);
                 break;
             case R.id.btn_save:
-                Toast.makeText(getApplicationContext(), "保存个人信息", Toast.LENGTH_SHORT).show();
                 //http请求，保存数据。
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            //设置JSON数据
+                            JSONObject json = new JSONObject();
+                            try {
+                                json.put("token", token);
+                                json.put("headPortrait", "https://pics2.baidu.com/feed/b64543a98226cffcaa9bbee9f1799a96f703eab3.jpeg?token=99bafe934f8d5948be9b5cacfd50c5e5");//test
+                                json.put("nickName", name);
+                                json.put("gender" , gender );
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            String url = "http://10.34.25.45:8080/api/community/saveUserdata";
+                            String responseData = connectHttp(url,json);
+                            getfeedback(responseData);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    private void getfeedback(String responseData) {
+                        try {
+                            //解析JSON数据
+                            JSONObject jsonObject1 = new JSONObject(responseData);
+                            httpCode = jsonObject1.getInt("code");
+                        } catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                thread.start();
+                try {
+                    thread.join(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if(httpCode==200){
+                    Toast.makeText(getApplicationContext(), "SUCCESSFUL", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(this,"ERROR",Toast.LENGTH_SHORT).show();
+                    finish();
+                }
                 finish();
                 break;
         }
