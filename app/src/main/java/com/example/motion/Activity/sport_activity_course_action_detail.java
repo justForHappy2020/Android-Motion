@@ -42,6 +42,7 @@ public class sport_activity_course_action_detail extends Activity implements Vie
         setContentView(R.layout.sport_activity_course_action_detail);
 
         Intent intent = getIntent();
+        course = (Course)intent.getSerializableExtra("course");
         actionList =(List<Action>) intent.getSerializableExtra("actionList");
         currentOne = intent.getIntExtra("courseActionPosition",0);
 
@@ -120,7 +121,7 @@ public class sport_activity_course_action_detail extends Activity implements Vie
                     @Override
                     public void onProcessDone(boolean isSuccess, Course courseWithActions,Object message) {
                         if(isSuccess){
-                            course = courseWithActions;
+                            //course = courseWithActions;
                             Intent intent = new Intent(getBaseContext(),sport_activity_course_start.class);
                             intent.putExtra("courseWithActions",courseWithActions);
                             startActivity(intent);

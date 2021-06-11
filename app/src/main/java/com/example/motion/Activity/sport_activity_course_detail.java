@@ -300,6 +300,7 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 Intent intent = new Intent(getBaseContext(),sport_activity_course_action_detail.class);
+                intent.putExtra("course",course);
                 intent.putExtra("courseActionPosition",position);
                 intent.putExtra("actionList",(Serializable) actionList);
                 startActivity(intent);
@@ -409,6 +410,7 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
 
                                     Intent intent = new Intent(getBaseContext(),sport_activity_course_start.class);
                                     intent.putExtra("courseWithActions",courseWithActions);
+                                    course = courseWithActions;
                                     startActivity(intent);
 
                                     Log.d("course_detail","CourseCacheUtil_cache_success");

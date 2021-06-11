@@ -646,6 +646,7 @@ public class sport_activity_course_start extends Activity implements View.OnClic
                 break;
             case R.id.btn_detail:
                 intent = new Intent(this,sport_activity_course_action_detail.class);
+                intent.putExtra("course",course);
                 intent.putExtra("courseActionPosition",courseActionPosition);
                 intent.putExtra("actionList",(Serializable) actionList);
                 startActivity(intent);
