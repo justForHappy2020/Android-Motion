@@ -284,19 +284,18 @@ public class register_activity_register extends AppCompatActivity implements Vie
                                         JSONObject response = obj.getJSONObject("data");
                                         Toast.makeText(register_activity_register.this, "发送成功", Toast.LENGTH_SHORT).show();
                                         int userId = response.getInt("userId");
-                                        String nickName = response.getString("niceName");
-                                        String headProtrait = response.getString("headProtrait");
+                                        String nickName = response.getString("nickName");
+                                        String headPortrait = response.getString("headPortrait");
                                         String token = response.getString("token");
                                         isNewUser = response.getBoolean("newUser");
 
                                         SharedPreferences.Editor editor = saveSP.edit();
                                         editor.putInt("userId",userId).commit();
                                         editor.putString("nickName",nickName).commit();
-                                        editor.putString("headProtrait",headProtrait).commit();
+                                        editor.putString("headPortrait",headPortrait).commit();
                                         editor.putString("token",token).commit();
                                         editor.putString("phoneNumber",mobile).commit();
                                         Intent intent = new Intent(register_activity_register.this, viewpager_activity_main.class);
-                                        intent.putExtra("id",1);
                                         startActivity(intent);
 
                                     } catch (JSONException e) {

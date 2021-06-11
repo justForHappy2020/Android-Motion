@@ -37,10 +37,11 @@ public class me_activity_bindphone_usephone extends AppCompatActivity implements
     }
 
     private void initdata() {
-        saveSP=this.getSharedPreferences("saveSP",MODE_PRIVATE);
+        saveSP=this.getSharedPreferences("saveSp",MODE_PRIVATE);
         //判断token是否存在，获得phoneNumber
         token = saveSP.getString("token","");
         if (token.isEmpty()){
+            finish();
             Toast.makeText(this,"请登录", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, register_activity_register.class);
             startActivity(intent);
