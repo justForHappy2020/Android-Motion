@@ -18,7 +18,6 @@ public class MyStringRequest extends StringRequest {
     public MyStringRequest(String url, Response.Listener<String> listener, @Nullable Response.ErrorListener errorListener) {
         super(url, listener, errorListener);
     }
-
     @Override
     @SuppressWarnings("DefaultCharset")
     protected Response<String> parseNetworkResponse(NetworkResponse response) {

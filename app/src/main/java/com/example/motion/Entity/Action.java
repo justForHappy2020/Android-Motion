@@ -14,7 +14,6 @@ public class Action extends BaseModel implements Serializable {
     static final public int TIMING = 2;
 
     @PrimaryKey()
-    @Column
     private Long actionID;
 
     @Column
@@ -50,8 +49,19 @@ public class Action extends BaseModel implements Serializable {
     @Column
     private int sizeByte;
 
+    /*
     @ForeignKey(stubbedRelationship = true)
     private Course ownerCourse;
+
+    public void setOwnerCourse(Course ownerCourse) {
+        this.ownerCourse = ownerCourse;
+    }
+
+    public Course getOwnerCourse() {
+        return ownerCourse;
+    }
+
+     */
 
     public Action() {
 
@@ -158,13 +168,6 @@ public class Action extends BaseModel implements Serializable {
         this.restDuration = restDuration;
     }
 
-    public Course getOwnerCourse() {
-        return ownerCourse;
-    }
-
-    public void setOwnerCourse(Course ownerCourse) {
-        this.ownerCourse = ownerCourse;
-    }
 
     public int getSizeByte() {
         return sizeByte;

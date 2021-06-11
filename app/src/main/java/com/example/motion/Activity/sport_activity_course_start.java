@@ -119,10 +119,12 @@ public class sport_activity_course_start extends Activity implements View.OnClic
         initHandler();
         initView();
 
-        if(actionList.size()>0){
+        if(actionList != null && actionList.size()>0){
             initData();
             initializePlayer();
             setVideoViewPosition();
+        }else{
+            Log.d("sport_activity_course_start","actionList is null or empty");
         }
     }
 

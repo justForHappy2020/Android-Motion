@@ -1,6 +1,5 @@
 package com.example.motion.Activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,8 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.StringSignature;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -30,12 +27,10 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.example.motion.Entity.Action;
 import com.example.motion.Entity.Course;
 import com.example.motion.Entity.CourseTag;
-import com.example.motion.Entity.CourseTagGroup;
 import com.example.motion.Entity.MultipleItem;
 import com.example.motion.R;
-import com.example.motion.Utils.CourseCacheUtil;
-import com.example.motion.Utils.HttpUtils;
-import com.example.motion.Utils.OnProcessStateChangeListener;
+import com.example.motion.Utils.CourseCache.CourseCacheUtil;
+import com.example.motion.Utils.CourseCache.OnProcessStateChangeListener;
 import com.example.motion.Widget.MultipleItemQuickAdapter;
 import com.example.motion.Widget.PostJsonRequest;
 import com.example.motion.Widget.RelatedCoursesAdapter;
@@ -44,7 +39,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -219,7 +213,7 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
                                         action.setTotal(jsonObject.getInt("total"));
                                         action.setRestDuration(5);//jsonObject.getInt("restDuration")
                                         action.setSizeByte(jsonObject.getInt("size"));
-                                        action.setOwnerCourse(course);
+                                        //action.setOwnerCourse(course);
                                         actionList.add(action);
                                         actionInMutiList.add(new MultipleItem(MultipleItem.ACTION,action));
                                     }

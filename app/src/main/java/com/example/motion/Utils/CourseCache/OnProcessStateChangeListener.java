@@ -1,4 +1,4 @@
-package com.example.motion.Utils;
+package com.example.motion.Utils.CourseCache;
 
 import com.example.motion.Entity.Course;
 

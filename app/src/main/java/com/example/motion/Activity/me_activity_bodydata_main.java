@@ -158,9 +158,9 @@ public class me_activity_bodydata_main  extends Activity implements View.OnClick
                     }
                     adapter.getViewByPosition(position,R.id.Riv_portrait_small).setVisibility(View.VISIBLE);
                     recordList.clear();
-                    HealthRecord record4 = new HealthRecord("2020-05-08",66,180,21,"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201607%2F28%2F20160728100434_nXMmc.thumb.400_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1623330327&t=1767a207561829362d49fb5362f270af");
-                    HealthRecord record5 = new HealthRecord("2020-05-08",55,165,22,"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201607%2F28%2F20160728100434_nXMmc.thumb.400_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1623330327&t=1767a207561829362d49fb5362f270af");
-                    HealthRecord record6 = new HealthRecord("2020-05-08",48,145,18,"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201607%2F28%2F20160728100434_nXMmc.thumb.400_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1623330327&t=1767a207561829362d49fb5362f270af");
+                    HealthRecord record4 = new HealthRecord("2020-05-08",66,180,21,"https://i0.hdslb.com/bfs/album/e105c18f19ded11de27d2325b24cf2d943ffebd4.png");
+                    HealthRecord record5 = new HealthRecord("2020-05-08",55,165,22,"https://i0.hdslb.com/bfs/album/e0f389ff0674ba458fa3774afa7aad8c11a1216e.png");
+                    HealthRecord record6 = new HealthRecord("2020-05-08",48,145,18,"https://i0.hdslb.com/bfs/album/cd6463e36109ef6dab8b61663a6749bd07d265f6.png");
                     recordList.add(new DyxItem(DyxItem.HEALTHRECORD , record4));
                     recordList.add(new DyxItem(DyxItem.HEALTHRECORD , record5));
                     recordList.add(new DyxItem(DyxItem.HEALTHRECORD , record6));
@@ -183,9 +183,9 @@ public class me_activity_bodydata_main  extends Activity implements View.OnClick
         memberList.add(new DyxItem(DyxItem.PORTRAIT , member2));
         memberList.add(new DyxItem(DyxItem.PORTRAIT , addButton));
 
-        HealthRecord record1 = new HealthRecord("2020-05-09",68,174,22,"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2374733373,2441380433&fm=26&gp=0.jpg");
-        HealthRecord record2 = new HealthRecord("2020-05-09",50,160,20,"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2374733373,2441380433&fm=26&gp=0.jpg");
-        HealthRecord record3 = new HealthRecord("2020-05-09",55,164,622,"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2374733373,2441380433&fm=26&gp=0.jpg");
+        HealthRecord record1 = new HealthRecord("2020-05-09",68,174,22,"https://i0.hdslb.com/bfs/album/e105c18f19ded11de27d2325b24cf2d943ffebd4.png");
+        HealthRecord record2 = new HealthRecord("2020-05-09",50,160,20,"https://i0.hdslb.com/bfs/album/cd6463e36109ef6dab8b61663a6749bd07d265f6.png");
+        HealthRecord record3 = new HealthRecord("2020-05-09",55,164,30,"https://i0.hdslb.com/bfs/album/e0f389ff0674ba458fa3774afa7aad8c11a1216e.png");
         recordList.add(new DyxItem(DyxItem.HEALTHRECORD , record1));
         recordList.add(new DyxItem(DyxItem.HEALTHRECORD , record2));
         recordList.add(new DyxItem(DyxItem.HEALTHRECORD , record3));

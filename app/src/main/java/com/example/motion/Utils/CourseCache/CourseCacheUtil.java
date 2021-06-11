@@ -1,4 +1,4 @@
-package com.example.motion.Utils;
+package com.example.motion.Utils.CourseCache;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,13 +8,15 @@ import android.view.View;
 import com.example.motion.Entity.Action;
 import com.example.motion.Entity.Action_Table;
 import com.example.motion.Entity.Course;
+import com.example.motion.Entity.Course_Action;
+import com.example.motion.Entity.Course_Action_Table;
 import com.example.motion.Entity.Course_Table;
 import com.example.motion.R;
-import com.example.motion.Widget.CourseDownloadDialog;
 import com.lijunhuayc.downloader.downloader.DownloadProgressListener;
 import com.lijunhuayc.downloader.downloader.DownloaderConfig;
 import com.lijunhuayc.downloader.downloader.WolfDownloader;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.raizlabs.android.dbflow.sql.language.Select;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -63,6 +65,11 @@ public class CourseCacheUtil {
         for(int i=0;i<actionList.size();i++){
             String filePath = cachePathRoot.toString() + "/ActionVideos/"+actionList.get(i).getActionID().toString()+".mp4";
             if(actionVideoFileAuth(filePath,actionList.get(i)) && null != new SQLite().select().from(Action.class).where(Action_Table.actionID.eq(actionList.get(i).getActionID())).querySingle()){
+                Course_Action ca = new Course_Action(course,actionList.get(i));
+                if(new Select().from(Course_Action.class).where(Course_Action_Table.course_courseId.eq(course.getCourseId()),Course_Action_Table.action_actionID.eq(actionList.get(i).getActionID())).querySingle() == null){
+                    Log.d("CourseCacheUtil","ca.exists false");
+                    ca.save();
+                }
 
                 actionList.get(i).setActionLocUrl(filePath);//getCachedAction(actionList.get(i).getActionID()).getActionLocUrl()
                 //actionList.get(i).save();
@@ -73,9 +80,10 @@ public class CourseCacheUtil {
 
         if(needCacheActionPositions.isEmpty()){
             course.save();
+            course.getActionList();
             onProcessDone(true,course,actionList,"SUCCESS");
         }else{
-            cacheActions(actionList,needCacheActionPositions, new onCacheStateChangeListener() {
+            cacheActions(course,actionList,needCacheActionPositions, new onCacheStateChangeListener() {
                 @Override
                 public void onActionsCacheDone(boolean isSuccess, List<Action> cachedRawActionList,Object message) {
                     onProcessDone(isSuccess,course,cachedRawActionList,message);
@@ -129,7 +137,7 @@ public class CourseCacheUtil {
         return course;
     }
 
-    public void cacheActions(List<Action> rawActionList,ArrayList<Integer> needCachePositions,onCacheStateChangeListener cacheStateChangeListener){
+    public void cacheActions(Course course,List<Action> rawActionList,ArrayList<Integer> needCachePositions,onCacheStateChangeListener cacheStateChangeListener){
         downloaderList = new ArrayList<>();
 
         Log.d("cacheActions","rawActionList.size="+rawActionList.size());
@@ -155,12 +163,12 @@ public class CourseCacheUtil {
         nowDownloadedSizes = new int[needCachePositions.size()];
 
         for(int i=0;i<needCachePositions.size();i++){
-            rawActionList.get(needCachePositions.get(i));
+            final Long actionId = rawActionList.get(needCachePositions.get(i)).getActionID();
             int finalI = i;
 
             String filePath = cachePathRoot.toString() + "/ActionVideos/"+rawActionList.get(needCachePositions.get(i)).getActionID().toString()+".mp4";
 
-                rawActionList.get(finalI).delete();
+                rawActionList.get(needCachePositions.get(i)).delete();
 
                 WolfDownloader wolfDownloader = new DownloaderConfig()
                         .setThreadNum(1)
@@ -194,19 +202,27 @@ public class CourseCacheUtil {
 
                             @Override
                             public void onDownloadSuccess(String apkPath) {
-                                Log.d("CourseCacheUtil","onDownloadSuccess! actionId:"+rawActionList.get(finalI).getActionID());
+                                Log.d("CourseCacheUtil","onDownloadSuccess! actionId:"+actionId);
 
-                                rawActionList.get(finalI).setActionLocUrl(cachePathRoot.toString() + "/ActionVideos/"+ rawActionList.get(finalI).getActionID()+".mp4");
-                                rawActionList.get(finalI).save();
-                                downloadSuccessIdList.put(rawActionList.get(needCachePositions.get(finalI)).getActionID(),true);
+                                rawActionList.get(needCachePositions.get(finalI)).setActionLocUrl(cachePathRoot.toString() + "/ActionVideos/"+ actionId+".mp4");
+                                rawActionList.get(needCachePositions.get(finalI)).save();
+                                Course_Action ca = new Course_Action(course,rawActionList.get(needCachePositions.get(finalI)));
+                                if(new Select().from(Course_Action.class).where(Course_Action_Table.course_courseId.eq(course.getCourseId()),Course_Action_Table.action_actionID.eq(rawActionList.get(finalI).getActionID())).querySingle() == null){
+                                    Log.d("CourseCacheUtil","ca.exists false");
+                                    ca.save();
+                                }
+
+                                downloadSuccessIdList.put(actionId,true);
 
                                 if(downloadSuccessIdList.size() == needCachePositions.size()){
+                                    Log.d("CourseCacheUtil","onAllDownloadFinish! ");
 
                                     //size checking here
                                     if(actionsVideoFileSizeAuth(rawActionList)){
+                                        course.getActionList();
                                         cacheStateChangeListener.onActionsCacheDone(true,rawActionList,"success");
                                     }else{
-                                        cacheStateChangeListener.onActionsCacheDone(false,rawActionList,"failed reason:file size smaller than json say");
+                                        cacheStateChangeListener.onActionsCacheDone(false,rawActionList,"failed reason:file doesn't exist or size smaller than json say");
                                     }
 
                                     downloadDialog.dismiss();
@@ -216,8 +232,8 @@ public class CourseCacheUtil {
 
                             @Override
                             public void onDownloadFailed() {
-                                Log.d("CourseCacheUtil","onDownloadFailed! actionId:"+rawActionList.get(finalI).getActionID());
-                                cacheStateChangeListener.onActionsCacheDone(false,rawActionList,"failed reason:file download failed,actionId:"+rawActionList.get(finalI).getActionID());
+                                Log.d("CourseCacheUtil","onDownloadFailed! actionId:"+actionId);
+                                cacheStateChangeListener.onActionsCacheDone(false,rawActionList,"failed reason:file download failed,actionId:"+actionId);
                             }
 
                             @Override
@@ -228,7 +244,7 @@ public class CourseCacheUtil {
                             @Override
                             public void onStopDownload() {
                                 //cacheStateChangeListener.onActionsCacheDone(false,rawActionList,"exit");
-                                Log.d("CourseCacheUtil","onStopDownload! actionId:"+rawActionList.get(finalI).getActionID());
+                                Log.d("CourseCacheUtil","onStopDownload! actionId:"+actionId);
                                 //cacheStateChangeListener.onActionsCacheDone(false,rawActionList);
                             }
                         })
@@ -244,6 +260,7 @@ public class CourseCacheUtil {
 
     private boolean actionsVideoFileSizeAuth(List<Action> list){
         for(int i=0;i<list.size();i++){
+            Log.d("CourseCacheUtil","locUrl:"+list.get(i).getActionLocUrl()+" getSizeByte:"+list.get(i).getSizeByte());
             if(!actionVideoFileAuth(list.get(i).getActionLocUrl(),list.get(i))){
                 return false;
             }

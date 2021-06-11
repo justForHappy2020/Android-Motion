@@ -14,11 +14,10 @@ import com.bumptech.glide.Glide;
 import com.example.motion.Entity.Action;
 import com.example.motion.Entity.Course;
 import com.example.motion.R;
-import com.example.motion.Utils.CourseCacheUtil;
-import com.example.motion.Utils.OnProcessStateChangeListener;
+import com.example.motion.Utils.CourseCache.CourseCacheUtil;
+import com.example.motion.Utils.CourseCache.OnProcessStateChangeListener;
 import com.zzhoujay.richtext.RichText;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,27 +132,8 @@ public class sport_activity_course_action_detail extends Activity implements Vie
                     }
 
                 });
-                ccu.process(actionList.get(currentOne).getOwnerCourse(),actionList);
-                /*
-                CourseCacheUtil ccu = new CourseCacheUtil(this,getCacheDir());
-                ccu.setOnChangeListener(new OnProcessStateChangeListener() {
-                    @Override
-                    public void onActionsProcessDone(boolean isSuccess, List<Action> processedActionList) {
-                        if(isSuccess){
-                            actionList = processedActionList;
+                ccu.process(course,actionList);
 
-
-
-                            Log.d("course_detail","CourseCacheUtil_cache_success");
-                        }else{
-                            Log.d("course_detail","CourseCacheUtil_cache_fail");
-                        }
-                    }
-
-
-                });
-                ccu.processActions(actionList);
-                 */
 
                 break;
 
