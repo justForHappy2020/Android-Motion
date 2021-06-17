@@ -4,17 +4,20 @@ import java.io.Serializable;
 
 public class HealthRecord implements Serializable {
     private String createTime;
-    private int weight;
-    private int height;
-    private int bmi;
-    private String pictureURL;
+    private float weight;
+    private float height;
+    private float bmi;
+    private int status;
 
-    public HealthRecord(String createTime, int weight, int height, int bmi, String pictureURL) {
+    public HealthRecord() {
+    }
+
+    public HealthRecord(String createTime, float weight, float height, float bmi, int status) {
         this.createTime = createTime;
         this.weight = weight;
         this.height = height;
         this.bmi = bmi;
-        this.pictureURL = pictureURL;
+        this.status = status;
     }
 
     public String getCreateTime() {
@@ -25,35 +28,35 @@ public class HealthRecord implements Serializable {
         this.createTime = createTime;
     }
 
-    public int getWeight() {
+    public float getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(float weight) {
         this.weight = weight;
     }
 
-    public int getHeight() {
+    public float getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(float height) {
         this.height = height;
     }
 
-    public int getBmi() {
+    public float getBmi() {
         return bmi;
     }
 
-    public void setBmi(int bmi) {
+    public void setBmi(float bmi) {
         this.bmi = bmi;
     }
 
-    public String getPictureURL() {
-        return pictureURL;
+    public int getStatus() {
+        return status;
     }
 
-    public void setPictureURL(String pictureURL) {
-        this.pictureURL = pictureURL;
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

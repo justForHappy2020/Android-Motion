@@ -27,8 +27,14 @@ import com.example.motion.Entity.DyxItem;
 import com.example.motion.Entity.HealthRecord;
 import com.example.motion.Entity.Member;
 import com.example.motion.R;
+import com.example.motion.Utils.HttpUtils;
 import com.example.motion.Widget.DyxQuickAdapter;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
@@ -73,7 +79,7 @@ public class me_activity_bodydata_main  extends Activity implements View.OnClick
 
     private int memberID;
     private SharedPreferences readSP;
-    private String token;
+    private String token = "438092e5-cdd5-4ba3-9e27-430949b90b89";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,12 +178,6 @@ public class me_activity_bodydata_main  extends Activity implements View.OnClick
                     }
                     adapter.getViewByPosition(position,R.id.Riv_portrait_small).setVisibility(View.VISIBLE);
                     recordList.clear();
-                    HealthRecord record4 = new HealthRecord("2020-05-08",66,180,21,"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201607%2F28%2F20160728100434_nXMmc.thumb.400_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1623330327&t=1767a207561829362d49fb5362f270af");
-                    HealthRecord record5 = new HealthRecord("2020-05-08",55,165,22,"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201607%2F28%2F20160728100434_nXMmc.thumb.400_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1623330327&t=1767a207561829362d49fb5362f270af");
-                    HealthRecord record6 = new HealthRecord("2020-05-08",48,145,18,"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201607%2F28%2F20160728100434_nXMmc.thumb.400_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1623330327&t=1767a207561829362d49fb5362f270af");
-                    recordList.add(new DyxItem(DyxItem.HEALTHRECORD , record4));
-                    recordList.add(new DyxItem(DyxItem.HEALTHRECORD , record5));
-                    recordList.add(new DyxItem(DyxItem.HEALTHRECORD , record6));
                     recordAdater.notifyDataSetChanged();
                 }
             }
@@ -188,7 +188,6 @@ public class me_activity_bodydata_main  extends Activity implements View.OnClick
     }
 
     private void initData() {
-        ////http请求数据实体，存入2个list中。
         Member member1 = new Member((long) 1,"mom","woman","http://bpic.588ku.com/element_pic/18/05/04/a4605af6e0f30bad35d0556f71b8e44c.jpg","1975-04-09");
         Member member2 = new Member((long) 2,"kid","man","http://5b0988e595225.cdn.sohucs.com/images/20170819/eaf8683041844976b3a45b9325628a5a.jpeg","2010-04-09");
         Member addButton = new Member((long) 2,"null","null","https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.51yuansu.com%2Fpic2%2Fcover%2F00%2F48%2F15%2F5815dc80681ad_610.jpg&refer=http%3A%2F%2Fpic.51yuansu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1623141929&t=c25a614e346923a7f878b6a43c6d0699","null");
@@ -197,12 +196,47 @@ public class me_activity_bodydata_main  extends Activity implements View.OnClick
         memberList.add(new DyxItem(DyxItem.PORTRAIT , member2));
         memberList.add(new DyxItem(DyxItem.PORTRAIT , addButton));
 
-        HealthRecord record1 = new HealthRecord("2020-05-09",68,174,22,"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2374733373,2441380433&fm=26&gp=0.jpg");
-        HealthRecord record2 = new HealthRecord("2020-05-09",50,160,20,"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2374733373,2441380433&fm=26&gp=0.jpg");
-        HealthRecord record3 = new HealthRecord("2020-05-09",55,164,622,"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2374733373,2441380433&fm=26&gp=0.jpg");
-        recordList.add(new DyxItem(DyxItem.HEALTHRECORD , record1));
-        recordList.add(new DyxItem(DyxItem.HEALTHRECORD , record2));
-        recordList.add(new DyxItem(DyxItem.HEALTHRECORD , record3));
+        //http请求健康记录LIST
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String url = "http://10.34.25.45:8080/api/community/getHealthRecord?token=" + token;
+                String responseData = null;
+                try {
+                    responseData = HttpUtils.connectHttpGet(url);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try{
+                    JSONObject jsonObject1 = null;
+                    if(responseData != null)jsonObject1 = new JSONObject(responseData);
+                    httpcode = jsonObject1.getInt("code");
+                    if (httpcode == 200) {
+                        JSONArray JSONArrayRecord = jsonObject1.getJSONArray("data");
+                        for (int i = 0; i < JSONArrayRecord.length(); i++) {
+                            JSONObject jsonObject2 = JSONArrayRecord.getJSONObject(i);
+                            //相应的内容
+                            HealthRecord healthRecord = new HealthRecord();
+                            healthRecord.setBmi((float) jsonObject2.getDouble("bmi"));
+                            healthRecord.setWeight((float) jsonObject2.getDouble("weight"));
+                            healthRecord.setHeight((float) jsonObject2.getDouble("height"));
+                            healthRecord.setCreateTime(jsonObject2.getString("createTime"));
+                            healthRecord.setStatus(jsonObject2.getInt("status"));
+                            recordList.add(new DyxItem(DyxItem.HEALTHRECORD , healthRecord));
+                        }
+                    }
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+        try {
+            thread.join(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if(httpcode!=200)Toast.makeText(me_activity_bodydata_main.this,"ERROR", Toast.LENGTH_SHORT).show();
     }
 
     private void generateChartData() {
