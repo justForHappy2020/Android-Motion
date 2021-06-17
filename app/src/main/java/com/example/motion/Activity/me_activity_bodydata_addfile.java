@@ -32,7 +32,7 @@ public class me_activity_bodydata_addfile extends Activity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_activity_bodydata_addfile);
-        checkToken();
+        //checkToken();
         initView();
     }
 

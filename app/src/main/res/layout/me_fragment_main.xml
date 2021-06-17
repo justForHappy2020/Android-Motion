@@ -489,7 +489,7 @@
         android:paddingTop="40dp">
 
         <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/Riv_portrait"
+            android:id="@+id/iv_portrait"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_weight="1"

@@ -31,6 +31,8 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.bumptech.glide.Glide;
+import com.example.motion.Entity.User;
 import com.example.motion.R;
 import com.makeramen.roundedimageview.RoundedImageView;
 
@@ -74,6 +76,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
 
     private String token = "2";
     private SharedPreferences readSP;
+    private Intent intentAccept;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,14 +86,25 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
     }
 
     private void initView(){
+        intentAccept = getIntent();
+        User user = (User)intentAccept.getSerializableExtra("user");
+        name = user.getNickname();
+        url = user.getHeadPortraitUrl();
+        gender = user.getGender();
+        birth = user. getBirth();
+
         ivBack = findViewById(R.id.iv_back);
         ivChangeportrait = findViewById(R.id.iv_changeportrait);
         tvName = findViewById(R.id.tv_name);
         tvSex = findViewById(R.id.tv_sex);
         tvBirth  = findViewById(R.id.tv_birth);
         btnSave = findViewById(R.id.btn_save);
-
         mContext = my_activity_me_data.this;
+        tvName.setText(user.getNickname());
+        Glide.with(mContext).load(user.getHeadPortraitUrl()).into(ivChangeportrait);
+        final String[] sex = getResources().getStringArray(R.array.me_choose_sex);
+        tvSex.setText(sex[user.getGender()]);
+        tvBirth.setText(user.getBirth());
 
         final LayoutInflater inflater = my_activity_me_data.this.getLayoutInflater();
         alertView = inflater.inflate(R.layout.me_dialog_me_data, null,false);
@@ -158,7 +172,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                     @Override
                     public void run() {
                         try {
-                            String responseData = upload(httpurl,filepath).string();//http请求
+                            String responseData = upload(httpurl , filepath , token).string();//http请求
                             try {
                                 JSONObject jsonObject1 = new JSONObject(responseData);
                                 //相应的内容
@@ -373,7 +387,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                             JSONObject json = new JSONObject();
                             try {
                                 json.put("token", token);
-                                json.put("headPortrait", "https://pics2.baidu.com/feed/b64543a98226cffcaa9bbee9f1799a96f703eab3.jpeg?token=99bafe934f8d5948be9b5cacfd50c5e5");//test
+                                json.put("headPortrait", url);
                                 json.put("nickName", name);
                                 json.put("gender" , gender );
                             } catch (JSONException e) {
@@ -409,8 +423,9 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                 }
                 else {
                     Toast.makeText(this,"ERROR",Toast.LENGTH_SHORT).show();
-                    finish();
                 }
+                Intent intent = new Intent(my_activity_me_data.this, viewpager_activity_main.class);
+                startActivity(intent);
                 finish();
                 break;
         }
