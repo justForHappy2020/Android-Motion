@@ -60,7 +60,7 @@
             android:configChanges="orientation|screenSize"/>
 
         <activity android:name=".Activity.sport_activity_course_action_detail" />
-
+        <activity android:name=".Activity.search_result_activity" />
         <activity android:name=".Activity.sport_activity_course_selection" />
         <activity android:name=".Activity.search_course_activity"/>
         <activity android:name=".Activity.me_activity_mycourse"/>

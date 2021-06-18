@@ -44,6 +44,8 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.motion.Activity.me_activity_mycollections;
+import com.example.motion.Activity.me_activity_mycourse;
 import com.example.motion.Activity.search_course_activity;
 import com.example.motion.R;
 import com.haibin.calendarview.Calendar;
@@ -65,6 +67,8 @@ public class sport_fragment_main extends Fragment implements
     CalendarView mCalendarView;
     RelativeLayout mRelativeTool;
     ImageView search;
+    ImageView collect;
+    ImageView history;
     private int mYear;
     CalendarLayout mCalendarLayout;
     private View.OnClickListener onClickListener;
@@ -87,6 +91,22 @@ public class sport_fragment_main extends Fragment implements
         mRelativeTool = view.findViewById(R.id.rl_tool);
         mCalendarView = view.findViewById(R.id.calendarView);
         mTextCurrentDay =  view.findViewById(R.id.tv_current_day);
+        collect = view.findViewById(R.id.iv_sport_collected);
+        history = view.findViewById(R.id.iv_sport_practiced);
+        collect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), me_activity_mycollections.class);
+                startActivity(intent);
+            }
+        });
+        history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), me_activity_mycourse.class);
+                startActivity(intent);
+            }
+        });
         mTextMonthDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,6 +124,7 @@ public class sport_fragment_main extends Fragment implements
             @Override
             public void onClick(View v) {
                 mCalendarView.scrollToCurrent();
+                showPopupWindow();
             }
         });
         mCalendarLayout = view.findViewById(R.id.calendarLayout);
@@ -177,8 +198,8 @@ public class sport_fragment_main extends Fragment implements
         Log.d("initData","year,motnth"+year+"/"+month);
         countDay = new int[]{ 1,2,3,5,6,7,8,9,11,12,15,16,17,18,19,21,24,25,27,29,30,0,0,0,0,0,0,0,0,0,0};
         for(int i = 0; i < countDay.length;i++) {//设置变色的日子
-            map.put(getSchemeCalendar(year, month, countDay[i], 0xFFbc13f0, "假").toString(),
-                    getSchemeCalendar(year, month, countDay[i], 0xFFbc13f0, "假"));
+            map.put(getSchemeCalendar(year, month, countDay[i], 0xFFbc13f0).toString(),
+                    getSchemeCalendar(year, month, countDay[i], 0xFFbc13f0));
             /*map.put(getSchemeCalendar(year, month, 3, 0xFFe69138, "事").toString(),
                     getSchemeCalendar(year, month, 3, 0xFFe69138, "事"));
             map.put(getSchemeCalendar(year, month, 9, 0xFFdf1356, "议").toString(),
@@ -200,13 +221,13 @@ public class sport_fragment_main extends Fragment implements
         }
     }
 
-    private Calendar getSchemeCalendar(int year, int month, int day, int color, String text) {
+    private Calendar getSchemeCalendar(int year, int month, int day, int color) {
         Calendar calendar = new Calendar();
         calendar.setYear(year);
         calendar.setMonth(month);
         calendar.setDay(day);
         calendar.setSchemeColor(color);//如果单独标记颜色、则会使用这个颜色
-        calendar.setScheme(text);
+        //calendar.setScheme(text);
         return calendar;
     }
 }

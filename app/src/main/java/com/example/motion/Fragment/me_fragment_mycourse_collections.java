@@ -101,7 +101,7 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
     private void getHttpCourse(Map params){
         List<MultipleItem> onePageCourses = new ArrayList<>();
 
-        String url = "http://localhost:8080/api/course/getCollectionCourse?size=" + COURSE_NUM_IN_ONE_PAGE;
+        String url = "http://10.34.25.45:8080/api/course/getCollectionCourse?size=" + COURSE_NUM_IN_ONE_PAGE;
         if(params.isEmpty()){
             url+="&page=1&token=12123";
         }else{
@@ -145,7 +145,7 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
                             labels += (JSONArrayLabels.get(j) + "/");
                         }
                         courseCollected.setLabels(labels);
-                        onePageCourses.add(new MultipleItem(MultipleItem.COURSEFULL, courseCollected));
+                        onePageCourses.add(new MultipleItem(MultipleItem.Me_mycourse_collections, courseCollected));
                     }
                     showingCourseList.addAll(onePageCourses);
 
@@ -153,11 +153,9 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
                     Message msg = handler.obtainMessage();
                     msg.what = LOAD_COURSES_SUCCESS;
                     handler.sendMessage(msg);
-
                     //test tool
                     dialogMessage+="\n\ngetHttpCourse response:\n"+jsonRootObject.toString();
                     //end of test tool
-
                 }catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -174,6 +172,7 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
                 msg.what = LOAD_COURSES_FAILED;
                 msg.obj = volleyError.toString();
                 handler.sendMessage(msg);
+
         }
         });
         stringRequest.setTag("getHttp");
