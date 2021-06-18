@@ -25,14 +25,14 @@ public class me_activity_bodydata_addfile extends Activity implements View.OnCli
     private EditText etHeight;
     private TextView tvFinish;
     private int httpcode;
-    private  String token;
+    private  String token = "438092e5-cdd5-4ba3-9e27-430949b90b89";
     private SharedPreferences readSP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_activity_bodydata_addfile);
-        checkToken();
+        //checkToken();
         initView();
     }
 
@@ -75,7 +75,6 @@ public class me_activity_bodydata_addfile extends Activity implements View.OnCli
                             JSONObject json = new JSONObject();
                             try {
                                 json.put("token", token);
-                                //json.put("headPortrait", "https://pics2.baidu.com/feed/b64543a98226cffcaa9bbee9f1799a96f703eab3.jpeg?token=99bafe934f8d5948be9b5cacfd50c5e5");//test
                                 json.put("height", height);
                                 json.put("weight", weight);
                             } catch (JSONException e) {
@@ -83,19 +82,14 @@ public class me_activity_bodydata_addfile extends Activity implements View.OnCli
                             }
                             String url = "http://10.34.25.45:8080/api/community/saveHealthRecord";
                             String responseData = connectHttp(url,json);
-                            getfeedback(responseData);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                            try {
+                                JSONObject jsonObject1 = new JSONObject(responseData);
+                                //相应的内容
+                                httpcode = jsonObject1.getInt("code");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    private void getfeedback(String responseData) {
-                        try {
-                            //解析JSON数据
-                            JSONObject jsonObject1 = new JSONObject(responseData);
-                            httpcode = jsonObject1.getInt("code");
-                        } catch (JSONException e){
                             e.printStackTrace();
                         }
                     }
@@ -107,6 +101,7 @@ public class me_activity_bodydata_addfile extends Activity implements View.OnCli
                     e.printStackTrace();
                 }
                 if(httpcode==200){
+                    Toast.makeText(this,"SUCCESSFUL",Toast.LENGTH_SHORT).show();
                     Intent intent;
                     intent = new Intent(this , me_activity_bodydata_main.class);
                     startActivity(intent);
