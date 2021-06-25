@@ -74,7 +74,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
     private String name = "";
     private int gender;
 
-    private String token = "2";
+    private String token;
     private SharedPreferences readSP;
     private Intent intentAccept;
 
@@ -82,7 +82,19 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_activity_me_data);
+        checkToken();
         initView();
+    }
+
+    private void checkToken() {
+        readSP=this.getSharedPreferences("saveSp",MODE_PRIVATE);
+        token = readSP.getString("token","");
+        if (token.isEmpty()){
+            finish();
+            Toast.makeText(this,"请登录", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, register_activity_register.class);
+            startActivity(intent);
+        }
     }
 
     private void initView(){
@@ -360,7 +372,12 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                 new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        birth = year+"-"+ (month+1)+"-"+dayOfMonth;
+                        String m , d;
+                        if(++month<10)m = "0" + month;
+                        else m = String.valueOf(month);
+                        if(dayOfMonth<10)d = "0" + dayOfMonth;
+                        else d = String.valueOf(dayOfMonth);
+                        birth = year+"-"+ m + "-" + d;
                         tvBirth.setText(birth);
                     }
                 }
@@ -390,6 +407,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                                 json.put("headPortrait", url);
                                 json.put("nickName", name);
                                 json.put("gender" , gender );
+                                json.put("birthday" , birth);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

@@ -79,13 +79,13 @@ public class me_activity_bodydata_main  extends Activity implements View.OnClick
 
     private int memberID;
     private SharedPreferences readSP;
-    private String token = "438092e5-cdd5-4ba3-9e27-430949b90b89";
+    private String token ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_activity_bodydata_main);
-        //checkToken();
+        checkToken();
         initView();
     }
 

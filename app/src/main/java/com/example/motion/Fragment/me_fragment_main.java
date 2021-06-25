@@ -69,7 +69,7 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
 
     private RoundedImageView riv_portrait;
     private int httpcode;
-    private String token = "2";
+    private String token = "221c2957-f4c5-494c-bea8-3fa28eeeeb06";
 
     //从其他页面获取UserID后的个人信息
     private int UserID;
@@ -103,7 +103,7 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String url = "http://10.34.25.45:8080/api/community/getUserdata?token=" + token;
+                    String url = "http://10.34.25.45:8080/api/community/getUserdata?token=" + token;
                 String responseData = null;
                 try {
                     responseData = HttpUtils.connectHttpGet(url);

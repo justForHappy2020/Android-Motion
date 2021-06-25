@@ -258,7 +258,7 @@ public class register_activity_register extends AppCompatActivity implements Vie
                 break;
 
             case R.id.btn_login:
-
+                mobile = et_phone.getText().toString().trim();
                 loginCode = et_code.getText().toString().trim();
                 if (loginCode.isEmpty() || mobile.isEmpty() || !btn_agree.isChecked()){
                     Toast.makeText(register_activity_register.this,"缺少选项", Toast.LENGTH_SHORT).show();
