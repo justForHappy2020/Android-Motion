@@ -1,6 +1,7 @@
 package com.example.motion.Fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.example.motion.Activity.me_activity_mycourse;
 import com.example.motion.Activity.me_activity_help;
 import com.example.motion.Activity.me_activity_setting;
 import com.example.motion.Activity.my_activity_me_data;
+import com.example.motion.Activity.register_activity_register;
 import com.example.motion.Entity.User;
 import com.example.motion.R;
 import com.example.motion.Utils.HttpUtils;
@@ -34,6 +36,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class me_fragment_main extends Fragment implements View.OnClickListener {
@@ -69,7 +72,8 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
 
     private RoundedImageView riv_portrait;
     private int httpcode;
-    private String token = "221c2957-f4c5-494c-bea8-3fa28eeeeb06";
+    private String token;
+    private SharedPreferences readSP;
 
     //从其他页面获取UserID后的个人信息
     private int UserID;
@@ -86,6 +90,7 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.me_fragment_main, container, false);
         Log.d("me_fragment_main","onCreateView");
+        checkToken();
         initData();
         initView(view);
         //initListener();
@@ -97,43 +102,51 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
         super.onResume();
     }
 
-
+    private void checkToken() {
+        readSP=getActivity().getSharedPreferences("saveSp",MODE_PRIVATE);
+        token = readSP.getString("token","");
+        if (token.isEmpty()){
+            Toast.makeText(getActivity(),"请登录", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), register_activity_register.class);
+            startActivity(intent);
+        }
+    }
 
     private void initData() {
-//        Thread thread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                    String url = "http://10.34.25.45:8080/api/community/getUserdata?token=" + token;
-//                String responseData = null;
-//                try {
-//                    responseData = HttpUtils.connectHttpGet(url);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//            }
-//                try{
-//                    JSONObject jsonObject1 = null;
-//                    if(responseData != null)jsonObject1 = new JSONObject(responseData);
-//                    httpcode = jsonObject1.getInt("code");
-//                    if (httpcode == 200) {
-//                        JSONObject jsonObject2 = jsonObject1.getJSONObject("data");
-//                            //相应的内容
-//                            user.setHeadPortraitUrl(jsonObject2.getString("headPortrait"));
-//                            user.setNickname(jsonObject2.getString("nickName"));
-//                            user.setGender(jsonObject2.getInt("gender"));
-//                            user.setBirth(jsonObject2.getString("birthday"));
-//                        }
-//                }catch (JSONException e){
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//        thread.start();
-//        try {
-//            thread.join(10000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        if(httpcode!=200) Toast.makeText(getActivity(),"ERROR", Toast.LENGTH_SHORT).show();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                    String url = "http://10.34.25.45:8080/api/community/getUserdata?token=" + token;
+                String responseData = null;
+                try {
+                    responseData = HttpUtils.connectHttpGet(url);
+                } catch (IOException e) {
+                    e.printStackTrace();
+            }
+                try{
+                    JSONObject jsonObject1 = null;
+                    if(responseData != null)jsonObject1 = new JSONObject(responseData);
+                    httpcode = jsonObject1.getInt("code");
+                    if (httpcode == 200) {
+                        JSONObject jsonObject2 = jsonObject1.getJSONObject("data");
+                            //相应的内容
+                            user.setHeadPortraitUrl(jsonObject2.getString("headPortrait"));
+                            user.setNickname(jsonObject2.getString("nickName"));
+                            user.setGender(jsonObject2.getInt("gender"));
+                            user.setBirth(jsonObject2.getString("birthday"));
+                        }
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+        try {
+            thread.join(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if(httpcode!=200) Toast.makeText(getActivity(),"ERROR", Toast.LENGTH_SHORT).show();
     }
 
 

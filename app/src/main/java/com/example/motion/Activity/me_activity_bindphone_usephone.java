@@ -31,8 +31,8 @@ public class me_activity_bindphone_usephone extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_activity_bindphone_usephone);
-        initview();
         initdata();
+        initview();
 //        initPhone_number();
     }
 
@@ -80,7 +80,7 @@ public class me_activity_bindphone_usephone extends AppCompatActivity implements
                 startActivity(intent1);
                 break;
             case R.id.btn_changephone:
-                Intent intent2 = new Intent(this,me_fragment_main.class);
+                Intent intent2 = new Intent(this,me_activity_bindphone_changephone.class);
                 startActivity(intent2);
                 break;
 //          case R.id.tv_your_phone:
