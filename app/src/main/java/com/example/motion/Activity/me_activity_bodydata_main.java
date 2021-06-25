@@ -38,6 +38,7 @@ import com.example.motion.Entity.HealthRecord;
 import com.example.motion.Entity.Member;
 import com.example.motion.R;
 import com.example.motion.Utils.HttpUtils;
+import com.example.motion.Utils.UserInfoManager;
 import com.example.motion.Widget.DyxQuickAdapter;
 import com.example.motion.Widget.MyStringRequest;
 
@@ -232,6 +233,7 @@ public class me_activity_bodydata_main  extends NeedTokenActivity implements Vie
     }
 
     private void initData() {
+        token = UserInfoManager.getUserInfoManager(this).getToken();
 
         Member member1 = new Member((long) 1,"mom","woman","http://bpic.588ku.com/element_pic/18/05/04/a4605af6e0f30bad35d0556f71b8e44c.jpg","1975-04-09");
         Member member2 = new Member((long) 2,"kid","man","http://5b0988e595225.cdn.sohucs.com/images/20170819/eaf8683041844976b3a45b9325628a5a.jpeg","2010-04-09");

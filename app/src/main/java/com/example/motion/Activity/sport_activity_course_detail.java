@@ -61,7 +61,7 @@ import static java.lang.Thread.sleep;
  * 1)Long courseId 需要查看详情的课程id
  */
 
-public class sport_activity_course_detail extends BaseNetworkActivity implements View.OnClickListener{
+public class sport_activity_course_detail extends NeedTokenActivity implements View.OnClickListener{
 
     private ImageView ivBack;
     private ImageView ivBackgroundImg;
@@ -108,10 +108,21 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
 
         initHandler();
         initView();
-        courseId2Course(courseId,course);
         initEvent();
-        initCourseActions();
-        initRelatedCourses();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if(!isTokenEmpty){
+            Log.d("sport_activity_course_detail","isTokenEmpty not empty");
+            courseId2Course(courseId,course);
+            initCourseActions();
+            initRelatedCourses();
+        }else{
+            Log.d("sport_activity_course_detail","isTokenEmpty ");
+        }
     }
 
     private void initHandler(){
@@ -176,8 +187,17 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
         //String url = "https://www.fastmock.site/mock/318b7fee143da8b159d3e46048f8a8b3/api/courseId2All?courseId="+courseId;
         actionList = new ArrayList<>();
         actionInMutiList = new ArrayList<>();
-
         String requestStr = "{\"courseId\": "+courseId+", \"token\":\""+ UserInfoManager.getUserInfoManager(this).getToken() +"\" }";
+        /*
+        JSONObject param = new JSONObject();
+        try{
+            param.put("courseId",courseId);
+            param.put("token",UserInfoManager.getUserInfoManager(this).getToken());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+         */
 
         PostJsonRequest postJsonRequest = new PostJsonRequest(Request.Method.POST,url,requestStr, new Response.Listener<String>() {
                             @Override
@@ -198,7 +218,7 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
                                     course.setTargetAge(jsonObject2.getString("targetAge"));
                                     course.setIsOnline(jsonObject2.getInt("onLine"));
 
-                                    JSONArray JSONArrayLabels = jsonObject2.getJSONArray("labelsname");
+                                    JSONArray JSONArrayLabels = jsonObject2.getJSONArray("labelsName");
                                     String labels = "";
                                     for(int j=0;j<JSONArrayLabels.length();j++){
                                         labels += (JSONArrayLabels.get(j)+"/");
@@ -216,16 +236,17 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
                                         action.setActionImgs(jsonObject.getString("actionImgs"));
                                         action.setActionUrl(jsonObject.getString("actionUrl"));
 
-                                        String time[] = jsonObject.getString("duration").split(":");
-                                        int duration = Integer.parseInt(time[0])*3600 +Integer.parseInt(time[1])*60+Integer.parseInt(time[2]);
-                                        action.setDuration(duration);
+                                        //String time[] = jsonObject.getString("duration").split(":");
+                                        //int duration = Integer.parseInt(time[0])*3600 +Integer.parseInt(time[1])*60+Integer.parseInt(time[2]);
+                                        action.setDuration(jsonObject.getInt("duration"));
+
                                         action.setIntro(jsonObject.getString("actionIntro"));
                                         action.setType(2);//jsonObject.getInt("type")
                                         action.setCount(jsonObject.getInt("count"));
                                         action.setTotal(jsonObject.getInt("total"));
                                         action.setRestDuration(5);//jsonObject.getInt("restDuration")
                                         action.setSizeByte(jsonObject.getInt("size"));
-                                        action.setOwnerCourse(course);
+                                        //action.setOwnerCourse(course);
                                         actionList.add(action);
                                         actionInMutiList.add(new MultipleItem(MultipleItem.ACTION,action));
                                     }
@@ -233,6 +254,7 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
                                     Message msg = handler.obtainMessage();
                                     msg.what = GET_SUCCESS;
                                     handler.sendMessage(msg);
+
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();

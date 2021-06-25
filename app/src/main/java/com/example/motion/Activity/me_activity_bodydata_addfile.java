@@ -4,14 +4,26 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.example.motion.Entity.Action;
+import com.example.motion.Entity.MultipleItem;
 import com.example.motion.R;
+import com.example.motion.Utils.UserInfoManager;
+import com.example.motion.Widget.PostJsonRequest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,21 +31,26 @@ import java.io.IOException;
 
 import static com.example.motion.Utils.HttpUtils.connectHttp;
 
-public class me_activity_bodydata_addfile extends Activity implements View.OnClickListener {
+public class me_activity_bodydata_addfile extends NeedTokenActivity implements View.OnClickListener {
+    private final int BODY_DATA_FILE_ADD_FAIL = 0;
+    private final int BODY_DATA_FILE_ADD_SUCCESS = 1;
+
     private ImageView ivBack;
     private EditText etWeight;
     private EditText etHeight;
     private TextView tvFinish;
     private int httpcode;
-    private  String token = "438092e5-cdd5-4ba3-9e27-430949b90b89";
-    private SharedPreferences readSP;
+    private Handler handler;
+    //private  String token = "438092e5-cdd5-4ba3-9e27-430949b90b89";
+    //private SharedPreferences readSP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_activity_bodydata_addfile);
-        checkToken();
+        //checkToken();
         initView();
+        initHandler();
     }
 
     private void initView() {
@@ -45,7 +62,7 @@ public class me_activity_bodydata_addfile extends Activity implements View.OnCli
         ivBack.setOnClickListener(this);
         tvFinish.setOnClickListener(this);
     }
-
+/*
     private void checkToken() {
         readSP=this.getSharedPreferences("saveSp",MODE_PRIVATE);
         token = readSP.getString("token","");
@@ -55,6 +72,30 @@ public class me_activity_bodydata_addfile extends Activity implements View.OnCli
             Intent intent = new Intent(this, register_activity_register.class);
             startActivity(intent);
         }
+    }
+
+ */
+
+    private void initHandler(){
+        handler = new Handler(Looper.getMainLooper()){
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what){
+                    case BODY_DATA_FILE_ADD_FAIL:
+                        Toast.makeText(me_activity_bodydata_addfile.this,"ERROR",Toast.LENGTH_SHORT).show();
+
+                        break;
+                    case BODY_DATA_FILE_ADD_SUCCESS:
+                        Toast.makeText(me_activity_bodydata_addfile.this,"SUCCESSFUL",Toast.LENGTH_SHORT).show();
+                        Intent intent;
+                        intent = new Intent(me_activity_bodydata_addfile.this , me_activity_bodydata_main.class);
+                        startActivity(intent);
+                        finish();
+                        break;
+
+                }
+            }
+        };
     }
 
     @Override
@@ -67,6 +108,40 @@ public class me_activity_bodydata_addfile extends Activity implements View.OnCli
                 Float weight = Float.parseFloat(etWeight.getText().toString());
                 Float height = Float.parseFloat(etHeight.getText().toString());
                 //http保存信息（成员ID、身高体重）
+                String url = "http://10.34.25.45:8080/api/community/saveHealthRecord";
+                JSONObject json = new JSONObject();
+                try {
+                    json.put("token", UserInfoManager.getUserInfoManager(me_activity_bodydata_addfile.this).getToken());
+                    json.put("height", height);
+                    json.put("weight", weight);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                PostJsonRequest postJsonRequest = new PostJsonRequest(Request.Method.POST,url,json.toString(), new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String responseStr) {
+
+                        try {
+                            JSONObject jsonObject1 = new JSONObject(responseStr);
+                            Message msg = handler.obtainMessage();
+                            msg.what = BODY_DATA_FILE_ADD_SUCCESS;
+                            handler.sendMessage(msg);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Message msg = handler.obtainMessage();
+                        msg.what = BODY_DATA_FILE_ADD_FAIL;
+                        msg.obj=volleyError.toString();
+                        handler.sendMessage(msg);
+                    }
+                });
+
+                requestQueue.add(postJsonRequest);
+                /*
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -74,7 +149,7 @@ public class me_activity_bodydata_addfile extends Activity implements View.OnCli
                             //设置JSON数据
                             JSONObject json = new JSONObject();
                             try {
-                                json.put("token", token);
+                                json.put("token", UserInfoManager.getUserInfoManager(me_activity_bodydata_addfile.this).getToken());
                                 json.put("height", height);
                                 json.put("weight", weight);
                             } catch (JSONException e) {
@@ -100,16 +175,9 @@ public class me_activity_bodydata_addfile extends Activity implements View.OnCli
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if(httpcode==200){
-                    Toast.makeText(this,"SUCCESSFUL",Toast.LENGTH_SHORT).show();
-                    Intent intent;
-                    intent = new Intent(this , me_activity_bodydata_main.class);
-                    startActivity(intent);
-                }
-                else {
-                    Toast.makeText(this,"ERROR",Toast.LENGTH_SHORT).show();
-                    finish();
-                }
+
+                 */
+
                 break;
         }
     }

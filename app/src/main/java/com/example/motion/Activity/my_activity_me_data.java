@@ -75,7 +75,7 @@ public class my_activity_me_data extends NeedTokenActivity implements View.OnCli
     private String name = "";
     private int gender;
 
-    private String token;
+    //private String token;
     private SharedPreferences readSP;
     private Intent intentAccept;
 
@@ -83,10 +83,10 @@ public class my_activity_me_data extends NeedTokenActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_activity_me_data);
-        checkToken();
+        //checkToken();
         initView();
     }
-
+/*
     private void checkToken() {
         readSP=this.getSharedPreferences("saveSp",MODE_PRIVATE);
         token = readSP.getString("token","");
@@ -97,6 +97,8 @@ public class my_activity_me_data extends NeedTokenActivity implements View.OnCli
             startActivity(intent);
         }
     }
+
+ */
 
     private void initView(){
         intentAccept = getIntent();
@@ -185,7 +187,7 @@ public class my_activity_me_data extends NeedTokenActivity implements View.OnCli
                     @Override
                     public void run() {
                         try {
-                            String responseData = upload(httpurl , filepath , token).string();//http请求
+                            String responseData = upload(httpurl , filepath , UserInfoManager.getUserInfoManager(my_activity_me_data.this).getToken()).string();//http请求
                             try {
                                 JSONObject jsonObject1 = new JSONObject(responseData);
                                 //相应的内容

@@ -171,7 +171,7 @@ public class sport_fragment_main extends Fragment implements
         tv3.setOnClickListener(this);
         //显示PopupWindow
         View rootview = LayoutInflater.from(getActivity()).inflate(R.layout.sport_fragment_main, null);
-        mPopWindow.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
+        //mPopWindow.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
     }
     @Override
     public void onCalendarOutOfRange(Calendar calendar) {

@@ -18,7 +18,6 @@ import com.example.motion.Utils.CourseCacheUtil;
 import com.example.motion.Utils.OnProcessStateChangeListener;
 import com.zzhoujay.richtext.RichText;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +42,7 @@ public class sport_activity_course_action_detail extends Activity implements Vie
         setContentView(R.layout.sport_activity_course_action_detail);
 
         Intent intent = getIntent();
+        course = (Course)intent.getSerializableExtra("course");
         actionList =(List<Action>) intent.getSerializableExtra("actionList");
         currentOne = intent.getIntExtra("courseActionPosition",0);
 
@@ -121,7 +121,7 @@ public class sport_activity_course_action_detail extends Activity implements Vie
                     @Override
                     public void onProcessDone(boolean isSuccess, Course courseWithActions,Object message) {
                         if(isSuccess){
-                            course = courseWithActions;
+                            //course = courseWithActions;
                             Intent intent = new Intent(getBaseContext(),sport_activity_course_start.class);
                             intent.putExtra("courseWithActions",courseWithActions);
                             startActivity(intent);
@@ -133,27 +133,8 @@ public class sport_activity_course_action_detail extends Activity implements Vie
                     }
 
                 });
-                ccu.process(actionList.get(currentOne).getOwnerCourse(),actionList);
-                /*
-                CourseCacheUtil ccu = new CourseCacheUtil(this,getCacheDir());
-                ccu.setOnChangeListener(new OnProcessStateChangeListener() {
-                    @Override
-                    public void onActionsProcessDone(boolean isSuccess, List<Action> processedActionList) {
-                        if(isSuccess){
-                            actionList = processedActionList;
+                ccu.process(course,actionList);
 
-
-
-                            Log.d("course_detail","CourseCacheUtil_cache_success");
-                        }else{
-                            Log.d("course_detail","CourseCacheUtil_cache_fail");
-                        }
-                    }
-
-
-                });
-                ccu.processActions(actionList);
-                 */
 
                 break;
 

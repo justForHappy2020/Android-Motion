@@ -118,11 +118,14 @@ public class sport_activity_course_start extends Activity implements View.OnClic
 
         initHandler();
         initView();
-        initData();
 
-        initializePlayer();
-
-        setVideoViewPosition();
+        if(actionList != null && actionList.size()>0){
+            initData();
+            initializePlayer();
+            setVideoViewPosition();
+        }else{
+            Log.d("sport_activity_course_start","actionList is null or empty");
+        }
     }
 
     @Override
@@ -268,7 +271,7 @@ public class sport_activity_course_start extends Activity implements View.OnClic
                             tvShowTime.setText(decimalFormat.format(totalTimeSeconds /60)+":"+decimalFormat.format(totalTimeSeconds %60));
                             increaseActionCountOrTime(actionList.get(courseActionPosition),tvCountOrTime);
                         }
-                       }
+                    }
                 });
                 handler.postDelayed(this, 1000);
             }
@@ -345,7 +348,11 @@ public class sport_activity_course_start extends Activity implements View.OnClic
         ibLandscape.setOnClickListener(this);
         flTouchArea.setOnClickListener(this);
 
+    }
 
+    private void initData(){
+        breakDialog = new SportBreakDialog(this);
+        progressBarHeight =   new ConstraintLayout.LayoutParams(progressBar.getLayoutParams()).height;
 
         tvActionName.setText(actionList.get(courseActionPosition).getActionName());
         initCountOrTimeTv(actionList.get(courseActionPosition),tvCountOrTime);
@@ -362,11 +369,6 @@ public class sport_activity_course_start extends Activity implements View.OnClic
                 onStart();
             }
         });
-    }
-
-    private void initData(){
-        breakDialog = new SportBreakDialog(this);
-        progressBarHeight =   new ConstraintLayout.LayoutParams(progressBar.getLayoutParams()).height;
 
     }
 
@@ -445,36 +447,36 @@ public class sport_activity_course_start extends Activity implements View.OnClic
         // Listener for onCompletion() event (runs after media has finished
         // playing).
         mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mediaPlayer) {
-                        nowPlayTimes++;
-                        Message msg = new Message();
-                        if(nowPlayTimes >= actionList.get(courseActionPosition).getTotal()/actionList.get(courseActionPosition).getCount()){
-                            //如果有休息就打开休息dialog
-                            if(actionList.get(courseActionPosition).getRestDuration()>0){
-                                breakDialog.setBreakSeconds(actionList.get(courseActionPosition).getRestDuration());
-                                breakDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                    @Override
-                                    public void onDismiss(DialogInterface dialogInterface) {
-                                        Message dismissMsg = new Message();
-                                        dismissMsg.what = NEXT_ACTION;
-                                        dismissMsg.arg1 = actionList.get(courseActionPosition).getRestDuration() - breakDialog.getBreakSeconds();//arg1为实际休息的时长
-                                        handler.handleMessage(dismissMsg);
-                                    }
-                                });
-                                breakDialog.show();
-                            }else{
-                                Log.d("SportBreakDialog","notShowing, getRestDuration "+actionList.get(courseActionPosition).getRestDuration());
-                                //无则NEXT_ACTION
-                                msg.what = NEXT_ACTION;
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                nowPlayTimes++;
+                Message msg = new Message();
+                if(nowPlayTimes >= actionList.get(courseActionPosition).getTotal()/actionList.get(courseActionPosition).getCount()){
+                    //如果有休息就打开休息dialog
+                    if(actionList.get(courseActionPosition).getRestDuration()>0){
+                        breakDialog.setBreakSeconds(actionList.get(courseActionPosition).getRestDuration());
+                        breakDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialogInterface) {
+                                Message dismissMsg = new Message();
+                                dismissMsg.what = NEXT_ACTION;
+                                dismissMsg.arg1 = actionList.get(courseActionPosition).getRestDuration() - breakDialog.getBreakSeconds();//arg1为实际休息的时长
+                                handler.handleMessage(dismissMsg);
                             }
-
-                        }else{
-                            msg.what = NEXT_VIDEO;
-                        }
-                        handler.handleMessage(msg);
+                        });
+                        breakDialog.show();
+                    }else{
+                        Log.d("SportBreakDialog","notShowing, getRestDuration "+actionList.get(courseActionPosition).getRestDuration());
+                        //无则NEXT_ACTION
+                        msg.what = NEXT_ACTION;
                     }
-                });
+
+                }else{
+                    msg.what = NEXT_VIDEO;
+                }
+                handler.handleMessage(msg);
+            }
+        });
     }
 
     private void setVideoViewPosition() {
@@ -644,6 +646,7 @@ public class sport_activity_course_start extends Activity implements View.OnClic
                 break;
             case R.id.btn_detail:
                 intent = new Intent(this,sport_activity_course_action_detail.class);
+                intent.putExtra("course",course);
                 intent.putExtra("courseActionPosition",courseActionPosition);
                 intent.putExtra("actionList",(Serializable) actionList);
                 startActivity(intent);
@@ -694,14 +697,14 @@ public class sport_activity_course_start extends Activity implements View.OnClic
     private void showBreakDialog(int breakSeconds){
         breakDialog.setBreakSeconds(breakSeconds)
                 .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                @Override
-                public void onDismiss(DialogInterface dialogInterface) {
-                    Message msg = new Message();
-                    msg.what = BREAK_OVER;
-                    //msg.arg1 = breakDialog.getBreakSeconds();//need to be modified
-                    handler.handleMessage(msg);
-                }
-            });
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        Message msg = new Message();
+                        msg.what = BREAK_OVER;
+                        //msg.arg1 = breakDialog.getBreakSeconds();//need to be modified
+                        handler.handleMessage(msg);
+                    }
+                });
 
         breakDialog.show();
     }
@@ -709,7 +712,7 @@ public class sport_activity_course_start extends Activity implements View.OnClic
     @Override
     protected void onResume() {
         super.onResume();
-        mVideoView.setFocusable(false);
+
     }
 
 }
