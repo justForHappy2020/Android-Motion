@@ -74,6 +74,7 @@ public class me_fragment_mycourse_reserve extends BaseNetworkFragment {
         View view = inflater.inflate(R.layout.me_fragment_mycourse_reserve,container,false);
 
         initView(view);
+        checkToken();
         initHandler();
         builder = new AlertDialog.Builder(getActivity());
         getHttpCourse(new HashMap());
