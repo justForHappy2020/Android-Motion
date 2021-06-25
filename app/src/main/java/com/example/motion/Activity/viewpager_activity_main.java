@@ -1,8 +1,10 @@
 package com.example.motion.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.Window;
 
@@ -18,6 +20,7 @@ import com.example.motion.Fragment.homepage_fragment_main;
 import com.example.motion.Fragment.me_fragment_main;
 import com.example.motion.Fragment.sport_fragment_main;
 import com.example.motion.R;
+import com.example.motion.Utils.UserInfoManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -101,27 +104,34 @@ public class viewpager_activity_main extends FragmentActivity {
     private void initViews() {
         mViewPager = (ViewPager) findViewById(R.id.id_viewpager);
         bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
-
-/*        //指定跳转
-        int id = getIntent().getIntExtra("id");
+/*
+        //指定跳转
+        String id = getIntent().getStringExtra("id");
+        if(!TextUtils.isEmpty(id)){
+            assert id != null;
             switch (id){
-                case 0:
+                case "0":
                     mViewPager.setCurrentItem(0);
                     break;
-                case 1:
+                case "1":
                     mViewPager.setCurrentItem(1);
                     break;
-                case 2:
+                case "2":
                     mViewPager.setCurrentItem(2);
                     break;
-                case 3:
+                case "3":
                     mViewPager.setCurrentItem(3);
                     break;
-                case 4:
+                case "4":
                     mViewPager.setCurrentItem(4);
                     break;
-            }*/
+            }
+        }
+ */
+        UserInfoManager.getUserInfoManager(this).getUser();
     }
+
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {

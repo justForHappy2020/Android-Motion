@@ -7,6 +7,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,14 +25,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.example.motion.Entity.CourseTag;
+import com.example.motion.Entity.CourseTagGroup;
 import com.example.motion.Entity.DyxItem;
 import com.example.motion.Entity.HealthRecord;
 import com.example.motion.Entity.Member;
 import com.example.motion.R;
 import com.example.motion.Utils.HttpUtils;
 import com.example.motion.Widget.DyxQuickAdapter;
+import com.example.motion.Widget.MyStringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,7 +57,10 @@ import lecho.lib.hellocharts.model.ValueShape;
 import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.LineChartView;
 
-public class me_activity_bodydata_main  extends Activity implements View.OnClickListener {
+public class me_activity_bodydata_main  extends BaseNetworkActivity implements View.OnClickListener {
+    private final int LOAD_USER_BODYDATA_FAILED = 0;
+    private final int LOAD_USER_BODYDATA_SUCCESS = 1;
+
     private Intent intent;
     private ImageView ivBack;
     private Button btAddRecord;
@@ -67,11 +81,12 @@ public class me_activity_bodydata_main  extends Activity implements View.OnClick
     private boolean hasGradientToTransparent = false;      //是否有梯度的透明
     private Context mContext;
     private List<DyxItem> memberList = new ArrayList();
-    private List<DyxItem> recordList = new ArrayList();
+    private List<DyxItem> recordList = new ArrayList();;
     private List<List> dataSet = new  ArrayList<>();
     private int httpcode;
     private DyxQuickAdapter portraitAdapter;
     private DyxQuickAdapter recordAdater;
+    private View bodyDataEmptyView;
 
     private AlertDialog alert = null;
     private AlertDialog.Builder builder = null;
@@ -81,12 +96,16 @@ public class me_activity_bodydata_main  extends Activity implements View.OnClick
     private SharedPreferences readSP;
     private String token = "438092e5-cdd5-4ba3-9e27-430949b90b89";
 
+    private Handler handler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_activity_bodydata_main);
         //checkToken();
+        initHandler();
         initView();
+        initData();
     }
 
     private void checkToken() {
@@ -100,6 +119,27 @@ public class me_activity_bodydata_main  extends Activity implements View.OnClick
         }
     }
 
+    private void initHandler(){
+        handler = new Handler(Looper.getMainLooper()){
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what){
+                    case LOAD_USER_BODYDATA_FAILED:
+                        Log.d("me_activity_bodydata_main_Handler","LOAD_USER_BODYDATA_FAILED:"+msg.obj);
+                        recordAdater.notifyDataSetChanged();
+                        break;
+                    case LOAD_USER_BODYDATA_SUCCESS:
+                        Log.d("me_activity_bodydata_main","LOAD_USER_BODYDATA_SUCCESS");
+                        recordAdater.notifyDataSetChanged();
+
+                        generateChartData();//设置折线图属性、数据
+                        break;
+                }
+            }
+        };
+    }
+
+
     private void initView() {
         mContext = me_activity_bodydata_main.this;
         ivBack = findViewById(R.id.iv_back);
@@ -107,6 +147,8 @@ public class me_activity_bodydata_main  extends Activity implements View.OnClick
         //rvPortrait = findViewById(R.id.rv_portrait);
         rvRecord = findViewById(R.id.rv_health_record);
         lcv_chart = (LineChartView)findViewById(R.id.lcv_chart);
+
+
         lcv_chart.setOnValueTouchListener(new LineChartOnValueSelectListener() {
             @Override
             public void onValueSelected(int i, int i1, PointValue pointValue) {
@@ -129,8 +171,6 @@ public class me_activity_bodydata_main  extends Activity implements View.OnClick
         rvRecord.setLayoutManager(recordManager);
         rvRecord.setNestedScrollingEnabled(false);
 
-        initData();
-        generateChartData();//设置折线图属性、数据
         builder = new AlertDialog.Builder(mContext);
         final LayoutInflater inflater = me_activity_bodydata_main.this.getLayoutInflater();
         alertView = inflater.inflate(R.layout.module_dialog_0420, null,false);
@@ -183,11 +223,16 @@ public class me_activity_bodydata_main  extends Activity implements View.OnClick
             }
         });
         //rvPortrait.setAdapter(portraitAdapter);
+
+
         recordAdater = new DyxQuickAdapter(recordList);
+        bodyDataEmptyView = View.inflate(this,R.layout.me_empty_view_bodydata,null);
+        recordAdater.setEmptyView(bodyDataEmptyView);
         rvRecord.setAdapter(recordAdater);
     }
 
     private void initData() {
+
         Member member1 = new Member((long) 1,"mom","woman","http://bpic.588ku.com/element_pic/18/05/04/a4605af6e0f30bad35d0556f71b8e44c.jpg","1975-04-09");
         Member member2 = new Member((long) 2,"kid","man","http://5b0988e595225.cdn.sohucs.com/images/20170819/eaf8683041844976b3a45b9325628a5a.jpeg","2010-04-09");
         Member addButton = new Member((long) 2,"null","null","https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.51yuansu.com%2Fpic2%2Fcover%2F00%2F48%2F15%2F5815dc80681ad_610.jpg&refer=http%3A%2F%2Fpic.51yuansu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1623141929&t=c25a614e346923a7f878b6a43c6d0699","null");
@@ -197,6 +242,47 @@ public class me_activity_bodydata_main  extends Activity implements View.OnClick
         memberList.add(new DyxItem(DyxItem.PORTRAIT , addButton));
 
         //http请求健康记录LIST
+        String url = "http://10.34.25.45:8080/api/community/getHealthRecord?token=" + token;
+        MyStringRequest getTagsStringRequest = new MyStringRequest(Request.Method.GET,  url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String responseStr) {
+                try {
+                    JSONObject jsonRootObject = new JSONObject(responseStr);
+
+                    JSONArray JSONArrayRecord = jsonRootObject.getJSONArray("data");
+                    for (int i = 0; i < JSONArrayRecord.length(); i++) {
+                        JSONObject jsonObject2 = JSONArrayRecord.getJSONObject(i);
+                        //相应的内容
+                        HealthRecord healthRecord = new HealthRecord();
+                        healthRecord.setBmi((float) jsonObject2.getDouble("bmi"));
+                        healthRecord.setWeight((float) jsonObject2.getDouble("weight"));
+                        healthRecord.setHeight((float) jsonObject2.getDouble("height"));
+                        healthRecord.setCreateTime(jsonObject2.getString("createTime"));
+                        healthRecord.setStatus(jsonObject2.getInt("status"));
+                        recordList.add(new DyxItem(DyxItem.HEALTHRECORD , healthRecord));
+                    }
+
+                    Message msg = handler.obtainMessage();
+                    msg.what = LOAD_USER_BODYDATA_SUCCESS;
+                    handler.sendMessage(msg);
+
+                }catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Message msg = handler.obtainMessage();
+                msg.what = LOAD_USER_BODYDATA_FAILED;
+                msg.obj = volleyError.toString();
+                handler.sendMessage(msg);
+            }
+        });
+        getTagsStringRequest.setTag("getHttp");
+        requestQueue.add(getTagsStringRequest);
+
+        /*
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -237,6 +323,8 @@ public class me_activity_bodydata_main  extends Activity implements View.OnClick
             e.printStackTrace();
         }
         if(httpcode!=200)Toast.makeText(me_activity_bodydata_main.this,"ERROR", Toast.LENGTH_SHORT).show();
+
+         */
     }
 
     private void generateChartData() {

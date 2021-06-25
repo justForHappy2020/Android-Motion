@@ -13,19 +13,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.motion.Fragment.me_fragment_main;
 import com.example.motion.R;
+import com.example.motion.Utils.UserInfoManager;
 
-public class me_activity_bindphone_usephone extends AppCompatActivity implements View.OnClickListener {
+public class me_activity_bindphone_usephone extends NeedTokenActivity implements View.OnClickListener {
 
     private Button btn_changephone;
     private ImageView iv_back;
     private TextView tv_phone_number;
-
-    SharedPreferences saveSP;
-    private int UserID;
-    private String token;
-    private String phoneNumber;
-
-    private int httpcode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,22 +27,10 @@ public class me_activity_bindphone_usephone extends AppCompatActivity implements
         setContentView(R.layout.me_activity_bindphone_usephone);
         initview();
         initdata();
-//        initPhone_number();
     }
 
     private void initdata() {
-        saveSP=this.getSharedPreferences("saveSp",MODE_PRIVATE);
-        //判断token是否存在，获得phoneNumber
-        token = saveSP.getString("token","");
-        if (token.isEmpty()){
-            finish();
-            Toast.makeText(this,"请登录", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, register_activity_register.class);
-            startActivity(intent);
-        }else {
-            phoneNumber = saveSP.getString("phoneNumber","");
-        }
-
+        tv_phone_number.setText(UserInfoManager.getUserInfoManager(me_activity_bindphone_usephone.this).getUser().getPhoneNumber());
     }
 
     private void initview(){
@@ -57,17 +39,9 @@ public class me_activity_bindphone_usephone extends AppCompatActivity implements
         tv_phone_number = findViewById(R.id.tv_your_phone);
 
         btn_changephone.setOnClickListener(this);
+        iv_back.setOnClickListener(this);
 
-        if (phoneNumber!=null){
-            tv_phone_number.setText(phoneNumber);
-        }
-        else {
-            tv_phone_number.setText(null);
-        }
     }
-
-
-
 
 
 
@@ -75,17 +49,12 @@ public class me_activity_bindphone_usephone extends AppCompatActivity implements
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_back:
-                Intent intent1 = new Intent(this, me_fragment_main.class);
-                Intent intentText = new Intent(this, register_activity_register.class);
-                startActivity(intent1);
+                finish();
                 break;
             case R.id.btn_changephone:
-                Intent intent2 = new Intent(this,me_fragment_main.class);
+                Intent intent2 = new Intent(this,me_activity_bindphone_changephone.class);
                 startActivity(intent2);
                 break;
-//          case R.id.tv_your_phone:
-//
-//                break;
         }
     }
 }

@@ -39,8 +39,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class register_activity_register extends AppCompatActivity implements View.OnClickListener {
-//  phoneNumber 13926292266
-//  code 8888
     private ImageView iv_delete;
     private EditText et_phone;
     private EditText et_code;
@@ -283,14 +281,14 @@ public class register_activity_register extends AppCompatActivity implements Vie
                                     try {
                                         JSONObject response = obj.getJSONObject("data");
                                         Toast.makeText(register_activity_register.this, "发送成功", Toast.LENGTH_SHORT).show();
-                                        int userId = response.getInt("userId");
+                                        Long userId = response.getLong("userId");
                                         String nickName = response.getString("nickName");
                                         String headPortrait = response.getString("headPortrait");
                                         String token = response.getString("token");
                                         isNewUser = response.getBoolean("newUser");
 
                                         SharedPreferences.Editor editor = saveSP.edit();
-                                        editor.putInt("userId",userId).commit();
+                                        editor.putLong("userId",userId).commit();
                                         editor.putString("nickName",nickName).commit();
                                         editor.putString("headPortrait",headPortrait).commit();
                                         editor.putString("token",token).commit();

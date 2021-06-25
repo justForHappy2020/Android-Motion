@@ -1,7 +1,6 @@
 package com.example.motion.Widget;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -78,7 +77,7 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
 
                 break;
             case MultipleItem.USER:
-                helper.setText(R.id.user_id, item.getUser().getNickname());
+                helper.setText(R.id.user_id, item.getUser().getNickName());
                 Glide.with(getContext())
                         .load(item.getUser().getHeadPortraitUrl())
                         .placeholder(R.drawable.headprotrait)

@@ -108,4 +108,7 @@
     <string name="course_selection_loading">加载中</string>
     <string name="homepage_subtitle_classification">分类</string>
 
+    <string name="me_activity_bodydata_nodata">没有相关数据</string>
+    <string name="me_fragment_main_username_unlogin">未登录</string>
+
 </resources>

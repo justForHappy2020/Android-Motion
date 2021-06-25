@@ -138,7 +138,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_health_record"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     tools:listitem="@layout/me_recycle_item_healthrecord" />
             </RelativeLayout>
 

@@ -34,6 +34,7 @@ import androidx.core.content.ContextCompat;
 import com.bumptech.glide.Glide;
 import com.example.motion.Entity.User;
 import com.example.motion.R;
+import com.example.motion.Utils.UserInfoManager;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.json.JSONException;
@@ -46,7 +47,7 @@ import java.util.Calendar;
 import static com.example.motion.Utils.ClientUploadUtils.upload;
 import static com.example.motion.Utils.HttpUtils.connectHttp;
 
-public class my_activity_me_data extends Activity implements View.OnClickListener{
+public class my_activity_me_data extends NeedTokenActivity implements View.OnClickListener{
 
     private ImageView ivBack;
     private RoundedImageView ivChangeportrait;
@@ -88,7 +89,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
     private void initView(){
         intentAccept = getIntent();
         User user = (User)intentAccept.getSerializableExtra("user");
-        name = user.getNickname();
+        name = user.getNickName();
         url = user.getHeadPortraitUrl();
         gender = user.getGender();
         birth = user. getBirth();
@@ -100,7 +101,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
         tvBirth  = findViewById(R.id.tv_birth);
         btnSave = findViewById(R.id.btn_save);
         mContext = my_activity_me_data.this;
-        tvName.setText(user.getNickname());
+        tvName.setText(user.getNickName());
         Glide.with(mContext).load(user.getHeadPortraitUrl()).into(ivChangeportrait);
         final String[] sex = getResources().getStringArray(R.array.me_choose_sex);
         tvSex.setText(sex[user.getGender()]);
@@ -386,7 +387,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                             //设置JSON数据
                             JSONObject json = new JSONObject();
                             try {
-                                json.put("token", token);
+                                json.put("token", UserInfoManager.getUserInfoManager(my_activity_me_data.this).getToken());
                                 json.put("headPortrait", url);
                                 json.put("nickName", name);
                                 json.put("gender" , gender );

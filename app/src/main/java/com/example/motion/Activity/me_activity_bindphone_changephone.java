@@ -65,7 +65,7 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
         btn_getcode = findViewById(R.id.btn_getcode);
         btn_save = findViewById(R.id.btn_save);
         queue = Volley.newRequestQueue(this);
-        saveSP = this.getSharedPreferences("saveSP",MODE_PRIVATE);
+        saveSP = this.getSharedPreferences("saveSp",MODE_PRIVATE);
 
         btn_getcode.setOnClickListener(this);
         btn_getcode.setEnabled(Boolean.FALSE);
@@ -204,14 +204,14 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
                                         Toast.makeText(me_activity_bindphone_changephone.this, "发送成功", Toast.LENGTH_SHORT).show();
                                         int userId = response.getInt("userId");
                                         String nickName = response.getString("niceName");
-                                        String headProtrait = response.getString("headProtrait");
+                                        String headPortrait = response.getString("headPortrait");
                                         String token = response.getString("token");
                                         isNewUser = response.getBoolean("newUser");
 
                                         SharedPreferences.Editor editor = saveSP.edit();
                                         editor.putInt("userId",userId).commit();
                                         editor.putString("nickName",nickName).commit();
-                                        editor.putString("headProtrait",headProtrait).commit();
+                                        editor.putString("headPortrait",headPortrait).commit();
                                         editor.putString("token",token).commit();
                                         editor.putString("phoneNumber",mobile).commit();
 

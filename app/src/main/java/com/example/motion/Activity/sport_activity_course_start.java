@@ -522,7 +522,7 @@ public class sport_activity_course_start extends Activity implements View.OnClic
         height = metric.widthPixels;    // 屏幕高度（像素）
 
         ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(progressBar.getLayoutParams());
-        params.height = 10;
+        params.height = 20;
         progressBar.setLayoutParams(params);
 
         ConstraintSet cs = new ConstraintSet();

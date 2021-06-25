@@ -27,13 +27,17 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.example.motion.Entity.Action;
 import com.example.motion.Entity.Course;
 import com.example.motion.Entity.CourseTag;
+import com.example.motion.Entity.Course_Action;
+import com.example.motion.Entity.Course_Action_Table;
 import com.example.motion.Entity.MultipleItem;
 import com.example.motion.R;
 import com.example.motion.Utils.CourseCache.CourseCacheUtil;
 import com.example.motion.Utils.CourseCache.OnProcessStateChangeListener;
+import com.example.motion.Utils.UserInfoManager;
 import com.example.motion.Widget.MultipleItemQuickAdapter;
 import com.example.motion.Widget.PostJsonRequest;
 import com.example.motion.Widget.RelatedCoursesAdapter;
+import com.raizlabs.android.dbflow.sql.language.Select;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -87,7 +91,6 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
     private static final int GET_SUCCESS = 5;
     private static final int GET_FAILED= 6;
 
-    private String token = "123456";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +101,7 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
 
         initHandler();
         initView();
-        courseId2Course(courseId,token,course);
+        courseId2Course(courseId,course);
         initEvent();
         initCourseActions();
         initRelatedCourses();
@@ -158,17 +161,16 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
         ivBack.setOnClickListener(this);
         ibLikeCourse.setOnClickListener(this);
         btSelectCourse.setOnClickListener(this);
-
     }
 
 
-    private void courseId2Course(Long courseId,String token, Course course){
+    private void courseId2Course(Long courseId,Course course){
         String url = "http://10.34.25.45:8080/api/course/getCourse";
         //String url = "https://www.fastmock.site/mock/318b7fee143da8b159d3e46048f8a8b3/api/courseId2All?courseId="+courseId;
         actionList = new ArrayList<>();
         actionInMutiList = new ArrayList<>();
 
-        String requestStr = "{\"courseId\": "+courseId+", \"token\":\""+token+"\" }";
+        String requestStr = "{\"courseId\": "+courseId+", \"token\":\""+ UserInfoManager.getUserInfoManager(this).getToken() +"\" }";
 
         PostJsonRequest postJsonRequest = new PostJsonRequest(Request.Method.POST,url,requestStr, new Response.Listener<String>() {
                             @Override
@@ -206,7 +208,10 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
                                         action.setActionName(jsonObject.getString("actionName"));
                                         action.setActionImgs(jsonObject.getString("actionImgs"));
                                         action.setActionUrl(jsonObject.getString("actionUrl"));
-                                        action.setDuration(Integer.parseInt(jsonObject.getString("duration").replace(":","")));
+
+                                        String time[] = jsonObject.getString("duration").split(":");
+                                        int duration = Integer.parseInt(time[0])*3600 +Integer.parseInt(time[1])*60+Integer.parseInt(time[2]);
+                                        action.setDuration(duration);
                                         action.setIntro(jsonObject.getString("actionIntro"));
                                         action.setType(2);//jsonObject.getInt("type")
                                         action.setCount(jsonObject.getInt("count"));
