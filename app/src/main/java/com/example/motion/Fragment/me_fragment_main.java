@@ -1,6 +1,7 @@
 package com.example.motion.Fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -27,6 +28,7 @@ import com.example.motion.Activity.me_activity_mycourse;
 import com.example.motion.Activity.me_activity_help;
 import com.example.motion.Activity.me_activity_setting;
 import com.example.motion.Activity.my_activity_me_data;
+import com.example.motion.Activity.register_activity_register;
 import com.example.motion.Entity.User;
 import com.example.motion.R;
 import com.example.motion.Utils.UserInfoManager;
@@ -37,8 +39,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
+
 
 public class me_fragment_main extends BaseNetworkFragment implements View.OnClickListener {
+
 
     private final int LOAD_USER_INFO_FAILED = 0;
     private final int LOAD_USER_INFO_SUCCESS = 1;
@@ -75,7 +81,8 @@ public class me_fragment_main extends BaseNetworkFragment implements View.OnClic
 
     private RoundedImageView riv_portrait;
     private int httpcode;
-    private String token = "2";
+    private String token;
+    private SharedPreferences readSP;
 
     //从其他页面获取UserID后的个人信息
     private int UserID;
@@ -123,6 +130,7 @@ public class me_fragment_main extends BaseNetworkFragment implements View.OnClic
                 }
             }
         };
+
     }
 
     private void initData() {
@@ -167,7 +175,7 @@ public class me_fragment_main extends BaseNetworkFragment implements View.OnClic
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String url = "http://10.34.25.45:8080/api/community/getUserdata?token=" + token;
+                    String url = "http://10.34.25.45:8080/api/community/getUserdata?token=" + token;
                 String responseData = null;
                 try {
                     responseData = HttpUtils.connectHttpGet(url);

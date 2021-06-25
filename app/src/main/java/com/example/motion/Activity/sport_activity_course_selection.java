@@ -1,6 +1,5 @@
 package com.example.motion.Activity;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,10 +23,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
@@ -36,6 +38,7 @@ import com.example.motion.Entity.CourseTag;
 import com.example.motion.Entity.CourseTagGroup;
 import com.example.motion.Entity.MultipleItem;
 import com.example.motion.R;
+import com.example.motion.Utils.HttpUtils;
 import com.example.motion.Widget.MultipleItemQuickAdapter;
 import com.example.motion.Widget.MyStringRequest;
 import com.example.motion.Widget.SelectionTagsAdapter;
@@ -45,6 +48,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -79,7 +83,9 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
     //test tool
     private AlertDialog.Builder builder;
     private String dialogMessage = "";
-    private int[] preSelectedCourseTagIds;
+
+    private int SelectedGroupId;
+    private int SelectedTagId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,11 +96,8 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
         //test
         builder = new AlertDialog.Builder(this);
 
-        initPreSelect();
-
         getHttpCourse(new HashMap());
         getHttpCourseTags();
-
         initData();
     }
 
@@ -129,7 +132,7 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
                     case LOAD_COURSES_FAILED:
                         Log.d("HANDLER","LOAD_COURSES_FAILED");
                         Toast.makeText(sport_activity_course_selection.this, "LOAD_COURSES_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
-                        break;
+
                     case LOAD_TAGS_SUCCESS:
                         for(int i=0;i<courseTagGroupList.size();i++){
                             for(int j=0;j<courseTagGroupList.get(i).getCourseTagList().size();j++){
@@ -147,14 +150,11 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
         };
     }
 
-    private void initPreSelect(){
-        preSelectedCourseTagIds = new int[2];
-        preSelectedCourseTagIds[0] = getIntent().getIntExtra("SelectedGroupId",0);
-        preSelectedCourseTagIds[1] = getIntent().getIntExtra("SelectedTagId",0);
-    }
-
     private void initData(){
+        SelectedGroupId = getIntent().getIntExtra("SelectedGroupId",1);
+        SelectedTagId = getIntent().getIntExtra("SelectedTagId",1);
 
+        Log.d("getIntent","SelectedGroupId="+SelectedGroupId+"SelectedTagId="+SelectedTagId);
 
         LinearLayoutManager layoutM = new LinearLayoutManager(getBaseContext());
         LinearLayoutManager layoutM2 = new LinearLayoutManager(getBaseContext());
@@ -200,7 +200,7 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
 
         courseTagGroupList = new ArrayList<>();
         tagsAdapter = new SelectionTagsAdapter(R.layout.sport_item_tag_menu,courseTagGroupList);
-        tagsAdapter.setPreSelectedCourseTagIds(preSelectedCourseTagIds);
+        tagsAdapter.setSelectedGroupAndTagId(SelectedGroupId,SelectedTagId);
 
         rvCourseTags.setAdapter(tagsAdapter);
         rvCourseTags.setNestedScrollingEnabled(false);
@@ -226,7 +226,7 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
         String url = "http://10.34.25.45:8080/api/course/getCourseById?size=" + COURSE_NUM_IN_ONE_PAGE;
         //String url = "https://www.fastmock.site/mock/1f8fe01c6b3cdb34a1d2ad4b1a45a8c0/motion/api/getCourseById?size=10";
         if(params.isEmpty()){
-            url+="&page=1&courseClassIdstr="+preSelectedCourseTagIds[1]+";&isOnline=1&isHot=1";
+            url+="&page=1&courseClassIdstr=&isOnline=1&isHot=1";
         }else{
             Iterator iter = params.keySet().iterator();
             while (iter.hasNext()) {
@@ -310,8 +310,8 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
 
     private void getHttpCourseTags() {
         courseTagGroupList = new ArrayList<>();
-        String url ="https://www.fastmock.site/mock/318b7fee143da8b159d3e46048f8a8b3/api/getSorts";
-        //String url ="http://10.34.25.45:8080/api/CourseClass/getSorts";
+        //String url ="https://www.fastmock.site/mock/318b7fee143da8b159d3e46048f8a8b3/api/getSorts";
+        String url ="http://10.34.25.45:8080/api/CourseClass/getSorts";
 
         //test tool
         dialogMessage += "\n\ngetHttpCourseTags requestingUrl:\n" + url;
@@ -388,6 +388,22 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
 
     }
 
+    private void setTagSelected(int SelectedGroupId,int SelectedTagId){
+        for(int i=0;i<courseTagGroupList.size();i++){
+            if(courseTagGroupList.get(i).getGroupId() == SelectedGroupId){
+                for(int j=0;j<courseTagGroupList.get(i).getCourseTagList().size();j++){
+                    if(courseTagGroupList.get(i).getCourseTagList().get(j).getTagId() == SelectedTagId){
+                        TabLayout groupRootView = (TabLayout)tagsAdapter.getViewByPosition(i,R.id.tl_tags);
+                        if(groupRootView.getTabAt(j) != null){
+                            groupRootView.getTabAt(j).select();
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
     private void startSelection(int page){
         String courseClassIdstr = "";
         Map params = new HashMap();
@@ -395,6 +411,10 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
 
         for(int i=0;i<courseTagGroupList.size();i++){
             TabLayout groupRootView = (TabLayout)tagsAdapter.getViewByPosition(i,R.id.tl_tags);
+            if(groupRootView == null){
+                return;
+            }
+
             Log.d("startSelection","Group_Name:"+courseTagGroupList.get(i).getGroupName()+" selected_tag_name:"+courseTagGroupList.get(i).getCourseTagList().get(groupRootView.getSelectedTabPosition()).getTagName());
 
             if(courseTagGroupList.get(i).getGroupId() > 0){
@@ -469,7 +489,6 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
     protected void onStop() {
         super.onStop();
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();

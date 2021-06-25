@@ -9,19 +9,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.motion.R;
 
-public class me_activity_help extends BaseNetworkActivity implements View.OnClickListener {
+public class me_activity_help extends BaseNetworkActivity implements View.OnClickListener{
     private ImageView ivBack;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.me_activity_feedback);
+        initView();
         super.onCreate(savedInstanceState);
         initView();
     }
 
     private void initView(){
         ivBack = findViewById(R.id.me_feedback_back);
-
         ivBack.setOnClickListener(this);
     }
 
@@ -33,4 +32,6 @@ public class me_activity_help extends BaseNetworkActivity implements View.OnClic
                 break;
         }
     }
+
+
 }

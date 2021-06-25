@@ -6,6 +6,9 @@ public class me_mycourse_reserve {
     private String reserveName2;
     private String reserveName3;
     private String reserveTime;
+    private String labels;
+    private Long courseId;
+    private int isOnline;
 
     public me_mycourse_reserve(){
 
@@ -17,6 +20,18 @@ public class me_mycourse_reserve {
         this.reserveName2 = reserveName2;
         this.reserveName3 = reserveName3;
         this.reserveTime = reserveTime;
+    }
+
+    public String getLabels() {
+        return labels;
+    }
+
+    public Long getCourseId() {
+        return courseId;
+    }
+
+    public int getIsOnline() {
+        return isOnline;
     }
 
     public String getImgUrls() {
@@ -37,6 +52,18 @@ public class me_mycourse_reserve {
 
     public String getReserveTime() {
         return reserveTime;
+    }
+
+    public void setLabels(String labels) {
+        this.labels = labels;
+    }
+
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
+    }
+
+    public void setIsOnline(int isOnline) {
+        this.isOnline = isOnline;
     }
 
     public void setImgUrls(String imgUrls) {

@@ -338,7 +338,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:scaleType="fitCenter"
-                        android:src="@android:drawable/star_big_on" />
+                        android:src="@drawable/ic_phone" />
 
                     <TextView
                         android:id="@+id/tv1_phone"
@@ -376,7 +376,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:scaleType="fitCenter"
-                        android:src="@android:drawable/star_big_on" />
+                        android:src="@drawable/ic_location" />
+
 
                     <TextView
                         android:id="@+id/tv2_phone"
@@ -414,7 +415,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:scaleType="fitCenter"
-                        android:src="@android:drawable/star_big_on" />
+                        android:src="@drawable/ic_question" />
 
                     <TextView
                         android:id="@+id/tv3_phone"
@@ -452,7 +453,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:scaleType="fitCenter"
-                        android:src="@android:drawable/star_big_on" />
+                        android:src="@drawable/ic_setting" />
+
 
                     <TextView
                         android:id="@+id/tv4_phone"

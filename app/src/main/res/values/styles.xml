@@ -17,6 +17,9 @@
                 <item name="textAllCaps">true</item>
 
     </style>
+    <style name="MyTabText" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">20dp</item>
+    </style>
     <style name="Fuxk_28px_TextView" parent="@android:style/Widget.TextView">
         <item name="android:textSize">@dimen/dd_dimen_28px</item>
     </style>

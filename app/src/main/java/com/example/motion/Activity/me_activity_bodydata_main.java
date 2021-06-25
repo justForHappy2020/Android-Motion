@@ -57,7 +57,7 @@ import lecho.lib.hellocharts.model.ValueShape;
 import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.LineChartView;
 
-public class me_activity_bodydata_main  extends BaseNetworkActivity implements View.OnClickListener {
+public class me_activity_bodydata_main  extends NeedTokenActivity implements View.OnClickListener {
     private final int LOAD_USER_BODYDATA_FAILED = 0;
     private final int LOAD_USER_BODYDATA_SUCCESS = 1;
 
@@ -94,7 +94,7 @@ public class me_activity_bodydata_main  extends BaseNetworkActivity implements V
 
     private int memberID;
     private SharedPreferences readSP;
-    private String token = "438092e5-cdd5-4ba3-9e27-430949b90b89";
+    private String token ;
 
     private Handler handler;
 
@@ -102,8 +102,8 @@ public class me_activity_bodydata_main  extends BaseNetworkActivity implements V
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_activity_bodydata_main);
-        //checkToken();
         initHandler();
+        //checkToken();
         initView();
         initData();
     }

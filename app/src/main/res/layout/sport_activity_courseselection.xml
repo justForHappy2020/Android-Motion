@@ -56,23 +56,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ListView
-                    android:id="@+id/lv_course_tags"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:divider="@color/transparent"
-                    android:scrollIndicators="none"
-                    android:scrollbarFadeDuration="0"
-                    android:scrollbarSize="0dp"
-                    android:scrollbars="none"
-                    android:visibility="gone"
-                    tools:listitem="@layout/sport_item_tag_menu" />
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_course_tags"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="visible"
                     tools:itemCount="3"
                     tools:listitem="@layout/sport_item_tag_menu" />
             </RelativeLayout>

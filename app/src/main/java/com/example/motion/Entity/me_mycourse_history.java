@@ -7,7 +7,9 @@ public class me_mycourse_history {
     private String historyName2;
     private String historyName3;
     private String historyTimes;
-
+    private String labels;
+    private Long courseId;
+    private int isOnline;
     public me_mycourse_history(){
 
     }
@@ -18,6 +20,18 @@ public class me_mycourse_history {
         this.historyName3 = historyName3;
         this.historyTimes = historyTimes;
         this.imgUrls = imgUrls;
+    }
+
+    public int getIsOnline() {
+        return isOnline;
+    }
+
+    public Long getCourseId() {
+        return courseId;
+    }
+
+    public String getLabels() {
+        return labels;
     }
 
     public String getImgUrls() {
@@ -42,6 +56,18 @@ public class me_mycourse_history {
 
     public void setImgUrls(String imgUrls) {
         this.imgUrls = imgUrls;
+    }
+
+    public void setIsOnline(int isOnline) {
+        this.isOnline = isOnline;
+    }
+
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
+    }
+
+    public void setLabels(String labels) {
+        this.labels = labels;
     }
 
     public void setHistoryName1(String historyName1) {

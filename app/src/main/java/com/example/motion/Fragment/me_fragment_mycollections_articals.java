@@ -42,17 +42,17 @@ public class me_fragment_mycollections_articals extends Fragment {
     }
     public void initData(){
 
-        me_mycollections_articals articals;
-        for (int i = 0; i < 5; i++) {
-            articals = new me_mycollections_articals();
-
-            articals.setImgUrls("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3385472845,2539383542&fm=11&gp=0.jpg");
-            articals.setArticalName("数据结构");
-            articals.setArticalAuthor("亮亮");
-            articals.setArticalTime("2022-2-30");
-            articalsList.add(new MultipleItem(MultipleItem.Me_mycollections_articals,articals));
-        }
-        dataSet.add(articalsList);
+//        me_mycollections_articals articals;
+//        for (int i = 0; i < 5; i++) {
+//            articals = new me_mycollections_articals();
+//
+//            articals.setImgUrls("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3385472845,2539383542&fm=11&gp=0.jpg");
+//            articals.setArticalName("数据结构");
+//            articals.setArticalAuthor("亮亮");
+//            articals.setArticalTime("2022-2-30");
+//            articalsList.add(new MultipleItem(MultipleItem.Me_mycollections_articals,articals));
+//        }
+//        dataSet.add(articalsList);
     }
 
 }

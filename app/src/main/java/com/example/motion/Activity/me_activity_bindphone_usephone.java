@@ -25,8 +25,9 @@ public class me_activity_bindphone_usephone extends NeedTokenActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_activity_bindphone_usephone);
-        initview();
         initdata();
+        initview();
+//        initPhone_number();
     }
 
     private void initdata() {

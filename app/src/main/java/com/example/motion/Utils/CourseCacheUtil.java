@@ -1,22 +1,19 @@
-package com.example.motion.Utils.CourseCache;
+package com.example.motion.Utils;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.util.Log;
 import android.view.View;
 
 import com.example.motion.Entity.Action;
 import com.example.motion.Entity.Action_Table;
 import com.example.motion.Entity.Course;
-import com.example.motion.Entity.Course_Action;
-import com.example.motion.Entity.Course_Action_Table;
 import com.example.motion.Entity.Course_Table;
 import com.example.motion.R;
+import com.example.motion.Widget.CourseDownloadDialog;
 import com.lijunhuayc.downloader.downloader.DownloadProgressListener;
 import com.lijunhuayc.downloader.downloader.DownloaderConfig;
 import com.lijunhuayc.downloader.downloader.WolfDownloader;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
-import com.raizlabs.android.dbflow.sql.language.Select;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -33,7 +30,6 @@ public class CourseCacheUtil {
     private int allFileSize;//byte
     private int[] nowDownloadedSizes;//byte size of all downloading tasks
     private CourseDownloadDialog downloadDialog;
-    private ArrayList<WolfDownloader> downloaderList;
 
     public CourseCacheUtil(Context context,File cachePathRoot) {
         this.context = context;
@@ -64,15 +60,9 @@ public class CourseCacheUtil {
 
         for(int i=0;i<actionList.size();i++){
             String filePath = cachePathRoot.toString() + "/ActionVideos/"+actionList.get(i).getActionID().toString()+".mp4";
-            if(actionVideoFileAuth(filePath,actionList.get(i)) && null != new SQLite().select().from(Action.class).where(Action_Table.actionID.eq(actionList.get(i).getActionID())).querySingle()){
-                Course_Action ca = new Course_Action(course,actionList.get(i));
-                if(new Select().from(Course_Action.class).where(Course_Action_Table.course_courseId.eq(course.getCourseId()),Course_Action_Table.action_actionID.eq(actionList.get(i).getActionID())).querySingle() == null){
-                    Log.d("CourseCacheUtil","ca.exists false");
-                    ca.save();
-                }
-
+            if(actionVideoFileAuth(filePath,actionList.get(i))){
                 actionList.get(i).setActionLocUrl(filePath);//getCachedAction(actionList.get(i).getActionID()).getActionLocUrl()
-                //actionList.get(i).save();
+                actionList.get(i).save();
             }else {
                 needCacheActionPositions.add(i);
             }
@@ -80,19 +70,14 @@ public class CourseCacheUtil {
 
         if(needCacheActionPositions.isEmpty()){
             course.save();
-            course.getActionList();
             onProcessDone(true,course,actionList,"SUCCESS");
         }else{
-            cacheActions(course,actionList,needCacheActionPositions, new onCacheStateChangeListener() {
+            cacheActions(actionList,needCacheActionPositions, new onCacheStateChangeListener() {
                 @Override
                 public void onActionsCacheDone(boolean isSuccess, List<Action> cachedRawActionList,Object message) {
                     onProcessDone(isSuccess,course,cachedRawActionList,message);
                     if(isSuccess){
-                        Log.d("CourseCacheUtil","process onActionsCacheDone true");
                         course.save();
-                    }else{
-                        Log.d("CourseCacheUtil","process onActionsCacheDone false");
-                        course.delete();
                     }
                 }
             });
@@ -137,8 +122,7 @@ public class CourseCacheUtil {
         return course;
     }
 
-    public void cacheActions(Course course,List<Action> rawActionList,ArrayList<Integer> needCachePositions,onCacheStateChangeListener cacheStateChangeListener){
-        downloaderList = new ArrayList<>();
+    public void cacheActions(List<Action> rawActionList,ArrayList<Integer> needCachePositions,onCacheStateChangeListener cacheStateChangeListener){
 
         Log.d("cacheActions","rawActionList.size="+rawActionList.size());
         Log.d("cacheActions","needCachePositions.size="+needCachePositions.size());
@@ -147,29 +131,15 @@ public class CourseCacheUtil {
         View downloadDialogView = View.inflate(context, R.layout.sport_dialog_download_default,null);
         downloadDialog = new CourseDownloadDialog(context,downloadDialogView);
 
-        downloadDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialogInterface) {
-                if(downloadSuccessIdList.size() < needCachePositions.size()){
-                    for(int i=0;i<downloaderList.size();i++){
-                        downloaderList.get(i).stopDownload();
-                        downloaderList.get(i).exitDownload();
-                    }
-                }
-
-            }
-        });
-
         nowDownloadedSizes = new int[needCachePositions.size()];
 
         for(int i=0;i<needCachePositions.size();i++){
-            final Long actionId = rawActionList.get(needCachePositions.get(i)).getActionID();
+            rawActionList.get(needCachePositions.get(i));
             int finalI = i;
 
             String filePath = cachePathRoot.toString() + "/ActionVideos/"+rawActionList.get(needCachePositions.get(i)).getActionID().toString()+".mp4";
 
-                rawActionList.get(needCachePositions.get(i)).delete();
-
+                rawActionList.get(finalI).delete();
                 WolfDownloader wolfDownloader = new DownloaderConfig()
                         .setThreadNum(1)
                         .setDownloadUrl(rawActionList.get(needCachePositions.get(i)).getActionUrl())
@@ -202,27 +172,16 @@ public class CourseCacheUtil {
 
                             @Override
                             public void onDownloadSuccess(String apkPath) {
-                                Log.d("CourseCacheUtil","onDownloadSuccess! actionId:"+actionId);
-
-                                rawActionList.get(needCachePositions.get(finalI)).setActionLocUrl(cachePathRoot.toString() + "/ActionVideos/"+ actionId+".mp4");
-                                rawActionList.get(needCachePositions.get(finalI)).save();
-                                Course_Action ca = new Course_Action(course,rawActionList.get(needCachePositions.get(finalI)));
-                                if(new Select().from(Course_Action.class).where(Course_Action_Table.course_courseId.eq(course.getCourseId()),Course_Action_Table.action_actionID.eq(rawActionList.get(finalI).getActionID())).querySingle() == null){
-                                    Log.d("CourseCacheUtil","ca.exists false");
-                                    ca.save();
-                                }
-
-                                downloadSuccessIdList.put(actionId,true);
-
+                                rawActionList.get(finalI).setActionLocUrl(cachePathRoot.toString() + "/ActionVideos/"+ rawActionList.get(finalI).getActionID()+".mp4");
+                                rawActionList.get(finalI).save();
+                                downloadSuccessIdList.put(rawActionList.get(needCachePositions.get(finalI)).getActionID(),true);
                                 if(downloadSuccessIdList.size() == needCachePositions.size()){
-                                    Log.d("CourseCacheUtil","onAllDownloadFinish! ");
 
                                     //size checking here
                                     if(actionsVideoFileSizeAuth(rawActionList)){
-                                        course.getActionList();
                                         cacheStateChangeListener.onActionsCacheDone(true,rawActionList,"success");
                                     }else{
-                                        cacheStateChangeListener.onActionsCacheDone(false,rawActionList,"failed reason:file doesn't exist or size smaller than json say");
+                                        cacheStateChangeListener.onActionsCacheDone(false,rawActionList,"failed reason:file size smaller than json say");
                                     }
 
                                     downloadDialog.dismiss();
@@ -232,8 +191,8 @@ public class CourseCacheUtil {
 
                             @Override
                             public void onDownloadFailed() {
-                                Log.d("CourseCacheUtil","onDownloadFailed! actionId:"+actionId);
-                                cacheStateChangeListener.onActionsCacheDone(false,rawActionList,"failed reason:file download failed,actionId:"+actionId);
+                                Log.d("CourseCacheUtil","onDownloadFailed! actionId:"+rawActionList.get(finalI).getActionID());
+                                cacheStateChangeListener.onActionsCacheDone(false,rawActionList,"failed reason:file download failed,actionId:"+rawActionList.get(finalI).getActionID());
                             }
 
                             @Override
@@ -243,13 +202,12 @@ public class CourseCacheUtil {
 
                             @Override
                             public void onStopDownload() {
-                                //cacheStateChangeListener.onActionsCacheDone(false,rawActionList,"exit");
-                                Log.d("CourseCacheUtil","onStopDownload! actionId:"+actionId);
+
+                                Log.d("CourseCacheUtil","onStopDownload! actionId:"+rawActionList.get(finalI).getActionID());
                                 //cacheStateChangeListener.onActionsCacheDone(false,rawActionList);
                             }
                         })
                         .buildWolf(context);
-                downloaderList.add(wolfDownloader);
                 wolfDownloader.startDownload();
             }
         //}
@@ -260,7 +218,6 @@ public class CourseCacheUtil {
 
     private boolean actionsVideoFileSizeAuth(List<Action> list){
         for(int i=0;i<list.size();i++){
-            Log.d("CourseCacheUtil","locUrl:"+list.get(i).getActionLocUrl()+" getSizeByte:"+list.get(i).getSizeByte());
             if(!actionVideoFileAuth(list.get(i).getActionLocUrl(),list.get(i))){
                 return false;
             }
