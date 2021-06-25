@@ -1,9 +1,8 @@
 package com.example.motion.Entity;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class CourseTagGroup implements Serializable {
+public class CourseTagGroup {
     public static final int TAG_GROUP_IS_ONLINE  = -1;
     public static final int TAG_GROUP_SORT  = -2;
 
@@ -20,7 +19,7 @@ public class CourseTagGroup implements Serializable {
         this.courseTagList = courseTagList;
     }
 
-    public int getGroupId() {
+    public long getGroupId() {
         return groupId;
     }
 

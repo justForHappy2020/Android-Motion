@@ -9,31 +9,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.bumptech.glide.Glide;
 import com.example.motion.Activity.me_activity_bindphone_usephone;
 import com.example.motion.Activity.me_activity_bodydata_main;
+
+import com.example.motion.Activity.me_activity_help;
 import com.example.motion.Activity.me_activity_mycollections;
 import com.example.motion.Activity.me_activity_mycourse;
-import com.example.motion.Activity.me_activity_help;
 import com.example.motion.Activity.me_activity_setting;
+
 import com.example.motion.Activity.my_activity_me_data;
-import com.example.motion.Entity.User;
 import com.example.motion.R;
-import com.example.motion.Utils.HttpUtils;
 import com.makeramen.roundedimageview.RoundedImageView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-import static android.app.Activity.RESULT_OK;
 
 
 public class me_fragment_main extends Fragment implements View.OnClickListener {
@@ -42,7 +33,6 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
     private ImageView iv_email;
     private TextView tv_myplace;
     private ImageView iv_myplace;//我的空间右箭头
-    private ImageView ivPortrait;
     private TextView tv_name;
     private ImageView iv_edit_profile;//名字右箭头
 
@@ -69,7 +59,6 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
 
     private RoundedImageView riv_portrait;
     private int httpcode;
-    private String token = "2";
 
     //从其他页面获取UserID后的个人信息
     private int UserID;
@@ -79,61 +68,15 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
     // UserData
     private int FansNumber;
     private int FocusNumber;
-    private User user = new User();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.me_fragment_main, container, false);
         Log.d("me_fragment_main","onCreateView");
-        initData();
         initView(view);
         //initListener();
         return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-
-
-    private void initData() {
-//        Thread thread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                String url = "http://10.34.25.45:8080/api/community/getUserdata?token=" + token;
-//                String responseData = null;
-//                try {
-//                    responseData = HttpUtils.connectHttpGet(url);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//            }
-//                try{
-//                    JSONObject jsonObject1 = null;
-//                    if(responseData != null)jsonObject1 = new JSONObject(responseData);
-//                    httpcode = jsonObject1.getInt("code");
-//                    if (httpcode == 200) {
-//                        JSONObject jsonObject2 = jsonObject1.getJSONObject("data");
-//                            //相应的内容
-//                            user.setHeadPortraitUrl(jsonObject2.getString("headPortrait"));
-//                            user.setNickname(jsonObject2.getString("nickName"));
-//                            user.setGender(jsonObject2.getInt("gender"));
-//                            user.setBirth(jsonObject2.getString("birthday"));
-//                        }
-//                }catch (JSONException e){
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//        thread.start();
-//        try {
-//            thread.join(10000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        if(httpcode!=200) Toast.makeText(getActivity(),"ERROR", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -153,16 +96,11 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
 
         tr_setting = view.findViewById(R.id.tr_setting);
         tr_help = view.findViewById(R.id.tr_help);
-        ivPortrait = view.findViewById((R.id.iv_portrait));
-        tv_name = view.findViewById(R.id.tv_name);
-
-        tv_name.setText(user.getNickname());
-        Glide.with(getContext()).load(user.getHeadPortraitUrl()).into(ivPortrait);
-
         tr_bindphone.setOnClickListener(this);
         iv_edit_profile.setOnClickListener(this);
         tr_help.setOnClickListener(this);
         tr_setting.setOnClickListener(this);
+
 
         bodyData.setOnClickListener(this);
         myCourse.setOnClickListener(this);
@@ -174,8 +112,6 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
         download.setOnClickListener(this);
 
     }
-
-
 
     @Override
     public void onClick(View view) {
@@ -212,7 +148,6 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
 
                 //Intent intent = new Intent();//我的.我.帮助与反馈
                 //startActivity(intent);
-
                 break;
 
             case R.id.tv_bodydata:
@@ -222,7 +157,6 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
                 break;
             case R.id.iv_edit_profile:
                 intent = new Intent(getActivity(), my_activity_me_data.class);
-                intent.putExtra("user",user);
                 startActivity(intent);
                 break;
         }

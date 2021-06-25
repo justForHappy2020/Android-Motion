@@ -1,8 +1,6 @@
 package com.example.motion.Entity;
 
-import java.io.Serializable;
-
-public class CourseTag implements Serializable {
+public class CourseTag {
     public static final int TAG_ONLINE_YES  = 1;
     public static final int TAG_ONLINE_NO  = 0;
     public static final int TAG_ONLINE_RESERVED  = 2;

@@ -123,8 +123,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="10dp"
-                android:paddingTop="20dp"
-                android:visibility="invisible">
+                android:paddingTop="20dp">
 
                 <TableRow
                     android:layout_width="match_parent"
@@ -140,7 +139,6 @@
                         android:textColor="#000000"
                         android:textSize="18sp"
                         android:textStyle="bold" />
-
                     <TextView
                         android:id="@+id/textView36"
                         android:layout_width="wrap_content"
@@ -340,7 +338,6 @@
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_phone" />
 
-
                     <TextView
                         android:id="@+id/tv1_phone"
                         android:layout_width="match_parent"
@@ -378,7 +375,6 @@
                         android:layout_weight="1"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_location" />
-
 
                     <TextView
                         android:id="@+id/tv2_phone"
@@ -418,7 +414,6 @@
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_question" />
 
-
                     <TextView
                         android:id="@+id/tv3_phone"
                         android:layout_width="match_parent"
@@ -457,7 +452,6 @@
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_setting" />
 
-
                     <TextView
                         android:id="@+id/tv4_phone"
                         android:layout_width="match_parent"
@@ -493,7 +487,7 @@
         android:paddingTop="40dp">
 
         <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/iv_portrait"
+            android:id="@+id/Riv_portrait"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_weight="1"

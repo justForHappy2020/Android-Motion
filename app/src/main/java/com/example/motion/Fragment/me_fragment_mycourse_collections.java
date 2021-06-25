@@ -1,6 +1,5 @@
 package com.example.motion.Fragment;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -99,7 +98,6 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
             }
         };
     }
-    @SuppressLint("LongLogTag")
     private void getHttpCourse(Map params){
         List<MultipleItem> onePageCourses = new ArrayList<>();
 
@@ -174,6 +172,7 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
                 msg.what = LOAD_COURSES_FAILED;
                 msg.obj = volleyError.toString();
                 handler.sendMessage(msg);
+
         }
         });
         stringRequest.setTag("getHttp");
@@ -208,7 +207,6 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
             }
         });
     }
-    @SuppressLint("LongLogTag")
     private void configLoadMoreCourse() {
         if(hasNext){
             Log.d("me_fragment_mycourse_collections","configLoadMoreCourse");

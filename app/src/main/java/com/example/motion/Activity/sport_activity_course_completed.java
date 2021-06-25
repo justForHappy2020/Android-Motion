@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.motion.Entity.Course;
 import com.example.motion.R;
+import com.example.motion.Widget.SportBreakDialog;
 
 import java.text.DecimalFormat;
 
@@ -44,7 +45,7 @@ public class sport_activity_course_completed extends BaseNetworkActivity impleme
         tvOK = findViewById(R.id.tv_ok);
         tvNickname = findViewById(R.id.tv_nickname);
         tvCurrentTime= findViewById(R.id.tv_date);
-        tvCourseName= findViewById(R.id.tv_sport_completed_course_name);
+        tvCourseName= findViewById(R.id.tv_sport_compeleted_course_name);
         tvCount= findViewById(R.id.tv_sport_compeleted_course_count);
         tvUsedTime= findViewById(R.id.tv_sport_compeleted_course_usedtime);
         tvBtnFeelingHard = findViewById(R.id.tv_feelings_hard);

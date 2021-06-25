@@ -2,7 +2,6 @@ package com.example.motion.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.Window;
 
@@ -40,6 +39,12 @@ public class viewpager_activity_main extends FragmentActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.viewpager_activity_main);
+
+        //---only for test---
+        Intent intent = new Intent(this,sport_activity_course_detail.class);
+        startActivity(intent);
+        //-------------------
+
         initViews();//初始化控件
         initEvents();//初始化事件
         initDatas();//初始化数据
@@ -102,25 +107,6 @@ public class viewpager_activity_main extends FragmentActivity {
         mViewPager = (ViewPager) findViewById(R.id.id_viewpager);
         bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
 
-/*        //指定跳转
-        int id = getIntent().getIntExtra("id");
-            switch (id){
-                case 0:
-                    mViewPager.setCurrentItem(0);
-                    break;
-                case 1:
-                    mViewPager.setCurrentItem(1);
-                    break;
-                case 2:
-                    mViewPager.setCurrentItem(2);
-                    break;
-                case 3:
-                    mViewPager.setCurrentItem(3);
-                    break;
-                case 4:
-                    mViewPager.setCurrentItem(4);
-                    break;
-            }*/
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

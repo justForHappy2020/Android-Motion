@@ -63,7 +63,7 @@ public class DyxQuickAdapter extends BaseMultiItemQuickAdapter<DyxItem, BaseView
                         .setText(R.id.tv_weight , String.valueOf(item.getHealthRecord().getWeight()))
                         .setText(R.id.tv_height , String.valueOf(item.getHealthRecord().getHeight()))
                         .setText(R.id.tv_bmi , String.valueOf(item.getHealthRecord().getBmi()));
-                //Glide.with(getContext()).load(item.getHealthRecord().getPictureURL()).placeholder(R.drawable.wechat).into((ImageView)helper.getView(R.id.imageView3));
+                Glide.with(getContext()).load(item.getHealthRecord().getPictureURL()).placeholder(R.drawable.wechat).into((ImageView)helper.getView(R.id.imageView3));
                 break;
         }
     }

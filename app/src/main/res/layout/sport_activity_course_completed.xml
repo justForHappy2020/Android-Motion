@@ -64,8 +64,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:background="@color/white"
-                android:elevation="5dp"
-                android:padding="16dp">
+                android:elevation="5dp">
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/iv_head"
@@ -74,6 +73,8 @@
                     android:layout_above="@+id/view_center_line"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="17dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="20dp"
                     app:riv_oval="true"
@@ -108,7 +109,7 @@
                     android:background="@color/gray_light" />
 
                 <TextView
-                    android:id="@+id/tv_sport_completed_course_title_count"
+                    android:id="@+id/tv_sport_compeleted_course_title_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/view_center_line"
@@ -124,7 +125,7 @@
                     android:layout_below="@+id/view_center_line"
                     android:layout_alignParentStart="true"
                     android:layout_marginBottom="7dp"
-                    android:layout_toStartOf="@+id/tv_sport_completed_course_title_count"
+                    android:layout_toStartOf="@+id/tv_sport_compeleted_course_title_count"
                     android:text="@string/sport_completed_course_title_name"
                     android:textAlignment="center"
                     android:textColor="@color/gray_text" />
@@ -136,34 +137,32 @@
                     android:layout_below="@+id/view_center_line"
                     android:layout_alignParentEnd="true"
                     android:layout_marginBottom="7dp"
-                    android:layout_toEndOf="@+id/tv_sport_completed_course_title_count"
+                    android:layout_toEndOf="@+id/tv_sport_compeleted_course_title_count"
                     android:text="@string/sport_completed_course_title_usedtime"
                     android:textAlignment="center"
                     android:textColor="@color/gray_text" />
 
                 <TextView
-                    android:id="@+id/tv_sport_completed_course_name"
+                    android:id="@+id/tv_sport_compeleted_course_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_sport_compeleted_course_title_name"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_toStartOf="@+id/tv_sport_completed_course_title_count"
-                    android:ellipsize="end"
-                    android:singleLine="true"
+                    android:layout_toStartOf="@+id/tv_sport_compeleted_course_title_count"
                     android:textAlignment="center"
                     android:textColor="@color/black_text"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    tools:text="课程名称课程名称课程名称" />
+                    tools:text="课程名称" />
 
                 <TextView
                     android:id="@+id/tv_sport_compeleted_course_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_sport_completed_course_title_count"
-                    android:layout_alignStart="@+id/tv_sport_completed_course_title_count"
-                    android:layout_alignEnd="@+id/tv_sport_completed_course_title_count"
+                    android:layout_below="@id/tv_sport_compeleted_course_title_count"
+                    android:layout_alignStart="@+id/tv_sport_compeleted_course_title_count"
+                    android:layout_alignEnd="@+id/tv_sport_compeleted_course_title_count"
                     android:layout_alignParentBottom="true"
                     android:textAlignment="center"
                     android:textColor="@color/black_text"
@@ -177,7 +176,7 @@
                     android:layout_below="@+id/tv_sport_compeleted_course_title_usedtime"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_toEndOf="@+id/tv_sport_completed_course_title_count"
+                    android:layout_toEndOf="@+id/tv_sport_compeleted_course_title_count"
                     android:textAlignment="center"
                     android:textColor="@color/black_text"
                     android:textSize="18sp"

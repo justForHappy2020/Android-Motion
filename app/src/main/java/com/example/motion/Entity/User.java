@@ -6,14 +6,13 @@ public class User implements Serializable {
     private Long userId;
     private String phoneNumber;
     private String nickname;
-    private int gender;
+    private String gender;
     private String headPortraitUrl;
     private int type;
     private String createTime;
     private String intro;
     private String password;
     private String token;
-    private String birth;
 
     public User(){
 
@@ -53,11 +52,11 @@ public class User implements Serializable {
         this.nickname = nickname;
     }
 
-    public int getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
@@ -97,11 +96,4 @@ public class User implements Serializable {
         this.token = token;
     }
 
-    public String getBirth() {
-        return birth;
-    }
-
-    public void setBirth(String birth) {
-        this.birth = birth;
-    }
 }
