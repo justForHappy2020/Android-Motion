@@ -1,4 +1,4 @@
-package com.example.motion.Widget;
+package com.example.motion.Utils.CourseCache;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -64,7 +64,6 @@ public class CourseDownloadDialog extends Dialog {
         progressBar = findViewById(R.id.download_progressBar);
         tvProgressText = findViewById(R.id.tv_download_progressText);
         tvExit = findViewById(R.id.tv_download_quit);
-
     }
 
     public void setProgress(int progress){

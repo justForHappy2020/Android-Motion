@@ -118,11 +118,14 @@ public class sport_activity_course_start extends Activity implements View.OnClic
 
         initHandler();
         initView();
-        initData();
 
-        initializePlayer();
-
-        setVideoViewPosition();
+        if(actionList != null && actionList.size()>0){
+            initData();
+            initializePlayer();
+            setVideoViewPosition();
+        }else{
+            Log.d("sport_activity_course_start","actionList is null or empty");
+        }
     }
 
     @Override
@@ -345,7 +348,11 @@ public class sport_activity_course_start extends Activity implements View.OnClic
         ibLandscape.setOnClickListener(this);
         flTouchArea.setOnClickListener(this);
 
+    }
 
+    private void initData(){
+        breakDialog = new SportBreakDialog(this);
+        progressBarHeight =   new ConstraintLayout.LayoutParams(progressBar.getLayoutParams()).height;
 
         tvActionName.setText(actionList.get(courseActionPosition).getActionName());
         initCountOrTimeTv(actionList.get(courseActionPosition),tvCountOrTime);
@@ -362,11 +369,6 @@ public class sport_activity_course_start extends Activity implements View.OnClic
                 onStart();
             }
         });
-    }
-
-    private void initData(){
-        breakDialog = new SportBreakDialog(this);
-        progressBarHeight =   new ConstraintLayout.LayoutParams(progressBar.getLayoutParams()).height;
 
     }
 
@@ -644,6 +646,7 @@ public class sport_activity_course_start extends Activity implements View.OnClic
                 break;
             case R.id.btn_detail:
                 intent = new Intent(this,sport_activity_course_action_detail.class);
+                intent.putExtra("course",course);
                 intent.putExtra("courseActionPosition",courseActionPosition);
                 intent.putExtra("actionList",(Serializable) actionList);
                 startActivity(intent);
@@ -709,7 +712,7 @@ public class sport_activity_course_start extends Activity implements View.OnClic
     @Override
     protected void onResume() {
         super.onResume();
-        mVideoView.setFocusable(false);
+
     }
 
 }
