@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5edfaab8e74ff76ea8b84178d7d5028b629d6557
 # 健康运动APP项目安卓端文档
 
 
@@ -223,6 +226,7 @@ ccu.process(course,actionList);
 
    方法：正确安装git后，在Android Studio的Terminal内输入**git pull origin master **
 
+<<<<<<< HEAD
 =======
 # 健康运动APP项目安卓端文档
 
@@ -449,4 +453,6 @@ ccu.process(course,actionList);
    方法：正确安装git后，在Android Studio的Terminal内输入**git pull origin master **
 
 >>>>>>> d9bf9d090b75a75f9a9675798e4e00ae24f2bc27
+=======
+>>>>>>> 5edfaab8e74ff76ea8b84178d7d5028b629d6557
    参考资料：[git merge冲突解决](https://www.cnblogs.com/aidixie/p/12577272.html)

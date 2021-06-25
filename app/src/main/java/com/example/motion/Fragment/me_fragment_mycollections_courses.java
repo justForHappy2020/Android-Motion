@@ -1,6 +1,8 @@
 package com.example.motion.Fragment;
 
 import android.app.AlertDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -21,6 +23,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
+import com.example.motion.Activity.register_activity_register;
 import com.example.motion.Entity.MultipleItem;
 import com.example.motion.Entity.me_mycourse_collections;
 import com.example.motion.R;
@@ -37,8 +40,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class me_fragment_mycollections_courses extends BaseNetworkFragment {
-//    private List<List> dataSet = new ArrayList();
+    //    private List<List> dataSet = new ArrayList();
 //    private List<MultipleItem> collectionsList = new ArrayList();
 //
 //    MultipleItemQuickAdapter quickAdapter;
@@ -72,7 +77,7 @@ public class me_fragment_mycollections_courses extends BaseNetworkFragment {
 //        dataSet.add(collectionsList);
 //    }
 //}
-private final int LOAD_COURSES_SUCCESS = 1;
+    private final int LOAD_COURSES_SUCCESS = 1;
     private final int LOAD_COURSES_FAILED = 3;
 
     private final int COURSE_NUM_IN_ONE_PAGE = 10;
@@ -93,10 +98,13 @@ private final int LOAD_COURSES_SUCCESS = 1;
     private AlertDialog.Builder builder;
     private String dialogMessage = "";
 
+    private SharedPreferences readSP;
+    private String token ;
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.me_fragment_mycourse_collections,container,false);
 
         initView(view);
+        checkToken();
         initHandler();
         builder = new AlertDialog.Builder(getActivity());
         getHttpCourse(new HashMap());
@@ -107,6 +115,15 @@ private final int LOAD_COURSES_SUCCESS = 1;
     public void initView(View view){
         rvCourseCollected = view.findViewById(R.id.meMyCollectionsRecyclerView);
 
+    }
+    private void checkToken() {
+        readSP=getActivity().getSharedPreferences("saveSp",MODE_PRIVATE);
+        token = readSP.getString("token","");
+        if (token.isEmpty()){
+            Toast.makeText(getActivity(),"请登录", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), register_activity_register.class);
+            startActivity(intent);
+        }
     }
     private void initHandler(){
         handler = new Handler(Looper.getMainLooper()){
@@ -133,7 +150,7 @@ private final int LOAD_COURSES_SUCCESS = 1;
 
         String url = "http://10.34.25.45:8080/api/course/getCollectionCourse?size=" + COURSE_NUM_IN_ONE_PAGE;
         if(params.isEmpty()){
-            url+="&page=1&token=12123";
+            url+="&page=1&token="+token;
         }else{
             Iterator iter = params.keySet().iterator();
             while (iter.hasNext()) {
