@@ -38,21 +38,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.me_activity_bodydata_main" >
+        <activity android:name=".Activity.me_activity_bodydata_main"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activity.me_activity_bodydata_addfile" />
-
-        <activity android:name=".Activity.me_activity_bodydata_buildbabyfile"  >
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".Activity.me_activity_bodydata_buildparentfile" />
+        <activity android:name=".Activity.me_activity_bodydata_addfile"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
         <activity android:name=".Activity.sport_activity_course_completed" android:launchMode="singleTask" android:screenOrientation="portrait"></activity>
         <activity android:name=".Activity.BaseNetworkActivity" />
         <activity android:name=".Activity.sport_activity_course_detail" />
@@ -61,16 +57,18 @@
 
         <activity android:name=".Activity.sport_activity_course_action_detail" />
         <activity android:name=".Activity.search_result_activity" />
+
+
         <activity android:name=".Activity.sport_activity_course_selection" />
         <activity android:name=".Activity.search_course_activity"/>
         <activity android:name=".Activity.me_activity_mycourse"/>
         <activity android:name=".Activity.me_activity_mycollections"/>
         <activity android:name=".Activity.me_activity_help"/>
         <activity android:name=".Activity.me_activity_setting"/>
-        <activity android:name=".Activity.viewpager_activity_main">
+        <activity android:name=".Activity.viewpager_activity_main"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -89,7 +87,13 @@
         <activity
             android:name=".Activity.register_activity_register"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".Activity.my_activity_me_data"
             android:launchMode="singleTop"

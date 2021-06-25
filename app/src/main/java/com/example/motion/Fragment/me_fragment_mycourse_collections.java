@@ -1,7 +1,10 @@
 package com.example.motion.Fragment;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -22,6 +25,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
+import com.example.motion.Activity.register_activity_register;
 import com.example.motion.Activity.sport_activity_course_detail;
 import com.example.motion.Activity.sport_activity_course_selection;
 import com.example.motion.Entity.Course;
@@ -41,6 +45,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class me_fragment_mycourse_collections extends BaseNetworkFragment {
     private final int LOAD_COURSES_SUCCESS = 1;
     private final int LOAD_COURSES_FAILED = 3;
@@ -52,21 +58,23 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
 
     private List<MultipleItem> showingCourseList;
 
-
+    private SharedPreferences saveSP;
 
     private View emptyView;
     private Handler handler;
 
     private int currentPage = 1;//要分页查询的页面
     private boolean hasNext;
-
+    private String token;
     private AlertDialog.Builder builder;
     private String dialogMessage = "";
+    private SharedPreferences readSP;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.me_fragment_mycourse_collections,container,false);
 
         initView(view);
+        checkToken();
         initHandler();
         builder = new AlertDialog.Builder(getActivity());
         getHttpCourse(new HashMap());
@@ -77,6 +85,15 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
     public void initView(View view){
         rvCourseCollected = view.findViewById(R.id.meMyCollectionsRecyclerView);
 
+    }
+    private void checkToken() {
+        readSP=getActivity().getSharedPreferences("saveSp",MODE_PRIVATE);
+        token = readSP.getString("token","");
+        if (token.isEmpty()){
+            Toast.makeText(getActivity(),"请登录", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), register_activity_register.class);
+            startActivity(intent);
+        }
     }
     private void initHandler(){
         handler = new Handler(Looper.getMainLooper()){
@@ -98,12 +115,13 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
             }
         };
     }
+    @SuppressLint("LongLogTag")
     private void getHttpCourse(Map params){
         List<MultipleItem> onePageCourses = new ArrayList<>();
 
-        String url = "http://10.34.25.45:8080/api/course/getCollectionCourse?size=" + COURSE_NUM_IN_ONE_PAGE;
+        String url = "http://localhost:8080/api/course/getCollectionCourse?size=" + COURSE_NUM_IN_ONE_PAGE;
         if(params.isEmpty()){
-            url+="&page=1&token=12123";
+            url+="&page=1&token="+token;
         }else{
             Iterator iter = params.keySet().iterator();
             while (iter.hasNext()) {
@@ -145,7 +163,7 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
                             labels += (JSONArrayLabels.get(j) + "/");
                         }
                         courseCollected.setLabels(labels);
-                        onePageCourses.add(new MultipleItem(MultipleItem.Me_mycourse_collections, courseCollected));
+                        onePageCourses.add(new MultipleItem(MultipleItem.COURSEFULL, courseCollected));
                     }
                     showingCourseList.addAll(onePageCourses);
 
@@ -153,9 +171,11 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
                     Message msg = handler.obtainMessage();
                     msg.what = LOAD_COURSES_SUCCESS;
                     handler.sendMessage(msg);
+
                     //test tool
                     dialogMessage+="\n\ngetHttpCourse response:\n"+jsonRootObject.toString();
                     //end of test tool
+
                 }catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -172,7 +192,6 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
                 msg.what = LOAD_COURSES_FAILED;
                 msg.obj = volleyError.toString();
                 handler.sendMessage(msg);
-
         }
         });
         stringRequest.setTag("getHttp");
@@ -207,6 +226,7 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
             }
         });
     }
+    @SuppressLint("LongLogTag")
     private void configLoadMoreCourse() {
         if(hasNext){
             Log.d("me_fragment_mycourse_collections","configLoadMoreCourse");

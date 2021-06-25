@@ -106,5 +106,6 @@
     <string name="course_selection_tag_sort_date">按照日期排序</string>
     <string name="course_selection_nodata">没有相关数据,点击重试</string>
     <string name="course_selection_loading">加载中</string>
+    <string name="homepage_subtitle_classification">分类</string>
 
 </resources>

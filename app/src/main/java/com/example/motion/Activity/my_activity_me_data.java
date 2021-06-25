@@ -31,6 +31,8 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.bumptech.glide.Glide;
+import com.example.motion.Entity.User;
 import com.example.motion.R;
 import com.makeramen.roundedimageview.RoundedImageView;
 
@@ -42,6 +44,7 @@ import java.net.URL;
 import java.util.Calendar;
 
 import static com.example.motion.Utils.ClientUploadUtils.upload;
+import static com.example.motion.Utils.HttpUtils.connectHttp;
 
 public class my_activity_me_data extends Activity implements View.OnClickListener{
 
@@ -69,23 +72,51 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
     private View alertView;
     private String birth = "";
     private String name = "";
+    private int gender;
+
+    private String token;
+    private SharedPreferences readSP;
+    private Intent intentAccept;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_activity_me_data);
+        checkToken();
         initView();
     }
 
+    private void checkToken() {
+        readSP=this.getSharedPreferences("saveSp",MODE_PRIVATE);
+        token = readSP.getString("token","");
+        if (token.isEmpty()){
+            finish();
+            Toast.makeText(this,"请登录", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, register_activity_register.class);
+            startActivity(intent);
+        }
+    }
+
     private void initView(){
+        intentAccept = getIntent();
+        User user = (User)intentAccept.getSerializableExtra("user");
+        name = user.getNickname();
+        url = user.getHeadPortraitUrl();
+        gender = user.getGender();
+        birth = user. getBirth();
+
         ivBack = findViewById(R.id.iv_back);
         ivChangeportrait = findViewById(R.id.iv_changeportrait);
         tvName = findViewById(R.id.tv_name);
         tvSex = findViewById(R.id.tv_sex);
         tvBirth  = findViewById(R.id.tv_birth);
         btnSave = findViewById(R.id.btn_save);
-
         mContext = my_activity_me_data.this;
+        tvName.setText(user.getNickname());
+        Glide.with(mContext).load(user.getHeadPortraitUrl()).into(ivChangeportrait);
+        final String[] sex = getResources().getStringArray(R.array.me_choose_sex);
+        tvSex.setText(sex[user.getGender()]);
+        tvBirth.setText(user.getBirth());
 
         final LayoutInflater inflater = my_activity_me_data.this.getLayoutInflater();
         alertView = inflater.inflate(R.layout.me_dialog_me_data, null,false);
@@ -145,7 +176,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                 Uri photoUri = data.getData();//获取路径
                 //final String filename = photoUri.getPath();
                 final String filepath = getRealPathFromUriAboveApi19(this,photoUri);//获取绝对路径
-                final String httpurl = "http://159.75.2.94:8080/api/user/uploadImageAndroid";
+                final String httpurl = "http://10.34.25.45:8080/api/user/modifyHptAndroid";
 
 
                 //http请求
@@ -153,7 +184,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                     @Override
                     public void run() {
                         try {
-                            String responseData = upload(httpurl,filepath).string();//http请求
+                            String responseData = upload(httpurl , filepath , token).string();//http请求
                             try {
                                 JSONObject jsonObject1 = new JSONObject(responseData);
                                 //相应的内容
@@ -328,6 +359,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
+                                        gender = which;
                                         tvSex.setText(sex[which]);
                                     }
                                 }).create();
@@ -340,7 +372,12 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                 new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        birth = year+"-"+ (month+1)+"-"+dayOfMonth;
+                        String m , d;
+                        if(++month<10)m = "0" + month;
+                        else m = String.valueOf(month);
+                        if(dayOfMonth<10)d = "0" + dayOfMonth;
+                        else d = String.valueOf(dayOfMonth);
+                        birth = year+"-"+ m + "-" + d;
                         tvBirth.setText(birth);
                     }
                 }
@@ -358,8 +395,55 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                 tvName.setText(name);
                 break;
             case R.id.btn_save:
-                Toast.makeText(getApplicationContext(), "保存个人信息", Toast.LENGTH_SHORT).show();
                 //http请求，保存数据。
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            //设置JSON数据
+                            JSONObject json = new JSONObject();
+                            try {
+                                json.put("token", token);
+                                json.put("headPortrait", url);
+                                json.put("nickName", name);
+                                json.put("gender" , gender );
+                                json.put("birthday" , birth);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            String url = "http://10.34.25.45:8080/api/community/saveUserdata";
+                            String responseData = connectHttp(url,json);
+                            getfeedback(responseData);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    private void getfeedback(String responseData) {
+                        try {
+                            //解析JSON数据
+                            JSONObject jsonObject1 = new JSONObject(responseData);
+                            httpCode = jsonObject1.getInt("code");
+                        } catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                thread.start();
+                try {
+                    thread.join(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if(httpCode==200){
+                    Toast.makeText(getApplicationContext(), "SUCCESSFUL", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(this,"ERROR",Toast.LENGTH_SHORT).show();
+                }
+                Intent intent = new Intent(my_activity_me_data.this, viewpager_activity_main.class);
+                startActivity(intent);
                 finish();
                 break;
         }

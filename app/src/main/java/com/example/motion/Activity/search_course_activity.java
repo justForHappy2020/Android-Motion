@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -28,7 +27,7 @@ public class search_course_activity extends Activity implements View.OnClickList
     EditText et;
     ImageButton search;
     Button clear_history;
-    ImageView quit;
+    Button quit;
 
     String estr;
     SharedPreferences shp;
@@ -50,7 +49,7 @@ public class search_course_activity extends Activity implements View.OnClickList
         et = findViewById(R.id.text_input_search);
         search = findViewById(R.id.searching_button);
         clear_history = findViewById(R.id.clean_history);
-        quit = findViewById(R.id.searchGoBack);
+        quit = findViewById(R.id.quit_button);
 
         search.setOnClickListener(this);
         clear_history.setOnClickListener(this);
@@ -82,6 +81,9 @@ public class search_course_activity extends Activity implements View.OnClickList
                     SharedPreferences.Editor editor = shp.edit();
                     editor.putStringSet("search_course_history_list",strSet);
                     editor.commit();
+
+
+
                 }
                 break;
             case R.id.clean_history:
@@ -94,7 +96,7 @@ public class search_course_activity extends Activity implements View.OnClickList
                 editor.clear();
                 editor.commit();
                 break;
-            case R.id.searchGoBack:
+            case R.id.quit_button:
                 finish();
                 break;
         }

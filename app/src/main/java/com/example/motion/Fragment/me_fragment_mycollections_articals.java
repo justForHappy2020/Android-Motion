@@ -29,19 +29,19 @@ public class me_fragment_mycollections_articals extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.me_fragment_mycollections_articles,container,false);
-//        initData();
-//        initView(view);
+        initData();
+        initView(view);
         return view;
     }
 
-//    public void initView(View view){
-//        recyclerView = (RecyclerView) view.findViewById(R.id.meMycollectionsArticalRecyclerView);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        quickAdapter = new MultipleItemQuickAdapter(articalsList);
-//        recyclerView.setAdapter(quickAdapter);
-//    }
-//    public void initData(){
-//
+    public void initView(View view){
+        recyclerView = (RecyclerView) view.findViewById(R.id.meMycollectionsArticalRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        quickAdapter = new MultipleItemQuickAdapter(articalsList);
+        recyclerView.setAdapter(quickAdapter);
+    }
+    public void initData(){
+
 //        me_mycollections_articals articals;
 //        for (int i = 0; i < 5; i++) {
 //            articals = new me_mycollections_articals();
@@ -53,6 +53,6 @@ public class me_fragment_mycollections_articals extends Fragment {
 //            articalsList.add(new MultipleItem(MultipleItem.Me_mycollections_articals,articals));
 //        }
 //        dataSet.add(articalsList);
-//    }
+    }
 
 }

@@ -1,5 +1,7 @@
 package com.example.motion.Utils;
 
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
@@ -14,15 +16,17 @@ import okhttp3.ResponseBody;
 
 public class ClientUploadUtils {
 
-    static public ResponseBody upload(String url, String filePath) throws Exception {
+    static public ResponseBody upload(String url, String filePath , String token) throws Exception {
         OkHttpClient client = new OkHttpClient();
         File file = new File(filePath);
         String fileName = file.getName();
 
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("file", fileName,
+                .addFormDataPart("headPortrait", fileName,
                         RequestBody.create(MediaType.parse("multipart/form-data"), file))
+                //.addPart(RequestBody.create(MediaType.parse("application/json; charset=utf-8") ,String.valueOf(json)))
+                .addFormDataPart("token" , token)
                 .build();
 
         Request request = new Request.Builder()

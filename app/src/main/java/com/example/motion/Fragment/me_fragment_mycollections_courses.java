@@ -114,6 +114,7 @@ public class me_fragment_mycollections_courses extends BaseNetworkFragment {
 
     public void initView(View view){
         rvCourseCollected = view.findViewById(R.id.meMyCollectionsRecyclerView);
+
     }
     private void checkToken() {
         readSP=getActivity().getSharedPreferences("saveSp",MODE_PRIVATE);
@@ -146,6 +147,7 @@ public class me_fragment_mycollections_courses extends BaseNetworkFragment {
     }
     private void getHttpCourse(Map params){
         List<MultipleItem> onePageCourses = new ArrayList<>();
+
         String url = "http://10.34.25.45:8080/api/course/getCollectionCourse?size=" + COURSE_NUM_IN_ONE_PAGE;
         if(params.isEmpty()){
             url+="&page=1&token="+token;

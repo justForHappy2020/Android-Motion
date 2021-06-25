@@ -180,7 +180,9 @@ public class sport_fragment_main extends Fragment implements
 
     @Override
     public void onCalendarSelect(Calendar calendar, boolean isClick) {
-        showPopupWindow();
+        if(getActivity() != null){
+            showPopupWindow();
+        }
     }
 
     @Override

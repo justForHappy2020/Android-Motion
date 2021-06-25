@@ -5,11 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -34,7 +30,6 @@ public class ColorfulActivity extends BaseActivity implements
     RelativeLayout mRelativeTool;
     private int mYear;
     CalendarLayout mCalendarLayout;
-    private PopupWindow mPopWindow;
     public static void show(Context context) {
         context.startActivity(new Intent(context, ColorfulActivity.class));
     }
@@ -91,8 +86,8 @@ public class ColorfulActivity extends BaseActivity implements
         Log.d("initData","year,motnth"+year+"/"+month);
         countDay = new int[]{ 1,2,3,5,6,7,8,9,11,12,15,16,17,18,19,21,24,25,27,29,30,0,0,0,0,0,0,0,0,0,0};
         for(int i = 0; i < countDay.length;i++) {//设置变色的日子
-            map.put(getSchemeCalendar(year, month, countDay[i], 0xFFbc13f0).toString(),
-                    getSchemeCalendar(year, month, countDay[i], 0xFFbc13f0));
+            map.put(getSchemeCalendar(year, month, countDay[i], 0xFFbc13f0, "假").toString(),
+                    getSchemeCalendar(year, month, countDay[i], 0xFFbc13f0, "假"));
             /*map.put(getSchemeCalendar(year, month, 3, 0xFFe69138, "事").toString(),
                     getSchemeCalendar(year, month, 3, 0xFFe69138, "事"));
             map.put(getSchemeCalendar(year, month, 9, 0xFFdf1356, "议").toString(),
@@ -116,36 +111,36 @@ public class ColorfulActivity extends BaseActivity implements
 
     }
 
-//    protected void initData2() {
-//
-//        int year = mCalendarView.getCurYear();
-//        int month = mCalendarView.getCurMonth();
-//
-//        Map<String, Calendar> map = new HashMap<>();
-//        map.put(getSchemeCalendar(year, month, 3, 0xFF40db25, "假").toString(),
-//                getSchemeCalendar(year, month, 3, 0xFF40db25, "假"));
-//        map.put(getSchemeCalendar(year, month, 6, 0xFFe69138, "事").toString(),
-//                getSchemeCalendar(year, month, 6, 0xFFe69138, "事"));
-//        map.put(getSchemeCalendar(year, month, 9, 0xFFdf1356, "议").toString(),
-//                getSchemeCalendar(year, month, 9, 0xFFdf1356, "议"));
-//        map.put(getSchemeCalendar(year, month, 13, 0xFFedc56d, "记").toString(),
-//                getSchemeCalendar(year, month, 13, 0xFFedc56d, "记"));
-//        map.put(getSchemeCalendar(year, month, 14, 0xFFedc56d, "记").toString(),
-//                getSchemeCalendar(year, month, 14, 0xFFedc56d, "记"));
-//        map.put(getSchemeCalendar(year, month, 15, 0xFFaacc44, "假").toString(),
-//                getSchemeCalendar(year, month, 15, 0xFFaacc44, "假"));
-//        map.put(getSchemeCalendar(year, month, 18, 0xFFbc13f0, "记").toString(),
-//                getSchemeCalendar(year, month, 18, 0xFFbc13f0, "记"));
-//        map.put(getSchemeCalendar(year, month, 25, 0xFF13acf0, "假").toString(),
-//                getSchemeCalendar(year, month, 25, 0xFF13acf0, "假"));
-//        map.put(getSchemeCalendar(year, month, 27, 0xFF13acf0, "多").toString(),
-//                getSchemeCalendar(year, month, 27, 0xFF13acf0, "多"));
-//        //此方法在巨大的数据量上不影响遍历性能，推荐使用
-//        mCalendarView.setSchemeDate(map);
-//
-//
-//
-//    }
+    protected void initData2() {
+
+        int year = mCalendarView.getCurYear();
+        int month = mCalendarView.getCurMonth();
+
+        Map<String, Calendar> map = new HashMap<>();
+        map.put(getSchemeCalendar(year, month, 3, 0xFF40db25, "假").toString(),
+                getSchemeCalendar(year, month, 3, 0xFF40db25, "假"));
+        map.put(getSchemeCalendar(year, month, 6, 0xFFe69138, "事").toString(),
+                getSchemeCalendar(year, month, 6, 0xFFe69138, "事"));
+        map.put(getSchemeCalendar(year, month, 9, 0xFFdf1356, "议").toString(),
+                getSchemeCalendar(year, month, 9, 0xFFdf1356, "议"));
+        map.put(getSchemeCalendar(year, month, 13, 0xFFedc56d, "记").toString(),
+                getSchemeCalendar(year, month, 13, 0xFFedc56d, "记"));
+        map.put(getSchemeCalendar(year, month, 14, 0xFFedc56d, "记").toString(),
+                getSchemeCalendar(year, month, 14, 0xFFedc56d, "记"));
+        map.put(getSchemeCalendar(year, month, 15, 0xFFaacc44, "假").toString(),
+                getSchemeCalendar(year, month, 15, 0xFFaacc44, "假"));
+        map.put(getSchemeCalendar(year, month, 18, 0xFFbc13f0, "记").toString(),
+                getSchemeCalendar(year, month, 18, 0xFFbc13f0, "记"));
+        map.put(getSchemeCalendar(year, month, 25, 0xFF13acf0, "假").toString(),
+                getSchemeCalendar(year, month, 25, 0xFF13acf0, "假"));
+        map.put(getSchemeCalendar(year, month, 27, 0xFF13acf0, "多").toString(),
+                getSchemeCalendar(year, month, 27, 0xFF13acf0, "多"));
+        //此方法在巨大的数据量上不影响遍历性能，推荐使用
+        mCalendarView.setSchemeDate(map);
+
+
+
+    }
 
 
     @Override
@@ -153,32 +148,17 @@ public class ColorfulActivity extends BaseActivity implements
 
     }
 
-    private Calendar getSchemeCalendar(int year, int month, int day, int color) {
+    private Calendar getSchemeCalendar(int year, int month, int day, int color, String text) {
         Calendar calendar = new Calendar();
         calendar.setYear(year);
         calendar.setMonth(month);
         calendar.setDay(day);
         calendar.setSchemeColor(color);//如果单独标记颜色、则会使用这个颜色
-//        calendar.setScheme(text);
+        calendar.setScheme(text);
         return calendar;
     }
 
-    private void showPopupWindow(){
-        View contentView = LayoutInflater.from(ColorfulActivity.this).inflate(R.layout.exercise_calander_detail, null);
-        mPopWindow = new PopupWindow(contentView,
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-        mPopWindow.setContentView(contentView);
-        //设置各个控件的点击响应
-        TextView tv1 = (TextView)contentView.findViewById(R.id.exerciseHowLong);
-        TextView tv2 = (TextView)contentView.findViewById(R.id.exerciseCourse1);
-        TextView tv3 = (TextView)contentView.findViewById(R.id.exerciseCourse2);
-        tv1.setOnClickListener(this);
-        tv2.setOnClickListener(this);
-        tv3.setOnClickListener(this);
-        //显示PopupWindow
-        View rootview = LayoutInflater.from(ColorfulActivity.this).inflate(R.layout.sport_fragment_main, null);
-        mPopWindow.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
-    }
+
 
     @Override
     public void onCalendarOutOfRange(Calendar calendar) {
@@ -194,7 +174,6 @@ public class ColorfulActivity extends BaseActivity implements
         mTextYear.setText(String.valueOf(calendar.getYear()));
         mTextLunar.setText(calendar.getLunar());
         mYear = calendar.getYear();
-        showPopupWindow();
     }
 
     @Override

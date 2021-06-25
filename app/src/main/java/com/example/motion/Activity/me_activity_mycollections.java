@@ -14,7 +14,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.motion.Fragment.me_fragment_mycollections_articals;
 import com.example.motion.Fragment.me_fragment_mycollections_courses;
 import com.example.motion.Fragment.me_fragment_mycollections_posts;
-import com.example.motion.Fragment.me_fragment_mycourse_collections;
 import com.example.motion.R;
 import com.google.android.material.tabs.TabLayout;
 
@@ -39,7 +38,7 @@ public class me_activity_mycollections extends AppCompatActivity {
 
     private void initDatas(){
         Bundle bundle = new Bundle();
-        me_fragment_mycourse_collections f1 = new me_fragment_mycourse_collections();
+        me_fragment_mycollections_courses f1 = new me_fragment_mycollections_courses();
         me_fragment_mycollections_posts f2 = new me_fragment_mycollections_posts();
         me_fragment_mycollections_articals f3 = new me_fragment_mycollections_articals();
 
@@ -93,7 +92,6 @@ public class me_activity_mycollections extends AppCompatActivity {
             }
         });
     }
-
     class MyAdapter extends PagerAdapter {
         @Override
         public int getCount() {
