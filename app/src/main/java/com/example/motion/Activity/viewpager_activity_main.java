@@ -53,8 +53,14 @@ public class viewpager_activity_main extends FragmentActivity {
         //将四个Fragment加入集合中
         mFragments.add(new homepage_fragment_main());
         mFragments.add(new sport_fragment_main());
-        mFragments.add(new community_fragment_main());
-        mFragments.add(new diet_fragment_main());
+
+        /**
+         * 从第一阶段移除
+         */
+        //mFragments.add(new community_fragment_main());
+        //mFragments.add(new diet_fragment_main());
+
+
         mFragments.add(new me_fragment_main());
 
         //初始化适配器
@@ -145,14 +151,20 @@ public class viewpager_activity_main extends FragmentActivity {
                 case R.id.main_sport:
                     mViewPager.setCurrentItem(1);
                     return true;
+                /**
+                 * 从第一阶段移除
+                 */
+                /*
                 case R.id.main_community:
                     mViewPager.setCurrentItem(2);
                     return true;
                 case R.id.main_diet:
                     mViewPager.setCurrentItem(3);
                     return true;
+
+                 */
                 case R.id.main_me:
-                    mViewPager.setCurrentItem(4);
+                    mViewPager.setCurrentItem(2);
                     return true;
             }
                 return false;

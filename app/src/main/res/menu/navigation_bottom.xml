@@ -8,6 +8,8 @@
         android:id="@+id/main_sport"
         android:icon="@drawable/ic_tab_sport"
         android:title="@string/bottom_tab_sport" />
+
+<!--从第一阶段移除
     <item
         android:id="@+id/main_community"
         android:icon="@drawable/ic_tab_community"
@@ -16,6 +18,7 @@
         android:id="@+id/main_diet"
         android:icon="@drawable/ic_tab_diet"
         android:title="@string/bottom_tab_diet" />
+-->
     <item
         android:id="@+id/main_me"
         android:icon="@drawable/ic_tab_me"

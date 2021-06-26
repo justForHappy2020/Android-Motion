@@ -37,17 +37,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.motion.Activity.me_activity_mycollections;
 import com.example.motion.Activity.me_activity_mycourse;
+import com.example.motion.Activity.register_activity_register;
 import com.example.motion.Activity.search_course_activity;
 import com.example.motion.R;
+import com.example.motion.Utils.UserInfoManager;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
@@ -73,12 +77,27 @@ public class sport_fragment_main extends Fragment implements
     CalendarLayout mCalendarLayout;
     private View.OnClickListener onClickListener;
     private PopupWindow mPopWindow;
+
+    /**
+     * 未界面控件
+     */
+    private LinearLayout llNotLoginBar;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.sport_fragment_main, container, false);
-        initView(view);
-        initData();
+        View view;
+
+        if(UserInfoManager.getUserInfoManager(getContext()).isTokenEmpty()){
+            view = inflater.inflate(R.layout.sport_fragment_main_not_login, container, false);
+            initNotLoginView(view);
+        }else{
+            view = inflater.inflate(R.layout.sport_fragment_main, container, false);
+            initView(view);
+            initData();
+        }
+
         return view;
     }
 
@@ -148,13 +167,24 @@ public class sport_fragment_main extends Fragment implements
 
 
     }
+
+    private void initNotLoginView(View view){
+        llNotLoginBar = view.findViewById(R.id.ll_not_login);
+        llNotLoginBar.setOnClickListener(this);
+    }
+
     protected int getLayoutId() {
         return R.id.colorfulCalendar;
     }
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()){
+            case R.id.ll_not_login:
+                Intent intent = new Intent(getActivity(), register_activity_register.class);
+                startActivity(intent);
+                break;
+        }
     }
 
     private void showPopupWindow(){
@@ -189,7 +219,6 @@ public class sport_fragment_main extends Fragment implements
     public void onYearChange(int year) {
 
     }
-
 
     protected void initData() {
 

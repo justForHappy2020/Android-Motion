@@ -62,7 +62,8 @@
                 android:gravity="end"
                 android:orientation="horizontal"
                 android:paddingTop="10dp"
-                android:paddingEnd="10dp">
+                android:paddingEnd="10dp"
+                android:visibility="invisible">
 
 
                 <Space
@@ -124,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="10dp"
                 android:paddingTop="20dp"
-                android:visibility="invisible">
+                android:visibility="gone">
 
                 <TableRow
                     android:layout_width="match_parent"
@@ -245,6 +246,26 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tv_mydownload"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableTop="@drawable/ic_my_download"
+                        android:gravity="center_horizontal"
+                        android:text="我的下载"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+
+                    <TextView
                         android:id="@+id/tv_identify"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -254,14 +275,8 @@
                         android:text="我的认证"
                         android:textColor="#000000"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
+                        android:textStyle="bold"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/tv_mall"
@@ -273,7 +288,8 @@
                         android:text="积分商城"
                         android:textColor="#000000"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/tv_dailytasks"
@@ -285,7 +301,8 @@
                         android:text="每日任务"
                         android:textColor="#000000"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/tv_ordercenter"
@@ -297,19 +314,9 @@
                         android:text="订单中心"
                         android:textColor="#000000"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="gone" />
 
-                    <TextView
-                        android:id="@+id/tv_mydownload"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawableTop="@drawable/ic_my_download"
-                        android:gravity="center_horizontal"
-                        android:text="我的下载"
-                        android:textColor="#000000"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
                 </TableRow>
 
             </TableLayout>
@@ -320,7 +327,7 @@
 
             <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:paddingStart="20dp"
                 android:paddingTop="40dp"
                 android:paddingEnd="20dp">
@@ -328,7 +335,8 @@
                 <TableRow
                     android:id="@+id/tr_bingphone"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
                     android:layout_weight="1">
 
                     <ImageView
@@ -367,7 +375,8 @@
                     android:id="@+id/tr_myadress"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:visibility="gone">
 
                     <ImageView
                         android:id="@+id/iv2_phone"
@@ -406,6 +415,7 @@
                     android:id="@+id/tr_help"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="16dp"
                     android:layout_weight="1">
 
                     <ImageView

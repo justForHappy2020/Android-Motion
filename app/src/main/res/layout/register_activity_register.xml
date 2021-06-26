@@ -18,7 +18,7 @@
             android:layout_width="37dp"
             android:layout_height="37dp"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/delete" />
+            android:src="@drawable/delete" />
 
     </LinearLayout>
 
@@ -172,7 +172,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/wechat" />
+        android:src="@drawable/wechat" />
 
     <TextView
         android:layout_width="match_parent"

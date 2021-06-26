@@ -104,15 +104,23 @@ public class me_fragment_main extends BaseNetworkFragment implements View.OnClic
 
         initView(view);
         initHandler();
-        initData();
+
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        initLocalData();
+        if(!UserInfoManager.getUserInfoManager(getContext()).isTokenEmpty()){
+            initData();
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
     }
-
 
     private void initHandler(){
         handler = new Handler(Looper.getMainLooper()){
@@ -131,6 +139,13 @@ public class me_fragment_main extends BaseNetworkFragment implements View.OnClic
             }
         };
 
+    }
+
+
+    private void initLocalData(){
+        user = UserInfoManager.getUserInfoManager(getContext()).getUser();
+        tv_name.setText(user.getNickName());
+        Glide.with(getContext()).load(user.getHeadPortraitUrl()).into(ivPortrait);
     }
 
     private void initData() {

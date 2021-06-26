@@ -11,6 +11,7 @@ import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -31,6 +32,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.motion.Fragment.me_fragment_main;
 import com.example.motion.R;
 import com.example.motion.Utils.KeyboardUtils;
+import com.example.motion.Utils.UserInfoManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,7 +40,7 @@ import org.json.JSONObject;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class register_activity_register extends AppCompatActivity implements View.OnClickListener {
+public class register_activity_register extends BaseNetworkActivity implements View.OnClickListener {
     private ImageView iv_delete;
     private EditText et_phone;
     private EditText et_code;
@@ -54,9 +56,6 @@ public class register_activity_register extends AppCompatActivity implements Vie
     private String mobile;
     private String loginCode;//填写的验证码
     private Boolean isNewUser;
-    // Volley
-    private RequestQueue queue;
-
 
 
     @Override
@@ -64,6 +63,12 @@ public class register_activity_register extends AppCompatActivity implements Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_activity_register);
         initview();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        loadDefaultPhoneNumber();
     }
 
     private void initview() {
@@ -83,7 +88,6 @@ public class register_activity_register extends AppCompatActivity implements Vie
         btn_login.setOnClickListener(this);
         iv_wechat.setOnClickListener(this);
         tv_callService.setOnClickListener(this);//客服
-        queue = Volley.newRequestQueue(this);
 
         btn_getcode.setEnabled(Boolean.FALSE);
         btn_agree.setChecked(false);//checkbox设置
@@ -159,9 +163,17 @@ public class register_activity_register extends AppCompatActivity implements Vie
         },998);
     }
 
+    private void loadDefaultPhoneNumber(){
+        if(null != et_phone){
+            et_phone.setText(UserInfoManager.getUserInfoManager(this).getUser().getPhoneNumber());
+            Log.d("loadDefaultPhoneNumber","phone:"+UserInfoManager.getUserInfoManager(this).getUser().getPhoneNumber());
+        }
 
-    public static void jumpCalling(Context context) {//客服电话跳转
-        String phoneNumber = "13812342345";
+    }
+
+
+    private void jumpCalling(Context context) {//客服电话跳转
+        String phoneNumber = getString(R.string.service_phone_number); ;
         Intent intentP = new Intent();
         intentP.setAction(Intent.ACTION_DIAL);
         intentP.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -229,7 +241,7 @@ public class register_activity_register extends AppCompatActivity implements Vie
                         }
 
                     });
-                    queue.add(getCode);
+                    requestQueue.add(getCode);
 
                 }
                 break;
@@ -309,7 +321,7 @@ public class register_activity_register extends AppCompatActivity implements Vie
                         }
 
                     });
-                    queue.add(getCode);
+                    requestQueue.add(getCode);
                     //判定是否新用户，新用户跳转注册页面，旧用户跳转主页
 //                    更改成功 跳转回首页
 //                            Intent intent_homrpage = new Intent(this,homepage_activity_homepage);

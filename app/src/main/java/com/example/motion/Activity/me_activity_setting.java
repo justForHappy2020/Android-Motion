@@ -40,7 +40,7 @@ public class me_activity_setting extends BaseNetworkActivity implements View.OnC
             case R.id.tv_loginout_account:
                 SharedPreferences preferences = this.getSharedPreferences("saveSp",MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.clear();
+                editor.remove("token");
                 editor.commit();
                 finish();
                 Intent intent = new Intent(this, register_activity_register.class);

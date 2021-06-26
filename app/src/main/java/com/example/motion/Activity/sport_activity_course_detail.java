@@ -41,6 +41,7 @@ import com.example.motion.Utils.CourseCacheUtil;
 import com.example.motion.Utils.HttpUtils;
 import com.example.motion.Utils.OnProcessStateChangeListener;
 import com.example.motion.Widget.MultipleItemQuickAdapter;
+import com.example.motion.Widget.MyStringRequest;
 import com.example.motion.Widget.PostJsonRequest;
 import com.example.motion.Widget.RelatedCoursesAdapter;
 import com.raizlabs.android.dbflow.sql.language.Select;
@@ -98,6 +99,8 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
     private static final int GET_SUCCESS = 5;
     private static final int GET_FAILED= 6;
 
+    private static final int COURSE_COLLECT_SUCCESS = 7;
+    private static final int COURSE_COLLECT_FAILED = 8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,6 +156,13 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
                     case GET_FAILED:
                         Toast.makeText(sport_activity_course_detail.this, "GET_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
                         break;
+                    case COURSE_COLLECT_SUCCESS:
+                        Toast.makeText(sport_activity_course_detail.this, "COURSE_COLLECT_SUCCESS", Toast.LENGTH_LONG).show();
+                        break;
+                    case COURSE_COLLECT_FAILED:
+                        Toast.makeText(sport_activity_course_detail.this, "COURSE_COLLECT_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
+                        break;
+
                 }
             }
         };
@@ -180,7 +190,6 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
         ibLikeCourse.setOnClickListener(this);
         btSelectCourse.setOnClickListener(this);
     }
-
 
     private void courseId2Course(Long courseId,Course course){
         String url = "http://10.34.25.45:8080/api/course/getCourse";
@@ -417,6 +426,39 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
 
     }
 
+    private void collectCourse(){
+        int flag;
+        if(course.isCollected()){
+            flag=0;
+        }else{
+            flag=1;
+        }
+        String token = UserInfoManager.getUserInfoManager(this).getToken();
+        String url = "http://10.34.25.45:8080/api/course/bookCourse?token="+token+"&courseId="+course.getCourseId()+"&flag="+flag;
+        MyStringRequest stringRequest = new MyStringRequest(Request.Method.GET,  url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String responseStr) {
+                Message msg = handler.obtainMessage();
+                msg.what = COURSE_COLLECT_SUCCESS;
+                handler.sendMessage(msg);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Message msg = handler.obtainMessage();
+                msg.what = COURSE_COLLECT_FAILED;
+                msg.obj = volleyError.toString();
+                handler.sendMessage(msg);
+            }
+        });
+        stringRequest.setTag("getHttp_collectCourse");
+        requestQueue.add(stringRequest);
+    }
+
+    private void reserveCourse(){
+
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -429,7 +471,7 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
                 finish();
                 break;
             case R.id.ib_course_like:
-                //like here
+                collectCourse();
                 break;
             case R.id.btn_course_select:
 
@@ -456,7 +498,9 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
                         ccu.process(course,actionList);
                         break;
                     case CourseTag.TAG_ONLINE_NO:
-                        Toast.makeText(this, "预定成功", Toast.LENGTH_SHORT).show();
+                        if(course.getIsOnline() == CourseTag.TAG_ONLINE_NO){
+
+                        }
                         break;
                 }
 
