@@ -103,11 +103,13 @@ public class register_activity_register extends BaseNetworkActivity implements V
 //                    btn_getcode.setBackgroundColor(Color.parseColor("#673AB7"));
                     btn_getcode.setTextColor(Color.parseColor("#673AB7"));
                     btn_getcode.setEnabled(Boolean.TRUE);//启用按钮
+                    btn_login.setEnabled(true);
                 }else{
                     //btAcquireCode.setBackgroundColor(Color.GREEN);
 //                    btn_getcode.setBackgroundColor(Color.parseColor("#D1C4E9"));
                     btn_getcode.setTextColor(Color.parseColor("#FF808080"));
                     btn_getcode.setEnabled(Boolean.FALSE);//不启用按钮
+                    btn_login.setEnabled(false);
                 }//判断是否启用获取验证码按钮
 //                if (et_phone.getText().toString().trim().length()==11 && et_code.getText().toString().trim().length()==4 && btn_agree.isChecked()){
 //                    btn_login.setBackgroundColor(Color.parseColor("#673AB7"));
@@ -166,11 +168,11 @@ public class register_activity_register extends BaseNetworkActivity implements V
     private void loadDefaultPhoneNumber(){
         if(null != et_phone){
             et_phone.setText(UserInfoManager.getUserInfoManager(this).getUser().getPhoneNumber());
+            btn_login.setEnabled(true);
             Log.d("loadDefaultPhoneNumber","phone:"+UserInfoManager.getUserInfoManager(this).getUser().getPhoneNumber());
         }
 
     }
-
 
     private void jumpCalling(Context context) {//客服电话跳转
         String phoneNumber = getString(R.string.service_phone_number); ;
@@ -185,10 +187,8 @@ public class register_activity_register extends BaseNetworkActivity implements V
         } else {
             //要调起的应用不存在时的处理
             Toast.makeText(context,  "callingError", Toast.LENGTH_SHORT).show();
-
         }
     }
-
 
     @Override
     public void onClick(View v) {

@@ -45,10 +45,8 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class me_fragment_main extends BaseNetworkFragment implements View.OnClickListener {
 
-
     private final int LOAD_USER_INFO_FAILED = 0;
     private final int LOAD_USER_INFO_SUCCESS = 1;
-
 
     private ImageView iv_share;
     private ImageView iv_email;
@@ -114,6 +112,8 @@ public class me_fragment_main extends BaseNetworkFragment implements View.OnClic
         initLocalData();
         if(!UserInfoManager.getUserInfoManager(getContext()).isTokenEmpty()){
             initData();
+        }else{
+
         }
     }
 
@@ -145,6 +145,11 @@ public class me_fragment_main extends BaseNetworkFragment implements View.OnClic
     private void initLocalData(){
         user = UserInfoManager.getUserInfoManager(getContext()).getUser();
         tv_name.setText(user.getNickName());
+        Glide.with(getContext()).load(user.getHeadPortraitUrl()).into(ivPortrait);
+    }
+
+    private void clearLoginData(){
+        tv_name.setText("请登录");
         Glide.with(getContext()).load(user.getHeadPortraitUrl()).into(ivPortrait);
     }
 
