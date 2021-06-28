@@ -23,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
 import com.example.motion.Activity.me_activity_bindphone_usephone;
 import com.example.motion.Activity.me_activity_bodydata_main;
+import com.example.motion.Activity.me_activity_downloaded_courses;
 import com.example.motion.Activity.me_activity_mycollections;
 import com.example.motion.Activity.me_activity_mycourse;
 import com.example.motion.Activity.me_activity_help;
@@ -47,6 +48,8 @@ public class me_fragment_main extends BaseNetworkFragment implements View.OnClic
 
     private final int LOAD_USER_INFO_FAILED = 0;
     private final int LOAD_USER_INFO_SUCCESS = 1;
+
+    private View rootView;
 
     private ImageView iv_share;
     private ImageView iv_email;
@@ -97,13 +100,13 @@ public class me_fragment_main extends BaseNetworkFragment implements View.OnClic
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.me_fragment_main, container, false);
+        rootView = inflater.inflate(R.layout.me_fragment_main, container, false);
         Log.d("me_fragment_main","onCreateView");
 
-        initView(view);
+        initView(rootView);
         initHandler();
 
-        return view;
+        return rootView;
     }
 
     @Override
@@ -113,7 +116,11 @@ public class me_fragment_main extends BaseNetworkFragment implements View.OnClic
         if(!UserInfoManager.getUserInfoManager(getContext()).isTokenEmpty()){
             initData();
         }else{
-
+            clearLoginData();
+            lockRootSurface();
+            Toast.makeText(getContext(),"请登录", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), register_activity_register.class);
+            //startActivity(intent);
         }
     }
 
@@ -142,6 +149,17 @@ public class me_fragment_main extends BaseNetworkFragment implements View.OnClic
     }
 
 
+    private void lockRootSurface(){
+        if(null != rootView){
+            rootView.setEnabled(false);
+            rootView.setClickable(false);
+            rootView.setFocusable(false);
+            Log.d("me_fragment_main_lockRootSurface","null != rootView");
+        }else{
+            Log.d("me_fragment_main_lockRootSurface","null == rootView");
+        }
+    }
+
     private void initLocalData(){
         user = UserInfoManager.getUserInfoManager(getContext()).getUser();
         tv_name.setText(user.getNickName());
@@ -149,8 +167,8 @@ public class me_fragment_main extends BaseNetworkFragment implements View.OnClic
     }
 
     private void clearLoginData(){
-        tv_name.setText("请登录");
-        Glide.with(getContext()).load(user.getHeadPortraitUrl()).into(ivPortrait);
+        tv_name.setText(getString(R.string.me_fragment_main_username_unlogin));
+        ivPortrait.setImageResource(R.mipmap.ic_calendar);
     }
 
     private void initData() {
@@ -311,6 +329,10 @@ public class me_fragment_main extends BaseNetworkFragment implements View.OnClic
             case R.id.iv_edit_profile:
                 intent = new Intent(getActivity(), my_activity_me_data.class);
                 intent.putExtra("user",user);
+                startActivity(intent);
+                break;
+            case R.id.tv_mydownload:
+                intent = new Intent(getActivity(), me_activity_downloaded_courses.class);
                 startActivity(intent);
                 break;
         }

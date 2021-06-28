@@ -27,13 +27,13 @@ import java.util.Map;
 public class CourseCacheUtil {
     private Context context;
     private File cachePathRoot;
-    private List<Course> cachedCourseList;
     private OnProcessStateChangeListener stateChangeListener;
     private onCacheStateChangeListener cacheStateChangeListener;
     private int allFileSize;//byte
     private int[] nowDownloadedSizes;//byte size of all downloading tasks
     private CourseDownloadDialog downloadDialog;
     private ArrayList<WolfDownloader> downloaderList;
+    private List<Course> cachedCourseList = new ArrayList<>();
 
     public CourseCacheUtil(Context context,File cachePathRoot) {
         this.context = context;
@@ -70,7 +70,6 @@ public class CourseCacheUtil {
                     Log.d("CourseCacheUtil","ca.exists false");
                     ca.save();
                 }
-
                 actionList.get(i).setActionLocUrl(filePath);//getCachedAction(actionList.get(i).getActionID()).getActionLocUrl()
                 //actionList.get(i).save();
             }else {
@@ -335,14 +334,31 @@ public class CourseCacheUtil {
     }
 
     public List<Course> getAllCachedCourseList() {
-        cachedCourseList = new ArrayList<>();
-        cachedCourseList.addAll(new SQLite().select().from(Course.class).queryList());
+        cachedCourseList.clear();
+        List<Course> dbCourses = new ArrayList<>();
+        dbCourses.addAll(new SQLite().select().from(Course.class).queryList());
+
+        for(int n=0;n<dbCourses.size();n++){
+            int courseSizeByte = 0;
+            List<Action> actionList = dbCourses.get(n).getActionList();
+            for(int j=0;j<actionList.size();j++){
+                if(isActionExistLocal(actionList.get(j).getActionID())){
+                    courseSizeByte += actionList.get(j).getSizeByte();
+                }
+                Log.d("getAllCachedCourseList",dbCourses.get(n).getCourseName()+courseSizeByte);
+            }
+            if(courseSizeByte>0){
+                dbCourses.get(n).setCourseSize(courseSizeByte);
+            }else{
+                dbCourses.remove(n);
+            }
+        }
+        cachedCourseList.addAll(dbCourses);
         return cachedCourseList;
     }
 
     interface onCacheStateChangeListener {
         void onActionsCacheDone(boolean isSuccess,List<Action> cachedActionList,Object message);
     }
-
 
 }

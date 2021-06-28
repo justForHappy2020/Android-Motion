@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tv_item_course_name_dl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black_text"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:text="课程名" />
+
+    <TextView
+        android:id="@+id/tv_item_course_size_dl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_item_course_name_dl"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:textColor="@color/gray_text"
+        android:textSize="16sp"
+        tools:text="0.00M" />
+
+    <ImageView
+        android:id="@+id/iv_item_enter_dl"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_fas_fa_angle_right" />
+</RelativeLayout>
