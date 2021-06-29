@@ -253,7 +253,7 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
         if(null != courseId2CourseJson  && !courseId2CourseJson.isEmpty()){
             parseCourse(courseId2CourseJson);
         }else {
-            String url = "http://10.34.25.45:8080/api/course/getCourse";
+            String url = "http://106.55.25.94:8080/api/course/getCourse";
             //String url = "https://www.fastmock.site/mock/318b7fee143da8b159d3e46048f8a8b3/api/courseId2All?courseId="+courseId;
 
             String requestStr = "{\"courseId\": "+courseId+", \"token\":\""+ UserInfoManager.getUserInfoManager(this).getToken() +"\" }";
@@ -439,7 +439,7 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
             flag=1;
         }
         String token = UserInfoManager.getUserInfoManager(this).getToken();
-        String url = "http://10.34.25.45:8080/api/course/bookCourse?token="+token+"&courseId="+course.getCourseId()+"&flag="+flag;
+        String url = "http://106.55.25.94:8080/api/course/bookCourse?token="+token+"&courseId="+course.getCourseId()+"&flag="+flag;
         MyStringRequest stringRequest = new MyStringRequest(Request.Method.GET,  url, new Response.Listener<String>() {
             @Override
             public void onResponse(String responseStr) {

@@ -55,9 +55,6 @@ public class homepage_fragment_main extends BaseNetworkFragment {
 
     private Handler handler;
 
-
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -156,7 +153,7 @@ public class homepage_fragment_main extends BaseNetworkFragment {
         //courseTagGroupList = new ArrayList<>();
         courseTagGroupList.clear();
         //String url ="https://www.fastmock.site/mock/318b7fee143da8b159d3e46048f8a8b3/api/getSorts";
-        String url ="http://10.34.25.45:8080/api/CourseClass/getSorts";
+        String url ="http://106.55.25.94:8080/api/CourseClass/getSorts";
 
 
         MyStringRequest getTagsStringRequest = new MyStringRequest(Request.Method.GET,  url, new Response.Listener<String>() {

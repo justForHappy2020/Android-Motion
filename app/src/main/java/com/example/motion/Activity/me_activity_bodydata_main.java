@@ -244,7 +244,7 @@ public class me_activity_bodydata_main  extends NeedTokenActivity implements Vie
         memberList.add(new DyxItem(DyxItem.PORTRAIT , addButton));
 
         //http请求健康记录LIST
-        String url = "http://10.34.25.45:8080/api/community/getHealthRecord?token=" + token;
+        String url = "http://106.55.25.94:8080/api/community/getHealthRecord?token=" + token;
         MyStringRequest getTagsStringRequest = new MyStringRequest(Request.Method.GET,  url, new Response.Listener<String>() {
             @Override
             public void onResponse(String responseStr) {
@@ -288,7 +288,7 @@ public class me_activity_bodydata_main  extends NeedTokenActivity implements Vie
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String url = "http://10.34.25.45:8080/api/community/getHealthRecord?token=" + token;
+                String url = "http://106.55.25.94:8080/api/community/getHealthRecord?token=" + token;
                 String responseData = null;
                 try {
                     responseData = HttpUtils.connectHttpGet(url);

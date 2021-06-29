@@ -61,5 +61,17 @@ public class UserInfoManager {
         return userInfoManager.sp.getString("token","").isEmpty();
     }
 
+    public void setUser(User user) {
+        userInfoManager.user = user;
+        userInfoManager.sp.edit().putLong("userId",FALSE_USER_ID);
+        userInfoManager.sp.edit().putString("nickName","");
+        userInfoManager.sp.edit().putString("headPortrait","");
+        userInfoManager.sp.edit().putString("phoneNumber","");
+        userInfoManager.sp.edit().putString("token","");
+        userInfoManager.sp.edit().putInt("gender",0);
+        userInfoManager.sp.edit().putString("userCreateTime","");
+        userInfoManager.sp.edit().putString("intro","");
+        userInfoManager.sp.edit().commit();
 
+    }
 }

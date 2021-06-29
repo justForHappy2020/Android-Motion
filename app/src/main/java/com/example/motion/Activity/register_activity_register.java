@@ -29,6 +29,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.motion.Entity.User;
 import com.example.motion.Fragment.me_fragment_main;
 import com.example.motion.R;
 import com.example.motion.Utils.KeyboardUtils;
@@ -63,12 +64,12 @@ public class register_activity_register extends BaseNetworkActivity implements V
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_activity_register);
         initview();
+        loadDefaultPhoneNumber();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        loadDefaultPhoneNumber();
     }
 
     private void initview() {
@@ -209,7 +210,7 @@ public class register_activity_register extends BaseNetworkActivity implements V
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                   String url = "http://10.34.25.45:8080/api/user/getVerificationCode";// url
+                   String url = "http://106.55.25.94:8080/api/user/getVerificationCode";// url
 //                    String url = "https://www.fastmock.site/mock/8b3e2487a581d723a901a354dfc6f3fd/data/api/user/getCode";
                     JsonObjectRequest getCode = new JsonObjectRequest(url, json,
                             new Response.Listener<JSONObject>() {
@@ -290,7 +291,7 @@ public class register_activity_register extends BaseNetworkActivity implements V
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    String url = "http://10.34.25.45:8080/api/user/login";
+                    String url = "http://106.55.25.94:8080/api/user/login";
                     JsonObjectRequest getCode = new JsonObjectRequest(url, json_login,
                             new Response.Listener<JSONObject>() {
                                 @Override
@@ -305,12 +306,14 @@ public class register_activity_register extends BaseNetworkActivity implements V
                                         String token = response.getString("token");
                                         isNewUser = response.getBoolean("newUser");
 
-                                        SharedPreferences.Editor editor = saveSP.edit();
-                                        editor.putLong("userId",userId).commit();
-                                        editor.putString("nickName",nickName).commit();
-                                        editor.putString("headPortrait",headPortrait).commit();
-                                        editor.putString("token",token).commit();
-                                        editor.putString("phoneNumber",mobile).commit();
+                                        User user = new User();
+                                        user.setNickName(nickName);
+                                        user.setUserId(userId);
+                                        user.setHeadPortraitUrl(headPortrait);
+                                        user.setToken(token);
+                                        user.setPhoneNumber(mobile);
+                                        UserInfoManager.getUserInfoManager(register_activity_register.this).setUser(user);
+
                                         Intent intent = new Intent(register_activity_register.this, viewpager_activity_main.class);
                                         startActivity(intent);
 
