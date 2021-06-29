@@ -95,7 +95,7 @@ public class register_activity_register extends BaseNetworkActivity implements V
         tv_callService.setOnClickListener(this);//客服
 
         btn_getcode.setEnabled(Boolean.FALSE);
-        btn_agree.setChecked(false);//checkbox设置
+        btn_agree.setChecked(Boolean.FALSE);//checkbox设置
 
         et_phone.addTextChangedListener(new TextWatcher(){
             @Override
@@ -108,13 +108,13 @@ public class register_activity_register extends BaseNetworkActivity implements V
 //                    btn_getcode.setBackgroundColor(Color.parseColor("#673AB7"));
                     btn_getcode.setTextColor(Color.parseColor("#673AB7"));
                     btn_getcode.setEnabled(Boolean.TRUE);//启用按钮
-                    btn_login.setEnabled(true);
+                    btn_login.setEnabled(Boolean.TRUE);
                 }else{
                     //btAcquireCode.setBackgroundColor(Color.GREEN);
 //                    btn_getcode.setBackgroundColor(Color.parseColor("#D1C4E9"));
                     btn_getcode.setTextColor(Color.parseColor("#FF808080"));
                     btn_getcode.setEnabled(Boolean.FALSE);//不启用按钮
-                    btn_login.setEnabled(false);
+                    btn_login.setEnabled(Boolean.FALSE);
                 }//判断是否启用获取验证码按钮
 //                if (et_phone.getText().toString().trim().length()==11 && et_code.getText().toString().trim().length()==4 && btn_agree.isChecked()){
 //                    btn_login.setBackgroundColor(Color.parseColor("#673AB7"));
@@ -173,7 +173,6 @@ public class register_activity_register extends BaseNetworkActivity implements V
     private void loadDefaultPhoneNumber(){
         if(null != et_phone){
             et_phone.setText(UserInfoManager.getUserInfoManager(this).getUser().getPhoneNumber());
-            btn_login.setEnabled(true);
             Log.d("loadDefaultPhoneNumber","phone:"+UserInfoManager.getUserInfoManager(this).getUser().getPhoneNumber());
         }
 
@@ -260,15 +259,17 @@ public class register_activity_register extends BaseNetworkActivity implements V
 
             case R.id.btn_agree:
                 btn_agree.setChecked(true);
-                if (!TextUtils.isEmpty(et_phone.getText()) && et_phone.getText().toString().trim().length() == 11 && btn_agree.isChecked()) {
+                if (!TextUtils.isEmpty(et_phone.getText().toString()) && et_phone.getText().toString().trim().length() == 11 && btn_agree.isChecked()) {
 //                    btn_getcode.setBackgroundColor(Color.parseColor("#673AB7"));
                     btn_getcode.setTextColor(Color.parseColor("#673AB7"));
                     btn_getcode.setEnabled(true);//启用按钮
+                    btn_login.setEnabled(true);
                 }else{
                     //btAcquireCode.setBackgroundColor(Color.GREEN);
 //                    btn_getcode.setBackgroundColor(Color.parseColor("#D1C4E9"));
                     btn_getcode.setTextColor(Color.parseColor("#FF808080"));
                     btn_getcode.setEnabled(false);//不启用按钮
+                    btn_login.setEnabled(false);
                 }
                 break;
 

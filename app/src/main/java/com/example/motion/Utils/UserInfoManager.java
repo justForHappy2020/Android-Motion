@@ -10,7 +10,7 @@ import com.raizlabs.android.dbflow.annotation.NotNull;
 import static android.content.Context.MODE_PRIVATE;
 
 public class UserInfoManager {
-    public final static int FALSE_USER_ID = -1;
+    public final static Long FALSE_USER_ID = Long.valueOf(-1);
     //创建 SingleObject 的一个对象
     private static UserInfoManager userInfoManager = new UserInfoManager();
     private Context context;
