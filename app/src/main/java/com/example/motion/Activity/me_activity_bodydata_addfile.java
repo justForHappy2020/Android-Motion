@@ -108,7 +108,7 @@ public class me_activity_bodydata_addfile extends NeedTokenActivity implements V
                 Float weight = Float.parseFloat(etWeight.getText().toString());
                 Float height = Float.parseFloat(etHeight.getText().toString());
                 //http保存信息（成员ID、身高体重）
-                String url = "http://10.34.25.45:8080/api/community/saveHealthRecord";
+                String url = "http://106.55.25.94:8080/api/community/saveHealthRecord";
                 JSONObject json = new JSONObject();
                 try {
                     json.put("token", UserInfoManager.getUserInfoManager(me_activity_bodydata_addfile.this).getToken());
@@ -155,7 +155,7 @@ public class me_activity_bodydata_addfile extends NeedTokenActivity implements V
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            String url = "http://10.34.25.45:8080/api/community/saveHealthRecord";
+                            String url = "http://106.55.25.94:8080/api/community/saveHealthRecord";
                             String responseData = connectHttp(url,json);
                             try {
                                 JSONObject jsonObject1 = new JSONObject(responseData);

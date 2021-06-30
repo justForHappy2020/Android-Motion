@@ -154,7 +154,7 @@ public class me_fragment_main extends BaseNetworkFragment implements View.OnClic
     }
 
     private void initData() {
-        String url = "http://10.34.25.45:8080/api/community/getUserdata?token=" + UserInfoManager.getUserInfoManager(getContext()).getToken();
+        String url = "http:///api/community/getUserdata?token=" + UserInfoManager.getUserInfoManager(getContext()).getToken();
         
         MyStringRequest getTagsStringRequest = new MyStringRequest(Request.Method.GET,  url, new Response.Listener<String>() {
             @Override
@@ -195,7 +195,7 @@ public class me_fragment_main extends BaseNetworkFragment implements View.OnClic
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                    String url = "http://10.34.25.45:8080/api/community/getUserdata?token=" + token;
+                    String url = "http://106.55.25.94:8080/api/community/getUserdata?token=" + token;
                 String responseData = null;
                 try {
                     responseData = HttpUtils.connectHttpGet(url);

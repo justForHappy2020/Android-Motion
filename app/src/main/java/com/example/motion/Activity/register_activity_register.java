@@ -205,7 +205,7 @@ public class register_activity_register extends BaseNetworkActivity implements V
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                   String url = "http://10.34.25.45:8080/api/user/getVerificationCode";// url
+                   String url = "http://106.55.25.94:8080/api/user/getVerificationCode";// url
 //                    String url = "https://www.fastmock.site/mock/8b3e2487a581d723a901a354dfc6f3fd/data/api/user/getCode";
                     JsonObjectRequest getCode = new JsonObjectRequest(url, json,
                             new Response.Listener<JSONObject>() {
@@ -284,7 +284,7 @@ public class register_activity_register extends BaseNetworkActivity implements V
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    String url = "http://10.34.25.45:8080/api/user/login";
+                    String url = "http://106.55.25.94:8080/api/user/login";
                     JsonObjectRequest getCode = new JsonObjectRequest(url, json_login,
                             new Response.Listener<JSONObject>() {
                                 @Override

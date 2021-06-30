@@ -192,7 +192,7 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
     }
 
     private void courseId2Course(Long courseId,Course course){
-        String url = "http://10.34.25.45:8080/api/course/getCourse";
+        String url = "http:///api/course/getCourse";
         //String url = "https://www.fastmock.site/mock/318b7fee143da8b159d3e46048f8a8b3/api/courseId2All?courseId="+courseId;
         actionList = new ArrayList<>();
         actionInMutiList = new ArrayList<>();
@@ -434,7 +434,7 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
             flag=1;
         }
         String token = UserInfoManager.getUserInfoManager(this).getToken();
-        String url = "http://10.34.25.45:8080/api/course/bookCourse?token="+token+"&courseId="+course.getCourseId()+"&flag="+flag;
+        String url = "http:///api/course/bookCourse?token="+token+"&courseId="+course.getCourseId()+"&flag="+flag;
         MyStringRequest stringRequest = new MyStringRequest(Request.Method.GET,  url, new Response.Listener<String>() {
             @Override
             public void onResponse(String responseStr) {

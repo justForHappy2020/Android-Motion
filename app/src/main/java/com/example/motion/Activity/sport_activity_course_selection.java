@@ -218,12 +218,12 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
     }
 
     //String url = "https://www.fastmock.site/mock/1f8fe01c6b3cdb34a1d2ad4b1a45a8c0/motion/api/getCourseById?size=10";
-    //http://10.34.25.45:8080/api/course/getCourseById?size=10&page=1&courseClassIdstr=1,2,3;4,5,6;&isOnline=3&isHot=1
+    //http://106.55.25.94:8080/api/course/getCourseById?size=10&page=1&courseClassIdstr=1,2,3;4,5,6;&isOnline=3&isHot=1
 
     private void getHttpCourse(Map params) {
         List<MultipleItem> onePageCourses = new ArrayList<>();
 
-        String url = "http://10.34.25.45:8080/api/course/getCourseById?size=" + COURSE_NUM_IN_ONE_PAGE;
+        String url = "http://106.55.25.94:8080/api/course/getCourseById?size=" + COURSE_NUM_IN_ONE_PAGE;
         //String url = "https://www.fastmock.site/mock/1f8fe01c6b3cdb34a1d2ad4b1a45a8c0/motion/api/getCourseById?size=10";
         if(params.isEmpty()){
             url+="&page=1&courseClassIdstr="+preSelectedCourseTagIds[1]+";&isOnline=1&isHot=1";
@@ -311,7 +311,7 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
     private void getHttpCourseTags() {
         courseTagGroupList = new ArrayList<>();
         String url ="https://www.fastmock.site/mock/318b7fee143da8b159d3e46048f8a8b3/api/getSorts";
-        //String url ="http://10.34.25.45:8080/api/CourseClass/getSorts";
+        //String url ="http://106.55.25.94:8080/api/CourseClass/getSorts";
 
         //test tool
         dialogMessage += "\n\ngetHttpCourseTags requestingUrl:\n" + url;

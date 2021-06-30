@@ -118,7 +118,7 @@ public class me_fragment_mycourse_reserve extends BaseNetworkFragment {
     private void getHttpCourse(Map params){
         List<MultipleItem> onePageCourses = new ArrayList<>();
 
-        String url = "http://10.34.25.45:8080/api/course/getCollectionCourse?size=" + COURSE_NUM_IN_ONE_PAGE;
+        String url = "http:///api/course/getCollectionCourse?size=" + COURSE_NUM_IN_ONE_PAGE;
         if(params.isEmpty()){
             url+="&page=1&token="+token;
         }else{

@@ -179,7 +179,7 @@ public class my_activity_me_data extends NeedTokenActivity implements View.OnCli
                 Uri photoUri = data.getData();//获取路径
                 //final String filename = photoUri.getPath();
                 final String filepath = getRealPathFromUriAboveApi19(this,photoUri);//获取绝对路径
-                final String httpurl = "http://10.34.25.45:8080/api/user/modifyHptAndroid";
+                final String httpurl = "http://106.55.25.94:8080/api/user/modifyHptAndroid";
 
 
                 //http请求
@@ -414,7 +414,7 @@ public class my_activity_me_data extends NeedTokenActivity implements View.OnCli
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            String url = "http://10.34.25.45:8080/api/community/saveUserdata";
+                            String url = "http://106.55.25.94:8080/api/community/saveUserdata";
                             String responseData = connectHttp(url,json);
                             getfeedback(responseData);
                         } catch (IOException e) {
