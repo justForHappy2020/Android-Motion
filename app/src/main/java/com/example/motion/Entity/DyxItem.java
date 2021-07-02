@@ -16,6 +16,8 @@ public class DyxItem implements MultiItemEntity {
     public static final int SELECTCOURSE = 3;
     public static final int PORTRAIT = 4;
     public static final int HEALTHRECORD = 5;
+    public static final int PICTURE = 6;
+    public static final int FEEDBACK = 7;
 
 
 
@@ -30,6 +32,12 @@ public class DyxItem implements MultiItemEntity {
     private NineGridImageViewAdapter<String> nineGridAdapter;
     private List<DyxItem> itemList2 = new ArrayList();
     private HealthRecord healthRecord;
+    private Feedback feedback;
+
+    public DyxItem(int itemType, Feedback feedback) {
+        this.itemType = itemType;
+        this.feedback = feedback;
+    }
 
     public DyxItem(int itemType, HealthRecord healthRecord) {
         this.itemType = itemType;
@@ -102,6 +110,7 @@ public class DyxItem implements MultiItemEntity {
         return user;
     }
 
+    public Feedback getFeedback(){return feedback;}
 
     public Action getAction(){
         return action;

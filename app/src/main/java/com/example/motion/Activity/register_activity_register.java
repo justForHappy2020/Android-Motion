@@ -291,23 +291,28 @@ public class register_activity_register extends BaseNetworkActivity implements V
                                 public void onResponse(JSONObject obj) {//处理response
                                     System.out.println("----------:" + obj);
                                     try {
-                                        JSONObject response = obj.getJSONObject("data");
-                                        Toast.makeText(register_activity_register.this, "发送成功", Toast.LENGTH_SHORT).show();
-                                        Long userId = response.getLong("userId");
-                                        String nickName = response.getString("nickName");
-                                        String headPortrait = response.getString("headPortrait");
-                                        String token = response.getString("token");
-                                        isNewUser = response.getBoolean("newUser");
+                                        if(obj.getInt("code") == 200){
+                                            JSONObject response = obj.getJSONObject("data");
+                                            Toast.makeText(register_activity_register.this, "发送成功", Toast.LENGTH_SHORT).show();
+                                            Long userId = response.getLong("userId");
+                                            String nickName = response.getString("nickName");
+                                            String headPortrait = response.getString("headPortrait");
+                                            String token = response.getString("token");
+                                            isNewUser = response.getBoolean("newUser");
 
-                                        SharedPreferences.Editor editor = saveSP.edit();
-                                        editor.putLong("userId",userId).commit();
-                                        editor.putString("nickName",nickName).commit();
-                                        editor.putString("headPortrait",headPortrait).commit();
-                                        editor.putString("token",token).commit();
-                                        editor.putString("phoneNumber",mobile).commit();
-                                        Intent intent = new Intent(register_activity_register.this, viewpager_activity_main.class);
-                                        startActivity(intent);
-
+                                            SharedPreferences.Editor editor = saveSP.edit();
+                                            editor.putLong("userId",userId).commit();
+                                            editor.putString("nickName",nickName).commit();
+                                            editor.putString("headPortrait",headPortrait).commit();
+                                            editor.putString("token",token).commit();
+                                            editor.putString("phoneNumber",mobile).commit();
+                                            Intent intent = new Intent(register_activity_register.this, viewpager_activity_main.class);
+                                            startActivity(intent);
+                                        }
+                                        else {
+                                            String message = obj.getString("message");
+                                            Toast.makeText(register_activity_register.this,message,Toast.LENGTH_SHORT).show();
+                                        }
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }

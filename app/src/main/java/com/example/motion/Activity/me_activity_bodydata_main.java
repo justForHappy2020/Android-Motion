@@ -31,6 +31,7 @@ import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.example.motion.Entity.CourseTag;
 import com.example.motion.Entity.CourseTagGroup;
 import com.example.motion.Entity.DyxItem;
@@ -61,6 +62,7 @@ import lecho.lib.hellocharts.view.LineChartView;
 public class me_activity_bodydata_main  extends NeedTokenActivity implements View.OnClickListener {
     private final int LOAD_USER_BODYDATA_FAILED = 0;
     private final int LOAD_USER_BODYDATA_SUCCESS = 1;
+    private boolean hasNext;
 
     private Intent intent;
     private ImageView ivBack;
@@ -96,6 +98,7 @@ public class me_activity_bodydata_main  extends NeedTokenActivity implements Vie
     private int memberID;
     private SharedPreferences readSP;
     private String token ;
+    private Long page = Long.valueOf(1);
 
     private Handler handler;
 
@@ -142,6 +145,7 @@ public class me_activity_bodydata_main  extends NeedTokenActivity implements Vie
 
 
     private void initView() {
+        token = UserInfoManager.getUserInfoManager(this).getToken();
         mContext = me_activity_bodydata_main.this;
         ivBack = findViewById(R.id.iv_back);
         btAddRecord = findViewById(R.id.btn_add_healthrecord);
@@ -229,29 +233,45 @@ public class me_activity_bodydata_main  extends NeedTokenActivity implements Vie
         recordAdater = new DyxQuickAdapter(recordList);
         bodyDataEmptyView = View.inflate(this,R.layout.me_empty_view_bodydata,null);
         recordAdater.setEmptyView(bodyDataEmptyView);
+        recordAdater.setAnimationEnable(true);
         rvRecord.setAdapter(recordAdater);
+        recordAdater.getLoadMoreModule().setAutoLoadMore(false);
+        recordAdater.getLoadMoreModule().setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                configLoadMoreCourse();
+            }
+        });
+    }
+
+    //首次以及拉取更多数据
+    private void configLoadMoreCourse() {
+        if(hasNext){
+            Log.d("me_activity_bodydata","configLoadMoreRecord");
+            page++;
+            initData();
+        }
     }
 
     private void initData() {
-        token = UserInfoManager.getUserInfoManager(this).getToken();
-
-        Member member1 = new Member((long) 1,"mom","woman","http://bpic.588ku.com/element_pic/18/05/04/a4605af6e0f30bad35d0556f71b8e44c.jpg","1975-04-09");
+/*        Member member1 = new Member((long) 1,"mom","woman","http://bpic.588ku.com/element_pic/18/05/04/a4605af6e0f30bad35d0556f71b8e44c.jpg","1975-04-09");
         Member member2 = new Member((long) 2,"kid","man","http://5b0988e595225.cdn.sohucs.com/images/20170819/eaf8683041844976b3a45b9325628a5a.jpeg","2010-04-09");
         Member addButton = new Member((long) 2,"null","null","https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.51yuansu.com%2Fpic2%2Fcover%2F00%2F48%2F15%2F5815dc80681ad_610.jpg&refer=http%3A%2F%2Fpic.51yuansu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1623141929&t=c25a614e346923a7f878b6a43c6d0699","null");
 
         memberList.add(new DyxItem(DyxItem.PORTRAIT , member1));
         memberList.add(new DyxItem(DyxItem.PORTRAIT , member2));
-        memberList.add(new DyxItem(DyxItem.PORTRAIT , addButton));
+        memberList.add(new DyxItem(DyxItem.PORTRAIT , addButton));*/
 
         //http请求健康记录LIST
-        String url = "http://106.55.25.94:8080/api/community/getHealthRecord?token=" + token;
+        String url = "http://106.55.25.94:8080/api/community/getHealthRecord?token=" + token + "&page=" + page + "&size=10";
         MyStringRequest getTagsStringRequest = new MyStringRequest(Request.Method.GET,  url, new Response.Listener<String>() {
             @Override
             public void onResponse(String responseStr) {
                 try {
                     JSONObject jsonRootObject = new JSONObject(responseStr);
-
-                    JSONArray JSONArrayRecord = jsonRootObject.getJSONArray("data");
+                    JSONObject jsonObject1 = jsonRootObject.getJSONObject("data");
+                    hasNext = jsonObject1.getBoolean("hasNext");
+                    JSONArray JSONArrayRecord = jsonObject1.getJSONArray("healthRecord");
                     for (int i = 0; i < JSONArrayRecord.length(); i++) {
                         JSONObject jsonObject2 = JSONArrayRecord.getJSONObject(i);
                         //相应的内容
@@ -263,7 +283,7 @@ public class me_activity_bodydata_main  extends NeedTokenActivity implements Vie
                         healthRecord.setStatus(jsonObject2.getInt("status"));
                         recordList.add(new DyxItem(DyxItem.HEALTHRECORD , healthRecord));
                     }
-
+                    if(!hasNext)recordAdater.getLoadMoreModule().loadMoreEnd();
                     Message msg = handler.obtainMessage();
                     msg.what = LOAD_USER_BODYDATA_SUCCESS;
                     handler.sendMessage(msg);

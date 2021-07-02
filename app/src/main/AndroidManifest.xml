@@ -98,6 +98,10 @@
             android:name=".Activity.my_activity_me_data"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.me_activity_help_my_feedback"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
