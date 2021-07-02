@@ -65,7 +65,7 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
         btn_getcode = findViewById(R.id.btn_getcode);
         btn_save = findViewById(R.id.btn_save);
         queue = Volley.newRequestQueue(this);
-        saveSP = this.getSharedPreferences("saveSP",MODE_PRIVATE);
+        saveSP = this.getSharedPreferences("saveSp",MODE_PRIVATE);
 
         btn_getcode.setOnClickListener(this);
         btn_getcode.setEnabled(Boolean.FALSE);
@@ -128,7 +128,7 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                   String url = "http://10.34.25.45:8080/api/user/getVerificationCode";// url
+                   String url = "http:///api/user/getVerificationCode";// url
 //                    String url = "https://www.fastmock.site/mock/8b3e2487a581d723a901a354dfc6f3fd/data/api/user/getCode";
                     JsonObjectRequest getCode = new JsonObjectRequest(url, json,
                             new Response.Listener<JSONObject>() {
@@ -193,7 +193,7 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    String url = "http://10.34.25.45:8080/api/user/login";
+                    String url = "http:///api/user/login";
                     JsonObjectRequest getCode = new JsonObjectRequest(url, json_login,
                             new Response.Listener<JSONObject>() {
                                 @Override
@@ -204,14 +204,14 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
                                         Toast.makeText(me_activity_bindphone_changephone.this, "发送成功", Toast.LENGTH_SHORT).show();
                                         int userId = response.getInt("userId");
                                         String nickName = response.getString("niceName");
-                                        String headProtrait = response.getString("headProtrait");
+                                        String headPortrait = response.getString("headPortrait");
                                         String token = response.getString("token");
                                         isNewUser = response.getBoolean("newUser");
 
                                         SharedPreferences.Editor editor = saveSP.edit();
                                         editor.putInt("userId",userId).commit();
                                         editor.putString("nickName",nickName).commit();
-                                        editor.putString("headProtrait",headProtrait).commit();
+                                        editor.putString("headPortrait",headPortrait).commit();
                                         editor.putString("token",token).commit();
                                         editor.putString("phoneNumber",mobile).commit();
 

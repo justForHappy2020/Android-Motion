@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="33dp"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal"
         android:paddingTop="10dp">
@@ -18,23 +18,23 @@
             android:layout_width="37dp"
             android:layout_height="37dp"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/delete" />
+            android:src="@drawable/delete" />
 
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
         android:layout_weight="1"
+        android:gravity="bottom"
         android:paddingStart="50dp"
-        android:paddingTop="70dp"
         android:text="验证码登录"
         android:textColor="#000000"
         android:textSize="30sp" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:paddingStart="50dp"
         android:text="新用户登陆后将创建用户"
@@ -56,31 +56,32 @@
             android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:background="@drawable/register_register_et"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="92dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:paddingStart="10dp"
-                android:text=" +86 "
+                android:text=" +86 |"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/et_phonenum"
-                android:layout_width="363dp"
-                android:layout_height="37dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="2"
                 android:background="@null"
-                android:drawableStart="@drawable/line"
-                android:ems="10"
+                android:ems="11"
                 android:hint="请输入手机号"
                 android:inputType="phone"
+                android:paddingStart="5sp"
+                android:paddingEnd="10dp"
                 android:singleLine="false"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                tools:text="13651449532" />
 
         </LinearLayout>
 
@@ -103,8 +104,7 @@
                 android:hint="请输入验证码"
                 android:inputType="phone"
                 android:paddingStart="20dp"
-                android:singleLine="false"
-                android:textSize="24sp" />
+                android:singleLine="false" />
 
             <Button
                 android:id="@+id/btn_getcode"
@@ -125,7 +125,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp">
 
         <TextView
             android:id="@+id/tv_callService"
@@ -133,7 +135,6 @@
             android:layout_height="wrap_content"
             android:gravity="end"
             android:paddingTop="10dp"
-            android:paddingEnd="30dp"
             android:text="更换手机号码，请点击这里"
             android:textColor="#673AB7"
             android:textSize="16sp" />
@@ -144,7 +145,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="30dp"
             android:layout_weight="1"
             android:background="@null"
             android:stateListAnimator="@null"
@@ -159,28 +159,37 @@
         android:layout_height="2dp"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
-        android:background="@drawable/register_register_et"
+        android:background="@drawable/register_register_login"
         android:stateListAnimator="@null"
+        android:enabled="false"
         android:text="登录"
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <ImageView
-        android:id="@+id/iv_wechat"
-        android:layout_width="75dp"
-        android:layout_height="17dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1"
-        android:scaleType="fitCenter"
-        app:srcCompat="@drawable/wechat" />
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:text="微信登录"
-        android:textSize="18sp" />
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id="@+id/iv_wechat"
+            android:layout_width="75dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/wechat" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="微信登录"
+            android:textSize="18sp" />
+    </LinearLayout>
 
 </LinearLayout>

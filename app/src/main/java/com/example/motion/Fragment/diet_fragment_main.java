@@ -11,7 +11,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.motion.R;
 
-
+/**
+ * 从第一阶段移除
+ */
 public class diet_fragment_main extends Fragment {
     @Nullable
     @Override

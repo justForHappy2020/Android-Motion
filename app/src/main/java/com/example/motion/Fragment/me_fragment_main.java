@@ -1,7 +1,11 @@
 package com.example.motion.Fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
 import com.example.motion.Activity.me_activity_bindphone_usephone;
 import com.example.motion.Activity.me_activity_bodydata_main;
@@ -22,21 +28,25 @@ import com.example.motion.Activity.me_activity_mycourse;
 import com.example.motion.Activity.me_activity_help;
 import com.example.motion.Activity.me_activity_setting;
 import com.example.motion.Activity.my_activity_me_data;
+import com.example.motion.Activity.register_activity_register;
 import com.example.motion.Entity.User;
 import com.example.motion.R;
-import com.example.motion.Utils.HttpUtils;
+import com.example.motion.Utils.UserInfoManager;
+import com.example.motion.Widget.MyStringRequest;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
 
 
-public class me_fragment_main extends Fragment implements View.OnClickListener {
+public class me_fragment_main extends BaseNetworkFragment implements View.OnClickListener {
+
+    private final int LOAD_USER_INFO_FAILED = 0;
+    private final int LOAD_USER_INFO_SUCCESS = 1;
 
     private ImageView iv_share;
     private ImageView iv_email;
@@ -69,7 +79,8 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
 
     private RoundedImageView riv_portrait;
     private int httpcode;
-    private String token = "221c2957-f4c5-494c-bea8-3fa28eeeeb06";
+    private String token;
+    private SharedPreferences readSP;
 
     //从其他页面获取UserID后的个人信息
     private int UserID;
@@ -79,6 +90,8 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
     // UserData
     private int FansNumber;
     private int FocusNumber;
+
+    private Handler handler;
     private User user = new User();
 
     @Nullable
@@ -86,10 +99,22 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.me_fragment_main, container, false);
         Log.d("me_fragment_main","onCreateView");
-        initData();
+
         initView(view);
-        //initListener();
+        initHandler();
+
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        initLocalData();
+        if(!UserInfoManager.getUserInfoManager(getContext()).isTokenEmpty()){
+            initData();
+        }else{
+
+        }
     }
 
     @Override
@@ -97,45 +122,113 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
         super.onResume();
     }
 
+    private void initHandler(){
+        handler = new Handler(Looper.getMainLooper()){
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what){
+                    case LOAD_USER_INFO_FAILED:
+                        Log.d("me_fragment_main_Handler","LOAD_USER_INFO_FAILED");
+                        break;
+                    case LOAD_USER_INFO_SUCCESS:
+                        Log.d("me_fragment_main_Handler","LOAD_USER_INFO_SUCCESS");
+                        tv_name.setText(user.getNickName());
+                        Glide.with(getContext()).load(user.getHeadPortraitUrl()).into(ivPortrait);
+                        break;
+                }
+            }
+        };
 
-
-    private void initData() {
-//        Thread thread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                    String url = "http://10.34.25.45:8080/api/community/getUserdata?token=" + token;
-//                String responseData = null;
-//                try {
-//                    responseData = HttpUtils.connectHttpGet(url);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//            }
-//                try{
-//                    JSONObject jsonObject1 = null;
-//                    if(responseData != null)jsonObject1 = new JSONObject(responseData);
-//                    httpcode = jsonObject1.getInt("code");
-//                    if (httpcode == 200) {
-//                        JSONObject jsonObject2 = jsonObject1.getJSONObject("data");
-//                            //相应的内容
-//                            user.setHeadPortraitUrl(jsonObject2.getString("headPortrait"));
-//                            user.setNickname(jsonObject2.getString("nickName"));
-//                            user.setGender(jsonObject2.getInt("gender"));
-//                            user.setBirth(jsonObject2.getString("birthday"));
-//                        }
-//                }catch (JSONException e){
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//        thread.start();
-//        try {
-//            thread.join(10000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        if(httpcode!=200) Toast.makeText(getActivity(),"ERROR", Toast.LENGTH_SHORT).show();
     }
 
+
+    private void initLocalData(){
+        user = UserInfoManager.getUserInfoManager(getContext()).getUser();
+        tv_name.setText(user.getNickName());
+        Glide.with(getContext()).load(user.getHeadPortraitUrl()).into(ivPortrait);
+    }
+
+    private void clearLoginData(){
+        tv_name.setText("请登录");
+        Glide.with(getContext()).load(user.getHeadPortraitUrl()).into(ivPortrait);
+    }
+
+    private void initData() {
+        String url = "http:///api/community/getUserdata?token=" + UserInfoManager.getUserInfoManager(getContext()).getToken();
+        
+        MyStringRequest getTagsStringRequest = new MyStringRequest(Request.Method.GET,  url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String responseStr) {
+                try {
+                    JSONObject jsonRootObject = new JSONObject(responseStr);
+
+                    JSONObject jsonDataObject = jsonRootObject.getJSONObject("data");
+                    //相应的内容
+                    user.setHeadPortraitUrl(jsonDataObject.getString("headPortrait"));
+                    user.setNickName(jsonDataObject.getString("nickName"));
+                    user.setGender(jsonDataObject.getInt("gender"));
+                    user.setBirth(jsonDataObject.getString("birthday"));
+
+                    Message msg = handler.obtainMessage();
+                    msg.what = LOAD_USER_INFO_SUCCESS;
+                    handler.sendMessage(msg);
+
+                }catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.d("homepage_fragment_main","getHttpCourseTags_onErrorResponse");
+
+                Message msg = handler.obtainMessage();
+                msg.what = LOAD_USER_INFO_FAILED;
+                msg.obj = volleyError.toString();
+                handler.sendMessage(msg);
+            }
+        });
+        getTagsStringRequest.setTag("getHttp");
+        requestQueue.add(getTagsStringRequest);
+        
+        /*
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                    String url = "http://106.55.25.94:8080/api/community/getUserdata?token=" + token;
+                String responseData = null;
+                try {
+                    responseData = HttpUtils.connectHttpGet(url);
+                } catch (IOException e) {
+                    e.printStackTrace();
+            }
+                try{
+                    JSONObject jsonObject1 = null;
+                    if(responseData != null)jsonObject1 = new JSONObject(responseData);
+                    httpcode = jsonObject1.getInt("code");
+                    if (httpcode == 200) {
+                        JSONObject jsonDataObject = jsonObject1.getJSONObject("data");
+                            //相应的内容
+                            user.setHeadPortraitUrl(jsonDataObject.getString("headPortrait"));
+                            user.setNickname(jsonDataObject.getString("nickName"));
+                            user.setGender(jsonDataObject.getInt("gender"));
+                            user.setBirth(jsonDataObject.getString("birthday"));
+                        }
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+        try {
+            thread.join(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if(httpcode!=200) Toast.makeText(getActivity(),"ERROR", Toast.LENGTH_SHORT).show();
+        
+         */
+    }
 
     private void initView(View view){
         TextView bodyData = view.findViewById(R.id.tv_bodydata);
@@ -155,8 +248,11 @@ public class me_fragment_main extends Fragment implements View.OnClickListener {
         ivPortrait = view.findViewById((R.id.iv_portrait));
         tv_name = view.findViewById(R.id.tv_name);
 
-        tv_name.setText(user.getNickname());
+        /*
+        tv_name.setText(user.getNickName());
         Glide.with(getContext()).load(user.getHeadPortraitUrl()).into(ivPortrait);
+
+         */
 
         tr_bindphone.setOnClickListener(this);
         iv_edit_profile.setOnClickListener(this);

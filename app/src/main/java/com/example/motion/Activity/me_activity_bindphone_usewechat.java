@@ -155,7 +155,7 @@ public class me_activity_bindphone_usewechat extends AppCompatActivity implement
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-//                   String url = "http://10.34.25.45:8080/api/user/getVerificationCode";// url
+//                   String url = "http:///api/user/getVerificationCode";// url
                     String url = "https://www.fastmock.site/mock/8b3e2487a581d723a901a354dfc6f3fd/data/api/user/getCode";
                     JsonObjectRequest getCode = new JsonObjectRequest(url, json,
                             new Response.Listener<JSONObject>() {
@@ -217,7 +217,7 @@ public class me_activity_bindphone_usewechat extends AppCompatActivity implement
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    String url = "http://10.34.25.45:8080/api/user/login";
+                    String url = "http:///api/user/login";
                     JsonObjectRequest getCode = new JsonObjectRequest(url, json_login,
                             new Response.Listener<JSONObject>() {
                                 @Override

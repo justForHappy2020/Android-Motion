@@ -30,10 +30,10 @@ import java.util.List;
 import java.util.Set;
 
 public class search_result_activity extends FragmentActivity implements View.OnClickListener {
-    final int SEARCH_ALL = 0;
-    final int SEARCH_COURSE = 1;
-    final int SEARCH_SHARE = 2;
-    final int SEARCH_USER = 3;
+    final int SEARCH_Course = 0;
+    final int SEARCH_Post = 1;
+    final int SEARCH_Frineds = 2;
+    final int SEARCH_Artical = 3;
 
 
     private EditText etInput;
@@ -114,17 +114,17 @@ public class search_result_activity extends FragmentActivity implements View.OnC
         mViewPager.setAdapter(mAdapter);
 
         switch (from){
-            case SEARCH_ALL:
-                mViewPager.setCurrentItem (SEARCH_ALL);
+            case SEARCH_Course:
+                mViewPager.setCurrentItem (SEARCH_Course);
                 break;
-            case SEARCH_COURSE:
-                mViewPager.setCurrentItem (SEARCH_COURSE);
+            case SEARCH_Post:
+                mViewPager.setCurrentItem (SEARCH_Post);
                 break;
-            case SEARCH_SHARE:
-                mViewPager.setCurrentItem (SEARCH_SHARE);
+            case SEARCH_Frineds:
+                mViewPager.setCurrentItem (SEARCH_Frineds);
                 break;
-            case SEARCH_USER:
-                mViewPager.setCurrentItem (SEARCH_USER);
+            case SEARCH_Artical:
+                mViewPager.setCurrentItem (SEARCH_Artical);
                 break;
             default:
                 break;
@@ -134,11 +134,11 @@ public class search_result_activity extends FragmentActivity implements View.OnC
 
     private void initEvents() {
 
-//        findViewById(R.id.search_back).setOnClickListener(new View.OnClickListener() {
-//            public void onClick (View v){
-//                finish();
-//            }
-//        });
+        findViewById(R.id.iv_search_back).setOnClickListener(new View.OnClickListener() {
+            public void onClick (View v){
+                finish();
+            }
+        });
     }
 
     //初始化控件
@@ -158,7 +158,7 @@ public class search_result_activity extends FragmentActivity implements View.OnC
         mViewPager.setOffscreenPageLimit(4);//设置缓存页面上限，默认为3，会出现recyclerview中item重复问题
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
-
+        mViewPager.setCurrentItem(0);
         etInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
@@ -180,9 +180,9 @@ public class search_result_activity extends FragmentActivity implements View.OnC
                 searchContent = etInput.getText().toString().trim();
                 SharedPreferences shp;
                 Set<String> strSet = new HashSet<String>();
-                if(mViewPager.getCurrentItem() == 0)intent.putExtra("from", SEARCH_ALL);
+                if(mViewPager.getCurrentItem() == 0)intent.putExtra("from", SEARCH_Course);
                 else if(mViewPager.getCurrentItem() == 1){
-                    intent.putExtra("from", SEARCH_COURSE);
+                    intent.putExtra("from", SEARCH_Post);
                     shp = getSharedPreferences("search_course_history",MODE_PRIVATE);
                     strSet = shp.getStringSet("search_course_history_list",new HashSet<String>());
                     strSet.add(searchContent);
@@ -191,7 +191,7 @@ public class search_result_activity extends FragmentActivity implements View.OnC
                     editor.commit();
                 }
                 else if(mViewPager.getCurrentItem() == 2){
-                    intent.putExtra("from", SEARCH_SHARE);
+                    intent.putExtra("from", SEARCH_Frineds);
                     shp = getSharedPreferences("search_share_history",MODE_PRIVATE);
                     strSet = shp.getStringSet("search_share_history_list",new HashSet<String>());
                     strSet.add(searchContent);
@@ -200,7 +200,7 @@ public class search_result_activity extends FragmentActivity implements View.OnC
                     editor.commit();
                 }
                 else if(mViewPager.getCurrentItem() == 3){
-                    intent.putExtra("from", SEARCH_USER);
+                    intent.putExtra("from", SEARCH_Artical);
                     shp = getSharedPreferences("search_user_history",MODE_PRIVATE);
                     strSet = shp.getStringSet("search_user_history_list",new HashSet<String>());
                     strSet.add(searchContent);

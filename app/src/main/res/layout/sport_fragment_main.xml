@@ -479,14 +479,13 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="99dp"
-                        android:layout_height="25dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:orientation="horizontal">
@@ -519,8 +518,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.3"
-                            >
+                            android:layout_weight="0.3">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -531,18 +529,25 @@
                                 android:textStyle="bold" />
 
                             <ImageView
+                                android:id="@+id/iv_sport_practiced"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:paddingRight="2dp"
-                                android:src="@drawable/ic_fas_fa_angle_right"
-                                android:id="@+id/iv_sport_practiced"/>
+                                android:src="@drawable/ic_fas_fa_angle_right" />
                         </LinearLayout>
 
                     </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSportMainPracticed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#F6F6F6"
+                tools:listitem="@layout/sport_main_item" />
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp"/>
@@ -555,14 +560,13 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="99dp"
-                        android:layout_height="25dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:orientation="horizontal">
@@ -595,8 +599,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.3"
-                            >
+                            android:layout_weight="0.3">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -607,18 +610,25 @@
                                 android:textStyle="bold" />
 
                             <ImageView
+                                android:id="@+id/iv_sport_collected"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:paddingRight="2dp"
-                                android:src="@drawable/ic_fas_fa_angle_right"
-                                android:id="@+id/iv_sport_collected"/>
+                                android:src="@drawable/ic_fas_fa_angle_right" />
                         </LinearLayout>
 
                     </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSportMainCollection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#F6F6F6"
+                tools:listitem="@layout/sport_main_item" />
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp"/>
@@ -631,14 +641,13 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="99dp"
-                        android:layout_height="25dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:orientation="horizontal">
@@ -682,18 +691,25 @@
                                 android:textStyle="bold" />
 
                             <ImageView
+                                android:id="@+id/iv_sport_download"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:paddingRight="2dp"
-                                android:src="@drawable/ic_fas_fa_angle_right"
-                                android:id="@+id/iv_sport_download"/>
+                                android:src="@drawable/ic_fas_fa_angle_right" />
                         </LinearLayout>
 
                     </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSportMainDownload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#F6F6F6"
+                tools:listitem="@layout/sport_main_item" />
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp"/>

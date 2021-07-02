@@ -1,6 +1,9 @@
 package com.example.motion.Entity;
 
+import android.util.Log;
+
 import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.ManyToMany;
 import com.raizlabs.android.dbflow.annotation.OneToMany;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
@@ -13,7 +16,6 @@ import java.util.List;
 @Table(database = CourseCahceDatabase.class)
 public class Course extends BaseModel implements Serializable {
     @PrimaryKey()
-    @Column
     private Long courseId;
 
     @Column
@@ -49,15 +51,37 @@ public class Course extends BaseModel implements Serializable {
     @Column
     private boolean collected;
 
+    /*
     List<com.example.motion.Entity.Action> actionList;
-
     @OneToMany(methods = {OneToMany.Method.ALL},variableName = "actionList")
     public List<com.example.motion.Entity.Action> getActionList(){
         if (actionList == null || actionList.isEmpty()){
-            actionList = new Select().from(com.example.motion.Entity.Action.class).where(Action_Table.ownerCourse_courseId.eq(courseId)).queryList();
+            //actionList = new Select().from(com.example.motion.Entity.Action.class).where(Action_Table.ownerCourse_courseId.eq(courseId)).queryList();
         }
         return actionList;
     }
+    public void setActionList(List<com.example.motion.Entity.Action> actionList) {
+        this.actionList = actionList;
+    }
+     */
+
+    private List<com.example.motion.Entity.Action> actionList;
+
+    public List<com.example.motion.Entity.Action> getActionList(){
+        if (actionList == null || actionList.isEmpty()){
+            actionList = new Select()
+                    .from(com.example.motion.Entity.Action.class)
+                    .where(Action_Table.actionID.in(
+                            new Select(Course_Action_Table.action_actionID)
+                                    .from(Course_Action.class)
+                                    .where(Course_Action_Table.course_courseId.eq(courseId))
+                            )
+                    )
+                    .queryList();
+        }
+        return actionList;
+    }
+
 
     public void setActionList(List<com.example.motion.Entity.Action> actionList) {
         this.actionList = actionList;
@@ -159,4 +183,3 @@ public class Course extends BaseModel implements Serializable {
         this.collected = collected;
     }
 }
-
