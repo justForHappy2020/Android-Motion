@@ -69,6 +69,8 @@ public class me_activity_bindphone_usewechat extends AppCompatActivity implement
         saveSP = this.getSharedPreferences("saveSP",MODE_PRIVATE);
 
         btn_getcode.setOnClickListener(this);
+        iv_back.setOnClickListener(this);
+        btn_save.setOnClickListener(this);
         btn_getcode.setEnabled(Boolean.FALSE);
 
         et_phone.addTextChangedListener(new TextWatcher(){
@@ -82,11 +84,13 @@ public class me_activity_bindphone_usewechat extends AppCompatActivity implement
 //                    btn_getcode.setBackgroundColor(Color.parseColor("#673AB7"));
                     btn_getcode.setTextColor(Color.parseColor("#673AB7"));
                     btn_getcode.setEnabled(Boolean.TRUE);//启用按钮
+                    btn_save.setEnabled(Boolean.TRUE);
                 }else{
                     //btAcquireCode.setBackgroundColor(Color.GREEN);
 //                    btn_getcode.setBackgroundColor(Color.parseColor("#D1C4E9"));
                     btn_getcode.setTextColor(Color.parseColor("#FF808080"));
                     btn_getcode.setEnabled(Boolean.FALSE);//不启用按钮
+                    btn_save.setEnabled(Boolean.FALSE);
                 }
             }
             @Override
@@ -155,8 +159,8 @@ public class me_activity_bindphone_usewechat extends AppCompatActivity implement
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-//                   String url = "http:///api/user/getVerificationCode";// url
-                    String url = "https://www.fastmock.site/mock/8b3e2487a581d723a901a354dfc6f3fd/data/api/user/getCode";
+                    String url = "http://106.55.25.94:8080/api/user/getVerificationCode";// url
+//                    String url = "https://www.fastmock.site/mock/8b3e2487a581d723a901a354dfc6f3fd/data/api/user/getCode";
                     JsonObjectRequest getCode = new JsonObjectRequest(url, json,
                             new Response.Listener<JSONObject>() {
                                 @Override
@@ -168,7 +172,7 @@ public class me_activity_bindphone_usewechat extends AppCompatActivity implement
                                         new CountDownTimer(60000, 1000) {
                                             @Override
                                             public void onTick(long millisUntilFinished) {
-                                                btn_getcode.setEnabled(false);
+                                                btn_getcode.setEnabled(Boolean.FALSE);
                                                 btn_getcode.setText(String.format("重新获取(%ds)",millisUntilFinished/1000));
                                             }
 
@@ -197,11 +201,13 @@ public class me_activity_bindphone_usewechat extends AppCompatActivity implement
                 break;
 
             case R.id.iv_back:
-              Intent intent = new Intent(this, me_fragment_main.class);
-              startActivity(intent);
+                Intent intent = new Intent(this, me_fragment_main.class);
+                startActivity(intent);
+                finish();
                 break;
 
             case R.id.btn_save:
+                mobile = et_phone.getText().toString().trim();
                 loginCode = et_code.getText().toString().trim();
                 if (loginCode.isEmpty() || mobile.isEmpty() ){
                     Toast.makeText(me_activity_bindphone_usewechat.this,"缺少选项", Toast.LENGTH_SHORT).show();
@@ -209,7 +215,6 @@ public class me_activity_bindphone_usewechat extends AppCompatActivity implement
 //                    btn_save.setEnabled(Boolean.FALSE);
                 }
                 else {
-                    btn_save.setEnabled(Boolean.TRUE);
                     JSONObject json_login = new JSONObject();
                     try {
                         json_login.put("code", loginCode);
@@ -217,28 +222,27 @@ public class me_activity_bindphone_usewechat extends AppCompatActivity implement
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    String url = "http:///api/user/login";
+                    String url = "http://106.55.25.94:8080/api/user/changePhone";
                     JsonObjectRequest getCode = new JsonObjectRequest(url, json_login,
                             new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject obj) {//处理response
                                     System.out.println("----------:" + obj);
                                     try {
-                                        JSONObject response = obj.getJSONObject("data");
-                                        Toast.makeText(me_activity_bindphone_usewechat.this, "发送成功", Toast.LENGTH_SHORT).show();
-                                        int userId = response.getInt("userId");
-                                        String nickName = response.getString("niceName");
-                                        String headProtrait = response.getString("headProtrait");
-                                        String token = response.getString("token");
-                                        isNewUser = response.getBoolean("newUser");
-                                        get_phone = response.getString("phoneNumber");
-
-                                        SharedPreferences.Editor editor = saveSP.edit();
-                                        editor.putInt("userId",userId).commit();
-                                        editor.putString("nickName",nickName).commit();
-                                        editor.putString("headProtrait",headProtrait).commit();
-                                        editor.putString("token",token).commit();
-                                        editor.putString("phoneNumber",mobile).commit();
+                                        if (obj.getInt("code")==600){
+                                            Toast.makeText(me_activity_bindphone_usewechat.this, "登录已过期，请重新登录", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else if(obj.getInt("code")==200 && obj.getString("data").equals("成功")){
+                                            Toast.makeText(me_activity_bindphone_usewechat.this, "修改成功", Toast.LENGTH_SHORT).show();
+                                            SharedPreferences.Editor editor = saveSP.edit();
+                                            editor.putString("phoneNumber",mobile).commit();
+                                            Intent intent = new Intent(me_activity_bindphone_usewechat.this, viewpager_activity_main.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                        else {
+                                            Toast.makeText(me_activity_bindphone_usewechat.this, "验证码错误", Toast.LENGTH_SHORT).show();
+                                        }
 
                                     } catch (JSONException e) {
                                         e.printStackTrace();
@@ -249,20 +253,16 @@ public class me_activity_bindphone_usewechat extends AppCompatActivity implement
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             error.getMessage();
+                            Toast.makeText(me_activity_bindphone_usewechat.this,"更改失败",Toast.LENGTH_SHORT).show();
                         }
 
                     });
                     queue.add(getCode);
-                    Intent intent2 = new Intent(me_activity_bindphone_usewechat.this, viewpager_activity_main.class);
-                    intent2.putExtra("id",1);
-                    startActivity(intent2);
                     //判定是否新用户，新用户跳转注册页面，旧用户跳转主页
 //                    更改成功 跳转回首页
 //                            Intent intent_homrpage = new Intent(this,homepage_activity_homepage);
 //                            startActivity(intent);
-                    if (mobile.equals(get_phone)) {
-                        checkPhone();
-                    }
+
                 }
                 break;
         }
