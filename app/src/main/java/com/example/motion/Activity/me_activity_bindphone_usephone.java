@@ -56,11 +56,14 @@ public class me_activity_bindphone_usephone extends NeedTokenActivity implements
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_back:
+                Intent intent = new Intent(me_activity_bindphone_usephone.this, viewpager_activity_main.class);
+                startActivity(intent);
                 finish();
                 break;
             case R.id.btn_changephone:
                 Intent intent2 = new Intent(this,me_activity_bindphone_changephone.class);
                 startActivity(intent2);
+                finish();
                 break;
         }
     }
