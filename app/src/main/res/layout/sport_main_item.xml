@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="370dp"
+            android:layout_height="139dp"
+            android:orientation="horizontal"
+           >
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                />
+            <ImageView
+                android:id="@+id/sportMainItemImg"
+                android:scaleType="fitXY"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/me_item_mycourse_favorite_round"
+                android:src="@drawable/me_mycourse_history_img"/>
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/sportMainItemCourseName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="篮球培优课"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:textColor="#101010"/>
+
+                <TextView
+                    android:id="@+id/sportMainItemTargetAge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="适合4到6岁孩子练习"
+                    android:textColor="#757575"/>
+
+                <TextView
+                    android:id="@+id/sportMainItemLables"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="热身运动/体育达标系列"
+                    android:textSize="13dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    </LinearLayout>

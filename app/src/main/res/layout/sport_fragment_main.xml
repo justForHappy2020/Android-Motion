@@ -541,6 +541,13 @@
                 </LinearLayout>
 
             </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSportMainPracticed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#F6F6F6"
+                tools:listitem="@layout/sport_main_item" />
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp"/>
@@ -615,6 +622,13 @@
                 </LinearLayout>
 
             </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSportMainCollection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#F6F6F6"
+                tools:listitem="@layout/sport_main_item" />
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp"/>
@@ -689,6 +703,13 @@
                 </LinearLayout>
 
             </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSportMainDownload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#F6F6F6"
+                tools:listitem="@layout/sport_main_item" />
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp"/>
