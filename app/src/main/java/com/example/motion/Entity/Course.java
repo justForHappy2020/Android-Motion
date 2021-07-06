@@ -51,6 +51,10 @@ public class Course extends BaseModel implements Serializable {
     @Column
     private boolean collected;
 
+    @Column
+    private String courseId2CourseJson;
+
+    private int courseSize;
     /*
     List<com.example.motion.Entity.Action> actionList;
     @OneToMany(methods = {OneToMany.Method.ALL},variableName = "actionList")
@@ -181,5 +185,21 @@ public class Course extends BaseModel implements Serializable {
 
     public void setCollected(boolean collected) {
         this.collected = collected;
+    }
+
+    public String getCourseId2CourseJson() {
+        return courseId2CourseJson;
+    }
+
+    public void setCourseId2CourseJson(String courseId2CourseJson) {
+        this.courseId2CourseJson = courseId2CourseJson;
+    }
+
+    public int getCourseSize() {
+        return courseSize;
+    }
+
+    public void setCourseSize(int courseSize) {
+        this.courseSize = courseSize;
     }
 }

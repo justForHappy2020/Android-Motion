@@ -112,5 +112,9 @@
     <string name="me_fragment_main_username_unlogin">未登录</string>
     <string name="user_not_login">需要登陆才可查看哦,点击登陆</string>
     <string name="service_phone_number">13812342345</string>
+    <string name="me_activity_downloaded_courses_title_bar">我的下载</string>
+    <string name="me_activity_downloaded_courses_edit">编辑</string>
+    <string name="me_activity_downloaded_courses_state_load_fail">本地缓存课程数据读取失败</string>
+    <string name="download_courses_nodata">暂无已缓存课程</string>
 
 </resources>

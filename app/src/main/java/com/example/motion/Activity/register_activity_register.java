@@ -29,6 +29,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.motion.Entity.User;
 import com.example.motion.Fragment.me_fragment_main;
 import com.example.motion.R;
 import com.example.motion.Utils.KeyboardUtils;
@@ -63,12 +64,12 @@ public class register_activity_register extends BaseNetworkActivity implements V
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_activity_register);
         initview();
+        loadDefaultPhoneNumber();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        loadDefaultPhoneNumber();
     }
 
     private void initview() {
@@ -86,11 +87,16 @@ public class register_activity_register extends BaseNetworkActivity implements V
         btn_getcode.setOnClickListener(this);
         btn_agree.setOnClickListener(this);
         btn_login.setOnClickListener(this);
-        iv_wechat.setOnClickListener(this);
+
+        /**
+         * 从第一阶段移除
+         */
+        //iv_wechat.setOnClickListener(this);
+
         tv_callService.setOnClickListener(this);//客服
 
         btn_getcode.setEnabled(Boolean.FALSE);
-        btn_agree.setChecked(false);//checkbox设置
+        btn_agree.setChecked(Boolean.FALSE);//checkbox设置
 
         et_phone.addTextChangedListener(new TextWatcher(){
             @Override
@@ -255,15 +261,17 @@ public class register_activity_register extends BaseNetworkActivity implements V
 
             case R.id.btn_agree:
                 btn_agree.setChecked(true);
-                if (!TextUtils.isEmpty(et_phone.getText()) && et_phone.getText().toString().trim().length() == 11 && btn_agree.isChecked()) {
+                if (!TextUtils.isEmpty(et_phone.getText().toString()) && et_phone.getText().toString().trim().length() == 11 && btn_agree.isChecked()) {
 //                    btn_getcode.setBackgroundColor(Color.parseColor("#673AB7"));
                     btn_getcode.setTextColor(Color.parseColor("#673AB7"));
-                    btn_getcode.setEnabled(Boolean.TRUE);//启用按钮
+                    btn_getcode.setEnabled(true);//启用按钮
+                    btn_login.setEnabled(true);
                 }else{
                     //btAcquireCode.setBackgroundColor(Color.GREEN);
 //                    btn_getcode.setBackgroundColor(Color.parseColor("#D1C4E9"));
                     btn_getcode.setTextColor(Color.parseColor("#FF808080"));
-                    btn_getcode.setEnabled(Boolean.FALSE);//不启用按钮
+                    btn_getcode.setEnabled(false);//不启用按钮
+                    btn_login.setEnabled(false);
                 }
                 break;
 
