@@ -205,7 +205,10 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
                                     System.out.println("----------:" + obj);
                                     try {
                                         if (obj.getInt("code")==600){
+                                            finish();
                                             Toast.makeText(me_activity_bindphone_changephone.this, "登录已过期，请重新登录", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(getApplication(), register_activity_register.class);
+                                            startActivity(intent);
                                         }
                                         else if(obj.getInt("code")==200 && obj.getString("data").equals("成功")){
                                             Toast.makeText(me_activity_bindphone_changephone.this, "修改成功", Toast.LENGTH_SHORT).show();
