@@ -49,6 +49,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
@@ -59,6 +60,7 @@ import com.example.motion.Activity.me_activity_mycollections;
 import com.example.motion.Activity.me_activity_mycourse;
 import com.example.motion.Activity.register_activity_register;
 import com.example.motion.Activity.search_course_activity;
+
 import com.example.motion.Entity.MultipleItem;
 import com.example.motion.Entity.User;
 import com.example.motion.Entity.sportMainItem;
@@ -66,6 +68,15 @@ import com.example.motion.R;
 import com.example.motion.Utils.UserInfoManager;
 import com.example.motion.Widget.MultipleItemQuickAdapter;
 import com.example.motion.Widget.MyStringRequest;
+
+import com.example.motion.Entity.Course;
+import com.example.motion.Entity.DyxItem;
+import com.example.motion.Entity.MultipleItem;
+import com.example.motion.Entity.sportMainItem;
+import com.example.motion.R;
+import com.example.motion.Utils.UserInfoManager;
+import com.example.motion.Widget.DyxQuickAdapter;
+import com.example.motion.Widget.MultipleItemQuickAdapter;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
@@ -149,6 +160,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
     int [] yearList;
     int [] monthList;
     int [] dayList;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -311,6 +323,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
         rvPracticed.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvDownload.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvCollected.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         practicedAdapter = new MultipleItemQuickAdapter(practicedList);
         collectionAdapter = new MultipleItemQuickAdapter(collectedList);
         downloadAdapter = new MultipleItemQuickAdapter(downloadList);
@@ -387,8 +400,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                 Intent intent = new Intent(getActivity(), register_activity_register.class);
                 startActivity(intent);
                 break;
-        }
-    }
+        } }
     @Override
     public void onCalendarOutOfRange(Calendar calendar) {
 
@@ -470,8 +482,6 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                 }
             }
         }}
-
-
 
     }
 
@@ -825,7 +835,36 @@ public class sport_fragment_main extends BaseNetworkFragment implements
             downloadCourse.setLables("亲子A类/网球/坐位体前屈");
             downloadList.add(new MultipleItem(MultipleItem.sport_main_item, downloadCourse));
         }
+
+
     }
+
+    protected void initPracticedList(){
+        sportMainItem practicedCourse;
+        for (int i = 0; i < 3; i++) {
+            practicedCourse = new sportMainItem();
+
+            practicedCourse.setImgUrl("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3385472845,2539383542&fm=11&gp=0.jpg");
+            practicedCourse.setCourseName("篮球培优课");
+            practicedCourse.setTargetAge("适合4-6岁孩子练习");
+            practicedCourse.setLables("亲子A类/网球/坐位体前屈");
+            practicedList.add(new MultipleItem(MultipleItem.sport_main_item,practicedCourse));
+        }
+    }
+
+    protected void initCollectionList(){
+        sportMainItem collectedCourse;
+        for (int i = 0; i < 3; i++) {
+            collectedCourse = new sportMainItem();
+
+            collectedCourse.setImgUrl("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3385472845,2539383542&fm=11&gp=0.jpg");
+            collectedCourse.setCourseName("篮球培优课");
+            collectedCourse.setTargetAge("适合4-6岁孩子练习");
+            collectedCourse.setLables("亲子A类/网球/坐位体前屈");
+            collectedList.add(new MultipleItem(MultipleItem.sport_main_item,collectedCourse));
+        }
+    }
+
 
     private Calendar getSchemeCalendar(int year, int month, int day, int color) {
         Calendar calendar = new Calendar();

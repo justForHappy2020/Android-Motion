@@ -8,16 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.example.motion.Activity.sport_activity_course_detail;
+
 import com.example.motion.Entity.Course;
 import com.example.motion.Entity.DyxItem;
 import com.example.motion.Entity.MultipleItem;
@@ -30,6 +33,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import com.example.motion.Widget.DyxQuickAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,10 +49,13 @@ public class search_result_fragment_course extends BaseNetworkFragment implement
     private int TOTAL_PAGES;
     private int currentPage; //要分页查询的页面
     private int size;
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.search_fragment_course, container, false);
+
         currentPage = 1;
         size=5;
         TOTAL_PAGES = 5;
@@ -179,5 +187,20 @@ public class search_result_fragment_course extends BaseNetworkFragment implement
         courseAdapter.addData(dataSet.get(currentPage-1));
         currentPage++;
         courseAdapter.getLoadMoreModule().loadMoreEnd();
+        rvSearchCourse.setAdapter(courseAdapter);
     }
+    private void initData(){
+        Course course;
+        for (int i = 0; i < 5; i++) {
+            course = new Course();
+
+            course.setBackgroundUrl("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3385472845,2539383542&fm=11&gp=0.jpg");
+            course.setCourseName("篮球培优课（适合4-6岁孩子练习）");
+            course.setCourseIntro("亲子A类/网球/坐位体前屈");
+            course.setIsOnline(0);
+            courseList.add(new DyxItem(DyxItem.SELECTCOURSE,course));
+        }
+
+    }
+
 }
