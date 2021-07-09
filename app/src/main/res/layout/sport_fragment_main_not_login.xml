@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:fillViewport="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+
+        <TextView
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="19dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/bottom_tab_sport"
+            android:textColor="@color/orange_main"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="20" />
+
+        <ImageView
+            android:id="@+id/sport_main_search"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_search_orange" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_not_login"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_gravity="center|center_vertical"
+            android:background="@drawable/edit_radius_nogray"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="false"
+                android:gravity="center_vertical"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_md_error" />
+
+            <Space
+                android:layout_width="5dp"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/user_not_login"
+                android:textSize="16dp" />
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+    <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--    xmlns:tools="http://schemas.android.com/tools"-->
+    <!--    android:orientation="vertical"-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="match_parent">-->
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="70dp"-->
+    <!--        android:background="#FFFFFF"-->
+    <!--        android:orientation="horizontal">-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:layout_marginLeft="15dp"-->
+    <!--            android:layout_marginTop="15dp"-->
+    <!--            android:layout_marginBottom="19dp"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:gravity="center_vertical"-->
+    <!--            android:text="@string/bottom_tab_sport"-->
+    <!--            android:textColor="@color/orange_main"-->
+    <!--            android:textSize="24sp"-->
+    <!--            android:textStyle="bold" />-->
+
+    <!--        <ImageView-->
+    <!--            android:id="@+id/diet_main_search"-->
+    <!--            android:layout_width="24dp"-->
+    <!--            android:layout_height="24dp"-->
+    <!--            android:layout_gravity="center_vertical"-->
+    <!--            android:layout_margin="20dp"-->
+    <!--            android:scaleType="fitCenter"-->
+    <!--            android:src="@drawable/ic_search_orange" />-->
+
+    <!--    </LinearLayout>-->
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:background="#F6F6F6"-->
+    <!--        android:orientation="vertical"/>-->
+    <!--</LinearLayout>-->

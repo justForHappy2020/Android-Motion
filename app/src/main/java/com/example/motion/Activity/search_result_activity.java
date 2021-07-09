@@ -30,10 +30,10 @@ import java.util.List;
 import java.util.Set;
 
 public class search_result_activity extends FragmentActivity implements View.OnClickListener {
-    final int SEARCH_ALL = 0;
-    final int SEARCH_COURSE = 1;
-    final int SEARCH_SHARE = 2;
-    final int SEARCH_USER = 3;
+    final int SEARCH_Course = 0;
+    final int SEARCH_Post = 1;
+    final int SEARCH_Frineds = 2;
+    final int SEARCH_Artical = 3;
 
 
     private EditText etInput;
@@ -50,7 +50,9 @@ public class search_result_activity extends FragmentActivity implements View.OnC
     //装载Fragment的集合
 
     private List<Fragment> mFragments;
-    private String[] titles = {"课程", "动态", "好友", "文章"};
+    //一阶段只有课程
+    //private String[] titles = {"课程", "动态", "好友", "文章"};
+    private String[] titles = {"课程"};
     private String searchContent;
     private int from;
 
@@ -73,21 +75,21 @@ public class search_result_activity extends FragmentActivity implements View.OnC
         bundle.putString("searchContent", searchContent);
 
         search_result_fragment_course f1 = new search_result_fragment_course();
-        search_result_fragment_post f2 = new search_result_fragment_post();
-        search_result_fragment_users f3 = new search_result_fragment_users();
-        search_result_fragment_artical f4 = new search_result_fragment_artical();
+//        search_result_fragment_post f2 = new search_result_fragment_post();
+//        search_result_fragment_users f3 = new search_result_fragment_users();
+//        search_result_fragment_artical f4 = new search_result_fragment_artical();
 
         f1.setArguments(bundle);
-        f2.setArguments(bundle);
-        f3.setArguments(bundle);
-        f4.setArguments(bundle);
+//        f2.setArguments(bundle);
+//        f3.setArguments(bundle);
+//        f4.setArguments(bundle);
 
         mFragments = new ArrayList<>();
         //将四个Fragment加入集合中
         mFragments.add(f1);
-        mFragments.add(f2);
-        mFragments.add(f3);
-        mFragments.add(f4);
+//        mFragments.add(f2);
+//        mFragments.add(f3);
+//        mFragments.add(f4);
 
         //初始化适配器
         mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -114,18 +116,18 @@ public class search_result_activity extends FragmentActivity implements View.OnC
         mViewPager.setAdapter(mAdapter);
 
         switch (from){
-            case SEARCH_ALL:
-                mViewPager.setCurrentItem (SEARCH_ALL);
+            case SEARCH_Course:
+                mViewPager.setCurrentItem (SEARCH_Course);
                 break;
-            case SEARCH_COURSE:
-                mViewPager.setCurrentItem (SEARCH_COURSE);
-                break;
-            case SEARCH_SHARE:
-                mViewPager.setCurrentItem (SEARCH_SHARE);
-                break;
-            case SEARCH_USER:
-                mViewPager.setCurrentItem (SEARCH_USER);
-                break;
+//            case SEARCH_Post:
+//                mViewPager.setCurrentItem (SEARCH_Post);
+//                break;
+//            case SEARCH_Frineds:
+//                mViewPager.setCurrentItem (SEARCH_Frineds);
+//                break;
+//            case SEARCH_Artical:
+//                mViewPager.setCurrentItem (SEARCH_Artical);
+//                break;
             default:
                 break;
         }
@@ -134,11 +136,11 @@ public class search_result_activity extends FragmentActivity implements View.OnC
 
     private void initEvents() {
 
-//        findViewById(R.id.search_back).setOnClickListener(new View.OnClickListener() {
-//            public void onClick (View v){
-//                finish();
-//            }
-//        });
+        findViewById(R.id.iv_search_back).setOnClickListener(new View.OnClickListener() {
+            public void onClick (View v){
+                finish();
+            }
+        });
     }
 
     //初始化控件
@@ -158,7 +160,7 @@ public class search_result_activity extends FragmentActivity implements View.OnC
         mViewPager.setOffscreenPageLimit(4);//设置缓存页面上限，默认为3，会出现recyclerview中item重复问题
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
-
+        mViewPager.setCurrentItem(0);
         etInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
@@ -180,9 +182,9 @@ public class search_result_activity extends FragmentActivity implements View.OnC
                 searchContent = etInput.getText().toString().trim();
                 SharedPreferences shp;
                 Set<String> strSet = new HashSet<String>();
-                if(mViewPager.getCurrentItem() == 0)intent.putExtra("from", SEARCH_ALL);
+                if(mViewPager.getCurrentItem() == 0)intent.putExtra("from", SEARCH_Course);
                 else if(mViewPager.getCurrentItem() == 1){
-                    intent.putExtra("from", SEARCH_COURSE);
+                    intent.putExtra("from", SEARCH_Post);
                     shp = getSharedPreferences("search_course_history",MODE_PRIVATE);
                     strSet = shp.getStringSet("search_course_history_list",new HashSet<String>());
                     strSet.add(searchContent);
@@ -191,7 +193,7 @@ public class search_result_activity extends FragmentActivity implements View.OnC
                     editor.commit();
                 }
                 else if(mViewPager.getCurrentItem() == 2){
-                    intent.putExtra("from", SEARCH_SHARE);
+                    intent.putExtra("from", SEARCH_Frineds);
                     shp = getSharedPreferences("search_share_history",MODE_PRIVATE);
                     strSet = shp.getStringSet("search_share_history_list",new HashSet<String>());
                     strSet.add(searchContent);
@@ -200,7 +202,7 @@ public class search_result_activity extends FragmentActivity implements View.OnC
                     editor.commit();
                 }
                 else if(mViewPager.getCurrentItem() == 3){
-                    intent.putExtra("from", SEARCH_USER);
+                    intent.putExtra("from", SEARCH_Artical);
                     shp = getSharedPreferences("search_user_history",MODE_PRIVATE);
                     strSet = shp.getStringSet("search_user_history_list",new HashSet<String>());
                     strSet.add(searchContent);

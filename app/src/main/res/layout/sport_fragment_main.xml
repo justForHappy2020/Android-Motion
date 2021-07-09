@@ -104,7 +104,7 @@
                         android:paddingTop="30dp">
 
                         <TextView
-                            android:id="@+id/textView16"
+                            android:id="@+id/sport_main_user_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -112,15 +112,39 @@
                             android:textColor="#000000"
                             android:textSize="16dp"
                             android:textStyle="bold" />
-
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="在Motion的第4天"
-                            android:textColor="#000000"
-                            android:textSize="25dp"
-                            android:textStyle="bold" />
+                            android:orientation="horizontal"
+                            android:layout_gravity="center">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="在Motion的第"
+                                android:textColor="#000000"
+                                android:textSize="25dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/sport_main_days_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="4"
+                                android:textColor="#000000"
+                                android:textSize="25dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="天"
+                                android:textColor="#000000"
+                                android:textSize="25dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+
 
                     </LinearLayout>
 
@@ -157,15 +181,27 @@
                                     android:layout_gravity="center"
                                     android:text="训练课程数"
                                     android:textSize="18dp" />
-
-                                <TextView
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:text="4节"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
-
+                                    android:orientation="horizontal"
+                                    android:layout_gravity="center">
+                                    <TextView
+                                        android:id="@+id/sport_main_course_count"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="4"
+                                        android:textSize="20dp"
+                                        android:textStyle="bold" />
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="节"
+                                        android:textSize="20dp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
                             </LinearLayout>
 
                             <Space
@@ -185,15 +221,27 @@
                                     android:layout_gravity="center"
                                     android:text="练习时长"
                                     android:textSize="18dp" />
-
-                                <TextView
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:text="24分钟"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
-
+                                    android:orientation="horizontal"
+                                    android:layout_gravity="center">
+                                    <TextView
+                                        android:id="@+id/sport_main_exercise_time_count"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="24"
+                                        android:textSize="20dp"
+                                        android:textStyle="bold" />
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="分钟"
+                                        android:textSize="20dp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
                             </LinearLayout>
 
                             <Space
@@ -212,15 +260,27 @@
                                     android:layout_height="wrap_content"
                                     android:text="最大连续天数"
                                     android:textSize="18dp" />
-
-                                <TextView
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:text="6天"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
-
+                                    android:orientation="horizontal"
+                                    android:layout_gravity="center">
+                                    <TextView
+                                        android:id="@+id/sport_main_continue_days_count"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="6"
+                                        android:textSize="20dp"
+                                        android:textStyle="bold" />
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="天"
+                                        android:textSize="20dp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
                             </LinearLayout>
 
                             <Space
@@ -247,6 +307,7 @@
                 android:paddingTop="40dp">
 
                 <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/sport_main_head"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center"
@@ -479,14 +540,13 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="99dp"
-                        android:layout_height="25dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:orientation="horizontal">
@@ -519,8 +579,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.3"
-                            >
+                            android:layout_weight="0.3">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -531,18 +590,25 @@
                                 android:textStyle="bold" />
 
                             <ImageView
+                                android:id="@+id/iv_sport_practiced"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:paddingRight="2dp"
-                                android:src="@drawable/ic_fas_fa_angle_right"
-                                android:id="@+id/iv_sport_practiced"/>
+                                android:src="@drawable/ic_fas_fa_angle_right" />
                         </LinearLayout>
 
                     </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSportMainPracticed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#F6F6F6"
+                tools:listitem="@layout/sport_main_item" />
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp"/>
@@ -555,14 +621,13 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="99dp"
-                        android:layout_height="25dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:orientation="horizontal">
@@ -595,8 +660,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.3"
-                            >
+                            android:layout_weight="0.3">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -607,18 +671,25 @@
                                 android:textStyle="bold" />
 
                             <ImageView
+                                android:id="@+id/iv_sport_collected"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:paddingRight="2dp"
-                                android:src="@drawable/ic_fas_fa_angle_right"
-                                android:id="@+id/iv_sport_collected"/>
+                                android:src="@drawable/ic_fas_fa_angle_right" />
                         </LinearLayout>
 
                     </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSportMainCollection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#F6F6F6"
+                tools:listitem="@layout/sport_main_item" />
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp"/>
@@ -631,14 +702,13 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="99dp"
-                        android:layout_height="25dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:orientation="horizontal">
@@ -682,18 +752,25 @@
                                 android:textStyle="bold" />
 
                             <ImageView
+                                android:id="@+id/iv_sport_download"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:paddingRight="2dp"
-                                android:src="@drawable/ic_fas_fa_angle_right"
-                                android:id="@+id/iv_sport_download"/>
+                                android:src="@drawable/ic_fas_fa_angle_right" />
                         </LinearLayout>
 
                     </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSportMainDownload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#F6F6F6"
+                tools:listitem="@layout/sport_main_item" />
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp"/>

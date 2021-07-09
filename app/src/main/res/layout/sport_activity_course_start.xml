@@ -10,7 +10,7 @@
     <VideoView
         android:id="@+id/video_view"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:drawingCacheQuality="auto"
         android:focusable="false"
         android:visibility="visible"

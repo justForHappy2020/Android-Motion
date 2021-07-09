@@ -1,6 +1,5 @@
 package com.example.motion.Activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,8 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.StringSignature;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -30,13 +27,13 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.example.motion.Entity.Action;
 import com.example.motion.Entity.Course;
 import com.example.motion.Entity.CourseTag;
-import com.example.motion.Entity.CourseTagGroup;
 import com.example.motion.Entity.MultipleItem;
 import com.example.motion.R;
+import com.example.motion.Utils.UserInfoManager;
 import com.example.motion.Utils.CourseCacheUtil;
-import com.example.motion.Utils.HttpUtils;
 import com.example.motion.Utils.OnProcessStateChangeListener;
 import com.example.motion.Widget.MultipleItemQuickAdapter;
+import com.example.motion.Widget.MyStringRequest;
 import com.example.motion.Widget.PostJsonRequest;
 import com.example.motion.Widget.RelatedCoursesAdapter;
 
@@ -44,7 +41,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +52,7 @@ import static java.lang.Thread.sleep;
  * 1)Long courseId 需要查看详情的课程id
  */
 
-public class sport_activity_course_detail extends BaseNetworkActivity implements View.OnClickListener{
+public class sport_activity_course_detail extends NeedTokenActivity implements View.OnClickListener{
 
     private ImageView ivBack;
     private ImageView ivBackgroundImg;
@@ -76,7 +72,7 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
 
     private Long courseId;
     private Course course = new Course();
-    private List<MultipleItem> actionInMutiList;
+    private List<MultipleItem> actionInMultiList;
     private List<Course> relatedCoursesList;
     private List<Action> actionList;
     private MultipleItemQuickAdapter actionAdapter;
@@ -93,7 +89,8 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
     private static final int GET_SUCCESS = 5;
     private static final int GET_FAILED= 6;
 
-    private String token = "123456";
+    private static final int COURSE_COLLECT_SUCCESS = 7;
+    private static final int COURSE_COLLECT_FAILED = 8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,10 +101,21 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
 
         initHandler();
         initView();
-        courseId2Course(courseId,token,course);
         initEvent();
-        initCourseActions();
-        initRelatedCourses();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if(!isTokenEmpty){
+            Log.d("sport_activity_course_detail","isTokenEmpty not empty");
+            courseId2Course(courseId,course);
+            initCourseActions();
+            initRelatedCourses();
+        }else{
+            Log.d("sport_activity_course_detail","isTokenEmpty ");
+        }
     }
 
     private void initHandler(){
@@ -132,12 +140,19 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
                     case GET_SUCCESS:
                         Log.d("HANDLER","GET_SUCCESS");
                         initData();
-                        Log.d("HANDLER_courseActionList.size",String.valueOf(actionInMutiList.size()));
+                        Log.d("HANDLER_courseActionList.size",String.valueOf(actionInMultiList.size()));
                         actionAdapter.notifyDataSetChanged();
                         break;
                     case GET_FAILED:
                         Toast.makeText(sport_activity_course_detail.this, "GET_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
                         break;
+                    case COURSE_COLLECT_SUCCESS:
+                        Toast.makeText(sport_activity_course_detail.this, "COURSE_COLLECT_SUCCESS", Toast.LENGTH_LONG).show();
+                        break;
+                    case COURSE_COLLECT_FAILED:
+                        Toast.makeText(sport_activity_course_detail.this, "COURSE_COLLECT_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
+                        break;
+
                 }
             }
         };
@@ -164,86 +179,113 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
         ivBack.setOnClickListener(this);
         ibLikeCourse.setOnClickListener(this);
         btSelectCourse.setOnClickListener(this);
+    }
+
+    private void parseCourse(String responseStr){
+        try {
+            JSONObject jsonObject1 = new JSONObject(responseStr);
+            //Log.i("responseData ",responseData);
+            JSONObject jsonObject2 = jsonObject1.getJSONObject("data");
+
+            //得到course
+            course.setCourseId(jsonObject2.getLong("courseId"));
+            course.setCourseName(jsonObject2.getString("courseName"));
+            course.setBackgroundUrl(jsonObject2.getString("backgroundUrl"));
+            course.setDuration(jsonObject2.getString("duration"));
+            course.setHit(jsonObject2.getInt("hits"));
+            course.setCreateTime(jsonObject2.getString("createTime"));
+            course.setCourseIntro(jsonObject2.getString("courseIntro"));
+            course.setTargetAge(jsonObject2.getString("targetAge"));
+            course.setIsOnline(jsonObject2.getInt("onLine"));
+            course.setCourseId2CourseJson(responseStr);
+            JSONArray JSONArrayLabels = jsonObject2.getJSONArray("labelsName");
+            String labels = "";
+            for(int j=0;j<JSONArrayLabels.length();j++){
+                labels += (JSONArrayLabels.get(j)+"/");
+            }
+
+            course.setLabels(labels);
+            //course.save();//?
+            JSONArray JSONArrayAction = jsonObject2.getJSONArray("actionList");
+            for (int i = 0; i < JSONArrayAction.length(); i++) {
+                JSONObject jsonObject = JSONArrayAction.getJSONObject(i);
+                //相应的内容
+                Action action = new Action();
+                action.setActionID(jsonObject.getLong("actionId"));
+                action.setActionName(jsonObject.getString("actionName"));
+                action.setActionImgs(jsonObject.getString("actionImgs"));
+                action.setActionUrl(jsonObject.getString("actionUrl"));
+
+                //String time[] = jsonObject.getString("duration").split(":");
+                //int duration = Integer.parseInt(time[0])*3600 +Integer.parseInt(time[1])*60+Integer.parseInt(time[2]);
+                action.setDuration(jsonObject.getInt("duration"));
+
+                action.setIntro(jsonObject.getString("actionIntro"));
+                action.setType(2);//jsonObject.getInt("type")
+                action.setCount(jsonObject.getInt("count"));
+                action.setTotal(jsonObject.getInt("total"));
+                action.setRestDuration(5);//jsonObject.getInt("restDuration")
+                action.setSizeByte(jsonObject.getInt("size"));
+                //action.setOwnerCourse(course);
+                actionList.add(action);
+                actionInMultiList.add(new MultipleItem(MultipleItem.ACTION,action));
+            }
+            Message msg = handler.obtainMessage();
+            msg.what = GET_SUCCESS;
+            handler.sendMessage(msg);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Message msg = handler.obtainMessage();
+            msg.what = GET_FAILED;
+            msg.obj=e.toString();
+            handler.sendMessage(msg);
+        }
+
 
     }
 
-
-    private void courseId2Course(Long courseId,String token, Course course){
-        String url = "http://10.34.25.45:8080/api/course/getCourse";
-        //String url = "https://www.fastmock.site/mock/318b7fee143da8b159d3e46048f8a8b3/api/courseId2All?courseId="+courseId;
+    private void courseId2Course(Long courseId,Course course){
+        String courseId2CourseJson = getIntent().getStringExtra("courseId2CourseJson");
         actionList = new ArrayList<>();
-        actionInMutiList = new ArrayList<>();
+        actionInMultiList = new ArrayList<>();
 
-        String requestStr = "{\"courseId\": "+courseId+", \"token\":\""+token+"\" }";
+        if(null != courseId2CourseJson  && !courseId2CourseJson.isEmpty()){
+            parseCourse(courseId2CourseJson);
+        }else {
+            String url = "http://106.55.25.94:8080/api/course/getCourse";
+            //String url = "https://www.fastmock.site/mock/318b7fee143da8b159d3e46048f8a8b3/api/courseId2All?courseId="+courseId;
 
-        PostJsonRequest postJsonRequest = new PostJsonRequest(Request.Method.POST,url,requestStr, new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String responseStr) {
-                                try {
-                                    JSONObject jsonObject1 = new JSONObject(responseStr);
-                                    //Log.i("responseData ",responseData);
-                                    JSONObject jsonObject2 = jsonObject1.getJSONObject("data");
+            String requestStr = "{\"courseId\": "+courseId+", \"token\":\""+ UserInfoManager.getUserInfoManager(this).getToken() +"\" }";
+        /*
+        JSONObject param = new JSONObject();
+        try{
+            param.put("courseId",courseId);
+            param.put("token",UserInfoManager.getUserInfoManager(this).getToken());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
-                                    //得到course
-                                    course.setCourseId(jsonObject2.getLong("courseId"));
-                                    course.setCourseName(jsonObject2.getString("courseName"));
-                                    course.setBackgroundUrl(jsonObject2.getString("backgroundUrl"));
-                                    course.setDuration(jsonObject2.getString("duration"));
-                                    course.setHit(jsonObject2.getInt("hits"));
-                                    course.setCreateTime(jsonObject2.getString("createTime"));
-                                    course.setCourseIntro(jsonObject2.getString("courseIntro"));
-                                    course.setTargetAge(jsonObject2.getString("targetAge"));
-                                    course.setIsOnline(jsonObject2.getInt("onLine"));
+         */
 
-                                    JSONArray JSONArrayLabels = jsonObject2.getJSONArray("labelsname");
-                                    String labels = "";
-                                    for(int j=0;j<JSONArrayLabels.length();j++){
-                                        labels += (JSONArrayLabels.get(j)+"/");
-                                    }
+            PostJsonRequest postJsonRequest = new PostJsonRequest(Request.Method.POST,url,requestStr, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String responseStr) {
+                    parseCourse(responseStr);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
 
-                                    course.setLabels(labels);
-                                    //course.save();//?
-                                    JSONArray JSONArrayAction = jsonObject2.getJSONArray("actionList");
-                                    for (int i = 0; i < JSONArrayAction.length(); i++) {
-                                        JSONObject jsonObject = JSONArrayAction.getJSONObject(i);
-                                        //相应的内容
-                                        Action action = new Action();
-                                        action.setActionID(jsonObject.getLong("actionId"));
-                                        action.setActionName(jsonObject.getString("actionName"));
-                                        action.setActionImgs(jsonObject.getString("actionImgs"));
-                                        action.setActionUrl(jsonObject.getString("actionUrl"));
-                                        action.setDuration(Integer.parseInt(jsonObject.getString("duration").replace(":","")));
-                                        action.setIntro(jsonObject.getString("actionIntro"));
-                                        action.setType(2);//jsonObject.getInt("type")
-                                        action.setCount(jsonObject.getInt("count"));
-                                        action.setTotal(jsonObject.getInt("total"));
-                                        action.setRestDuration(5);//jsonObject.getInt("restDuration")
-                                        action.setSizeByte(jsonObject.getInt("size"));
-                                        action.setOwnerCourse(course);
-                                        actionList.add(action);
-                                        actionInMutiList.add(new MultipleItem(MultipleItem.ACTION,action));
-                                    }
+                    Message msg = handler.obtainMessage();
+                    msg.what = GET_FAILED;
+                    msg.obj=volleyError.toString();
+                    handler.sendMessage(msg);
+                }
+            });
 
-                                    Message msg = handler.obtainMessage();
-                                    msg.what = GET_SUCCESS;
-                                    handler.sendMessage(msg);
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError volleyError) {
-
-                                Message msg = handler.obtainMessage();
-                                msg.what = GET_FAILED;
-                                msg.obj=volleyError.toString();
-                                handler.sendMessage(msg);
-                            }
-                        });
-
-        requestQueue.add(postJsonRequest);
+            requestQueue.add(postJsonRequest);
+        }
 
     }
 
@@ -298,7 +340,7 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
         LinearLayoutManager layoutM = new LinearLayoutManager(getBaseContext());
         layoutM.setOrientation(LinearLayoutManager.HORIZONTAL);
 
-        actionAdapter = new MultipleItemQuickAdapter(actionInMutiList);
+        actionAdapter = new MultipleItemQuickAdapter(actionInMultiList);
         rvCourseActions.setLayoutManager(layoutM);
         rvCourseActions.setAdapter(actionAdapter);
 
@@ -389,6 +431,39 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
 
     }
 
+    private void collectCourse(){
+        int flag;
+        if(course.isCollected()){
+            flag=0;
+        }else{
+            flag=1;
+        }
+        String token = UserInfoManager.getUserInfoManager(this).getToken();
+        String url = "http://106.55.25.94:8080/api/course/bookCourse?token="+token+"&courseId="+course.getCourseId()+"&flag="+flag;
+        MyStringRequest stringRequest = new MyStringRequest(Request.Method.GET,  url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String responseStr) {
+                Message msg = handler.obtainMessage();
+                msg.what = COURSE_COLLECT_SUCCESS;
+                handler.sendMessage(msg);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Message msg = handler.obtainMessage();
+                msg.what = COURSE_COLLECT_FAILED;
+                msg.obj = volleyError.toString();
+                handler.sendMessage(msg);
+            }
+        });
+        stringRequest.setTag("getHttp_collectCourse");
+        requestQueue.add(stringRequest);
+    }
+
+    private void reserveCourse(){
+
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -401,7 +476,7 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
                 finish();
                 break;
             case R.id.ib_course_like:
-                //like here
+                collectCourse();
                 break;
             case R.id.btn_course_select:
 
@@ -428,7 +503,9 @@ public class sport_activity_course_detail extends BaseNetworkActivity implements
                         ccu.process(course,actionList);
                         break;
                     case CourseTag.TAG_ONLINE_NO:
-                        Toast.makeText(this, "预定成功", Toast.LENGTH_SHORT).show();
+                        if(course.getIsOnline() == CourseTag.TAG_ONLINE_NO){
+
+                        }
                         break;
                 }
 

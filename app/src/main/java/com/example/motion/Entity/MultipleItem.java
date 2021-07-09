@@ -24,7 +24,7 @@ public class MultipleItem implements MultiItemEntity {
     public static final int Me_mycourse_reserve = 13;
     public static final int Me_mycollections_articals = 14;
 
-
+    public static final int sport_main_item = 15;
     private int itemType;
     private Course course;
     private ShareAbb shareAbb;
@@ -36,6 +36,7 @@ public class MultipleItem implements MultiItemEntity {
     private me_mycourse_collections me_mycourse_collections;
     private me_mycourse_reserve me_mycourse_reserve;
     private me_mycollections_articals me_mycollections_articals;
+    private sportMainItem sportMainItem;
 
     public MultipleItem(int itemType,String text) {
         this.itemType = itemType;
@@ -83,6 +84,11 @@ public class MultipleItem implements MultiItemEntity {
         this.itemType = itemType;
         this.me_mycollections_articals = me_mycollections_articals;
     }
+
+    public MultipleItem(int itemType,sportMainItem sportMainItem){
+        this.itemType = itemType;
+        this.sportMainItem = sportMainItem;
+    }
     @Override
     public int getItemType() {
         return itemType;
@@ -127,5 +133,9 @@ public class MultipleItem implements MultiItemEntity {
 
     public me_mycourse_history getMe_mycourse_history() {
         return me_mycourse_history;
+    }
+
+    public com.example.motion.Entity.sportMainItem getSportMainItem() {
+        return sportMainItem;
     }
 }

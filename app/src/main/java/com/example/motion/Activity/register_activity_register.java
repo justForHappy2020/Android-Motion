@@ -11,6 +11,7 @@ import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -28,9 +29,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.motion.Entity.User;
 import com.example.motion.Fragment.me_fragment_main;
 import com.example.motion.R;
 import com.example.motion.Utils.KeyboardUtils;
+import com.example.motion.Utils.UserInfoManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,9 +41,7 @@ import org.json.JSONObject;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class register_activity_register extends AppCompatActivity implements View.OnClickListener {
-//  phoneNumber 13926292266
-//  code 8888
+public class register_activity_register extends BaseNetworkActivity implements View.OnClickListener {
     private ImageView iv_delete;
     private EditText et_phone;
     private EditText et_code;
@@ -56,9 +57,6 @@ public class register_activity_register extends AppCompatActivity implements Vie
     private String mobile;
     private String loginCode;//填写的验证码
     private Boolean isNewUser;
-    // Volley
-    private RequestQueue queue;
-
 
 
     @Override
@@ -66,6 +64,12 @@ public class register_activity_register extends AppCompatActivity implements Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_activity_register);
         initview();
+        loadDefaultPhoneNumber();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     private void initview() {
@@ -83,12 +87,16 @@ public class register_activity_register extends AppCompatActivity implements Vie
         btn_getcode.setOnClickListener(this);
         btn_agree.setOnClickListener(this);
         btn_login.setOnClickListener(this);
-        iv_wechat.setOnClickListener(this);
+
+        /**
+         * 从第一阶段移除
+         */
+        //iv_wechat.setOnClickListener(this);
+
         tv_callService.setOnClickListener(this);//客服
-        queue = Volley.newRequestQueue(this);
 
         btn_getcode.setEnabled(Boolean.FALSE);
-        btn_agree.setChecked(false);//checkbox设置
+        btn_agree.setChecked(Boolean.FALSE);//checkbox设置
 
         et_phone.addTextChangedListener(new TextWatcher(){
             @Override
@@ -101,11 +109,13 @@ public class register_activity_register extends AppCompatActivity implements Vie
 //                    btn_getcode.setBackgroundColor(Color.parseColor("#673AB7"));
                     btn_getcode.setTextColor(Color.parseColor("#673AB7"));
                     btn_getcode.setEnabled(Boolean.TRUE);//启用按钮
+                    btn_login.setEnabled(Boolean.TRUE);
                 }else{
                     //btAcquireCode.setBackgroundColor(Color.GREEN);
 //                    btn_getcode.setBackgroundColor(Color.parseColor("#D1C4E9"));
                     btn_getcode.setTextColor(Color.parseColor("#FF808080"));
                     btn_getcode.setEnabled(Boolean.FALSE);//不启用按钮
+                    btn_login.setEnabled(Boolean.FALSE);
                 }//判断是否启用获取验证码按钮
 //                if (et_phone.getText().toString().trim().length()==11 && et_code.getText().toString().trim().length()==4 && btn_agree.isChecked()){
 //                    btn_login.setBackgroundColor(Color.parseColor("#673AB7"));
@@ -161,9 +171,17 @@ public class register_activity_register extends AppCompatActivity implements Vie
         },998);
     }
 
+    private void loadDefaultPhoneNumber(){
+        if(null != et_phone){
+            et_phone.setText(UserInfoManager.getUserInfoManager(this).getUser().getPhoneNumber());
+            btn_login.setEnabled(Boolean.TRUE);
+            Log.d("loadDefaultPhoneNumber","phone:"+UserInfoManager.getUserInfoManager(this).getUser().getPhoneNumber());
+        }
 
-    public static void jumpCalling(Context context) {//客服电话跳转
-        String phoneNumber = "13812342345";
+    }
+
+    private void jumpCalling(Context context) {//客服电话跳转
+        String phoneNumber = getString(R.string.service_phone_number); ;
         Intent intentP = new Intent();
         intentP.setAction(Intent.ACTION_DIAL);
         intentP.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -175,10 +193,8 @@ public class register_activity_register extends AppCompatActivity implements Vie
         } else {
             //要调起的应用不存在时的处理
             Toast.makeText(context,  "callingError", Toast.LENGTH_SHORT).show();
-
         }
     }
-
 
     @Override
     public void onClick(View v) {
@@ -195,7 +211,7 @@ public class register_activity_register extends AppCompatActivity implements Vie
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                   String url = "http://10.34.25.45:8080/api/user/getVerificationCode";// url
+                   String url = "http://106.55.25.94:8080/api/user/getVerificationCode";// url
 //                    String url = "https://www.fastmock.site/mock/8b3e2487a581d723a901a354dfc6f3fd/data/api/user/getCode";
                     JsonObjectRequest getCode = new JsonObjectRequest(url, json,
                             new Response.Listener<JSONObject>() {
@@ -231,7 +247,7 @@ public class register_activity_register extends AppCompatActivity implements Vie
                         }
 
                     });
-                    queue.add(getCode);
+                    requestQueue.add(getCode);
 
                 }
                 break;
@@ -245,15 +261,17 @@ public class register_activity_register extends AppCompatActivity implements Vie
 
             case R.id.btn_agree:
                 btn_agree.setChecked(true);
-                if (!TextUtils.isEmpty(et_phone.getText()) && et_phone.getText().toString().trim().length() == 11 && btn_agree.isChecked()) {
+                if (!TextUtils.isEmpty(et_phone.getText().toString()) && et_phone.getText().toString().trim().length() == 11 && btn_agree.isChecked()) {
 //                    btn_getcode.setBackgroundColor(Color.parseColor("#673AB7"));
                     btn_getcode.setTextColor(Color.parseColor("#673AB7"));
-                    btn_getcode.setEnabled(Boolean.TRUE);//启用按钮
+                    btn_getcode.setEnabled(true);//启用按钮
+                    btn_login.setEnabled(true);
                 }else{
                     //btAcquireCode.setBackgroundColor(Color.GREEN);
 //                    btn_getcode.setBackgroundColor(Color.parseColor("#D1C4E9"));
                     btn_getcode.setTextColor(Color.parseColor("#FF808080"));
-                    btn_getcode.setEnabled(Boolean.FALSE);//不启用按钮
+                    btn_getcode.setEnabled(false);//不启用按钮
+                    btn_login.setEnabled(false);
                 }
                 break;
 
@@ -274,30 +292,39 @@ public class register_activity_register extends AppCompatActivity implements Vie
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    String url = "http://10.34.25.45:8080/api/user/login";
+                    String url = "http://106.55.25.94:8080/api/user/login";
                     JsonObjectRequest getCode = new JsonObjectRequest(url, json_login,
                             new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject obj) {//处理response
                                     System.out.println("----------:" + obj);
                                     try {
-                                        JSONObject response = obj.getJSONObject("data");
-                                        Toast.makeText(register_activity_register.this, "发送成功", Toast.LENGTH_SHORT).show();
-                                        int userId = response.getInt("userId");
-                                        String nickName = response.getString("nickName");
-                                        String headPortrait = response.getString("headPortrait");
-                                        String token = response.getString("token");
-                                        isNewUser = response.getBoolean("newUser");
+                                        if(obj.getInt("code") == 200){
+                                            JSONObject response = obj.getJSONObject("data");
+                                            Toast.makeText(register_activity_register.this, "发送成功", Toast.LENGTH_SHORT).show();
+                                            Long userId = response.getLong("userId");
+                                            String nickName = response.getString("nickName");
+                                            String headPortrait = response.getString("headPortrait");
+                                            String token = response.getString("token");
+                                            isNewUser = response.getBoolean("newUser");
 
-                                        SharedPreferences.Editor editor = saveSP.edit();
-                                        editor.putInt("userId",userId).commit();
-                                        editor.putString("nickName",nickName).commit();
-                                        editor.putString("headPortrait",headPortrait).commit();
-                                        editor.putString("token",token).commit();
-                                        editor.putString("phoneNumber",mobile).commit();
-                                        Intent intent = new Intent(register_activity_register.this, viewpager_activity_main.class);
-                                        startActivity(intent);
-
+                                            SharedPreferences.Editor editor = saveSP.edit();
+                                            editor.putLong("userId",userId).commit();
+                                            editor.putString("nickName",nickName).commit();
+                                            editor.putString("headPortrait",headPortrait).commit();
+                                            editor.putString("token",token).commit();
+                                            editor.putString("phoneNumber",mobile).commit();
+                                            Intent intent = new Intent(register_activity_register.this, viewpager_activity_main.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                        else if(obj.getInt("code")==600){
+                                            Toast.makeText(register_activity_register.this,"登录已过期，请重新登录",Toast.LENGTH_SHORT).show();
+                                        }
+                                        else {
+                                            String message = obj.getString("message");
+                                            Toast.makeText(register_activity_register.this,message,Toast.LENGTH_SHORT).show();
+                                        }
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -311,7 +338,7 @@ public class register_activity_register extends AppCompatActivity implements Vie
                         }
 
                     });
-                    queue.add(getCode);
+                    requestQueue.add(getCode);
                     //判定是否新用户，新用户跳转注册页面，旧用户跳转主页
 //                    更改成功 跳转回首页
 //                            Intent intent_homrpage = new Intent(this,homepage_activity_homepage);

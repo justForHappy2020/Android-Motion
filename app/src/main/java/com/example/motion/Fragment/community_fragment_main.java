@@ -24,6 +24,9 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 从第一阶段移除
+ */
 public class community_fragment_main extends Fragment implements LoadMoreModule {
     private View.OnClickListener onClickListener;
     private List<List> dataSet = new  ArrayList<>();

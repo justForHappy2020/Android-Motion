@@ -65,8 +65,10 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
         btn_getcode = findViewById(R.id.btn_getcode);
         btn_save = findViewById(R.id.btn_save);
         queue = Volley.newRequestQueue(this);
-        saveSP = this.getSharedPreferences("saveSP",MODE_PRIVATE);
+        saveSP = this.getSharedPreferences("saveSp",MODE_PRIVATE);
 
+        iv_back.setOnClickListener(this);
+        btn_save.setOnClickListener(this);
         btn_getcode.setOnClickListener(this);
         btn_getcode.setEnabled(Boolean.FALSE);
 
@@ -81,11 +83,14 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
 //                    btn_getcode.setBackgroundColor(Color.parseColor("#673AB7"));
                     btn_getcode.setTextColor(Color.parseColor("#673AB7"));
                     btn_getcode.setEnabled(Boolean.TRUE);//启用按钮
+                    btn_save.setEnabled(Boolean.TRUE);
+                    Toast.makeText(me_activity_bindphone_changephone.this,  "可", Toast.LENGTH_SHORT).show();
                 }else{
                     //btAcquireCode.setBackgroundColor(Color.GREEN);
 //                    btn_getcode.setBackgroundColor(Color.parseColor("#D1C4E9"));
                     btn_getcode.setTextColor(Color.parseColor("#FF808080"));
                     btn_getcode.setEnabled(Boolean.FALSE);//不启用按钮
+                    btn_save.setEnabled(Boolean.FALSE);
                 }
             }
             @Override
@@ -128,7 +133,7 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                   String url = "http://10.34.25.45:8080/api/user/getVerificationCode";// url
+                   String url = "http://106.55.25.94:8080/api/user/getVerificationCode";// url
 //                    String url = "https://www.fastmock.site/mock/8b3e2487a581d723a901a354dfc6f3fd/data/api/user/getCode";
                     JsonObjectRequest getCode = new JsonObjectRequest(url, json,
                             new Response.Listener<JSONObject>() {
@@ -141,7 +146,7 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
                                         new CountDownTimer(60000, 1000) {
                                             @Override
                                             public void onTick(long millisUntilFinished) {
-                                                btn_getcode.setEnabled(false);
+                                                btn_getcode.setEnabled(Boolean.FALSE);
                                                 btn_getcode.setText(String.format("重新获取(%ds)",millisUntilFinished/1000));
                                             }
 
@@ -172,12 +177,12 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
 
             case R.id.iv_back:
                 Intent intent = new Intent(me_activity_bindphone_changephone.this, viewpager_activity_main.class);
-                intent.putExtra("id",4);
                 startActivity(intent);
+                finish();
                 break;
 
-            case R.id.btn_login:
-
+            case R.id.btn_save:
+                mobile = et_phone.getText().toString().trim();
                 loginCode = et_code.getText().toString().trim();
                 if (loginCode.isEmpty() || mobile.isEmpty() ){
                     Toast.makeText(me_activity_bindphone_changephone.this,"缺少选项", Toast.LENGTH_SHORT).show();
@@ -185,7 +190,6 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
 //                    btn_save.setEnabled(Boolean.FALSE);
                 }
                 else {
-                    btn_save.setEnabled(Boolean.TRUE);
                     JSONObject json_login = new JSONObject();
                     try {
                         json_login.put("code", loginCode);
@@ -193,31 +197,30 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    String url = "http://10.34.25.45:8080/api/user/login";
+                    String url = "http://106.55.25.94:8080/api/user/changePhone";
                     JsonObjectRequest getCode = new JsonObjectRequest(url, json_login,
                             new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject obj) {//处理response
                                     System.out.println("----------:" + obj);
                                     try {
-                                        JSONObject response = obj.getJSONObject("data");
-                                        Toast.makeText(me_activity_bindphone_changephone.this, "发送成功", Toast.LENGTH_SHORT).show();
-                                        int userId = response.getInt("userId");
-                                        String nickName = response.getString("niceName");
-                                        String headProtrait = response.getString("headProtrait");
-                                        String token = response.getString("token");
-                                        isNewUser = response.getBoolean("newUser");
-
-                                        SharedPreferences.Editor editor = saveSP.edit();
-                                        editor.putInt("userId",userId).commit();
-                                        editor.putString("nickName",nickName).commit();
-                                        editor.putString("headProtrait",headProtrait).commit();
-                                        editor.putString("token",token).commit();
-                                        editor.putString("phoneNumber",mobile).commit();
-
-                                        Intent intent = new Intent(me_activity_bindphone_changephone.this, viewpager_activity_main.class);
-                                        intent.putExtra("id",4);
-                                        startActivity(intent);
+                                        if (obj.getInt("code")==600){
+                                            finish();
+                                            Toast.makeText(me_activity_bindphone_changephone.this, "登录已过期，请重新登录", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(getApplication(), register_activity_register.class);
+                                            startActivity(intent);
+                                        }
+                                        else if(obj.getInt("code")==200 && obj.getString("data").equals("成功")){
+                                            Toast.makeText(me_activity_bindphone_changephone.this, "修改成功", Toast.LENGTH_SHORT).show();
+                                            SharedPreferences.Editor editor = saveSP.edit();
+                                            editor.putString("phoneNumber",mobile).commit();
+                                            Intent intent = new Intent(me_activity_bindphone_changephone.this, viewpager_activity_main.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                        else {
+                                            Toast.makeText(me_activity_bindphone_changephone.this, "验证码错误", Toast.LENGTH_SHORT).show();
+                                        }
 
                                     } catch (JSONException e) {
                                         e.printStackTrace();

@@ -1,12 +1,15 @@
 package com.example.motion;
 
 import android.app.Application;
+
+import com.example.motion.Utils.UserInfoManager;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowLog;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
 
 public class MotionApplication extends Application{
+
 
     @Override
     public void onCreate() {

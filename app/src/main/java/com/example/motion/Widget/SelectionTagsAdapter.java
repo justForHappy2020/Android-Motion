@@ -13,16 +13,14 @@ import java.util.List;
 
 public class SelectionTagsAdapter extends BaseQuickAdapter<CourseTagGroup, BaseViewHolder>{
 
-    private int SelectedGroupId;
-    private int SelectedTagId;
+    private int[] preSelectedCourseTagIds;
 
     public SelectionTagsAdapter(@LayoutRes int layoutResId, @Nullable List<CourseTagGroup> courseTagGroups) {
         super(layoutResId, courseTagGroups);
     }
 
-    public void setSelectedGroupAndTagId(int selectedGroupId,int selectedTagId) {
-        this.SelectedGroupId = selectedGroupId;
-        this.SelectedTagId = selectedTagId;
+    public void setPreSelectedCourseTagIds(int[] preSelectedCourseTagIds) {
+        this.preSelectedCourseTagIds = preSelectedCourseTagIds;
     }
 
     @Override
@@ -30,11 +28,16 @@ public class SelectionTagsAdapter extends BaseQuickAdapter<CourseTagGroup, BaseV
         helper.setText(R.id.tv_tag_menu_name, tagGroup.getGroupName());
 
         TabLayout tabLayout = helper.findView(R.id.tl_tags);
+        tabLayout.removeAllTabs();
 
         for(int i=0;i<tagGroup.getCourseTagList().size();i++){
             tabLayout.addTab(tabLayout.newTab().setText(tagGroup.getCourseTagList().get(i).getTagName()));
-            if(tagGroup.getGroupId() == SelectedGroupId && tagGroup.getCourseTagList().get(i).getTagId()==SelectedTagId){
-                tabLayout.getTabAt(i).select();
+
+            if(preSelectedCourseTagIds != null && tagGroup.getGroupId() == preSelectedCourseTagIds[0] && tagGroup.getCourseTagList().get(i).getTagId() == preSelectedCourseTagIds[1]){
+                TabLayout.Tab tab = tabLayout.getTabAt(i);
+                if (tab != null) {
+                    tab.select();
+                }
             }
         }
 

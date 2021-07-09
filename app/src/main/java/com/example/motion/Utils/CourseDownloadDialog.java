@@ -1,4 +1,4 @@
-package com.example.motion.Widget;
+package com.example.motion.Utils;
 
 import android.app.Activity;
 import android.app.Dialog;

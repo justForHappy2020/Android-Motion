@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class User implements Serializable {
     private Long userId;
     private String phoneNumber;
-    private String nickname;
+    private String nickName;
     private int gender;
     private String headPortraitUrl;
     private int type;
@@ -20,7 +20,7 @@ public class User implements Serializable {
     }
 
     public User(String nickname,String headPortraitUrl){
-        this.nickname = nickname;
+        this.nickName = nickname;
         this.headPortraitUrl = headPortraitUrl;
     }
 
@@ -45,12 +45,12 @@ public class User implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public int getGender() {

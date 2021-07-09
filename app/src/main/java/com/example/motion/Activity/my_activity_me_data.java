@@ -34,6 +34,7 @@ import androidx.core.content.ContextCompat;
 import com.bumptech.glide.Glide;
 import com.example.motion.Entity.User;
 import com.example.motion.R;
+import com.example.motion.Utils.UserInfoManager;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.json.JSONException;
@@ -46,7 +47,7 @@ import java.util.Calendar;
 import static com.example.motion.Utils.ClientUploadUtils.upload;
 import static com.example.motion.Utils.HttpUtils.connectHttp;
 
-public class my_activity_me_data extends Activity implements View.OnClickListener{
+public class my_activity_me_data extends NeedTokenActivity implements View.OnClickListener{
 
     private ImageView ivBack;
     private RoundedImageView ivChangeportrait;
@@ -74,7 +75,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
     private String name = "";
     private int gender;
 
-    private String token;
+    //private String token;
     private SharedPreferences readSP;
     private Intent intentAccept;
 
@@ -82,10 +83,10 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_activity_me_data);
-        checkToken();
+        //checkToken();
         initView();
     }
-
+/*
     private void checkToken() {
         readSP=this.getSharedPreferences("saveSp",MODE_PRIVATE);
         token = readSP.getString("token","");
@@ -97,10 +98,12 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
         }
     }
 
+ */
+
     private void initView(){
         intentAccept = getIntent();
         User user = (User)intentAccept.getSerializableExtra("user");
-        name = user.getNickname();
+        name = user.getNickName();
         url = user.getHeadPortraitUrl();
         gender = user.getGender();
         birth = user. getBirth();
@@ -112,7 +115,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
         tvBirth  = findViewById(R.id.tv_birth);
         btnSave = findViewById(R.id.btn_save);
         mContext = my_activity_me_data.this;
-        tvName.setText(user.getNickname());
+        tvName.setText(user.getNickName());
         Glide.with(mContext).load(user.getHeadPortraitUrl()).into(ivChangeportrait);
         final String[] sex = getResources().getStringArray(R.array.me_choose_sex);
         tvSex.setText(sex[user.getGender()]);
@@ -176,7 +179,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                 Uri photoUri = data.getData();//获取路径
                 //final String filename = photoUri.getPath();
                 final String filepath = getRealPathFromUriAboveApi19(this,photoUri);//获取绝对路径
-                final String httpurl = "http://10.34.25.45:8080/api/user/modifyHptAndroid";
+                final String httpurl = "http://106.55.25.94:8080/api/user/modifyHptAndroid";
 
 
                 //http请求
@@ -184,7 +187,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                     @Override
                     public void run() {
                         try {
-                            String responseData = upload(httpurl , filepath , token).string();//http请求
+                            String responseData = upload(httpurl , filepath , UserInfoManager.getUserInfoManager(my_activity_me_data.this).getToken()).string();//http请求
                             try {
                                 JSONObject jsonObject1 = new JSONObject(responseData);
                                 //相应的内容
@@ -403,7 +406,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                             //设置JSON数据
                             JSONObject json = new JSONObject();
                             try {
-                                json.put("token", token);
+                                json.put("token", UserInfoManager.getUserInfoManager(my_activity_me_data.this).getToken());
                                 json.put("headPortrait", url);
                                 json.put("nickName", name);
                                 json.put("gender" , gender );
@@ -411,7 +414,7 @@ public class my_activity_me_data extends Activity implements View.OnClickListene
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            String url = "http://10.34.25.45:8080/api/community/saveUserdata";
+                            String url = "http://106.55.25.94:8080/api/community/saveUserdata";
                             String responseData = connectHttp(url,json);
                             getfeedback(responseData);
                         } catch (IOException e) {

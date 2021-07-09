@@ -26,6 +26,8 @@ public class DyxQuickAdapter extends BaseMultiItemQuickAdapter<DyxItem, BaseView
         addItemType(DyxItem.SELECTCOURSE, R.layout.sport_recycle_item_course);
         addItemType(DyxItem.PORTRAIT, R.layout.me_recycle_item_portraitsmall);
         addItemType(DyxItem.HEALTHRECORD, R.layout.me_recycle_item_healthrecord);
+        addItemType(DyxItem.PICTURE, R.layout.me_item_feedback_picture);
+        addItemType(DyxItem.FEEDBACK, R.layout.me_item_feedback);
     }
 
     @Override
@@ -77,6 +79,14 @@ public class DyxQuickAdapter extends BaseMultiItemQuickAdapter<DyxItem, BaseView
                         Glide.with(getContext()).load(R.drawable.me_data_tag_fat).placeholder(R.drawable.wechat).into((ImageView)helper.getView(R.id.imageView3));
                         break;
                 }
+                break;
+            case DyxItem.PICTURE:
+                Glide.with(getContext()).load(item.getText()).placeholder(R.mipmap.ic_launcher).into((ImageView)helper.getView(R.id.iv_feedback2));
+                break;
+            case DyxItem.FEEDBACK:
+                helper.setText(R.id.tv_feedback_content , item.getFeedback().getContent())
+                        .setText(R.id.tv_time1 , item.getFeedback().getCreateTime());
+                Glide.with(getContext()).load(item.getFeedback().getPicUrls()).placeholder(R.mipmap.ic_launcher).into((ImageView)helper.getView(R.id.iv_feedback1));
                 break;
         }
     }
