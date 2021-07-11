@@ -63,15 +63,14 @@ public class UserInfoManager {
 
     public void setUser(User user) {
         userInfoManager.user = user;
-        userInfoManager.sp.edit().putLong("userId",FALSE_USER_ID);
-        userInfoManager.sp.edit().putString("nickName","");
-        userInfoManager.sp.edit().putString("headPortrait","");
-        userInfoManager.sp.edit().putString("phoneNumber","");
-        userInfoManager.sp.edit().putString("token","");
-        userInfoManager.sp.edit().putInt("gender",0);
-        userInfoManager.sp.edit().putString("userCreateTime","");
-        userInfoManager.sp.edit().putString("intro","");
-        userInfoManager.sp.edit().commit();
-
+        userInfoManager.sp.edit().putLong("userId",user.getUserId()).commit();
+        userInfoManager.sp.edit().putString("nickName",user.getNickName()).commit();
+        userInfoManager.sp.edit().putString("headPortrait",user.getHeadPortraitUrl()).commit();
+        userInfoManager.sp.edit().putString("phoneNumber",user.getPhoneNumber()).commit();
+        userInfoManager.sp.edit().putString("token",user.getToken()).commit();
+        userInfoManager.sp.edit().putInt("gender",user.getGender()).commit();
+        userInfoManager.sp.edit().putString("userCreateTime",user.getCreateTime()).commit();
+        userInfoManager.sp.edit().putString("intro",user.getCreateTime()).commit();
+        //userInfoManager.sp.edit().putString("birth",user.getBirth()).commit();
     }
 }

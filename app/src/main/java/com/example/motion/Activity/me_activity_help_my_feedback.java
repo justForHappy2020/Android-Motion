@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,11 +18,10 @@ import com.android.volley.VolleyError;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.example.motion.Entity.DyxItem;
 import com.example.motion.Entity.Feedback;
-import com.example.motion.Entity.HealthRecord;
 import com.example.motion.R;
 import com.example.motion.Utils.UserInfoManager;
 import com.example.motion.Widget.DyxQuickAdapter;
-import com.example.motion.Widget.MyStringRequest;
+import com.example.motion.VolleyRequest.MyStringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;

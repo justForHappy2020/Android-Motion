@@ -33,15 +33,11 @@ import com.example.motion.Activity.register_activity_register;
 import com.example.motion.Entity.User;
 import com.example.motion.R;
 import com.example.motion.Utils.UserInfoManager;
-import com.example.motion.Widget.MyStringRequest;
+import com.example.motion.VolleyRequest.MyStringRequest;
 import com.makeramen.roundedimageview.RoundedImageView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import static android.app.Activity.RESULT_OK;
-import static android.content.Context.MODE_PRIVATE;
 
 
 public class me_fragment_main extends BaseNetworkFragment implements View.OnClickListener {

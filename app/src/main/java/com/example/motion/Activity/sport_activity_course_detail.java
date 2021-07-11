@@ -33,8 +33,8 @@ import com.example.motion.Utils.UserInfoManager;
 import com.example.motion.Utils.CourseCacheUtil;
 import com.example.motion.Utils.OnProcessStateChangeListener;
 import com.example.motion.Widget.MultipleItemQuickAdapter;
-import com.example.motion.Widget.MyStringRequest;
-import com.example.motion.Widget.PostJsonRequest;
+import com.example.motion.VolleyRequest.MyStringRequest;
+import com.example.motion.VolleyRequest.PostJsonRequest;
 import com.example.motion.Widget.RelatedCoursesAdapter;
 
 import org.json.JSONArray;
@@ -182,6 +182,7 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
     }
 
     private void parseCourse(String responseStr){
+        Log.d("parseCourse",responseStr);
         try {
             JSONObject jsonObject1 = new JSONObject(responseStr);
             //Log.i("responseData ",responseData);
@@ -256,19 +257,21 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
             String url = "http://106.55.25.94:8080/api/course/getCourse";
             //String url = "https://www.fastmock.site/mock/318b7fee143da8b159d3e46048f8a8b3/api/courseId2All?courseId="+courseId;
 
-            String requestStr = "{\"courseId\": "+courseId+", \"token\":\""+ UserInfoManager.getUserInfoManager(this).getToken() +"\" }";
-        /*
-        JSONObject param = new JSONObject();
-        try{
-            param.put("courseId",courseId);
-            param.put("token",UserInfoManager.getUserInfoManager(this).getToken());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+            //String requestStr = "{\"courseId\": "+courseId+", \"token\":\""+ UserInfoManager.getUserInfoManager(this).getToken() +"\" }";
 
-         */
+            JSONObject param = new JSONObject();
+            try{
+                param.put("courseId",courseId);
+                param.put("token",UserInfoManager.getUserInfoManager(this).getToken());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
 
-            PostJsonRequest postJsonRequest = new PostJsonRequest(Request.Method.POST,url,requestStr, new Response.Listener<String>() {
+            System.out.println(param.toString());
+
+
+
+            PostJsonRequest postJsonRequest = new PostJsonRequest(Request.Method.POST,url,param.toString(), new Response.Listener<String>() {
                 @Override
                 public void onResponse(String responseStr) {
                     parseCourse(responseStr);
@@ -504,7 +507,7 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
                         break;
                     case CourseTag.TAG_ONLINE_NO:
                         if(course.getIsOnline() == CourseTag.TAG_ONLINE_NO){
-
+                            //book course API
                         }
                         break;
                 }

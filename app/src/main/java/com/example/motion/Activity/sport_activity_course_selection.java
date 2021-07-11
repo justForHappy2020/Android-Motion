@@ -1,7 +1,6 @@
 package com.example.motion.Activity;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,15 +9,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,16 +21,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
+import com.example.motion.Beans.PagedItemListBean;
 import com.example.motion.Entity.Course;
 import com.example.motion.Entity.CourseTag;
 import com.example.motion.Entity.CourseTagGroup;
 import com.example.motion.Entity.MultipleItem;
+import com.example.motion.MontionRequest.GetCourseByIdRequest;
 import com.example.motion.R;
 import com.example.motion.Widget.MultipleItemQuickAdapter;
-import com.example.motion.Widget.MyStringRequest;
+import com.example.motion.VolleyRequest.MyStringRequest;
 import com.example.motion.Widget.SelectionTagsAdapter;
 import com.google.android.material.tabs.TabLayout;
 
@@ -81,6 +77,8 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
     private String dialogMessage = "";
     private int[] preSelectedCourseTagIds;
 
+    private Map<String,String> defaultSelectionParam;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,11 +89,22 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
         builder = new AlertDialog.Builder(this);
 
         initPreSelect();
+        initDefaultSelectionParams();
 
-        getHttpCourse(new HashMap());
+        getHttpCourse(defaultSelectionParam);
+
         getHttpCourseTags();
 
         initData();
+    }
+
+    private void initDefaultSelectionParams(){
+        defaultSelectionParam = new HashMap<>();
+        defaultSelectionParam.put("courseClassIdstr",String.valueOf(preSelectedCourseTagIds[1]));//有问题的写法，待banner方案完善以后再改
+        defaultSelectionParam.put("size",String.valueOf(COURSE_NUM_IN_ONE_PAGE));
+        defaultSelectionParam.put("page",String.valueOf(currentPage));
+        defaultSelectionParam.put("isHot","1");
+        defaultSelectionParam.put("isOnline","1");
     }
 
     private void initView() {
@@ -183,7 +192,8 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
             @Override
             public void onClick(View view) {
                 Toast.makeText(sport_activity_course_selection.this, "Retrying", Toast.LENGTH_SHORT).show();
-                getHttpCourse(new HashMap());
+
+                getHttpCourse(defaultSelectionParam);
                 getHttpCourseTags();
             }
         });
@@ -221,6 +231,29 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
     //http://106.55.25.94:8080/api/course/getCourseById?size=10&page=1&courseClassIdstr=1,2,3;4,5,6;&isOnline=3&isHot=1
 
     private void getHttpCourse(Map params) {
+
+        requestQueue.add(new GetCourseByIdRequest(params, new Response.Listener<PagedItemListBean>() {
+            @Override
+            public void onResponse(PagedItemListBean response) {
+                showingCourseList.addAll(response.getCourseList());
+                hasNext = response.hasNext();
+
+                Message msg = handler.obtainMessage();
+                msg.what = LOAD_COURSES_SUCCESS;
+                handler.sendMessage(msg);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Message msg = handler.obtainMessage();
+                msg.what = LOAD_COURSES_FAILED;
+                msg.obj = error.toString();
+                handler.sendMessage(msg);
+            }
+        }));
+
+        /*
         List<MultipleItem> onePageCourses = new ArrayList<>();
 
         String url = "http://106.55.25.94:8080/api/course/getCourseById?size=" + COURSE_NUM_IN_ONE_PAGE;
@@ -304,14 +337,17 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
                 handler.sendMessage(msg);
             }
         });
+
         stringRequest.setTag("getHttp");
         requestQueue.add(stringRequest);
+
+         */
     }
 
     private void getHttpCourseTags() {
         courseTagGroupList = new ArrayList<>();
-        String url ="https://www.fastmock.site/mock/318b7fee143da8b159d3e46048f8a8b3/api/getSorts";
-        //String url ="http://106.55.25.94:8080/api/CourseClass/getSorts";
+        //String url ="https://www.fastmock.site/mock/318b7fee143da8b159d3e46048f8a8b3/api/getSorts";
+        String url ="http://106.55.25.94:8080/api/CourseClass/getSorts";
 
         //test tool
         dialogMessage += "\n\ngetHttpCourseTags requestingUrl:\n" + url;
@@ -391,7 +427,8 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
     private void startSelection(int page){
         String courseClassIdstr = "";
         Map params = new HashMap();
-        params.put("page",page);
+        params.put("size", String.valueOf(COURSE_NUM_IN_ONE_PAGE));
+        params.put("page",String.valueOf(currentPage));
 
         for(int i=0;i<courseTagGroupList.size();i++){
             TabLayout groupRootView = (TabLayout)tagsAdapter.getViewByPosition(i,R.id.tl_tags);

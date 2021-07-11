@@ -1,4 +1,4 @@
-package com.example.motion.Widget;
+package com.example.motion.VolleyRequest;
 
 import android.util.Log;
 
@@ -8,10 +8,14 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.raizlabs.android.dbflow.annotation.provider.ContentUri;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -20,6 +24,8 @@ import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.example.motion.MontionRequest.BaseServer.TOKEN_INVALID;
 
 public class PostJsonRequest extends Request<String> {
     private final String CONTENT_TYPE_JSON_UTF8 = "application/json;charset=utf-8";
@@ -53,6 +59,19 @@ public class PostJsonRequest extends Request<String> {
         } catch (UnsupportedEncodingException e) {
             parsed = new String(response.data);
         }
+
+        try {
+            JSONObject root = new JSONObject(parsed);
+            switch(root.getInt("code")){
+                case TOKEN_INVALID:
+                    return Response.error(new VolleyError("TOKEN_INVALID"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
         return Response.success(parsed,
                 HttpHeaderParser.parseCacheHeaders(response));
     }

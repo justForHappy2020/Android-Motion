@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,7 +27,7 @@ import com.example.motion.Entity.MultipleItem;
 import com.example.motion.Entity.me_mycourse_collections;
 import com.example.motion.R;
 import com.example.motion.Widget.MultipleItemQuickAdapter;
-import com.example.motion.Widget.MyStringRequest;
+import com.example.motion.VolleyRequest.MyStringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
