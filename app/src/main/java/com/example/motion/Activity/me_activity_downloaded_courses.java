@@ -2,8 +2,10 @@ package com.example.motion.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,6 +34,7 @@ public class me_activity_downloaded_courses extends NeedTokenActivity implements
     private final int DL_COURSES_LOAD_FAILED = 0;
     private final int DL_COURSES_LOAD_SUCCESS = 1;
 
+    private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView rvDlCourses;
     private DownloadedCoursesAdapter courseAdapter;
     private List<Course> dlCourseList;
@@ -39,6 +42,7 @@ public class me_activity_downloaded_courses extends NeedTokenActivity implements
 
     private TextView tvEdit;
     private ImageView ivBack;
+    private CourseCacheUtil ccu;
 
 
     @Override
@@ -49,6 +53,7 @@ public class me_activity_downloaded_courses extends NeedTokenActivity implements
         initAdapter();
         initRecyclerView();
         initHandler();
+        initSwipeRefresh();
         initData();
     }
 
@@ -60,9 +65,11 @@ public class me_activity_downloaded_courses extends NeedTokenActivity implements
                     case DL_COURSES_LOAD_FAILED:
                         Log.i("me_activity_downloaded_courses","DL_COURSES_LOAD_FAILED");
                         Toast.makeText(getBaseContext(), getText(R.string.me_activity_downloaded_courses_state_load_fail), Toast.LENGTH_SHORT).show();
+                        swipeRefreshLayout.setRefreshing(false);
                         break;
                     case DL_COURSES_LOAD_SUCCESS:
                         courseAdapter.setDiffNewData(dlCourseList);
+                        swipeRefreshLayout.setRefreshing(false);
                         for(int i=0;i<dlCourseList.size();i++){
                             Log.d("me_activity_downloaded_courses","dlCourseList.get"+i+".size="+dlCourseList.get(i).getCourseSize());
                         }
@@ -74,10 +81,25 @@ public class me_activity_downloaded_courses extends NeedTokenActivity implements
         };
     }
 
+    private void initSwipeRefresh(){
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                rvDlCourses.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        initData();
+                    }
+                });
+            }
+        });
+    }
+
     private void intiView(){
         rvDlCourses = findViewById(R.id.rv_dl_courses);
         tvEdit = findViewById(R.id.tv_edit_dl_courses);
         ivBack = findViewById(R.id.iv_back_dl_courses);
+        swipeRefreshLayout = findViewById(R.id.swipe_fefresh_layout_dl_courses);
 
         tvEdit.setOnClickListener(this);
         ivBack.setOnClickListener(this);
@@ -88,6 +110,7 @@ public class me_activity_downloaded_courses extends NeedTokenActivity implements
         LinearLayoutManager layoutM = new LinearLayoutManager(getBaseContext());
         layoutM.setOrientation(LinearLayoutManager.VERTICAL);
         rvDlCourses.setLayoutManager(layoutM);
+        rvDlCourses.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         rvDlCourses.setAdapter(courseAdapter);
 
 
@@ -112,7 +135,9 @@ public class me_activity_downloaded_courses extends NeedTokenActivity implements
 
     private void initData(){
 
-        CourseCacheUtil ccu = new CourseCacheUtil(this,getCacheDir());
+        if(null == ccu){
+            ccu = new CourseCacheUtil(this,getCacheDir());
+        }
 
         runOnUiThread(new Runnable() {
             @Override

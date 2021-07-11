@@ -34,4 +34,5 @@
         android:layout_centerVertical="true"
         android:scaleType="centerInside"
         android:src="@drawable/ic_fas_fa_angle_right" />
+
 </RelativeLayout>

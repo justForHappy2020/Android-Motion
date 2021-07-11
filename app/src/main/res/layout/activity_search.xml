@@ -4,21 +4,21 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:background="@color/me_view_bg_color"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
 
         <ImageView
             android:id="@+id/iv_search_back"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/left_arrow_white"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            />
+            android:src="@drawable/ic_arrow_left" />
 
         <TextView
             android:layout_width="60dp"
@@ -27,17 +27,16 @@
             android:gravity="center"
             android:text="搜索课程"
             android:textColor="#FFFFFF"
-            android:textStyle="bold"
             android:textSize="30dp"
-            />
+            android:textStyle="bold" />
+
         <Space
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="#3E3C42"
-            android:src="@drawable/left_arrow_white"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            />
+            android:background="#3E3C42"
+            android:src="@drawable/left_arrow_white" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

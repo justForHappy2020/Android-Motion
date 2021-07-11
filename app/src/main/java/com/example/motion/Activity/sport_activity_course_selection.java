@@ -466,7 +466,11 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
                 finish();
                 break;
             case R.id.iv_search:
+                //跳转到搜索课程页
+                Intent intent = new Intent(sport_activity_course_selection.this,search_course_activity.class);
+                startActivity(intent);
                 //test function
+                /*
                 builder.setMessage(dialogMessage)
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
@@ -476,7 +480,9 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
                         })
                         .create()
                         .show();
-                //跳转到搜索课程页
+
+                 */
+
                 break;
             case R.id.btn_unselect:
                 //取消所有选择
