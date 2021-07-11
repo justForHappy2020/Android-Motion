@@ -50,7 +50,9 @@ public class search_result_activity extends FragmentActivity implements View.OnC
     //装载Fragment的集合
 
     private List<Fragment> mFragments;
-    private String[] titles = {"课程", "动态", "好友", "文章"};
+    //一阶段只有课程
+    //private String[] titles = {"课程", "动态", "好友", "文章"};
+    private String[] titles = {"课程"};
     private String searchContent;
     private int from;
 
@@ -73,21 +75,21 @@ public class search_result_activity extends FragmentActivity implements View.OnC
         bundle.putString("searchContent", searchContent);
 
         search_result_fragment_course f1 = new search_result_fragment_course();
-        search_result_fragment_post f2 = new search_result_fragment_post();
-        search_result_fragment_users f3 = new search_result_fragment_users();
-        search_result_fragment_artical f4 = new search_result_fragment_artical();
+//        search_result_fragment_post f2 = new search_result_fragment_post();
+//        search_result_fragment_users f3 = new search_result_fragment_users();
+//        search_result_fragment_artical f4 = new search_result_fragment_artical();
 
         f1.setArguments(bundle);
-        f2.setArguments(bundle);
-        f3.setArguments(bundle);
-        f4.setArguments(bundle);
+//        f2.setArguments(bundle);
+//        f3.setArguments(bundle);
+//        f4.setArguments(bundle);
 
         mFragments = new ArrayList<>();
         //将四个Fragment加入集合中
         mFragments.add(f1);
-        mFragments.add(f2);
-        mFragments.add(f3);
-        mFragments.add(f4);
+//        mFragments.add(f2);
+//        mFragments.add(f3);
+//        mFragments.add(f4);
 
         //初始化适配器
         mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -117,15 +119,15 @@ public class search_result_activity extends FragmentActivity implements View.OnC
             case SEARCH_Course:
                 mViewPager.setCurrentItem (SEARCH_Course);
                 break;
-            case SEARCH_Post:
-                mViewPager.setCurrentItem (SEARCH_Post);
-                break;
-            case SEARCH_Frineds:
-                mViewPager.setCurrentItem (SEARCH_Frineds);
-                break;
-            case SEARCH_Artical:
-                mViewPager.setCurrentItem (SEARCH_Artical);
-                break;
+//            case SEARCH_Post:
+//                mViewPager.setCurrentItem (SEARCH_Post);
+//                break;
+//            case SEARCH_Frineds:
+//                mViewPager.setCurrentItem (SEARCH_Frineds);
+//                break;
+//            case SEARCH_Artical:
+//                mViewPager.setCurrentItem (SEARCH_Artical);
+//                break;
             default:
                 break;
         }

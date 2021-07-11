@@ -104,7 +104,7 @@
                         android:paddingTop="30dp">
 
                         <TextView
-                            android:id="@+id/textView16"
+                            android:id="@+id/sport_main_user_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -112,15 +112,39 @@
                             android:textColor="#000000"
                             android:textSize="16dp"
                             android:textStyle="bold" />
-
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="在Motion的第4天"
-                            android:textColor="#000000"
-                            android:textSize="25dp"
-                            android:textStyle="bold" />
+                            android:orientation="horizontal"
+                            android:layout_gravity="center">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="在Motion的第"
+                                android:textColor="#000000"
+                                android:textSize="25dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/sport_main_days_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="4"
+                                android:textColor="#000000"
+                                android:textSize="25dp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="天"
+                                android:textColor="#000000"
+                                android:textSize="25dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+
 
                     </LinearLayout>
 
@@ -157,15 +181,27 @@
                                     android:layout_gravity="center"
                                     android:text="训练课程数"
                                     android:textSize="18dp" />
-
-                                <TextView
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:text="4节"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
-
+                                    android:orientation="horizontal"
+                                    android:layout_gravity="center">
+                                    <TextView
+                                        android:id="@+id/sport_main_course_count"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="4"
+                                        android:textSize="20dp"
+                                        android:textStyle="bold" />
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="节"
+                                        android:textSize="20dp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
                             </LinearLayout>
 
                             <Space
@@ -185,15 +221,27 @@
                                     android:layout_gravity="center"
                                     android:text="练习时长"
                                     android:textSize="18dp" />
-
-                                <TextView
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:text="24分钟"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
-
+                                    android:orientation="horizontal"
+                                    android:layout_gravity="center">
+                                    <TextView
+                                        android:id="@+id/sport_main_exercise_time_count"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="24"
+                                        android:textSize="20dp"
+                                        android:textStyle="bold" />
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="分钟"
+                                        android:textSize="20dp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
                             </LinearLayout>
 
                             <Space
@@ -212,15 +260,27 @@
                                     android:layout_height="wrap_content"
                                     android:text="最大连续天数"
                                     android:textSize="18dp" />
-
-                                <TextView
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:text="6天"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
-
+                                    android:orientation="horizontal"
+                                    android:layout_gravity="center">
+                                    <TextView
+                                        android:id="@+id/sport_main_continue_days_count"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="6"
+                                        android:textSize="20dp"
+                                        android:textStyle="bold" />
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="天"
+                                        android:textSize="20dp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
                             </LinearLayout>
 
                             <Space
@@ -247,6 +307,7 @@
                 android:paddingTop="40dp">
 
                 <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/sport_main_head"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center"

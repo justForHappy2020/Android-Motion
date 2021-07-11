@@ -158,7 +158,7 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
                             labels += (JSONArrayLabels.get(j) + "/");
                         }
                         courseCollected.setLabels(labels);
-                        onePageCourses.add(new MultipleItem(MultipleItem.COURSEFULL, courseCollected));
+                        onePageCourses.add(new MultipleItem(MultipleItem.Me_mycourse_collections, courseCollected));
                     }
                     showingCourseList.addAll(onePageCourses);
 

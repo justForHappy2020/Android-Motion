@@ -42,7 +42,7 @@
         <activity android:name=".Activity.me_activity_downloaded_courses"></activity>
         <activity
             android:name=".Activity.me_activity_bodydata_main"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
