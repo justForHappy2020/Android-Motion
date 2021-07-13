@@ -336,6 +336,17 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
             }
         }).start();
 
+        actionAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                Intent intent = new Intent(getBaseContext(),sport_activity_course_action_detail.class);
+                intent.putExtra("courseActionPosition",position);
+                intent.putExtra("actionList",(Serializable) actionList);
+                intent.putExtra("course",course);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void initCourseActions(){
@@ -347,15 +358,7 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
         rvCourseActions.setLayoutManager(layoutM);
         rvCourseActions.setAdapter(actionAdapter);
 
-        actionAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                Intent intent = new Intent(getBaseContext(),sport_activity_course_action_detail.class);
-                intent.putExtra("courseActionPosition",position);
-                intent.putExtra("actionList",(Serializable) actionList);
-                startActivity(intent);
-            }
-        });
+
 
         /*
         final Thread getCourseActions = new Thread(new Runnable() {
