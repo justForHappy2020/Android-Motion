@@ -24,6 +24,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.example.motion.Activity.register_activity_register;
 import com.example.motion.Activity.sport_activity_course_detail;
@@ -121,7 +123,8 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
 
         String url = "http://106.55.25.94:8080/api/course/getCollectionCourse?size=" + COURSE_NUM_IN_ONE_PAGE;
         if(params.isEmpty()){
-            url+="&page=1&token="+token;
+//            url+="&page=1&token="+token;   //使用真实token
+            url+="&page=1&token=078d3ab3-6b55-4d86-9957-0fd961d79972";   //测试token
         }else{
             Iterator iter = params.keySet().iterator();
             while (iter.hasNext()) {
@@ -151,11 +154,16 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
                         JSONObject jsonCourseObject = JSONArrayCourse.getJSONObject(i);
                         //相应的内容
                         me_mycourse_collections courseCollected = new me_mycourse_collections();
-                        courseCollected.setCourseId(jsonCourseObject.getLong("courseId"));
-                        courseCollected.setCollectionsName1(jsonCourseObject.getString("courseName"));
-                        courseCollected.setImgUrls(jsonCourseObject.getString("backgroundUrl"));
-                        courseCollected.setCollectionsName2(jsonCourseObject.getString("targetAge"));
-                        courseCollected.setIsOnline(jsonCourseObject.getInt("online"));
+                        Long courseId =jsonCourseObject.getLong("courseId");
+                        String courseName = jsonCourseObject.getString("courseName");
+                        String backgroundUrl = jsonCourseObject.getString("backgroundUrl");
+                        String targetAge = jsonCourseObject.getString("targetAge");
+                        int online = jsonCourseObject.getInt("online");
+                        courseCollected.setCourseId(courseId);
+                        courseCollected.setCollectionsName1(courseName);
+                        courseCollected.setImgUrls(backgroundUrl);
+                        courseCollected.setCollectionsName2(targetAge);
+                        courseCollected.setIsOnline(online);
 
                         JSONArray JSONArrayLabels = jsonCourseObject.getJSONArray("labels");
                         String labels = "";
@@ -163,7 +171,7 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
                             labels += (JSONArrayLabels.get(j) + "/");
                         }
                         courseCollected.setLabels(labels);
-                        onePageCourses.add(new MultipleItem(MultipleItem.COURSEFULL, courseCollected));
+                        onePageCourses.add(new MultipleItem(MultipleItem.Me_mycourse_collections, courseCollected));
                     }
                     showingCourseList.addAll(onePageCourses);
 
@@ -201,10 +209,24 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
 
         rvCourseCollected.setLayoutManager(new LinearLayoutManager(getActivity()));
         courseAdapter = new MultipleItemQuickAdapter(showingCourseList);
-        rvCourseCollected.setAdapter(courseAdapter);
 
         showingCourseList = new ArrayList<>();
         courseAdapter = new MultipleItemQuickAdapter(showingCourseList);
+        courseAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter quickAdapter, @NonNull View view, int position) {
+                //Log.d("Adapter","Click");
+                Intent intent;
+                intent = new Intent(getActivity(), sport_activity_course_detail.class);
+/*                for(int i = 0 ; i < dataSet.size() ; i++){
+                    courseList = dataSet.get(i);
+                    if(courseList.size()<=position)position = position - courseList.size();
+                    else break;
+                }*/
+                intent.putExtra("course", showingCourseList.get(position).getCourse());
+                startActivity(intent);
+            }
+        });
         rvCourseCollected.setAdapter(courseAdapter);
         rvCourseCollected.setNestedScrollingEnabled(false);
 

@@ -47,20 +47,25 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.fastjson.JSON;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.example.motion.Activity.me_activity_mycollections;
 import com.example.motion.Activity.me_activity_mycourse;
 import com.example.motion.Activity.register_activity_register;
 import com.example.motion.Activity.search_course_activity;
 
+import com.example.motion.Activity.sport_activity_course_detail;
 import com.example.motion.Entity.MultipleItem;
 import com.example.motion.Entity.User;
 import com.example.motion.Entity.sportMainItem;
@@ -155,12 +160,20 @@ public class sport_fragment_main extends BaseNetworkFragment implements
     //日历模块变量
     private String[] emptyList;
     private String[] dateList;
-    private String[][] exerciseList;
+//    private String[][] exerciseList;
+    private String[] exerciseList;
     private int[] exerciseTime;
     int [] yearList;
     int [] monthList;
     int [] dayList;
 
+    private String userInfoUrl;
+    private String sportInfoUrl;
+    private String calendarUrl;
+    private String historyUrl;
+    private String collectionUrl;
+    private String emptyUrl = "";
+    private String testToken = "078d3ab3-6b55-4d86-9957-0fd961d79972";
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -174,11 +187,10 @@ public class sport_fragment_main extends BaseNetworkFragment implements
             initView(view);
             initHandler();
             checkToken();
-            getHttpCalendar();
             initData();
 //            initPracticedList();
 //            initCollectionList();
-            initDownloadList();
+//            initDownloadList();
         }
 
         return view;
@@ -315,7 +327,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
         tv_days_count = view.findViewById(R.id.sport_main_days_count);
         tv_course_count = view.findViewById(R.id.sport_main_course_count);
         tv_exercise_time = view.findViewById(R.id.sport_main_exercise_time_count);
-        tv_continue_day_count = view.findViewById(R.id.sport_main_days_count);
+        tv_continue_day_count = view.findViewById(R.id.sport_main_continue_days_count);
 
         rvPracticed = view.findViewById(R.id.rvSportMainPracticed);
         rvCollected = view.findViewById(R.id.rvSportMainCollection);
@@ -327,6 +339,36 @@ public class sport_fragment_main extends BaseNetworkFragment implements
         practicedAdapter = new MultipleItemQuickAdapter(practicedList);
         collectionAdapter = new MultipleItemQuickAdapter(collectedList);
         downloadAdapter = new MultipleItemQuickAdapter(downloadList);
+        practicedAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter quickAdapter, @NonNull View view, int position) {
+                //Log.d("Adapter","Click");
+                Intent intent;
+                intent = new Intent(getActivity(), sport_activity_course_detail.class);
+/*                for(int i = 0 ; i < dataSet.size() ; i++){
+                    courseList = dataSet.get(i);
+                    if(courseList.size()<=position)position = position - courseList.size();
+                    else break;
+                }*/
+                intent.putExtra("course", practicedList.get(position).getCourse());
+                startActivity(intent);
+            }
+        });
+        collectionAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter quickAdapter, @NonNull View view, int position) {
+                //Log.d("Adapter","Click");
+                Intent intent;
+                intent = new Intent(getActivity(), sport_activity_course_detail.class);
+/*                for(int i = 0 ; i < dataSet.size() ; i++){
+                    courseList = dataSet.get(i);
+                    if(courseList.size()<=position)position = position - courseList.size();
+                    else break;
+                }*/
+                intent.putExtra("course", collectedList.get(position).getCourse());
+                startActivity(intent);
+            }
+        });
         rvPracticed.setAdapter(practicedAdapter);
         rvCollected.setAdapter(collectionAdapter);
         rvDownload.setAdapter(downloadAdapter);
@@ -418,16 +460,17 @@ public class sport_fragment_main extends BaseNetworkFragment implements
         int Year = calendar.getYear();
         int Month = calendar.getMonth();
         int Day = calendar.getDay();
-
+        String []testList = dateList;
         if(dateList.length!=0){
-            for(int i = 0;i<dateList.length;i++){
+            for(int i = 0;i<365;i++){
                 if(Year == yearList[i] && Month == monthList[i] &&  Day ==dayList[i]){
                     if (isClick) {
                         String HowLong=Integer.toString(exerciseTime[i]);
-                        String[] Courses = new String[exerciseList[i].length];
-                        for(int n = 0;n<exerciseList.length;n++) {
-                            Courses[n] = exerciseList[i][n];
-                        }
+//                        String[] Courses = new String[exerciseList[i].length];
+//                        for(int n = 0;n<exerciseList.length;n++) {
+//                            Courses[n] = exerciseList[i][n];
+                        String Courses = exerciseList[i];//new String[exerciseList.length];
+
 //带确认和取消按钮的弹窗
                         /*if(popupView==null)*/popupView = new XPopup.Builder(getActivity())
                                 .dismissOnBackPressed(true)
@@ -440,7 +483,8 @@ public class sport_fragment_main extends BaseNetworkFragment implements
 //                        .popupAnimation(PopupAnimation.NoAnimation)
 //                        .isLightStatusBar(true)
 //                        .setPopupCallback(new DemoXPopupListener())
-                                .asConfirm(Year+"年"+Month+"月"+Day+"日", "练习时长："+HowLong+"分钟"+"\n"+"练习课程:"+showCalendarExerciseList(Courses),
+//                                .asConfirm(Year+"年"+Month+"月"+Day+"日", "练习时长："+HowLong+"分钟"+"\n"+"练习课程:"+showCalendarExerciseList(Courses),
+                                .asConfirm(Year+"年"+Month+"月"+Day+"日", "练习时长："+HowLong+"分钟"+"\n"+"练习课程:"+Courses,
                                         "  ", "确定",
                                         new OnConfirmListener() {
                                             @Override
@@ -451,14 +495,16 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                     }
                 }
             }}
-        else { for(int i = 0;i<emptyList.length;i++){
+        else {
+            for(int i = 0;i<emptyList.length;i++){
             if(Year == yearList[i] && Month == monthList[i] &&  Day ==dayList[i]){
                 if (isClick) {
                     String HowLong=Integer.toString(exerciseTime[i]);
-                    String[] Courses = new String[exerciseList[i].length];
-                    for(int n = 0;n<exerciseList.length;n++) {
-                        Courses[n] = exerciseList[i][n];
-                    }
+//                    String[] Courses = new String[exerciseList[i].length];
+//                    for(int n = 0;n<exerciseList.length;n++) {
+//                        Courses[n] = exerciseList[i][n];
+                       String Courses = exerciseList[i];
+
 //带确认和取消按钮的弹窗
                     /*if(popupView==null)*/popupView = new XPopup.Builder(getActivity())
                             .dismissOnBackPressed(true)
@@ -471,7 +517,8 @@ public class sport_fragment_main extends BaseNetworkFragment implements
 //                        .popupAnimation(PopupAnimation.NoAnimation)
 //                        .isLightStatusBar(true)
 //                        .setPopupCallback(new DemoXPopupListener())
-                            .asConfirm(Year+"年"+Month+"月"+Day+"日", "练习时长："+HowLong+"分钟"+"\n"+"练习课程:"+showCalendarExerciseList(Courses),
+                            //.asConfirm(Year+"年"+Month+"月"+Day+"日", "练习时长："+HowLong+"分钟"+"\n"+"练习课程:"+showCalendarExerciseList(Courses),
+                            .asConfirm(Year+"年"+Month+"月"+Day+"日", "练习时长："+HowLong+"分钟"+"\n"+"练习课程:"+Courses,
                                     "  ", "确定",
                                     new OnConfirmListener() {
                                         @Override
@@ -500,20 +547,25 @@ public class sport_fragment_main extends BaseNetworkFragment implements
     }
 
     protected void initData() {
+        userInfoUrl = "http://106.55.25.94:8080/api/community/getUserdata?token=";
+        sportInfoUrl =  "http://106.55.25.94:8080/api/user/getSportsCenterData?token=";
+        calendarUrl = "http://106.55.25.94:8080/api/user/getSportsLogData?token=";
+        historyUrl = "http://106.55.25.94:8080/api/course/getPracticedCourse?size=";
+        collectionUrl = "http://106.55.25.94:8080/api/course/getCollectionCourse?size=";
 
 
-        getHttpUserInfo();
-        getHttpSportInfo();
-        getHttpCalendar();
-        getHttpPracticedCourse(new HashMap());
-        getHttpCollectedCourse(new HashMap());
+        getHttpUserInfo(userInfoUrl);
+        getHttpSportInfo(sportInfoUrl);
+        getHttpCalendar(calendarUrl);
+        getHttpPracticedCourse(new HashMap(),historyUrl);
+        getHttpCollectedCourse(new HashMap(),collectionUrl);
 
     }
 
-    private void getHttpUserInfo(){
-        String url = "http://106.55.25.94:8080/api/community/getUserdata?token=" + UserInfoManager.getUserInfoManager(getContext()).getToken();
+    private void getHttpUserInfo(String url){
+        String targetUserInfoUrl= url + UserInfoManager.getUserInfoManager(getContext()).getToken();
 
-        MyStringRequest getTagsStringRequest = new MyStringRequest(Request.Method.GET,  url, new Response.Listener<String>() {
+        MyStringRequest getTagsStringRequest = new MyStringRequest(Request.Method.GET,  targetUserInfoUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String responseStr) {
                 try {
@@ -547,10 +599,10 @@ public class sport_fragment_main extends BaseNetworkFragment implements
 
     }
 
-    private void getHttpSportInfo(){
-        String url = "http://106.55.25.94:8080/api/user/getSportsCenterData?token=" + UserInfoManager.getUserInfoManager(getContext()).getToken();
-
-        MyStringRequest getTagsStringRequest = new MyStringRequest(Request.Method.GET,  url, new Response.Listener<String>() {
+    private void getHttpSportInfo(String url){
+        //String targetSportInfoUrl = url + UserInfoManager.getUserInfoManager(getContext()).getToken();
+        String targetSportInfoUrl = url + testToken;
+        MyStringRequest getTagsStringRequest = new MyStringRequest(Request.Method.GET,  targetSportInfoUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String responseStr) {
                 try {
@@ -587,26 +639,41 @@ public class sport_fragment_main extends BaseNetworkFragment implements
         requestQueue.add(getTagsStringRequest);
     }
 
-    private void getHttpCalendar(){
+    private void getHttpCalendar(String url){
         dateList = new String[] {};
-        exerciseList = new String[][] {};
-        exerciseTime = new int[]{};
-        String url = "http://106.55.25.94:8080/api/user/getSportsLogData?token=" + UserInfoManager.getUserInfoManager(getContext()).getToken();
-        MyStringRequest getTagsStringRequest = new MyStringRequest(Request.Method.GET,  url, new Response.Listener<String>() {
+        exerciseList = new String[] {};
+        //exerciseList = new String[][] {};
+        exerciseTime = new int[] {};
+//        String targetCalendarUrl = url + UserInfoManager.getUserInfoManager(getContext()).getToken();
+        String targetCalendarUrl = url+ testToken;//测试token
+        MyStringRequest getTagsStringRequest = new MyStringRequest(Request.Method.GET,  targetCalendarUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String responseStr) {
                 try {
                     JSONObject jsonRootObject = new JSONObject(responseStr);
-
-                    JSONObject jsonDataObject = jsonRootObject.getJSONObject("data");
+                    JSONArray JSONArrayCalendarInfo = jsonRootObject.getJSONArray("data");
                     //相应的内容
-                    JSONArray JSONArrayCalendarInfo = jsonDataObject.getJSONArray("");
+                    //JSONArray  = jsonDataObject.getJSONArray("");
+//                    JSONObject testArray = new JSONObject() {
+//                    };
+//                    testArray = JSONArrayCalendarInfo;
+                    dateList = new String[JSONArrayCalendarInfo.length()];
+                    exerciseList = new String[JSONArrayCalendarInfo.length()];
+                    exerciseTime = new int[JSONArrayCalendarInfo.length()];
                     for(int m=0;m<JSONArrayCalendarInfo.length();m++){
                         JSONObject jsonCourseObject = JSONArrayCalendarInfo.getJSONObject(m);
                         dateList[m] = jsonCourseObject.getString("exerciseDate");
-                        for(int n=0;n<jsonCourseObject.getJSONArray("exerciseCourseNameList").length();n++){
-                            exerciseList[m][n] = jsonCourseObject.getJSONArray("exerciseCourseNameList").getString(n);
-                        }
+                        if(jsonCourseObject.getString("exerciseCourseNameList").length()!=0)
+                            exerciseList[m] = jsonCourseObject.getString("exerciseCourseNameList");
+                        else
+                            exerciseList[m] = "无训练课程";
+ //                       if(jsonCourseObject.getJSONArray("exerciseCourseNameList").length()!=0)
+
+//                        for(int n=0;n<jsonCourseObject.getJSONArray("exerciseCourseNameList").length();n++){
+//                            exerciseList[m][n] = jsonCourseObject.getJSONArray("exerciseCourseNameList").getString(n);
+//                        }
+//                        else
+//                            exerciseList[m][0] = "无练习课程";
                         exerciseTime[m] = jsonCourseObject.getInt("exercisetime");
                     }
 
@@ -632,38 +699,39 @@ public class sport_fragment_main extends BaseNetworkFragment implements
         });
         getTagsStringRequest.setTag("getHttp");
         requestQueue.add(getTagsStringRequest);
+
+
         if(dateList.length!=0)
             transformDate(dateList);
         else{
             emptyList = new String[] {"2021-06-23"};
-            exerciseList = new String[][] {{"感谢使用"}};
+            exerciseList = new String[] {"感谢使用"};
             exerciseTime = new int[]{23};
             transformDate(emptyList);
         }
-
     }
 
-    private void getHttpPracticedCourse(Map params){
+    private void getHttpPracticedCourse(Map params,String url){
         List<MultipleItem> sportMainPracticedCourses = new ArrayList<>();
 
-        String url = "http://106.55.25.94:8080/api/course/getPracticedCourse?size=" + COURSE_NUM_IN_ONE_PAGE;
+        String targetPracticedCourseUrl = url + COURSE_NUM_IN_ONE_PAGE;
         if(params.isEmpty()){
-            url+="&page=1&token="+token;
+//            targetPracticedCourseUrl+="&page=1&token="+token;//真实token
+            targetPracticedCourseUrl+="&page=1&token="+testToken;//测试token
         }else{
             Iterator iter = params.keySet().iterator();
             while (iter.hasNext()) {
                 Object key = iter.next();
                 Object val = params.get(key);
-                url+=("&"+key.toString()+"="+val.toString());
+                targetPracticedCourseUrl+=("&"+key.toString()+"="+val.toString());
             }
         }
-        Log.d("sport_main_practiced_course","requestUrl:" + url);
-        dialogMessage += "\n\ngetHttpCourse requestingUrl:\n" + url;
+//        Log.d("sport_main_practiced_course","requestUrl:" + url);
+//        dialogMessage += "\n\ngetHttpCourse requestingUrl:\n" + url;
 
-        MyStringRequest stringRequest = new MyStringRequest(Request.Method.GET,  url, new Response.Listener<String>() {
+        MyStringRequest stringRequest = new MyStringRequest(Request.Method.GET,  targetPracticedCourseUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String responseStr) {
-
                 try {
                     JSONObject jsonRootObject = new JSONObject(responseStr);
 
@@ -675,13 +743,20 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                     //得到筛选的课程list
                     JSONArray JSONArrayCourse = jsonObject2.getJSONArray("courseList");
 //                    for (int i = 0; i < JSONArrayCourse.length(); i++) {
-                    for (int i = 0; i < 3; i++) {
+                    int showCase = JSONArrayCourse.length();
+                    if (showCase>3)
+                        showCase = 3;
+                    for (int i = 0; i < showCase; i++) {
                         JSONObject jsonCourseObject = JSONArrayCourse.getJSONObject(i);
                         //相应的内容
                         sportMainItem practicedCourse = new sportMainItem();
-                        practicedCourse.setCourseName(jsonCourseObject.getString("courseName"));
-                        practicedCourse.setImgUrl(jsonCourseObject.getString("backgroundUrl"));
-                        practicedCourse.setTargetAge(jsonCourseObject.getString("targetAge"));
+
+                        String courseName = jsonCourseObject.getString("courseName");
+                        String backgroundUrl = jsonCourseObject.getString("backgroundUrl");
+                        String targetAge = jsonCourseObject.getString("targetAge");
+                        practicedCourse.setCourseName(courseName);
+                        practicedCourse.setImgUrl(backgroundUrl);
+                        practicedCourse.setTargetAge(targetAge);
                         JSONArray JSONArrayLabels = jsonCourseObject.getJSONArray("labels");
                         String labels = "";
                         for (int j = 0; j < JSONArrayLabels.length(); j++) {
@@ -722,24 +797,25 @@ public class sport_fragment_main extends BaseNetworkFragment implements
         requestQueue.add(stringRequest);
     }
 
-    private void getHttpCollectedCourse(Map params){
+    private void getHttpCollectedCourse(Map params,String url ){
         List<MultipleItem> sportMainCollectionCourses = new ArrayList<>();
 
-        String url = "http://106.55.25.94:8080/api/course/getCollectionCourse?size=" + COURSE_NUM_IN_ONE_PAGE;
+        String targetCollectionUrl = url + COURSE_NUM_IN_ONE_PAGE;
         if(params.isEmpty()){
-            url+="&page=1&token="+token;
+//            url+="&page=1&token="+token;//真实token
+            targetCollectionUrl+="&page=1&token="+testToken;//测试token
         }else{
             Iterator iter = params.keySet().iterator();
             while (iter.hasNext()) {
                 Object key = iter.next();
                 Object val = params.get(key);
-                url+=("&"+key.toString()+"="+val.toString());
+                targetCollectionUrl+=("&"+key.toString()+"="+val.toString());
             }
         }
         Log.d("sport_main_collected_course","requestUrl:" + url);
         dialogMessage += "\n\ngetHttpCourse requestingUrl:\n" + url;
 
-        MyStringRequest stringRequest = new MyStringRequest(Request.Method.GET,  url, new Response.Listener<String>() {
+        MyStringRequest stringRequest = new MyStringRequest(Request.Method.GET,  targetCollectionUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String responseStr) {
 
@@ -753,8 +829,11 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                     //TOTAL_PAGES = jsonObject2.getInt("totalPages");
                     //得到筛选的课程list
                     JSONArray JSONArrayCourse = jsonObject2.getJSONArray("courseList");
+                    int showCase = JSONArrayCourse.length();
+                    if (showCase>3)
+                        showCase = 3;
 //                    for (int i = 0; i < JSONArrayCourse.length(); i++) {
-                    for (int i = 0; i < 3; i++) {
+                    for (int i = 0; i < showCase; i++) {
                         JSONObject jsonCourseObject = JSONArrayCourse.getJSONObject(i);
                         //相应的内容
                         sportMainItem collectedCourse = new sportMainItem();
@@ -769,7 +848,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                         collectedCourse.setLables(labels);
                         sportMainCollectionCourses.add(new MultipleItem(MultipleItem.sport_main_item, collectedCourse));
                     }
-                    practicedList.addAll(sportMainCollectionCourses);
+                    collectedList.addAll(sportMainCollectionCourses);
 
                     Log.d("sport_main_collection","getHttpCourse_responseStr:"+responseStr);
                     Message msg = handler.obtainMessage();

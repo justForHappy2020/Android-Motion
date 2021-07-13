@@ -211,7 +211,7 @@ public class my_activity_me_data extends NeedTokenActivity implements View.OnCli
                 });
                 thread.start();
                 thread.join(5000);
-                if(url != null)startThread();
+                //if(url != null)startThread();
             } catch (Exception e) {
                 //"上传失败");
             }
