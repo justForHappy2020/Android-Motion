@@ -70,6 +70,7 @@ import com.example.motion.Entity.MultipleItem;
 import com.example.motion.Entity.User;
 import com.example.motion.Entity.sportMainItem;
 import com.example.motion.R;
+import com.example.motion.Utils.HttpUtils;
 import com.example.motion.Utils.UserInfoManager;
 import com.example.motion.Widget.MultipleItemQuickAdapter;
 import com.example.motion.Widget.MyStringRequest;
@@ -93,6 +94,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -156,6 +158,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
     private TextView tv_course_count;
     private TextView tv_exercise_time;
     private TextView tv_continue_day_count;
+    private int httpcode;
 
     //日历模块变量
     private String[] emptyList;
@@ -460,21 +463,24 @@ public class sport_fragment_main extends BaseNetworkFragment implements
         int Year = calendar.getYear();
         int Month = calendar.getMonth();
         int Day = calendar.getDay();
-        String []testList = dateList;
+
         if(dateList.length!=0){
-            for(int i = 0;i<365;i++){
-                if(Year == yearList[i] && Month == monthList[i] &&  Day ==dayList[i]){
-                    if (isClick) {
-                        String HowLong=Integer.toString(exerciseTime[i]);
+            for(int i = 0;i<dateList.length;i++){
+                if (Day!=1) {
+                    if (Year == yearList[i] && Month == monthList[i] && Day == dayList[i]) {
+                        if (isClick) {
+                            String HowLong = Integer.toString(exerciseTime[i]);
 //                        String[] Courses = new String[exerciseList[i].length];
 //                        for(int n = 0;n<exerciseList.length;n++) {
 //                            Courses[n] = exerciseList[i][n];
-                        String Courses = exerciseList[i];//new String[exerciseList.length];
+                            String Courses;
+                            Courses = exerciseList[i];//new String[exerciseList.length];
 
 //带确认和取消按钮的弹窗
-                        /*if(popupView==null)*/popupView = new XPopup.Builder(getActivity())
-                                .dismissOnBackPressed(true)
-                                .dismissOnTouchOutside(true)
+                            /*if(popupView==null)*/
+                            popupView = new XPopup.Builder(getActivity())
+                                    .dismissOnBackPressed(true)
+                                    .dismissOnTouchOutside(true)
 //                        .hasNavigationBar(false)
 //                        .navigationBarColor(Color.BLUE)
 //                        .hasBlurBg(true)
@@ -484,17 +490,22 @@ public class sport_fragment_main extends BaseNetworkFragment implements
 //                        .isLightStatusBar(true)
 //                        .setPopupCallback(new DemoXPopupListener())
 //                                .asConfirm(Year+"年"+Month+"月"+Day+"日", "练习时长："+HowLong+"分钟"+"\n"+"练习课程:"+showCalendarExerciseList(Courses),
-                                .asConfirm(Year+"年"+Month+"月"+Day+"日", "练习时长："+HowLong+"分钟"+"\n"+"练习课程:"+Courses,
-                                        "  ", "确定",
-                                        new OnConfirmListener() {
-                                            @Override
-                                            public void onConfirm() {
-                                            }
-                                        }, null, false);
-                        popupView.show();
+                                    .asConfirm(Year + "年" + Month + "月" + Day + "日", "练习时长：" + HowLong + "分钟" + "\n" + "练习课程:" + Courses,
+                                            "  ", "确定",
+                                            new OnConfirmListener() {
+                                                @Override
+                                                public void onConfirm() {
+                                                }
+                                            }, null, false);
+                            popupView.show();
+                        }
                     }
+                    else
+                        continue;
                 }
-            }}
+                else
+                    continue;
+                }}
         else {
             for(int i = 0;i<emptyList.length;i++){
             if(Year == yearList[i] && Month == monthList[i] &&  Day ==dayList[i]){
@@ -503,7 +514,8 @@ public class sport_fragment_main extends BaseNetworkFragment implements
 //                    String[] Courses = new String[exerciseList[i].length];
 //                    for(int n = 0;n<exerciseList.length;n++) {
 //                        Courses[n] = exerciseList[i][n];
-                       String Courses = exerciseList[i];
+                       String Courses;
+                       Courses = exerciseList[i];
 
 //带确认和取消按钮的弹窗
                     /*if(popupView==null)*/popupView = new XPopup.Builder(getActivity())
@@ -607,7 +619,6 @@ public class sport_fragment_main extends BaseNetworkFragment implements
             public void onResponse(String responseStr) {
                 try {
                     JSONObject jsonRootObject = new JSONObject(responseStr);
-
                     JSONObject jsonDataObject = jsonRootObject.getJSONObject("data");
                     //相应的内容
                     tv_days_count.setText(Integer.toString(jsonDataObject.getInt("daysCount")));
@@ -645,22 +656,31 @@ public class sport_fragment_main extends BaseNetworkFragment implements
         //exerciseList = new String[][] {};
         exerciseTime = new int[] {};
 //        String targetCalendarUrl = url + UserInfoManager.getUserInfoManager(getContext()).getToken();
+        //解析接口数据，再传入日历中进行数据展示以及监听分析
         String targetCalendarUrl = url+ testToken;//测试token
-        MyStringRequest getTagsStringRequest = new MyStringRequest(Request.Method.GET,  targetCalendarUrl, new Response.Listener<String>() {
+        final Thread thread = new Thread(new Runnable() {
             @Override
-            public void onResponse(String responseStr) {
+            public void run() {
+                String responseData = null;
                 try {
-                    JSONObject jsonRootObject = new JSONObject(responseStr);
-                    JSONArray JSONArrayCalendarInfo = jsonRootObject.getJSONArray("data");
-                    //相应的内容
-                    //JSONArray  = jsonDataObject.getJSONArray("");
-//                    JSONObject testArray = new JSONObject() {
-//                    };
-//                    testArray = JSONArrayCalendarInfo;
-                    dateList = new String[JSONArrayCalendarInfo.length()];
-                    exerciseList = new String[JSONArrayCalendarInfo.length()];
-                    exerciseTime = new int[JSONArrayCalendarInfo.length()];
-                    for(int m=0;m<JSONArrayCalendarInfo.length();m++){
+                    responseData = HttpUtils.connectHttpGet(targetCalendarUrl);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                JSONObject jsonObject1 = null;
+                try {
+                    jsonObject1 = new JSONObject(responseData);
+                    httpcode = jsonObject1.getInt("code");
+                    if (httpcode == 200) {
+                        JSONArray JSONArrayCalendarInfo = jsonObject1.getJSONArray("data");
+                        //hasNext = jsonObject2.getBoolean("hasNext");
+                        //TOTAL_PAGES = jsonObject2.getInt("totalPages");
+                        //得到筛选的课程list
+                        int datalength = JSONArrayCalendarInfo.length();
+                        dateList = new String[datalength];
+                        exerciseList = new String[datalength];
+                        exerciseTime = new int[datalength];
+                        for(int m=0;m<datalength;m++){
                         JSONObject jsonCourseObject = JSONArrayCalendarInfo.getJSONObject(m);
                         dateList[m] = jsonCourseObject.getString("exerciseDate");
                         if(jsonCourseObject.getString("exerciseCourseNameList").length()!=0)
@@ -676,36 +696,27 @@ public class sport_fragment_main extends BaseNetworkFragment implements
 //                            exerciseList[m][0] = "无练习课程";
                         exerciseTime[m] = jsonCourseObject.getInt("exercisetime");
                     }
-
-                    Message msg = handler.obtainMessage();
-                    msg.what = LOAD_USER_INFO_SUCCESS;
-                    handler.sendMessage(msg);
-
-
-                }catch (JSONException e) {
+                    }
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                Log.d("homepage_fragment_main_exercise_data","getHttpCourseTags_onErrorResponse");
-
-                Message msg = handler.obtainMessage();
-                msg.what = LOAD_USER_INFO_FAILED;
-                msg.obj = volleyError.toString();
-                handler.sendMessage(msg);
-            }
         });
-        getTagsStringRequest.setTag("getHttp");
-        requestQueue.add(getTagsStringRequest);
-
+        thread.start();
+        try {
+            thread.join(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (httpcode != 200) {
+            Toast.makeText(getActivity(), "ERROR", Toast.LENGTH_SHORT).show();
+        }
 
         if(dateList.length!=0)
             transformDate(dateList);
         else{
             emptyList = new String[] {"2021-06-23"};
-            exerciseList = new String[] {"感谢使用"};
+            exerciseList = new String[] {"测试课程"};
             exerciseTime = new int[]{23};
             transformDate(emptyList);
         }
@@ -864,7 +875,6 @@ public class sport_fragment_main extends BaseNetworkFragment implements
         }, new Response.ErrorListener() {
             public void onErrorResponse(VolleyError volleyError) {
                 Log.d("sport_main_collection","getHttpCourse_onErrorResponse");
-
                 //test tool
                 dialogMessage+="\ngetHttpCourse error: "+volleyError.toString();
                 //end of test tool
