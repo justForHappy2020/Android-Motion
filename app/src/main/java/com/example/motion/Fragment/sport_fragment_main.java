@@ -246,8 +246,14 @@ public class sport_fragment_main extends BaseNetworkFragment implements
     }
     private void initLocalData(){
         user = UserInfoManager.getUserInfoManager(getContext()).getUser();
-        tv_name.setText(user.getNickName());
-        Glide.with(getContext()).load(user.getHeadPortraitUrl()).into(ivPortrait);
+
+        try{
+            tv_name.setText(user.getNickName());
+            Glide.with(getContext()).load(user.getHeadPortraitUrl()).into(ivPortrait);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     //将接口获取的日期进行转换并且展示

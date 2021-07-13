@@ -136,7 +136,10 @@ public class me_fragment_main extends BaseNetworkFragment implements View.OnClic
                     case LOAD_USER_INFO_SUCCESS:
                         Log.d("me_fragment_main_Handler","LOAD_USER_INFO_SUCCESS");
                         tv_name.setText(user.getNickName());
-                        Glide.with(getContext()).load(user.getHeadPortraitUrl()).into(ivPortrait);
+                        Glide.with(getContext())
+                                .load(user.getHeadPortraitUrl())
+                                .error(R.drawable.headprotrait)
+                                .into(ivPortrait);
                         break;
                 }
             }

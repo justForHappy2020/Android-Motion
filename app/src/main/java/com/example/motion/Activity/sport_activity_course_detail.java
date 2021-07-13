@@ -28,6 +28,7 @@ import com.example.motion.Entity.Action;
 import com.example.motion.Entity.Course;
 import com.example.motion.Entity.CourseTag;
 import com.example.motion.Entity.MultipleItem;
+import com.example.motion.MontionRequest.CollectCourseRequest;
 import com.example.motion.R;
 import com.example.motion.Utils.UserInfoManager;
 import com.example.motion.Utils.CourseCacheUtil;
@@ -43,7 +44,9 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static java.lang.Thread.sleep;
 
@@ -147,7 +150,20 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
                         Toast.makeText(sport_activity_course_detail.this, "GET_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
                         break;
                     case COURSE_COLLECT_SUCCESS:
-                        Toast.makeText(sport_activity_course_detail.this, "COURSE_COLLECT_SUCCESS", Toast.LENGTH_LONG).show();
+                        try{
+                            if(course.isCollected()){
+                                ibLikeCourse.setImageResource(R.drawable.ic_heart);
+                                Toast.makeText(sport_activity_course_detail.this, "COURSE_COLLECT_CANCEL_SUCCESS", Toast.LENGTH_LONG).show();
+                            }else{
+                                ibLikeCourse.setImageResource(R.drawable.ic_heart_fill);
+                                Toast.makeText(sport_activity_course_detail.this, "COURSE_COLLECT_SUCCESS", Toast.LENGTH_LONG).show();
+                            }
+                            course.setCollected(!course.isCollected());
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+                        //Toast.makeText(sport_activity_course_detail.this, "COURSE_COLLECT_SUCCESS", Toast.LENGTH_LONG).show();
                         break;
                     case COURSE_COLLECT_FAILED:
                         Toast.makeText(sport_activity_course_detail.this, "COURSE_COLLECT_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
@@ -198,6 +214,7 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
             course.setCourseIntro(jsonObject2.getString("courseIntro"));
             course.setTargetAge(jsonObject2.getString("targetAge"));
             course.setIsOnline(jsonObject2.getInt("onLine"));
+            course.setCollected(jsonObject2.getBoolean("collected"));
             course.setCourseId2CourseJson(responseStr);
             JSONArray JSONArrayLabels = jsonObject2.getJSONArray("labelsName");
             String labels = "";
@@ -304,6 +321,11 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
                             tvCourseClassification.setText(course.getLabels());//getCourseClassification
                             tvCourseDuration.setText(course.getDuration());
                             tvCourseMovementsNum.setText(String.valueOf(actionList.size()));
+                            if(course.isCollected()){
+                                ibLikeCourse.setImageResource(R.drawable.ic_heart_fill);
+                            }else{
+                                ibLikeCourse.setImageResource(R.drawable.ic_heart);
+                            }
 
                             if(course.getCourseIntro()!=null){
                                 String[] courseIntroArr = course.getCourseIntro().split("\\|");
@@ -438,14 +460,43 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
     }
 
     private void collectCourse(){
+        Map<String,String> param = new HashMap<>();
         int flag;
         if(course.isCollected()){
-            flag=0;
+            param.put("flag","0");
         }else{
-            flag=1;
+            param.put("flag","1");
         }
-        String token = UserInfoManager.getUserInfoManager(this).getToken();
-        String url = "http://106.55.25.94:8080/api/course/bookCourse?token="+token+"&courseId="+course.getCourseId()+"&flag="+flag;
+        try{
+            param.put("token",UserInfoManager.getUserInfoManager(this).getToken());
+            param.put("courseId",String.valueOf(course.getCourseId()));
+        }catch (Exception e){
+            e.printStackTrace();
+            Message msg = handler.obtainMessage();
+            msg.what = COURSE_COLLECT_FAILED;
+            msg.obj = "param build failed";
+            msg.sendToTarget();
+        }
+
+
+        requestQueue.add(new CollectCourseRequest(param, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Message msg = handler.obtainMessage();
+                msg.what = COURSE_COLLECT_SUCCESS;
+                msg.sendToTarget();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Message msg = handler.obtainMessage();
+                msg.what = COURSE_COLLECT_FAILED;
+                msg.obj = error.toString();
+                msg.sendToTarget();
+            }
+        }));
+        /*
+        String url = "http://106.55.25.94:8080/api/course/collectCourse?token="+token+"&courseId="+course.getCourseId()+"&flag="+flag;
         MyStringRequest stringRequest = new MyStringRequest(Request.Method.GET,  url, new Response.Listener<String>() {
             @Override
             public void onResponse(String responseStr) {
@@ -464,6 +515,8 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
         });
         stringRequest.setTag("getHttp_collectCourse");
         requestQueue.add(stringRequest);
+
+         */
     }
 
     private void reserveCourse(){
