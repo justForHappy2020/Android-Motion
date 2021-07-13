@@ -21,8 +21,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.example.motion.Activity.register_activity_register;
+import com.example.motion.Activity.sport_activity_course_detail;
 import com.example.motion.Entity.MultipleItem;
 import com.example.motion.Entity.me_mycourse_collections;
 import com.example.motion.R;
@@ -99,6 +102,7 @@ public class me_fragment_mycollections_courses extends BaseNetworkFragment {
 
     private SharedPreferences readSP;
     private String token ;
+    private String testToken = "078d3ab3-6b55-4d86-9957-0fd961d79972";
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.me_fragment_mycourse_collections,container,false);
 
@@ -149,7 +153,8 @@ public class me_fragment_mycollections_courses extends BaseNetworkFragment {
 
         String url = "http://106.55.25.94:8080/api/course/getCollectionCourse?size=" + COURSE_NUM_IN_ONE_PAGE;
         if(params.isEmpty()){
-            url+="&page=1&token="+token;
+//            url+="&page=1&token="+token;//真实token
+            url+="&page=1&token="+testToken;//测试token
         }else{
             Iterator iter = params.keySet().iterator();
             while (iter.hasNext()) {
@@ -232,6 +237,21 @@ public class me_fragment_mycollections_courses extends BaseNetworkFragment {
 
         showingCourseList = new ArrayList<>();
         courseAdapter = new MultipleItemQuickAdapter(showingCourseList);
+        courseAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter quickAdapter, @NonNull View view, int position) {
+                //Log.d("Adapter","Click");
+                Intent intent;
+                intent = new Intent(getActivity(), sport_activity_course_detail.class);
+/*                for(int i = 0 ; i < dataSet.size() ; i++){
+                    courseList = dataSet.get(i);
+                    if(courseList.size()<=position)position = position - courseList.size();
+                    else break;
+                }*/
+                intent.putExtra("course", showingCourseList.get(position).getCourse());
+                startActivity(intent);
+            }
+        });
         rvCourseCollected.setAdapter(courseAdapter);
         rvCourseCollected.setNestedScrollingEnabled(false);
 

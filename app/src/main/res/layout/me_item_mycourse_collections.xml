@@ -29,8 +29,7 @@
             android:layout_gravity="center"
             android:layout_weight="0.1"
             app:srcCompat="@drawable/me_mycourse_history_img"
-            android:padding="1dp"
-            android:background="@drawable/rect_solid_border"/>
+            android:padding="1dp"/>
         <Space
             android:layout_width="match_parent"
             android:layout_height="match_parent"

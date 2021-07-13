@@ -21,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.example.motion.Activity.register_activity_register;
 import com.example.motion.Entity.MultipleItem;
@@ -108,7 +110,8 @@ public class me_fragment_mycourse_history extends BaseNetworkFragment {
 
         String url = "http://106.55.25.94:8080/api/course/getPracticedCourse?size=" + COURSE_NUM_IN_ONE_PAGE;
         if(params.isEmpty()){
-            url+="&page=1&token="+token;
+//            url+="&page=1&token="+token;//真实token
+            url+="&page=1&token=078d3ab3-6b55-4d86-9957-0fd961d79972";//测试token
         }else{
             Iterator iter = params.keySet().iterator();
             while (iter.hasNext()) {
@@ -189,6 +192,21 @@ public class me_fragment_mycourse_history extends BaseNetworkFragment {
         rvCoursePracticed.setAdapter(courseAdapter);
         showingHistoryList = new ArrayList<>();
         courseAdapter = new MultipleItemQuickAdapter(showingHistoryList);
+        courseAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter quickAdapter, @NonNull View view, int position) {
+                //Log.d("Adapter","Click");
+                Intent intent;
+                intent = new Intent(getActivity(), sport_activity_course_detail.class);
+/*                for(int i = 0 ; i < dataSet.size() ; i++){
+                    courseList = dataSet.get(i);
+                    if(courseList.size()<=position)position = position - courseList.size();
+                    else break;
+                }*/
+                intent.putExtra("course", showingHistoryList.get(position).getCourse());
+                startActivity(intent);
+            }
+        });
         rvCoursePracticed.setAdapter(courseAdapter);
         rvCoursePracticed.setNestedScrollingEnabled(false);
 
