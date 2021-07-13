@@ -1,13 +1,10 @@
 package com.example.motion.Activity;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,19 +14,12 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.example.motion.Entity.Action;
-import com.example.motion.Entity.MultipleItem;
 import com.example.motion.R;
 import com.example.motion.Utils.UserInfoManager;
-import com.example.motion.Widget.PostJsonRequest;
+import com.example.motion.VolleyRequest.PostJsonRequest;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
-
-import static com.example.motion.Utils.HttpUtils.connectHttp;
 
 public class me_activity_bodydata_addfile extends NeedTokenActivity implements View.OnClickListener {
     private final int BODY_DATA_FILE_ADD_FAIL = 0;

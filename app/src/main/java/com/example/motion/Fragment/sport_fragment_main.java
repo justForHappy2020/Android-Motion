@@ -68,12 +68,13 @@ import com.example.motion.Activity.search_course_activity;
 import com.example.motion.Activity.sport_activity_course_detail;
 import com.example.motion.Entity.MultipleItem;
 import com.example.motion.Entity.User;
+import com.example.motion.Entity.sportMainCollectionItem;
 import com.example.motion.Entity.sportMainItem;
 import com.example.motion.R;
 import com.example.motion.Utils.HttpUtils;
 import com.example.motion.Utils.UserInfoManager;
+import com.example.motion.VolleyRequest.MyStringRequest;
 import com.example.motion.Widget.MultipleItemQuickAdapter;
-import com.example.motion.Widget.MyStringRequest;
 
 import com.example.motion.Entity.Course;
 import com.example.motion.Entity.DyxItem;
@@ -120,7 +121,6 @@ public class sport_fragment_main extends BaseNetworkFragment implements
     private int mYear;
     CalendarLayout mCalendarLayout;
     private View.OnClickListener onClickListener;
-    private PopupWindow mPopWindow;
     BasePopupView popupView;
     /**
      * 未界面控件
@@ -132,8 +132,8 @@ public class sport_fragment_main extends BaseNetworkFragment implements
     private MultipleItemQuickAdapter practicedAdapter;
     private MultipleItemQuickAdapter collectionAdapter;
     private MultipleItemQuickAdapter downloadAdapter;
-    private List<MultipleItem> practicedList = new ArrayList();
-    private List<MultipleItem> collectedList = new ArrayList();
+    private List<MultipleItem> practicedList = new ArrayList(3);
+    private List<MultipleItem> collectedList = new ArrayList(3);
     private List<MultipleItem> downloadList = new ArrayList();
 
     private String dialogMessage = "";
@@ -142,7 +142,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
     private String token;
 
     private boolean hasNext;
-    private final int COURSE_NUM_IN_ONE_PAGE = 10;
+    private final int COURSE_NUM_IN_ONE_PAGE = 3;
     private User user = new User();
 
     private final int LOAD_PRACTICED_COURSES_SUCCESS = 1;
@@ -163,7 +163,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
     //日历模块变量
     private String[] emptyList;
     private String[] dateList;
-//    private String[][] exerciseList;
+    //    private String[][] exerciseList;
     private String[] exerciseList;
     private int[] exerciseTime;
     int [] yearList;
@@ -176,7 +176,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
     private String historyUrl;
     private String collectionUrl;
     private String emptyUrl = "";
-    private String testToken = "078d3ab3-6b55-4d86-9957-0fd961d79972";
+    private String testToken = "aa650cbc-d18a-42fd-926b-98cf1327e2b3";
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -370,8 +370,11 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                 }*/
                 intent.putExtra("course", collectedList.get(position).getCourse());
                 startActivity(intent);
+                onStop();
             }
         });
+
+
         rvPracticed.setAdapter(practicedAdapter);
         rvCollected.setAdapter(collectionAdapter);
         rvDownload.setAdapter(downloadAdapter);
@@ -505,22 +508,22 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                 }
                 else
                     continue;
-                }}
+            }}
         else {
             for(int i = 0;i<emptyList.length;i++){
-            if(Year == yearList[i] && Month == monthList[i] &&  Day ==dayList[i]){
-                if (isClick) {
-                    String HowLong=Integer.toString(exerciseTime[i]);
+                if(Year == yearList[i] && Month == monthList[i] &&  Day ==dayList[i]){
+                    if (isClick) {
+                        String HowLong=Integer.toString(exerciseTime[i]);
 //                    String[] Courses = new String[exerciseList[i].length];
 //                    for(int n = 0;n<exerciseList.length;n++) {
 //                        Courses[n] = exerciseList[i][n];
-                       String Courses;
-                       Courses = exerciseList[i];
+                        String Courses;
+                        Courses = exerciseList[i];
 
 //带确认和取消按钮的弹窗
-                    /*if(popupView==null)*/popupView = new XPopup.Builder(getActivity())
-                            .dismissOnBackPressed(true)
-                            .dismissOnTouchOutside(true)
+                        /*if(popupView==null)*/popupView = new XPopup.Builder(getActivity())
+                                .dismissOnBackPressed(true)
+                                .dismissOnTouchOutside(true)
 //                        .hasNavigationBar(false)
 //                        .navigationBarColor(Color.BLUE)
 //                        .hasBlurBg(true)
@@ -529,18 +532,18 @@ public class sport_fragment_main extends BaseNetworkFragment implements
 //                        .popupAnimation(PopupAnimation.NoAnimation)
 //                        .isLightStatusBar(true)
 //                        .setPopupCallback(new DemoXPopupListener())
-                            //.asConfirm(Year+"年"+Month+"月"+Day+"日", "练习时长："+HowLong+"分钟"+"\n"+"练习课程:"+showCalendarExerciseList(Courses),
-                            .asConfirm(Year+"年"+Month+"月"+Day+"日", "练习时长："+HowLong+"分钟"+"\n"+"练习课程:"+Courses,
-                                    "  ", "确定",
-                                    new OnConfirmListener() {
-                                        @Override
-                                        public void onConfirm() {
-                                        }
-                                    }, null, false);
-                    popupView.show();
+                                //.asConfirm(Year+"年"+Month+"月"+Day+"日", "练习时长："+HowLong+"分钟"+"\n"+"练习课程:"+showCalendarExerciseList(Courses),
+                                .asConfirm(Year+"年"+Month+"月"+Day+"日", "练习时长："+HowLong+"分钟"+"\n"+"练习课程:"+Courses,
+                                        "  ", "确定",
+                                        new OnConfirmListener() {
+                                            @Override
+                                            public void onConfirm() {
+                                            }
+                                        }, null, false);
+                        popupView.show();
+                    }
                 }
-            }
-        }}
+            }}
 
     }
 
@@ -564,12 +567,13 @@ public class sport_fragment_main extends BaseNetworkFragment implements
         calendarUrl = "http://106.55.25.94:8080/api/user/getSportsLogData?token=";
         historyUrl = "http://106.55.25.94:8080/api/course/getPracticedCourse?size=";
         collectionUrl = "http://106.55.25.94:8080/api/course/getCollectionCourse?size=";
-
-
+        practicedList.clear();
+        collectedList.clear();
         getHttpUserInfo(userInfoUrl);
         getHttpSportInfo(sportInfoUrl);
         getHttpCalendar(calendarUrl);
         getHttpPracticedCourse(new HashMap(),historyUrl);
+        //initPracticedList();
         getHttpCollectedCourse(new HashMap(),collectionUrl);
 
     }
@@ -681,21 +685,21 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                         exerciseList = new String[datalength];
                         exerciseTime = new int[datalength];
                         for(int m=0;m<datalength;m++){
-                        JSONObject jsonCourseObject = JSONArrayCalendarInfo.getJSONObject(m);
-                        dateList[m] = jsonCourseObject.getString("exerciseDate");
-                        if(jsonCourseObject.getString("exerciseCourseNameList").length()!=0)
-                            exerciseList[m] = jsonCourseObject.getString("exerciseCourseNameList");
-                        else
-                            exerciseList[m] = "无训练课程";
- //                       if(jsonCourseObject.getJSONArray("exerciseCourseNameList").length()!=0)
+                            JSONObject jsonCourseObject = JSONArrayCalendarInfo.getJSONObject(m);
+                            dateList[m] = jsonCourseObject.getString("exerciseDate");
+                            if(jsonCourseObject.getString("exerciseCourseNameList").length()!=0)
+                                exerciseList[m] = jsonCourseObject.getString("exerciseCourseNameList");
+                            else
+                                exerciseList[m] = "无训练课程";
+                            //                       if(jsonCourseObject.getJSONArray("exerciseCourseNameList").length()!=0)
 
 //                        for(int n=0;n<jsonCourseObject.getJSONArray("exerciseCourseNameList").length();n++){
 //                            exerciseList[m][n] = jsonCourseObject.getJSONArray("exerciseCourseNameList").getString(n);
 //                        }
 //                        else
 //                            exerciseList[m][0] = "无练习课程";
-                        exerciseTime[m] = jsonCourseObject.getInt("exercisetime");
-                    }
+                            exerciseTime[m] = jsonCourseObject.getInt("exercisetime");
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -725,169 +729,147 @@ public class sport_fragment_main extends BaseNetworkFragment implements
     private void getHttpPracticedCourse(Map params,String url){
         List<MultipleItem> sportMainPracticedCourses = new ArrayList<>();
 
-        String targetPracticedCourseUrl = url + COURSE_NUM_IN_ONE_PAGE;
+        url = url + COURSE_NUM_IN_ONE_PAGE;
         if(params.isEmpty()){
 //            targetPracticedCourseUrl+="&page=1&token="+token;//真实token
-            targetPracticedCourseUrl+="&page=1&token="+testToken;//测试token
+            url+="&page=1&token="+testToken;//测试token
         }else{
             Iterator iter = params.keySet().iterator();
             while (iter.hasNext()) {
                 Object key = iter.next();
                 Object val = params.get(key);
-                targetPracticedCourseUrl+=("&"+key.toString()+"="+val.toString());
+                url+=("&"+key.toString()+"="+val.toString());
             }
         }
 //        Log.d("sport_main_practiced_course","requestUrl:" + url);
 //        dialogMessage += "\n\ngetHttpCourse requestingUrl:\n" + url;
-
-        MyStringRequest stringRequest = new MyStringRequest(Request.Method.GET,  targetPracticedCourseUrl, new Response.Listener<String>() {
+        final String targetPracticedCourseUrl = url;
+        Thread thread = new Thread(new Runnable() {
             @Override
-            public void onResponse(String responseStr) {
+            public void run() {
+                String responseData = null;
                 try {
-                    JSONObject jsonRootObject = new JSONObject(responseStr);
-
-                    //Log.d("sport_activity_course_selection","getHttpCourse_responseStr:" + jsonRootObject.toString());
-
-                    JSONObject jsonObject2 = jsonRootObject.getJSONObject("data");
-                    hasNext = jsonObject2.getBoolean("hasNext");
-                    //TOTAL_PAGES = jsonObject2.getInt("totalPages");
-                    //得到筛选的课程list
-                    JSONArray JSONArrayCourse = jsonObject2.getJSONArray("courseList");
+                    responseData = HttpUtils.connectHttpGet(targetPracticedCourseUrl);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                JSONObject jsonObject1 = null;
+                try {
+                    jsonObject1 = new JSONObject(responseData);
+                    httpcode = jsonObject1.getInt("code");
+                    if (httpcode == 200) {
+                        JSONObject jsonObject2 = jsonObject1.getJSONObject("data");
+                        hasNext = jsonObject2.getBoolean("hasNext");
+                        //TOTAL_PAGES = jsonObject2.getInt("totalPages");
+                        //得到筛选的课程list
+                        JSONArray JSONArrayCourse = jsonObject2.getJSONArray("courseList");
+                        int showCase = JSONArrayCourse.length();
+                        if (showCase>3)
+                            showCase = 3;
 //                    for (int i = 0; i < JSONArrayCourse.length(); i++) {
-                    int showCase = JSONArrayCourse.length();
-                    if (showCase>3)
-                        showCase = 3;
-                    for (int i = 0; i < showCase; i++) {
-                        JSONObject jsonCourseObject = JSONArrayCourse.getJSONObject(i);
-                        //相应的内容
-                        sportMainItem practicedCourse = new sportMainItem();
-
-                        String courseName = jsonCourseObject.getString("courseName");
-                        String backgroundUrl = jsonCourseObject.getString("backgroundUrl");
-                        String targetAge = jsonCourseObject.getString("targetAge");
-                        practicedCourse.setCourseName(courseName);
-                        practicedCourse.setImgUrl(backgroundUrl);
-                        practicedCourse.setTargetAge(targetAge);
-                        JSONArray JSONArrayLabels = jsonCourseObject.getJSONArray("labels");
-                        String labels = "";
-                        for (int j = 0; j < JSONArrayLabels.length(); j++) {
-                            labels += (JSONArrayLabels.get(j) + "/");
+                        for (int i = 0; i < showCase; i++) {
+                            JSONObject jsonCourseObject = JSONArrayCourse.getJSONObject(i);
+                            //相应的内容
+                            sportMainItem practicedCourse = new sportMainItem();
+                            practicedCourse.setCourseName(jsonCourseObject.getString("courseName"));
+                            practicedCourse.setImgUrl(jsonCourseObject.getString("backgroundUrl"));
+                            practicedCourse.setTargetAge(jsonCourseObject.getString("targetAge"));
+                            JSONArray JSONArrayLabels = jsonCourseObject.getJSONArray("labels");
+                            String labels = "";
+                            for (int j = 0; j < JSONArrayLabels.length(); j++) {
+                                labels += (JSONArrayLabels.get(j) + "/");
+                            }
+                            practicedCourse.setLables(labels);
+                            sportMainPracticedCourses.add(new MultipleItem(MultipleItem.sport_main_item, practicedCourse));
                         }
-                        practicedCourse.setLables(labels);
-                        sportMainPracticedCourses.add(new MultipleItem(MultipleItem.sport_main_item, practicedCourse));
+                        practicedList.addAll(sportMainPracticedCourses);
                     }
-                    practicedList.addAll(sportMainPracticedCourses);
-
-                    Log.d("me_fragment_mycourse_collections","getHttpCourse_responseStr:"+responseStr);
-                    Message msg = handler.obtainMessage();
-                    msg.what = LOAD_PRACTICED_COURSES_SUCCESS;
-                    handler.sendMessage(msg);
-                    //test tool
-                    dialogMessage+="\n\ngetHttpCourse response:\n"+jsonRootObject.toString();
-                    //end of test tool
-                }catch (JSONException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-        }, new Response.ErrorListener() {
-            public void onErrorResponse(VolleyError volleyError) {
-                Log.d("sport_activity_course_selection","getHttpCourse_onErrorResponse");
-
-                //test tool
-                dialogMessage+="\ngetHttpCourse error: "+volleyError.toString();
-                //end of test tool
-
-                Message msg = handler.obtainMessage();
-                msg.what = LOAD_PRACTICED_COURSES_FAILED;
-                msg.obj = volleyError.toString();
-                handler.sendMessage(msg);
-
-            }
         });
-        stringRequest.setTag("getHttp");
-        requestQueue.add(stringRequest);
+        thread.start();
+        try {
+            thread.join(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (httpcode != 200) {
+            Toast.makeText(getActivity(), "ERROR", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void getHttpCollectedCourse(Map params,String url ){
         List<MultipleItem> sportMainCollectionCourses = new ArrayList<>();
 
-        String targetCollectionUrl = url + COURSE_NUM_IN_ONE_PAGE;
+        url = url + COURSE_NUM_IN_ONE_PAGE;
         if(params.isEmpty()){
-//            url+="&page=1&token="+token;//真实token
-            targetCollectionUrl+="&page=1&token="+testToken;//测试token
+//             url+="&page=1&token="+token;//真实token
+            url+="&page=1&token="+testToken;//测试token
         }else{
             Iterator iter = params.keySet().iterator();
             while (iter.hasNext()) {
                 Object key = iter.next();
                 Object val = params.get(key);
-                targetCollectionUrl+=("&"+key.toString()+"="+val.toString());
+                url+=("&"+key.toString()+"="+val.toString());
             }
         }
-        Log.d("sport_main_collected_course","requestUrl:" + url);
-        dialogMessage += "\n\ngetHttpCourse requestingUrl:\n" + url;
-
-        MyStringRequest stringRequest = new MyStringRequest(Request.Method.GET,  targetCollectionUrl, new Response.Listener<String>() {
+        final String targetCollectionUrl = url;
+        Thread thread = new Thread(new Runnable() {
             @Override
-            public void onResponse(String responseStr) {
-
+            public void run() {
+                String responseData = null;
                 try {
-                    JSONObject jsonRootObject = new JSONObject(responseStr);
-
-                    //Log.d("sport_activity_course_selection","getHttpCourse_responseStr:" + jsonRootObject.toString());
-
-                    JSONObject jsonObject2 = jsonRootObject.getJSONObject("data");
-                    hasNext = jsonObject2.getBoolean("hasNext");
-                    //TOTAL_PAGES = jsonObject2.getInt("totalPages");
-                    //得到筛选的课程list
-                    JSONArray JSONArrayCourse = jsonObject2.getJSONArray("courseList");
-                    int showCase = JSONArrayCourse.length();
-                    if (showCase>3)
-                        showCase = 3;
+                    responseData = HttpUtils.connectHttpGet(targetCollectionUrl);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                JSONObject jsonObject1 = null;
+                try {
+                    jsonObject1 = new JSONObject(responseData);
+                    httpcode = jsonObject1.getInt("code");
+                    if (httpcode == 200) {
+                        JSONObject jsonObject2 = jsonObject1.getJSONObject("data");
+                        hasNext = jsonObject2.getBoolean("hasNext");
+                        //TOTAL_PAGES = jsonObject2.getInt("totalPages");
+                        //得到筛选的课程list
+                        JSONArray JSONArrayCourse = jsonObject2.getJSONArray("courseList");
+                        int showCase = JSONArrayCourse.length();
+                        if (showCase>3)
+                            showCase = 3;
 //                    for (int i = 0; i < JSONArrayCourse.length(); i++) {
-                    for (int i = 0; i < showCase; i++) {
-                        JSONObject jsonCourseObject = JSONArrayCourse.getJSONObject(i);
-                        //相应的内容
-                        sportMainItem collectedCourse = new sportMainItem();
-                        collectedCourse.setCourseName(jsonCourseObject.getString("courseName"));
-                        collectedCourse.setImgUrl(jsonCourseObject.getString("backgroundUrl"));
-                        collectedCourse.setTargetAge(jsonCourseObject.getString("targetAge"));
-                        JSONArray JSONArrayLabels = jsonCourseObject.getJSONArray("labels");
-                        String labels = "";
-                        for (int j = 0; j < JSONArrayLabels.length(); j++) {
-                            labels += (JSONArrayLabels.get(j) + "/");
+                        for (int i = 0; i < showCase; i++) {
+                            JSONObject jsonCourseObject = JSONArrayCourse.getJSONObject(i);
+                            //相应的内容
+                            sportMainCollectionItem collectedCourse = new sportMainCollectionItem();
+                            collectedCourse.setCollectionCourseName(jsonCourseObject.getString("courseName"));
+                            collectedCourse.setCollectionimgUrl(jsonCourseObject.getString("backgroundUrl"));
+                            collectedCourse.setCollectionTargetAge(jsonCourseObject.getString("targetAge"));
+                            JSONArray JSONArrayLabels = jsonCourseObject.getJSONArray("labels");
+                            String labels = "";
+                            for (int j = 0; j < JSONArrayLabels.length(); j++) {
+                                labels += (JSONArrayLabels.get(j) + "/");
+                            }
+                            collectedCourse.setCollectionLables(labels);
+                            sportMainCollectionCourses.add(new MultipleItem(MultipleItem.sport_main_collection_item, collectedCourse));
                         }
-                        collectedCourse.setLables(labels);
-                        sportMainCollectionCourses.add(new MultipleItem(MultipleItem.sport_main_item, collectedCourse));
+                        collectedList.addAll(sportMainCollectionCourses);
                     }
-                    collectedList.addAll(sportMainCollectionCourses);
-
-                    Log.d("sport_main_collection","getHttpCourse_responseStr:"+responseStr);
-                    Message msg = handler.obtainMessage();
-                    msg.what = LOAD_COLLECTION_SUCCESS;
-                    handler.sendMessage(msg);
-                    //test tool
-                    dialogMessage+="\n\ngetHttpCourse response:\n"+jsonRootObject.toString();
-                    //end of test tool
-                }catch (JSONException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-        }, new Response.ErrorListener() {
-            public void onErrorResponse(VolleyError volleyError) {
-                Log.d("sport_main_collection","getHttpCourse_onErrorResponse");
-                //test tool
-                dialogMessage+="\ngetHttpCourse error: "+volleyError.toString();
-                //end of test tool
-
-                Message msg = handler.obtainMessage();
-                msg.what = LOAD_PRACTICED_COURSES_FAILED;
-                msg.obj = volleyError.toString();
-                handler.sendMessage(msg);
-
-            }
         });
-        stringRequest.setTag("getHttp");
-        requestQueue.add(stringRequest);
+        thread.start();
+        try {
+            thread.join(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (httpcode != 200) {
+            Toast.makeText(getActivity(), "ERROR", Toast.LENGTH_SHORT).show();
+        }
     }
 
 //    protected void initPracticedList(){

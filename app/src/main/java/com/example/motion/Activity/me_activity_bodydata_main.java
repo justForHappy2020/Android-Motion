@@ -1,6 +1,5 @@
 package com.example.motion.Activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -17,8 +16,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,26 +25,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
-import com.example.motion.Entity.CourseTag;
-import com.example.motion.Entity.CourseTagGroup;
 import com.example.motion.Entity.DyxItem;
 import com.example.motion.Entity.HealthRecord;
-import com.example.motion.Entity.Member;
 import com.example.motion.R;
-import com.example.motion.Utils.HttpUtils;
 import com.example.motion.Utils.UserInfoManager;
 import com.example.motion.Widget.DyxQuickAdapter;
-import com.example.motion.Widget.MyStringRequest;
+import com.example.motion.VolleyRequest.MyStringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;

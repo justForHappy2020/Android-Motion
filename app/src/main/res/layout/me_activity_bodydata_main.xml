@@ -18,7 +18,7 @@
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:paddingStart="10dp"
-            app:srcCompat="@drawable/leftarrow_white" />
+            android:src="@drawable/leftarrow_white" />
 
         <TextView
             android:layout_width="match_parent"

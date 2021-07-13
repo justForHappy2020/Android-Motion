@@ -14,44 +14,43 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
-import com.example.motion.Activity.BaseNetworkActivity;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.example.motion.Activity.sport_activity_course_selection;
-import com.example.motion.Entity.CourseTag;
+import com.example.motion.Entity.BannerTag;
 import com.example.motion.Entity.CourseTagGroup;
-import com.example.motion.Entity.MultipleItem;
 import com.example.motion.R;
+import com.example.motion.MontionRequest.GetCourseTagGroupRequest;
+import com.example.motion.MontionRequest.GetSpecialSortRequest;
+import com.example.motion.Widget.BannerAdapter;
 import com.example.motion.Widget.CourseGroupAdapter;
-import com.example.motion.Widget.MultipleItemQuickAdapter;
-import com.example.motion.Widget.MyStringRequest;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class homepage_fragment_main extends BaseNetworkFragment {
     private final int LOAD_TAGS_SUCCESS = 1;
     private final int LOAD_TAGS_FAILED = 2;
+    private final int LOAD_BANNER_SUCCESS = 3;
+    private final int LOAD_BANNER_FAILED = 4;
 
     private ImageView ivMoreCourse;
 
     private RecyclerView rvCourseTagGroup;
+    private RecyclerView rvBanner;
+
     private CourseGroupAdapter courseGroupAdapter;
+    private BannerAdapter bannerAdapter;
+
     private List<CourseTagGroup> courseTagGroupList;
+    private List<BannerTag> bannerTagList;
 
     private Handler handler;
 
@@ -62,6 +61,7 @@ public class homepage_fragment_main extends BaseNetworkFragment {
         initView(view);
         initHandler();
         initCourseTagGroupRecyclerView();
+        initBannerRecyclerView();
 
         getHttpCourseTags();
         return view;
@@ -70,6 +70,7 @@ public class homepage_fragment_main extends BaseNetworkFragment {
     @Override
     public void onStart() {
         super.onStart();
+        getHttpBanner();
     }
 
     private void initHandler(){
@@ -90,6 +91,13 @@ public class homepage_fragment_main extends BaseNetworkFragment {
                         Log.d("HANDLER","HOMEPAGE_LOAD_TAGS_FAILED"+msg.obj);
                         Toast.makeText(getContext(), "LOAD_TAGS_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
                         break;
+                    case LOAD_BANNER_SUCCESS:
+                        bannerAdapter.notifyDataSetChanged();
+                        Log.d("HANDLER","LOAD_BANNER_SUCCESS");
+                        break;
+                    case LOAD_BANNER_FAILED:
+                        Log.d("HANDLER","LOAD_BANNER_FAILED");
+                        break;
                 }
             }
         };
@@ -98,6 +106,8 @@ public class homepage_fragment_main extends BaseNetworkFragment {
     private void initView(View view){
         ivMoreCourse = view.findViewById(R.id.ivNavItem6);
         rvCourseTagGroup = view.findViewById(R.id.rv_homepage_course_tag_group);
+        rvBanner = view.findViewById(R.id.rv_banner);
+
         ivMoreCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -149,7 +159,49 @@ public class homepage_fragment_main extends BaseNetworkFragment {
         });
     }
 
+    private void initBannerRecyclerView(){
+        GridLayoutManager layoutM = new GridLayoutManager(getContext(),3);
+        layoutM.setOrientation(LinearLayoutManager.VERTICAL);
+
+        rvBanner.setLayoutManager(layoutM);
+
+        bannerTagList = new ArrayList<>();
+        bannerAdapter = new BannerAdapter(R.layout.homepage_item_banner_tag,bannerTagList);
+
+        rvBanner.setAdapter(bannerAdapter);
+        bannerAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                Intent intent = new Intent(getActivity(),sport_activity_course_selection.class);
+
+                intent.putExtra("SelectedGroupId",bannerTagList.get(position).getSortId());
+                intent.putExtra("SelectedTagId",bannerTagList.get(position).getTagId());
+                startActivity(intent);
+            }
+        });
+    }
+
     private void getHttpCourseTags() {
+        requestQueue.add(new GetCourseTagGroupRequest(new Response.Listener<List<CourseTagGroup>>() {
+            @Override
+            public void onResponse(List<CourseTagGroup> response) {
+                courseTagGroupList.clear();
+                courseTagGroupList.addAll(response);
+
+                Message msg = handler.obtainMessage();
+                msg.what = LOAD_TAGS_SUCCESS;
+                handler.sendMessage(msg);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Message msg = handler.obtainMessage();
+                msg.what = LOAD_TAGS_FAILED;
+                msg.obj = error.toString();
+                handler.sendMessage(msg);
+            }
+        }));
+        /*
         //courseTagGroupList = new ArrayList<>();
         courseTagGroupList.clear();
         //String url ="https://www.fastmock.site/mock/318b7fee143da8b159d3e46048f8a8b3/api/getSorts";
@@ -204,5 +256,29 @@ public class homepage_fragment_main extends BaseNetworkFragment {
         });
         getTagsStringRequest.setTag("getHttp");
         requestQueue.add(getTagsStringRequest);
+
+         */
+    }
+
+    private void getHttpBanner(){
+        requestQueue.add(new GetSpecialSortRequest(new Response.Listener<List<BannerTag>>() {
+            @Override
+            public void onResponse(List<BannerTag> response) {
+                bannerTagList.clear();
+                bannerTagList.addAll(response);
+
+                Message msg = handler.obtainMessage();
+                msg.what = LOAD_BANNER_SUCCESS;
+                handler.sendMessage(msg);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Message msg = handler.obtainMessage();
+                msg.what = LOAD_BANNER_FAILED;
+                msg.obj = error.toString();
+                handler.sendMessage(msg);
+            }
+        }));
     }
 }

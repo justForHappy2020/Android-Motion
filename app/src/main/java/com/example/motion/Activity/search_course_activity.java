@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -23,18 +24,19 @@ import java.util.Set;
 
 public class search_course_activity extends Activity implements View.OnClickListener {
 
-    AutoFlowLayout flowLayout;
-    EditText et;
-    ImageButton search;
-    Button clear_history;
-    Button quit;
+    private AutoFlowLayout flowLayout;
+    private EditText et;
+    private ImageButton search;
+    private ImageView ivBack;
+    private Button clear_history;
+    private Button quit;
 
-    String estr;
-    SharedPreferences shp;
-    ArrayList strList;
-    Set<String> strSet = new HashSet<String>();
+    private String estr;
+    private SharedPreferences shp;
+    private ArrayList strList;
+    private Set<String> strSet = new HashSet<String>();
 
-    int SEARCH_COURSE = 1;
+    private int SEARCH_COURSE = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,12 +50,14 @@ public class search_course_activity extends Activity implements View.OnClickList
         flowLayout = findViewById(R.id.flowLayout);
         et = findViewById(R.id.text_input_search);
         search = findViewById(R.id.searching_button);
+        ivBack = findViewById(R.id.iv_search_back);
         clear_history = findViewById(R.id.clean_history);
         quit = findViewById(R.id.quit_button);
 
         search.setOnClickListener(this);
         clear_history.setOnClickListener(this);
         quit.setOnClickListener(this);
+        ivBack.setOnClickListener(this);
     }
     private void initData(){
         shp = getSharedPreferences("search_course_history",MODE_PRIVATE);
@@ -97,6 +101,7 @@ public class search_course_activity extends Activity implements View.OnClickList
                 editor.commit();
                 break;
             case R.id.quit_button:
+            case R.id.iv_search_back:
                 finish();
                 break;
         }
