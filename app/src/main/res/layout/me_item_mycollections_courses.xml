@@ -14,7 +14,7 @@
     android:padding="15dp">
 
     <ImageView
-        android:id="@+id/meMycourseCollectionsImg"
+        android:id="@+id/meMycollectionsImg"
         android:layout_width="100dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
@@ -31,7 +31,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/meMycourseCollectionsName1"
+            android:id="@+id/meMycollectionsCourse1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -40,14 +40,14 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/meMycourseCollectionsName2"
+            android:id="@+id/meMycollectionsCourse2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="适合4-6岁孩子练习" />
 
         <TextView
-            android:id="@+id/meMycourseCollectionsName3"
+            android:id="@+id/meMycollectionsCourse3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -56,17 +56,18 @@
 
     <!--
     <ImageView
-        android:id="@+id/btnMeMycourseCollections"
+        android:id="@+id/btnMeMycollectionCourse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/rect_rounded_arc"
         android:src="@drawable/heart_fill"
         tools:visibility="gone" />
-     -->
+        -->
+
 
     <ImageButton
-        android:id="@+id/ibMeMycourseCollections"
+        android:id="@+id/ibMeMycollectionCourse"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@drawable/button_round_purple"
