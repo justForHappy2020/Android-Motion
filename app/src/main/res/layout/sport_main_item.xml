@@ -3,14 +3,14 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="120dp">
     <Space
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         />
         <LinearLayout
-            android:layout_marginTop="10dp"
+
             android:layout_width="370dp"
             android:layout_height="139dp"
             android:orientation="horizontal"
