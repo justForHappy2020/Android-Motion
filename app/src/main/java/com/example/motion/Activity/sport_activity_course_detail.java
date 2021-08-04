@@ -286,8 +286,6 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
 
             System.out.println(param.toString());
 
-
-
             PostJsonRequest postJsonRequest = new PostJsonRequest(Request.Method.POST,url,param.toString(), new Response.Listener<String>() {
                 @Override
                 public void onResponse(String responseStr) {
