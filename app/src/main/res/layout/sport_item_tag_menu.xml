@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabBackground="@drawable/button_tag_radius_selector"
-        app:tabGravity="center"
+        app:tabGravity="start"
         app:tabIndicatorColor="@color/transparent"
         app:tabIndicatorFullWidth="true"
         app:tabMode="scrollable"
@@ -31,5 +31,5 @@
         app:tabRippleColor="@color/transparent"
         app:tabSelectedTextColor="@color/white"
         app:tabTextAppearance="@style/TextAppearance.AppCompat.Body1"
-        app:tabTextColor="@color/black_text"/>
+        app:tabTextColor="@color/black_text" />
 </LinearLayout>

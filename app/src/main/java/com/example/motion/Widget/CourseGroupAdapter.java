@@ -28,6 +28,7 @@ public class CourseGroupAdapter extends BaseQuickAdapter<CourseTagGroup, BaseVie
         if(helper.getLayoutPosition()%2!=0){
             helper.getView(R.id.ll_course_tag_group_header).setBackgroundResource(R.drawable.homepage_types_radius_orange);
         }
+        try {
             helper.setText(R.id.tv_course_tag_group_name, tagGroup.getGroupName())
                     .setText(R.id.tv_course_name_1,tagGroup.getCourseTagList().get(0).getTagName())
                     .setText(R.id.tv_course_name_2,tagGroup.getCourseTagList().get(1).getTagName())
@@ -41,6 +42,8 @@ public class CourseGroupAdapter extends BaseQuickAdapter<CourseTagGroup, BaseVie
             Glide.with(getContext())
                     .load(tagGroup.getCourseTagList().get(2).getTagUrl())
                     .into((ImageView) helper.getView(R.id.iv_course_tag_img_3));
-
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

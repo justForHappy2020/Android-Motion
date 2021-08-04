@@ -135,21 +135,26 @@ public class homepage_fragment_main extends BaseNetworkFragment {
             public void onItemChildClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 Intent intent = new Intent(getActivity(),sport_activity_course_selection.class);
                 int selectedTagId = 0;
+                try{
+                    switch (view.getId()){
+                        case R.id.tr_tag_1:
+                            selectedTagId = courseTagGroupList.get(position).getCourseTagList().get(0).getTagId();
+                            break;
+                        case R.id.tr_tag_2:
+                            selectedTagId = courseTagGroupList.get(position).getCourseTagList().get(1).getTagId();
+                            break;
+                        case R.id.tr_tag_3:
+                            selectedTagId = courseTagGroupList.get(position).getCourseTagList().get(2).getTagId();
+                            break;
+                        case R.id.tv_more_course_tag_group:
+                            selectedTagId = 0;
+                            break;
+                    }
 
-                switch (view.getId()){
-                    case R.id.tr_tag_1:
-                        selectedTagId = courseTagGroupList.get(position).getCourseTagList().get(0).getTagId();
-                        break;
-                    case R.id.tr_tag_2:
-                        selectedTagId = courseTagGroupList.get(position).getCourseTagList().get(1).getTagId();
-                        break;
-                    case R.id.tr_tag_3:
-                        selectedTagId = courseTagGroupList.get(position).getCourseTagList().get(2).getTagId();
-                        break;
-                    case R.id.tv_more_course_tag_group:
-                        selectedTagId = 0;
-                        break;
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
+
                 Log.d("onItemChildClick","position:"+String.valueOf(position)+"SelectedGroupId:"+courseTagGroupList.get(position).getGroupId());
 
                 intent.putExtra("SelectedTagId",selectedTagId);
