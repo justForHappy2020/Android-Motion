@@ -622,7 +622,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvSportMainPracticed"
                 android:layout_width="match_parent"
-                android:layout_height="360dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="#F6F6F6"
                 tools:itemCount="2"
@@ -709,7 +709,7 @@
                 android:layout_weight="1"
                 android:background="#F6F6F6"
                 tools:itemCount="2"
-                tools:listitem="@layout/sport_main_collection_item" />
+                tools:listitem="@layout/sport_main_item" />
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp"/>

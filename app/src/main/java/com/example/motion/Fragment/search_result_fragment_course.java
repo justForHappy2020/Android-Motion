@@ -152,17 +152,13 @@ public class search_result_fragment_course extends BaseNetworkFragment implement
                             JSONObject jsonObject = JSONArrayCourse.getJSONObject(i);
                             //相应的内容
                             Course course = new Course();
-                            String courseName = jsonObject.getString("courseName");
-                            String backgroundUrl = jsonObject.getString("backgroundUrl");
-                            //String courseIntro = jsonObject.getString("courseIntro");
-                            int online = jsonObject.getInt("online");
-                            course.setCourseName(courseName);
-                            course.setBackgroundUrl(backgroundUrl);
+                            course.setCourseName(jsonObject.getString("courseName"));
+                            course.setBackgroundUrl(jsonObject.getString("backgroundUrl"));
                             //course.setCourseUrl(jsonObject.getString("courseUrl"));
                             //course.setDuration(jsonObject.getString("duration"));
                             //course.setCreateTime(jsonObject.getString("createTime"));
-                            //course.setCourseIntro(courseIntro);
-                            course.setIsOnline(online);
+                            course.setCourseIntro(jsonObject.getString("courseIntro"));
+                            course.setIsOnline(jsonObject.getInt("online"));
                             courseList.add(new DyxItem(DyxItem.SELECTCOURSE,course));
                         }
                     }
@@ -193,18 +189,18 @@ public class search_result_fragment_course extends BaseNetworkFragment implement
         courseAdapter.getLoadMoreModule().loadMoreEnd();
         rvSearchCourse.setAdapter(courseAdapter);
     }
-//    private void initData(){
-//        Course course;
-//        for (int i = 0; i < 5; i++) {
-//            course = new Course();
-//
-//            course.setBackgroundUrl("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3385472845,2539383542&fm=11&gp=0.jpg");
-//            course.setCourseName("篮球培优课（适合4-6岁孩子练习）");
-//            course.setCourseIntro("亲子A类/网球/坐位体前屈");
-//            course.setIsOnline(0);
-//            courseList.add(new DyxItem(DyxItem.SELECTCOURSE,course));
-//        }
-//
-//    }
+    private void initData(){
+        Course course;
+        for (int i = 0; i < 5; i++) {
+            course = new Course();
+
+            course.setBackgroundUrl("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3385472845,2539383542&fm=11&gp=0.jpg");
+            course.setCourseName("篮球培优课（适合4-6岁孩子练习）");
+            course.setCourseIntro("亲子A类/网球/坐位体前屈");
+            course.setIsOnline(0);
+            courseList.add(new DyxItem(DyxItem.SELECTCOURSE,course));
+        }
+
+    }
 
 }

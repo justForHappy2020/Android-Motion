@@ -34,20 +34,10 @@
             android:id="@+id/meMycourseCollectionsName1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="0.1"
-            app:srcCompat="@drawable/me_mycourse_history_img"
-            android:padding="1dp"/>
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="5"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:layout_weight="1"
+            android:text="篮球培优课"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/meMycourseCollectionsName2"
@@ -82,5 +72,5 @@
         android:background="@drawable/button_round_purple"
         android:scaleType="center"
         android:src="@drawable/ic_heart_fill_small" />
-    </LinearLayout>
+
 </LinearLayout>
