@@ -129,45 +129,7 @@ public class me_activity_bodydata_addfile extends NeedTokenActivity implements V
                         handler.sendMessage(msg);
                     }
                 });
-
                 requestQueue.add(postJsonRequest);
-                /*
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            //设置JSON数据
-                            JSONObject json = new JSONObject();
-                            try {
-                                json.put("token", UserInfoManager.getUserInfoManager(me_activity_bodydata_addfile.this).getToken());
-                                json.put("height", height);
-                                json.put("weight", weight);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            String url = "http://106.55.25.94:8080/api/community/saveHealthRecord";
-                            String responseData = connectHttp(url,json);
-                            try {
-                                JSONObject jsonObject1 = new JSONObject(responseData);
-                                //相应的内容
-                                httpcode = jsonObject1.getInt("code");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                thread.start();
-                try {
-                    thread.join(10000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                 */
-
                 break;
         }
     }
