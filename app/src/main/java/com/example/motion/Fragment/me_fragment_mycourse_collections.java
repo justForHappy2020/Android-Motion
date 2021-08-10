@@ -67,7 +67,7 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
     private AlertDialog.Builder builder;
     private String dialogMessage = "";
     private SharedPreferences readSP;
-    private String testToken = "aa650cbc-d18a-42fd-926b-98cf1327e2b3";
+//    private String testToken = "aa650cbc-d18a-42fd-926b-98cf1327e2b3";
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.me_fragment_mycourse_collections,container,false);
 
@@ -119,8 +119,8 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
 
         String url = "http://106.55.25.94:8080/api/course/getCollectionCourse?size=" + COURSE_NUM_IN_ONE_PAGE;
         if(params.isEmpty()){
-//            url+="&page=1&token="+token;   //使用真实token
-            url+="&page=1&token=" +testToken;   //测试token
+            url+="&page=1&token="+token;   //使用真实token
+//            url+="&page=1&token=" +testToken;   //测试token
         }else{
             Iterator iter = params.keySet().iterator();
             while (iter.hasNext()) {

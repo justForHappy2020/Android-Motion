@@ -176,7 +176,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
     private String historyUrl;
     private String collectionUrl;
     private String emptyUrl = "";
-    private String testToken = "aa650cbc-d18a-42fd-926b-98cf1327e2b3";
+//    private String testToken = "aa650cbc-d18a-42fd-926b-98cf1327e2b3";
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -622,8 +622,8 @@ public class sport_fragment_main extends BaseNetworkFragment implements
     }
 
     private void getHttpSportInfo(String url){
-        //String targetSportInfoUrl = url + UserInfoManager.getUserInfoManager(getContext()).getToken();
-        String targetSportInfoUrl = url + testToken;
+        String targetSportInfoUrl = url + UserInfoManager.getUserInfoManager(getContext()).getToken();
+        //String targetSportInfoUrl = url + testToken;
         MyStringRequest getTagsStringRequest = new MyStringRequest(Request.Method.GET,  targetSportInfoUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String responseStr) {
@@ -665,9 +665,9 @@ public class sport_fragment_main extends BaseNetworkFragment implements
         exerciseList = new String[] {};
         //exerciseList = new String[][] {};
         exerciseTime = new int[] {};
-//        String targetCalendarUrl = url + UserInfoManager.getUserInfoManager(getContext()).getToken();
+        String targetCalendarUrl = url + UserInfoManager.getUserInfoManager(getContext()).getToken();
         //解析接口数据，再传入日历中进行数据展示以及监听分析
-        String targetCalendarUrl = url+ testToken;//测试token
+//        String targetCalendarUrl = url+ testToken;//测试token
         final Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -737,8 +737,8 @@ public class sport_fragment_main extends BaseNetworkFragment implements
 
         url = url + COURSE_NUM_IN_ONE_PAGE;
         if(params.isEmpty()){
-//            targetPracticedCourseUrl+="&page=1&token="+token;//真实token
-            url+="&page=1&token="+testToken;//测试token
+            url+="&page=1&token="+token;//真实token
+//            url+="&page=1&token="+testToken;//测试token
         }else{
             Iterator iter = params.keySet().iterator();
             while (iter.hasNext()) {
@@ -811,8 +811,8 @@ public class sport_fragment_main extends BaseNetworkFragment implements
 
         url = url + COURSE_NUM_IN_ONE_PAGE;
         if(params.isEmpty()){
-//             url+="&page=1&token="+token;//真实token
-            url+="&page=1&token="+testToken;//测试token
+             url+="&page=1&token="+token;//真实token
+//            url+="&page=1&token="+testToken;//测试token
         }else{
             Iterator iter = params.keySet().iterator();
             while (iter.hasNext()) {
