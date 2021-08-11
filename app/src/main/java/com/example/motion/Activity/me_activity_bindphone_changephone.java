@@ -28,6 +28,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.motion.Fragment.me_fragment_main;
 import com.example.motion.R;
 import com.example.motion.Utils.KeyboardUtils;
+import com.example.motion.Utils.UserInfoManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,16 +50,18 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
     private Boolean isNewUser = false;
     private SharedPreferences saveSP ;
     private RequestQueue queue;
+    private String token;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_activity_bindphone_changephone);
-        initview();
+        initView();
     }
 
-    private void initview() {
+    private void initView() {
+        token = UserInfoManager.getUserInfoManager(this).getToken();
         iv_back = findViewById(R.id.iv_back);
         et_phone = findViewById(R.id.et_phonenum);
         et_code = findViewById(R.id.et_code);
@@ -176,8 +179,6 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
 
 
             case R.id.iv_back:
-                Intent intent = new Intent(me_activity_bindphone_changephone.this, viewpager_activity_main.class);
-                startActivity(intent);
                 finish();
                 break;
 
@@ -192,6 +193,7 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
                 else {
                     JSONObject json_login = new JSONObject();
                     try {
+                        json_login.put("token" , token);
                         json_login.put("code", loginCode);
                         json_login.put("phoneNumber", mobile);
                     } catch (JSONException e) {
@@ -219,7 +221,8 @@ public class me_activity_bindphone_changephone extends AppCompatActivity impleme
                                             finish();
                                         }
                                         else {
-                                            Toast.makeText(me_activity_bindphone_changephone.this, "验证码错误", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(me_activity_bindphone_changephone.this, obj.getString("message"), Toast.LENGTH_SHORT).show();
+                                            //Toast.makeText(me_activity_bindphone_changephone.this, "验证码错误", Toast.LENGTH_SHORT).show();
                                         }
 
                                     } catch (JSONException e) {

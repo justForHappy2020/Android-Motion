@@ -3,6 +3,7 @@ package com.example.motion.Activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -60,6 +61,7 @@ public class me_activity_help extends NeedTokenActivity implements View.OnClickL
     private String token;
     private ImageView ivBack;
     private TextView tvMyFeedback;
+    private TextView tvQuestion;
     private EditText etMainText;
     private EditText etQQ;
     private RecyclerView rvFeedbackPicture;
@@ -68,6 +70,8 @@ public class me_activity_help extends NeedTokenActivity implements View.OnClickL
     private int httpCode;
     private DyxQuickAdapter pictureAdapter;
     private List<DyxItem> pictureList = new ArrayList();
+    private AlertDialog alert1 = null;
+    private AlertDialog.Builder builder1 = null;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.me_activity_feedback);
@@ -101,12 +105,14 @@ public class me_activity_help extends NeedTokenActivity implements View.OnClickL
     }
 
     private void initView(){
+        tvQuestion = findViewById(R.id.tv_question);
         ivBack = findViewById(R.id.me_feedback_back);
         tvMyFeedback = findViewById(R.id.tv_my_feedback);
         etMainText = findViewById(R.id.et_feedback_text);
         etQQ = findViewById(R.id.et_feedback_qq);
         rvFeedbackPicture = findViewById(R.id.feedback_picture);
         tvSend = findViewById(R.id.tv_send_feedback);
+        tvQuestion.setOnClickListener(this);
         ivBack.setOnClickListener(this);
         tvMyFeedback.setOnClickListener(this);
         tvSend.setOnClickListener(this);
@@ -356,6 +362,14 @@ public class me_activity_help extends NeedTokenActivity implements View.OnClickL
 
                 requestQueue.add(postJsonRequest);
                 finish();
+                break;
+            case R.id.tv_question:
+                builder1 = new AlertDialog.Builder(me_activity_help.this);
+                alert1 = builder1.setTitle("常见问题")
+                        .setMessage("1.有时候卡是很正常的\n2.有bug是很正常的")
+                        .create();
+                alert1.show();
+                alert1.setCanceledOnTouchOutside(true);
                 break;
         }
     }

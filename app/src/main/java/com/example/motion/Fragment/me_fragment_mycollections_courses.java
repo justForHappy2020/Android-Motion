@@ -154,7 +154,6 @@ public class me_fragment_mycollections_courses extends BaseNetworkFragment {
         String url = "http://106.55.25.94:8080/api/course/getCollectionCourse?size=" + COURSE_NUM_IN_ONE_PAGE;
         if(params.isEmpty()){
             url+="&page=1&token="+token;//真实token
-//            url+="&page=1&token="+testToken;//测试token9
         }else{
             Iterator iter = params.keySet().iterator();
             while (iter.hasNext()) {
