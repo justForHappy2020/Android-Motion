@@ -707,7 +707,6 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                             labels += (JSONArrayLabels.get(j) + "/");
                         }
                         practicedCourse.setLables(labels);
-
                          */
                         Course course = new Course();
                         course.setCourseId(jsonCourseObject.getLong("courseId"));
@@ -717,7 +716,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
 
                         practicedList.add(new MultipleItem(MultipleItem.sport_main_item, course));
                     }
-                   // practicedList.addAll(sportMainPracticedCourses);
+                    // practicedList.addAll(sportMainPracticedCourses);
 
                     Log.d("me_fragment_mycourse_collections","getHttpCourse_responseStr:"+responseStr);
                     Message msg = handler.obtainMessage();
@@ -777,7 +776,6 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                         JSONObject jsonCourseObject = JSONArrayCourse.getJSONObject(i);
                         //相应的内容
                         /*sportMainItem collectedCourse = new sportMainItem();
-
                         collectedCourse.setCourseName(jsonCourseObject.getString("courseName"));
                         collectedCourse.setImgUrl(jsonCourseObject.getString("backgroundUrl"));
                         collectedCourse.setTargetAge(jsonCourseObject.getString("targetAge"));
@@ -787,7 +785,6 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                             labels += (JSONArrayLabels.get(j) + "/");
                         }
                         collectedCourse.setLables(labels);
-
                          */
 
                         Log.d("ranly","adding"+i);
@@ -876,7 +873,6 @@ public class sport_fragment_main extends BaseNetworkFragment implements
             downloadCourse.setLables("亲子A类/网球/坐位体前屈");
             downloadList.add(new MultipleItem(MultipleItem.sport_main_item, downloadCourse));
         }
-
          */
 
 

@@ -1,6 +1,8 @@
 package com.example.motion.Activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -9,8 +11,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -50,6 +57,9 @@ public class register_activity_register extends BaseNetworkActivity implements V
     private Button btn_login;
     private ImageView iv_wechat;
     private TextView tv_callService;//跳转客服
+    private TextView tvCheck;
+    private AlertDialog alert1 = null;
+    private AlertDialog.Builder builder1 = null;
 
     private SharedPreferences saveSP ;
 
@@ -81,6 +91,33 @@ public class register_activity_register extends BaseNetworkActivity implements V
         btn_login = findViewById(R.id.btn_login);
         iv_wechat = findViewById(R.id.iv_wechat);//微信登录
         tv_callService = findViewById(R.id.tv_callService);//客服
+        tvCheck = findViewById(R.id.tv_check);
+        final SpannableStringBuilder style = new SpannableStringBuilder();
+        //设置文字
+        style.append("我已经阅读并同意Motion的《用户需知》");
+        //设置部分文字点击事件
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                builder1 = new AlertDialog.Builder(register_activity_register.this);
+                alert1 = builder1.setTitle("用户需知")
+                        .setMessage("这里是用户需知")
+                        .create();
+                alert1.show();
+                alert1.setCanceledOnTouchOutside(true);
+            }
+        };
+        style.setSpan(clickableSpan, 15, 21, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tvCheck.setText(style);
+
+        //设置部分文字颜色
+        ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(Color.parseColor("#673AB7"));
+        style.setSpan(foregroundColorSpan, 15, 21, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        //配置给TextView
+        tvCheck.setMovementMethod(LinkMovementMethod.getInstance());
+        tvCheck.setText(style);
+
         saveSP = this.getSharedPreferences("saveSp",MODE_PRIVATE);
 
         iv_delete.setOnClickListener(this);

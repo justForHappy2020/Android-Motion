@@ -1,5 +1,6 @@
 package com.example.motion.VolleyRequest;
 
+import android.content.Intent;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -12,6 +13,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
+import com.example.motion.Activity.register_activity_register;
+import com.example.motion.MotionApplication;
 import com.raizlabs.android.dbflow.annotation.provider.ContentUri;
 
 import org.json.JSONException;
@@ -25,6 +28,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import static androidx.core.content.ContextCompat.startActivity;
 import static com.example.motion.MontionRequest.BaseServer.TOKEN_INVALID;
 
 public class PostJsonRequest extends Request<String> {
@@ -64,6 +68,8 @@ public class PostJsonRequest extends Request<String> {
             JSONObject root = new JSONObject(parsed);
             switch(root.getInt("code")){
                 case TOKEN_INVALID:
+                    Intent intent = new Intent(MotionApplication.context, register_activity_register.class);
+                    startActivity(MotionApplication.context,intent,null);
                     return Response.error(new VolleyError("TOKEN_INVALID"));
             }
         } catch (JSONException e) {
