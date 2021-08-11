@@ -65,6 +65,7 @@ import com.example.motion.Entity.MultipleItem;
 import com.example.motion.Entity.User;
 import com.example.motion.Entity.sportMainItem;
 import com.example.motion.R;
+import com.example.motion.Utils.CourseCacheUtil;
 import com.example.motion.Utils.UserInfoManager;
 import com.example.motion.VolleyRequest.MyStringRequest;
 import com.example.motion.Widget.MultipleItemQuickAdapter;
@@ -144,6 +145,9 @@ public class sport_fragment_main extends BaseNetworkFragment implements
     private final int LOAD_COLLECTION_FAILED = 4;
     private final int LOAD_USER_INFO_SUCCESS = 5;
     private final int LOAD_USER_INFO_FAILED = 6;
+    private final int LOAD_DOWNLOADED_COURSES_SUCCESS = 7;
+    private final int LOAD_DOWNLOADED_COURSES_FAILED = 8;
+
 
     private ImageView ivPortrait;
     private TextView tv_name;
@@ -174,8 +178,8 @@ public class sport_fragment_main extends BaseNetworkFragment implements
             initView(view);
             initHandler();
             checkToken();
-            getHttpCalendar();
-            initData();
+            //getHttpCalendar();
+            //initData();
 //            initPracticedList();
 //            initCollectionList();
             initDownloadList();
@@ -190,8 +194,9 @@ public class sport_fragment_main extends BaseNetworkFragment implements
         initLocalData();
         if(!UserInfoManager.getUserInfoManager(getContext()).isTokenEmpty()){
             initData();
+            Log.d("ranlychan","token not empty");
         }else{
-
+            Log.d("ranlychan","token empty");
         }
     }
 
@@ -222,7 +227,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                         Toast.makeText(getActivity(), "LOAD_PRACTICED_COURSES_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
                         break;
                     case LOAD_COLLECTION_SUCCESS:
-                        Log.d("HANDLER","LOAD_COURSES_SUCCESS");
+                        Log.d("HANDLER","LOAD_COLLECTION_SUCCESS");
                         collectionAdapter.notifyDataSetChanged();
                         collectionAdapter.getLoadMoreModule().loadMoreComplete();
 
@@ -239,6 +244,15 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                         Log.d("me_fragment_main_Handler","LOAD_USER_INFO_SUCCESS");
                         tv_name.setText(user.getNickName());
                         Glide.with(getContext()).load(user.getHeadPortraitUrl()).into(ivPortrait);
+                        break;
+                    case LOAD_DOWNLOADED_COURSES_SUCCESS:
+                        Log.d("me_fragment_main_Handler","LOAD_DOWNLOADED_COURSES_SUCCESS");
+                        downloadAdapter.notifyDataSetChanged();
+                        break;
+                    case LOAD_DOWNLOADED_COURSES_FAILED:
+
+                        Log.d("me_fragment_main_Handler","LOAD_DOWNLOADED_COURSES_FAILED");
+                        Toast.makeText(getContext(), "LOAD_DOWNLOADED_COURSES_FAILED,"+msg.obj, Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -506,8 +520,6 @@ public class sport_fragment_main extends BaseNetworkFragment implements
     }
 
     protected void initData() {
-
-
         getHttpUserInfo();
         getHttpSportInfo();
         getHttpCalendar();
@@ -650,7 +662,8 @@ public class sport_fragment_main extends BaseNetworkFragment implements
     }
 
     private void getHttpPracticedCourse(Map params){
-        List<MultipleItem> sportMainPracticedCourses = new ArrayList<>();
+        //List<MultipleItem> sportMainPracticedCourses = new ArrayList<>();
+        practicedList.clear();
 
         String url = "http://106.55.25.94:8080/api/course/getPracticedCourse?size=" + COURSE_NUM_IN_ONE_PAGE;
         if(params.isEmpty()){
@@ -664,7 +677,6 @@ public class sport_fragment_main extends BaseNetworkFragment implements
             }
         }
         Log.d("sport_main_practiced_course","requestUrl:" + url);
-        dialogMessage += "\n\ngetHttpCourse requestingUrl:\n" + url;
 
         MyStringRequest stringRequest = new MyStringRequest(Request.Method.GET,  url, new Response.Listener<String>() {
             @Override
@@ -681,9 +693,10 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                     //得到筛选的课程list
                     JSONArray JSONArrayCourse = jsonObject2.getJSONArray("courseList");
 //                    for (int i = 0; i < JSONArrayCourse.length(); i++) {
-                    for (int i = 0; i < 3; i++) {
+                    for (int i = 0; i < JSONArrayCourse.length(); i++) {
                         JSONObject jsonCourseObject = JSONArrayCourse.getJSONObject(i);
                         //相应的内容
+                        /*
                         sportMainItem practicedCourse = new sportMainItem();
                         practicedCourse.setCourseName(jsonCourseObject.getString("courseName"));
                         practicedCourse.setImgUrl(jsonCourseObject.getString("backgroundUrl"));
@@ -694,17 +707,22 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                             labels += (JSONArrayLabels.get(j) + "/");
                         }
                         practicedCourse.setLables(labels);
-                        sportMainPracticedCourses.add(new MultipleItem(MultipleItem.sport_main_item, practicedCourse));
+
+                         */
+                        Course course = new Course();
+                        course.setCourseId(jsonCourseObject.getLong("courseId"));
+                        course.setCourseName(jsonCourseObject.getString("courseName"));
+                        course.setBackgroundUrl(jsonCourseObject.getString("backgroundUrl"));
+                        course.setTargetAge(jsonCourseObject.getString("targetAge"));
+
+                        practicedList.add(new MultipleItem(MultipleItem.sport_main_item, course));
                     }
-                    practicedList.addAll(sportMainPracticedCourses);
+                   // practicedList.addAll(sportMainPracticedCourses);
 
                     Log.d("me_fragment_mycourse_collections","getHttpCourse_responseStr:"+responseStr);
                     Message msg = handler.obtainMessage();
                     msg.what = LOAD_PRACTICED_COURSES_SUCCESS;
                     handler.sendMessage(msg);
-                    //test tool
-                    dialogMessage+="\n\ngetHttpCourse response:\n"+jsonRootObject.toString();
-                    //end of test tool
                 }catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -712,11 +730,6 @@ public class sport_fragment_main extends BaseNetworkFragment implements
         }, new Response.ErrorListener() {
             public void onErrorResponse(VolleyError volleyError) {
                 Log.d("sport_activity_course_selection","getHttpCourse_onErrorResponse");
-
-                //test tool
-                dialogMessage+="\ngetHttpCourse error: "+volleyError.toString();
-                //end of test tool
-
                 Message msg = handler.obtainMessage();
                 msg.what = LOAD_PRACTICED_COURSES_FAILED;
                 msg.obj = volleyError.toString();
@@ -729,7 +742,8 @@ public class sport_fragment_main extends BaseNetworkFragment implements
     }
 
     private void getHttpCollectedCourse(Map params){
-        List<MultipleItem> sportMainCollectionCourses = new ArrayList<>();
+        collectedList.clear();
+        //List<MultipleItem> sportMainCollectionCourses = new ArrayList<>();
 
         String url = "http://106.55.25.94:8080/api/course/getCollectionCourse?size=" + COURSE_NUM_IN_ONE_PAGE;
         if(params.isEmpty()){
@@ -743,7 +757,6 @@ public class sport_fragment_main extends BaseNetworkFragment implements
             }
         }
         Log.d("sport_main_collected_course","requestUrl:" + url);
-        dialogMessage += "\n\ngetHttpCourse requestingUrl:\n" + url;
 
         MyStringRequest stringRequest = new MyStringRequest(Request.Method.GET,  url, new Response.Listener<String>() {
             @Override
@@ -760,10 +773,11 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                     //得到筛选的课程list
                     JSONArray JSONArrayCourse = jsonObject2.getJSONArray("courseList");
 //                    for (int i = 0; i < JSONArrayCourse.length(); i++) {
-                    for (int i = 0; i < 3; i++) {
+                    for (int i = 0; i < JSONArrayCourse.length(); i++) {
                         JSONObject jsonCourseObject = JSONArrayCourse.getJSONObject(i);
                         //相应的内容
-                        sportMainItem collectedCourse = new sportMainItem();
+                        /*sportMainItem collectedCourse = new sportMainItem();
+
                         collectedCourse.setCourseName(jsonCourseObject.getString("courseName"));
                         collectedCourse.setImgUrl(jsonCourseObject.getString("backgroundUrl"));
                         collectedCourse.setTargetAge(jsonCourseObject.getString("targetAge"));
@@ -773,17 +787,24 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                             labels += (JSONArrayLabels.get(j) + "/");
                         }
                         collectedCourse.setLables(labels);
-                        sportMainCollectionCourses.add(new MultipleItem(MultipleItem.sport_main_item, collectedCourse));
+
+                         */
+
+                        Log.d("ranly","adding"+i);
+                        Course course = new Course();
+                        course.setCourseId(jsonCourseObject.getLong("courseId"));
+                        course.setCourseName(jsonCourseObject.getString("courseName"));
+                        course.setBackgroundUrl(jsonCourseObject.getString("backgroundUrl"));
+                        course.setTargetAge(jsonCourseObject.getString("targetAge"));
+
+                        collectedList.add(new MultipleItem(MultipleItem.sport_main_item, course));
                     }
-                    practicedList.addAll(sportMainCollectionCourses);
+                    //practicedList.addAll(sportMainCollectionCourses);
 
                     Log.d("sport_main_collection","getHttpCourse_responseStr:"+responseStr);
                     Message msg = handler.obtainMessage();
                     msg.what = LOAD_COLLECTION_SUCCESS;
                     handler.sendMessage(msg);
-                    //test tool
-                    dialogMessage+="\n\ngetHttpCourse response:\n"+jsonRootObject.toString();
-                    //end of test tool
                 }catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -791,11 +812,6 @@ public class sport_fragment_main extends BaseNetworkFragment implements
         }, new Response.ErrorListener() {
             public void onErrorResponse(VolleyError volleyError) {
                 Log.d("sport_main_collection","getHttpCourse_onErrorResponse");
-
-                //test tool
-                dialogMessage+="\ngetHttpCourse error: "+volleyError.toString();
-                //end of test tool
-
                 Message msg = handler.obtainMessage();
                 msg.what = LOAD_PRACTICED_COURSES_FAILED;
                 msg.obj = volleyError.toString();
@@ -832,6 +848,25 @@ public class sport_fragment_main extends BaseNetworkFragment implements
 //    }
 
     protected void initDownloadList(){
+        try {
+            CourseCacheUtil ccu = new CourseCacheUtil(getContext(),getActivity().getCacheDir());
+            List<Course> cachedCourses = ccu.getAllCachedCourseList();
+            for(int i=0;i<cachedCourses.size();i++){
+                downloadList.add(new MultipleItem(MultipleItem.sport_main_item,cachedCourses.get(i)));
+            }
+            Message msg = handler.obtainMessage();
+            msg.what = LOAD_DOWNLOADED_COURSES_SUCCESS;
+            msg.sendToTarget();
+        }catch (Exception e){
+            e.printStackTrace();
+            Message msg = handler.obtainMessage();
+            msg.what = LOAD_DOWNLOADED_COURSES_FAILED;
+            msg.obj=e.toString();
+            msg.sendToTarget();
+        }
+
+
+        /*
         sportMainItem downloadCourse;
         for (int i = 0; i < 3; i++) {
             downloadCourse = new sportMainItem();
@@ -841,6 +876,8 @@ public class sport_fragment_main extends BaseNetworkFragment implements
             downloadCourse.setLables("亲子A类/网球/坐位体前屈");
             downloadList.add(new MultipleItem(MultipleItem.sport_main_item, downloadCourse));
         }
+
+         */
 
 
     }
@@ -854,7 +891,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
             practicedCourse.setCourseName("篮球培优课");
             practicedCourse.setTargetAge("适合4-6岁孩子练习");
             practicedCourse.setLables("亲子A类/网球/坐位体前屈");
-            practicedList.add(new MultipleItem(MultipleItem.sport_main_item,practicedCourse));
+            //practicedList.add(new MultipleItem(MultipleItem.sport_main_item,practicedCourse));
         }
     }
 
