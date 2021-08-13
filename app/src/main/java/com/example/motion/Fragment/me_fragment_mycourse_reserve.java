@@ -21,8 +21,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.example.motion.Activity.register_activity_register;
+import com.example.motion.Activity.sport_activity_course_detail;
 import com.example.motion.Entity.MultipleItem;
 import com.example.motion.Entity.me_mycourse_reserve;
 import com.example.motion.R;
@@ -196,11 +199,25 @@ public class me_fragment_mycourse_reserve extends BaseNetworkFragment {
     public void initData(){
 
         rvCourseReserved.setLayoutManager(new LinearLayoutManager(getActivity()));
-        courseAdapter = new MultipleItemQuickAdapter(showingReserveList);
-        rvCourseReserved.setAdapter(courseAdapter);
+        //courseAdapter = new MultipleItemQuickAdapter(showingReserveList);
+        //rvCourseReserved.setAdapter(courseAdapter);
 
         showingReserveList = new ArrayList<>();
         courseAdapter = new MultipleItemQuickAdapter(showingReserveList);
+
+        courseAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                try {
+                    Intent intent = new Intent(getContext(), sport_activity_course_detail.class);
+                    intent.putExtra("courseId",showingReserveList.get(position).getMe_mycourse_reserve().getCourseId());
+                    startActivity(intent);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
         rvCourseReserved.setAdapter(courseAdapter);
         rvCourseReserved.setNestedScrollingEnabled(false);
 
