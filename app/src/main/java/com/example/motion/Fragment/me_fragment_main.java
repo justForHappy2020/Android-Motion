@@ -131,7 +131,6 @@ public class me_fragment_main extends BaseNetworkFragment implements View.OnClic
             public void handleMessage(Message msg) {
                 switch (msg.what){
                     case LOAD_USER_INFO_FAILED:
-                        checkVolleyError(msg.obj);
                         Log.d("me_fragment_main_Handler","LOAD_USER_INFO_FAILED");
                         break;
                     case LOAD_USER_INFO_SUCCESS:
@@ -202,7 +201,7 @@ public class me_fragment_main extends BaseNetworkFragment implements View.OnClic
 
                 Message msg = handler.obtainMessage();
                 msg.what = LOAD_USER_INFO_FAILED;
-                msg.obj = volleyError;
+                msg.obj = volleyError.toString();
                 handler.sendMessage(msg);
             }
         });

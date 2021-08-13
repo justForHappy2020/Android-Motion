@@ -88,16 +88,14 @@ public class homepage_fragment_main extends BaseNetworkFragment {
                         courseGroupAdapter.notifyDataSetChanged();
                         break;
                     case LOAD_TAGS_FAILED:
-                        checkVolleyError(msg.obj);
                         Log.d("HANDLER","HOMEPAGE_LOAD_TAGS_FAILED"+msg.obj);
-                        //Toast.makeText(getContext(), "LOAD_TAGS_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "LOAD_TAGS_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
                         break;
                     case LOAD_BANNER_SUCCESS:
                         bannerAdapter.notifyDataSetChanged();
                         Log.d("HANDLER","LOAD_BANNER_SUCCESS");
                         break;
                     case LOAD_BANNER_FAILED:
-                        //checkVolleyError(msg.obj);
                         Log.d("HANDLER","LOAD_BANNER_FAILED");
                         break;
                 }
