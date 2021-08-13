@@ -55,6 +55,7 @@
                 android:overScrollMode="never"
                 android:scrollbars="none"/>
 
+            <!--
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -187,6 +188,7 @@
                 </TableRow>
 
             </TableLayout>
+            -->
 
             <TextView
                 android:layout_width="match_parent"

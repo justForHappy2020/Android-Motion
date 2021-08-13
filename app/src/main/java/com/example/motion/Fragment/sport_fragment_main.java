@@ -483,7 +483,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
         int Month = calendar.getMonth();
         int Day = calendar.getDay();
 
-        if(dateList.length!=0){
+        if(null != dateList && dateList.length!=0){
             for(int i = 0;i<dateList.length;i++){
                 if(Year == yearList[i] && Month == monthList[i] &&  Day ==dayList[i]){
                     if (isClick) {

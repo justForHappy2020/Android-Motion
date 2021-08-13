@@ -10,6 +10,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.example.motion.Entity.BannerTag;
+import com.example.motion.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,11 +20,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.motion.Entity.CourseTag.TAG_ALL;
+import static com.example.motion.Entity.CourseTag.TAG_SORT_HOT;
+import static com.example.motion.Entity.CourseTagGroup.TAG_GROUP_SORT;
 import static com.example.motion.MontionRequest.BaseServer.GET_SPECIAL_SORT;
 
 public class GetSpecialSortRequest extends Request<List<BannerTag>> {
     private final static int GetSpecialSortRequestMethod = Method.GET;
-    private final static String relativeUrl = "/getSpecialSort";//"api/CourseClass/getSpecialSort";
+    private final static String relativeUrl = "/api/CourseClass/getSpecialSort";
     private final static String fullRequestUrl = BaseServer.getServerUrl(GET_SPECIAL_SORT) + relativeUrl;
 
 
@@ -66,6 +70,7 @@ public class GetSpecialSortRequest extends Request<List<BannerTag>> {
         try {
             jsonRootObject = new JSONObject(parsed);
             JSONArray jsonTagGroupArray = jsonRootObject.getJSONArray("data");
+
             for(int j=0;j<jsonTagGroupArray.length();j++){
                 JSONObject bannerTagJsonObject = jsonTagGroupArray.getJSONObject(j);
 
@@ -76,6 +81,8 @@ public class GetSpecialSortRequest extends Request<List<BannerTag>> {
                 bannerTag.setBannerName(bannerTagJsonObject.getString("bannerName"));
                 bannerTagList.add(bannerTag);
             }
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

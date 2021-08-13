@@ -73,4 +73,8 @@ public class UserInfoManager {
         userInfoManager.sp.edit().putString("intro",user.getCreateTime()).commit();
         //userInfoManager.sp.edit().putString("birth",user.getBirth()).commit();
     }
+
+    public void removeToken(){
+        userInfoManager.sp.edit().remove("token").commit();
+    }
 }

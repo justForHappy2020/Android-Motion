@@ -68,6 +68,8 @@ public class register_activity_register extends BaseNetworkActivity implements V
     private String loginCode;//填写的验证码
     private Boolean isNewUser;
 
+    private Boolean isLoginSuccess = false;//一个标签，用于判断登陆界面结束时是否清除本地token
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -338,6 +340,7 @@ public class register_activity_register extends BaseNetworkActivity implements V
                                     System.out.println("----------:" + obj);
                                     try {
                                         if(obj.getInt("code") == 200){
+                                            isLoginSuccess = true;
                                             JSONObject response = obj.getJSONObject("data");
                                             Toast.makeText(register_activity_register.this, "发送成功", Toast.LENGTH_SHORT).show();
                                             Long userId = response.getLong("userId");
@@ -388,6 +391,14 @@ public class register_activity_register extends BaseNetworkActivity implements V
             case R.id.tv_callService:
                 jumpCalling(this);
               break;
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(!isLoginSuccess){
+            UserInfoManager.getUserInfoManager(this).removeToken();
         }
     }
 }

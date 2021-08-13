@@ -707,8 +707,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="#F6F6F6"
-                tools:listitem="@layout/sport_main_collection_item" />
+                android:background="#F6F6F6" />
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp"/>
