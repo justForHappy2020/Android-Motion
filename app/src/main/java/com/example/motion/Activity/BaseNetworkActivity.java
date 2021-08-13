@@ -2,6 +2,7 @@ package com.example.motion.Activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -10,7 +11,11 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.android.volley.NetworkError;
+import com.android.volley.ParseError;
 import com.android.volley.RequestQueue;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.Volley;
 import com.example.motion.R;
 import com.example.motion.VolleyError.TokenInvalidError;
@@ -57,4 +62,31 @@ public class BaseNetworkActivity extends Activity{
         return false;
     }
 
+    protected void checkVolleyError(Object e){
+        if(e != null){
+            if(e instanceof TimeoutError){
+                Toast.makeText(this, "网络连接超时", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(e instanceof ServerError){
+                Toast.makeText(this, "服务器内部错误", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(e instanceof NetworkError){
+                Toast.makeText(this, "网络异常", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(e instanceof ParseError){
+                Toast.makeText(this, "服务器响应解析失败", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(e instanceof TokenInvalidError){
+                Toast.makeText(getApplicationContext(), "登陆状态失效，请尝试重新登陆", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, register_activity_register.class);
+                startActivity(intent);
+                return;
+            }
+            Toast.makeText(getApplicationContext(), "未知错误", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
