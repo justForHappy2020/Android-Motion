@@ -17,8 +17,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.Volley;
-import com.example.motion.MotionError.TokenInvalidError;
 import com.example.motion.R;
+import com.example.motion.VolleyError.TokenInvalidError;
 
 public class BaseNetworkActivity extends Activity{
     protected RequestQueue requestQueue;

@@ -19,7 +19,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.example.motion.Activity.register_activity_register;
-import com.example.motion.MotionError.TokenInvalidError;
+import com.example.motion.VolleyError.TokenInvalidError;
 import com.example.motion.R;
 
 public class BaseNetworkFragment extends Fragment {

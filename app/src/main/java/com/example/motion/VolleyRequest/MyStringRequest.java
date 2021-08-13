@@ -14,7 +14,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.motion.Activity.me_activity_bindphone_changephone;
 import com.example.motion.Activity.register_activity_register;
 import com.example.motion.MotionApplication;
-import com.example.motion.MotionError.TokenInvalidError;
+import com.example.motion.VolleyError.TokenInvalidError;
 
 import org.json.JSONException;
 import org.json.JSONObject;
