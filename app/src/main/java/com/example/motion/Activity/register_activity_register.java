@@ -279,6 +279,7 @@ public class register_activity_register extends BaseNetworkActivity implements V
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
+                            checkVolleyError(error);
                             error.getMessage();
                             btn_getcode.setEnabled(Boolean.TRUE);
                         }
@@ -370,6 +371,7 @@ public class register_activity_register extends BaseNetworkActivity implements V
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
+                            checkVolleyError(error);
                             error.getMessage();
                             Toast.makeText(register_activity_register.this,"登录失败",Toast.LENGTH_SHORT).show();
                         }

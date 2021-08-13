@@ -47,6 +47,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.fragment.app.Fragment;
@@ -56,14 +57,18 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.example.motion.Activity.me_activity_mycollections;
 import com.example.motion.Activity.me_activity_mycourse;
 import com.example.motion.Activity.register_activity_register;
 import com.example.motion.Activity.search_course_activity;
 
+import com.example.motion.Activity.sport_activity_course_detail;
 import com.example.motion.Entity.MultipleItem;
 import com.example.motion.Entity.User;
 import com.example.motion.Entity.sportMainItem;
+import com.example.motion.MotionApplication;
 import com.example.motion.R;
 import com.example.motion.Utils.CourseCacheUtil;
 import com.example.motion.Utils.UserInfoManager;
@@ -96,6 +101,7 @@ import java.util.List;
 import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.example.motion.MontionRequest.BaseServer.TOKEN_INVALID;
 
 
 public class sport_fragment_main extends BaseNetworkFragment implements
@@ -224,7 +230,8 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                         break;
                     case LOAD_PRACTICED_COURSES_FAILED:
                         Log.d("HANDLER","LOAD_PRACTICED_COURSES_FAILED");
-                        Toast.makeText(getActivity(), "LOAD_PRACTICED_COURSES_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity(), "LOAD_PRACTICED_COURSES_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
+                        checkVolleyError(msg.obj);
                         break;
                     case LOAD_COLLECTION_SUCCESS:
                         Log.d("HANDLER","LOAD_COLLECTION_SUCCESS");
@@ -235,24 +242,27 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                         break;
                     case LOAD_COLLECTION_FAILED:
                         Log.d("HANDLER","LOAD_COLLECTION_COURSES_FAILED");
-                        Toast.makeText(getActivity(), "LOAD_COLLECTION_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity(), "LOAD_COLLECTION_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
+                        checkVolleyError(msg.obj);
                         break;
                     case LOAD_USER_INFO_FAILED:
                         Log.d("me_fragment_main_Handler","LOAD_USER_INFO_FAILED");
+                        checkVolleyError(msg.obj);
                         break;
                     case LOAD_USER_INFO_SUCCESS:
                         Log.d("me_fragment_main_Handler","LOAD_USER_INFO_SUCCESS");
                         tv_name.setText(user.getNickName());
                         Glide.with(getContext()).load(user.getHeadPortraitUrl()).into(ivPortrait);
+                        requestQueue.stop();
                         break;
                     case LOAD_DOWNLOADED_COURSES_SUCCESS:
                         Log.d("me_fragment_main_Handler","LOAD_DOWNLOADED_COURSES_SUCCESS");
                         downloadAdapter.notifyDataSetChanged();
                         break;
                     case LOAD_DOWNLOADED_COURSES_FAILED:
-
                         Log.d("me_fragment_main_Handler","LOAD_DOWNLOADED_COURSES_FAILED");
                         Toast.makeText(getContext(), "LOAD_DOWNLOADED_COURSES_FAILED,"+msg.obj, Toast.LENGTH_SHORT).show();
+                        checkVolleyError(msg.obj);
                         break;
                 }
             }
@@ -347,6 +357,44 @@ public class sport_fragment_main extends BaseNetworkFragment implements
         practicedAdapter = new MultipleItemQuickAdapter(practicedList);
         collectionAdapter = new MultipleItemQuickAdapter(collectedList);
         downloadAdapter = new MultipleItemQuickAdapter(downloadList);
+
+        practicedAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                try {
+                    Intent intent = new Intent(getContext(), sport_activity_course_detail.class);
+                    intent.putExtra("courseId",practicedList.get(position).getCourse().getCourseId());
+                    startActivity(intent);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        collectionAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                try {
+                    Intent intent = new Intent(getContext(), sport_activity_course_detail.class);
+                    intent.putExtra("courseId",collectedList.get(position).getCourse().getCourseId());
+                    startActivity(intent);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        downloadAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                try {
+                    Intent intent = new Intent(getContext(), sport_activity_course_detail.class);
+                    intent.putExtra("courseId",downloadList.get(position).getCourse().getCourseId());
+                    startActivity(intent);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
         rvPracticed.setAdapter(practicedAdapter);
         rvCollected.setAdapter(collectionAdapter);
         rvDownload.setAdapter(downloadAdapter);
@@ -439,7 +487,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
         int Month = calendar.getMonth();
         int Day = calendar.getDay();
 
-        if(dateList.length!=0){
+        if(dateList.length!=0){//dateList报null
             for(int i = 0;i<dateList.length;i++){
                 if(Year == yearList[i] && Month == monthList[i] &&  Day ==dayList[i]){
                     if (isClick) {
@@ -556,7 +604,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
 
                 Message msg = handler.obtainMessage();
                 msg.what = LOAD_USER_INFO_FAILED;
-                msg.obj = volleyError.toString();
+                msg.obj = volleyError;
                 handler.sendMessage(msg);
             }
         });
@@ -597,7 +645,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
 
                 Message msg = handler.obtainMessage();
                 msg.what = LOAD_USER_INFO_FAILED;
-                msg.obj = volleyError.toString();
+                msg.obj = volleyError;
                 handler.sendMessage(msg);
             }
         });
@@ -644,7 +692,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
 
                 Message msg = handler.obtainMessage();
                 msg.what = LOAD_USER_INFO_FAILED;
-                msg.obj = volleyError.toString();
+                msg.obj = volleyError;
                 handler.sendMessage(msg);
             }
         });
@@ -731,7 +779,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                 Log.d("sport_activity_course_selection","getHttpCourse_onErrorResponse");
                 Message msg = handler.obtainMessage();
                 msg.what = LOAD_PRACTICED_COURSES_FAILED;
-                msg.obj = volleyError.toString();
+                msg.obj = volleyError;
                 handler.sendMessage(msg);
 
             }
@@ -811,7 +859,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                 Log.d("sport_main_collection","getHttpCourse_onErrorResponse");
                 Message msg = handler.obtainMessage();
                 msg.what = LOAD_PRACTICED_COURSES_FAILED;
-                msg.obj = volleyError.toString();
+                msg.obj = volleyError;
                 handler.sendMessage(msg);
 
             }

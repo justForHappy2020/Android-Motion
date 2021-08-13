@@ -1,6 +1,7 @@
 package com.example.motion.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -10,8 +11,15 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.NetworkError;
+import com.android.volley.ParseError;
 import com.android.volley.RequestQueue;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.example.motion.Activity.register_activity_register;
+import com.example.motion.MotionError.TokenInvalidError;
 import com.example.motion.R;
 
 public class BaseNetworkFragment extends Fragment {
@@ -27,7 +35,7 @@ public class BaseNetworkFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        informNetworkState(isNetworkAvailable());
+        //informNetworkState(isNetworkAvailable());
     }
 
     private void informNetworkState(Boolean available){
@@ -55,5 +63,33 @@ public class BaseNetworkFragment extends Fragment {
             }
         }
         return false;
+    }
+
+    protected void checkVolleyError(Object e){
+        if(e != null){
+            if(e instanceof TimeoutError){
+                Toast.makeText(getContext(), "网络连接超时", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(e instanceof ServerError){
+                Toast.makeText(getContext(), "服务器内部错误", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(e instanceof NetworkError){
+                Toast.makeText(getContext(), "网络异常", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(e instanceof ParseError){
+                Toast.makeText(getContext(), "服务器响应解析失败", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(e instanceof TokenInvalidError){
+                Toast.makeText(getContext(), "登陆状态失效，请尝试重新登陆", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), register_activity_register.class);
+                startActivity(intent);
+                return;
+            }
+            Toast.makeText(getContext(), "未知错误", Toast.LENGTH_SHORT).show();
+        }
     }
 }
