@@ -116,5 +116,7 @@
     <string name="me_activity_downloaded_courses_edit">编辑</string>
     <string name="me_activity_downloaded_courses_state_load_fail">本地缓存课程数据读取失败</string>
     <string name="download_courses_nodata">暂无已缓存课程</string>
+    <string name="homepage_nav_hot">人气课</string>
+    <string name="homepage_nav_more">更多</string>
 
 </resources>

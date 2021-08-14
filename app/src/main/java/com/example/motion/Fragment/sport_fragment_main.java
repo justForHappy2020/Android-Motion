@@ -47,6 +47,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.fragment.app.Fragment;
@@ -56,11 +57,15 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.example.motion.Activity.me_activity_downloaded_courses;
 import com.example.motion.Activity.me_activity_mycollections;
 import com.example.motion.Activity.me_activity_mycourse;
 import com.example.motion.Activity.register_activity_register;
 import com.example.motion.Activity.search_course_activity;
 
+import com.example.motion.Activity.sport_activity_course_detail;
 import com.example.motion.Entity.MultipleItem;
 import com.example.motion.Entity.User;
 import com.example.motion.Entity.sportMainItem;
@@ -347,6 +352,45 @@ public class sport_fragment_main extends BaseNetworkFragment implements
         practicedAdapter = new MultipleItemQuickAdapter(practicedList);
         collectionAdapter = new MultipleItemQuickAdapter(collectedList);
         downloadAdapter = new MultipleItemQuickAdapter(downloadList);
+
+
+        practicedAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                try {
+                    Intent intent = new Intent(getContext(), sport_activity_course_detail.class);
+                    intent.putExtra("courseId",practicedList.get(position).getCourse().getCourseId());
+                    startActivity(intent);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        collectionAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                try {
+                    Intent intent = new Intent(getContext(), sport_activity_course_detail.class);
+                    intent.putExtra("courseId",collectedList.get(position).getCourse().getCourseId());
+                    startActivity(intent);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        downloadAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                try {
+                    Intent intent = new Intent(getContext(),sport_activity_course_detail.class);
+                    intent.putExtra("courseId2CourseJson",downloadList.get(position).getCourse().getCourseId2CourseJson());
+                    startActivity(intent);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
         rvPracticed.setAdapter(practicedAdapter);
         rvCollected.setAdapter(collectionAdapter);
         rvDownload.setAdapter(downloadAdapter);
@@ -439,7 +483,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
         int Month = calendar.getMonth();
         int Day = calendar.getDay();
 
-        if(dateList.length!=0){
+        if(null != dateList && dateList.length!=0){
             for(int i = 0;i<dateList.length;i++){
                 if(Year == yearList[i] && Month == monthList[i] &&  Day ==dayList[i]){
                     if (isClick) {
@@ -525,7 +569,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
         getHttpCalendar();
         getHttpPracticedCourse(new HashMap());
         getHttpCollectedCourse(new HashMap());
-
+        initDownloadList();
     }
 
     private void getHttpUserInfo(){
@@ -845,22 +889,30 @@ public class sport_fragment_main extends BaseNetworkFragment implements
 //    }
 
     protected void initDownloadList(){
-        try {
-            CourseCacheUtil ccu = new CourseCacheUtil(getContext(),getActivity().getCacheDir());
-            List<Course> cachedCourses = ccu.getAllCachedCourseList();
-            for(int i=0;i<cachedCourses.size();i++){
-                downloadList.add(new MultipleItem(MultipleItem.sport_main_item,cachedCourses.get(i)));
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    downloadList.clear();
+                    CourseCacheUtil ccu = new CourseCacheUtil(getContext(),getActivity().getCacheDir());
+                    List<Course> cachedCourses = ccu.getAllCachedCourseList();
+                    for(int i=0;i<cachedCourses.size();i++){
+                        downloadList.add(new MultipleItem(MultipleItem.sport_main_item,cachedCourses.get(i)));
+                    }
+                    Message msg = handler.obtainMessage();
+                    msg.what = LOAD_DOWNLOADED_COURSES_SUCCESS;
+                    msg.sendToTarget();
+                }catch (Exception e){
+                    e.printStackTrace();
+                    Message msg = handler.obtainMessage();
+                    msg.what = LOAD_DOWNLOADED_COURSES_FAILED;
+                    msg.obj=e.toString();
+                    msg.sendToTarget();
+                }
             }
-            Message msg = handler.obtainMessage();
-            msg.what = LOAD_DOWNLOADED_COURSES_SUCCESS;
-            msg.sendToTarget();
-        }catch (Exception e){
-            e.printStackTrace();
-            Message msg = handler.obtainMessage();
-            msg.what = LOAD_DOWNLOADED_COURSES_FAILED;
-            msg.obj=e.toString();
-            msg.sendToTarget();
-        }
+        });
+
+        thread.start();
 
 
         /*

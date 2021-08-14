@@ -22,8 +22,11 @@ public class BaseServer {
 
     public static String getServerUrl(int requestId){
         switch (requestId){
+            /*
             case GET_SPECIAL_SORT:
                 return "https://www.fastmock.site/mock/318b7fee143da8b159d3e46048f8a8b3/api";//"http://106.55.25.94:8080";
+
+             */
             default:
                 return "http://106.55.25.94:8080";
         }

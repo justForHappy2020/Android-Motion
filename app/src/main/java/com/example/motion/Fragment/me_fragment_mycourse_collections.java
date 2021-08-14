@@ -67,7 +67,6 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
     private AlertDialog.Builder builder;
     private String dialogMessage = "";
     private SharedPreferences readSP;
-//    private String testToken = "aa650cbc-d18a-42fd-926b-98cf1327e2b3";
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.me_fragment_mycourse_collections,container,false);
 
@@ -204,23 +203,22 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
     public void initData(){
 
         rvCourseCollected.setLayoutManager(new LinearLayoutManager(getActivity()));
-        courseAdapter = new MultipleItemQuickAdapter(showingCourseList);
+        //courseAdapter = new MultipleItemQuickAdapter(showingCourseList);
+        //rvCourseCollected.setAdapter(courseAdapter);
 
         showingCourseList = new ArrayList<>();
         courseAdapter = new MultipleItemQuickAdapter(showingCourseList);
+
         courseAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(@NonNull BaseQuickAdapter quickAdapter, @NonNull View view, int position) {
-                //Log.d("Adapter","Click");
-                Intent intent;
-                intent = new Intent(getActivity(), sport_activity_course_detail.class);
-/*                for(int i = 0 ; i < dataSet.size() ; i++){
-                    courseList = dataSet.get(i);
-                    if(courseList.size()<=position)position = position - courseList.size();
-                    else break;
-                }*/
-                intent.putExtra("course", showingCourseList.get(position).getCourse());
-                startActivity(intent);
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                try {
+                    Intent intent = new Intent(getContext(), sport_activity_course_detail.class);
+                    intent.putExtra("courseId",showingCourseList.get(position).getMe_mycourse_collections().getCourseId());
+                    startActivity(intent);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
         rvCourseCollected.setAdapter(courseAdapter);

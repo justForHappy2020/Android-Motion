@@ -75,8 +75,15 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!--
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+
         </activity>
         <activity
             android:name=".Activity.me_activity_bindphone_usephone"
@@ -94,9 +101,6 @@
             android:name=".Activity.register_activity_register"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Activity.my_activity_me_data"
