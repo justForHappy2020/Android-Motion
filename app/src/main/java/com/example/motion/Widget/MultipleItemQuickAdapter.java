@@ -1,6 +1,7 @@
 package com.example.motion.Widget;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -221,6 +222,7 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
                         .into((ImageView) helper.getView(R.id.meMycollectionsArticalImg));
                 break;
             case MultipleItem.sport_main_item:
+                /*
                 helper.setText(R.id.sportMainItemCourseName,item.getSportMainItem().getCourseName())
                         .setText(R.id.sportMainItemTargetAge,item.getSportMainItem().getTargetAge())
                         .setText(R.id.sportMainItemLables,item.getSportMainItem().getLables());
@@ -228,6 +230,15 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
                         .load(item.getSportMainItem().getImgUrl())
                         .placeholder(R.drawable.headprotrait)
                         .error(R.drawable.ic_load_pic_error)
+                        .transform(new CenterCrop(getContext()), new GlideRadiusTransform(getContext(),15))
+                        .into((ImageView) helper.getView(R.id.sportMainItemImg));
+
+                 */
+                helper.setText(R.id.sportMainItemCourseName,item.getCourse().getCourseName())
+                        .setText(R.id.sportMainItemTargetAge,item.getCourse().getTargetAge())
+                        .setText(R.id.sportMainItemLables,item.getCourse().getLabels());
+                Glide.with(getContext())
+                        .load(item.getCourse().getBackgroundUrl())
                         .transform(new CenterCrop(getContext()), new GlideRadiusTransform(getContext(),15))
                         .into((ImageView) helper.getView(R.id.sportMainItemImg));
                 break;
