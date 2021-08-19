@@ -36,7 +36,7 @@ public class UserInfoManager {
         userInfoManager.user.setHeadPortraitUrl(userInfoManager.sp.getString("headPortrait",""));
         userInfoManager.user.setPhoneNumber(userInfoManager.sp.getString("phoneNumber",""));
         userInfoManager.user.setGender(userInfoManager.sp.getInt("gender",0));
-        userInfoManager.user.setToken(userInfoManager.sp.getString("token",""));
+        userInfoManager.user.setToken("000111");//userInfoManager.sp.getString("token","")
         userInfoManager.user.setCreateTime(userInfoManager.sp.getString("userCreateTime",""));
         userInfoManager.user.setIntro(userInfoManager.sp.getString("intro",""));
 
@@ -53,6 +53,7 @@ public class UserInfoManager {
     }
 
 
+    int i = 0;
     public String getToken(){
         return userInfoManager.sp.getString("token","");
     }

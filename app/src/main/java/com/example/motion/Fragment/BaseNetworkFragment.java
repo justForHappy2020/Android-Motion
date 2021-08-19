@@ -1,5 +1,6 @@
 package com.example.motion.Fragment;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -22,14 +23,20 @@ import com.example.motion.Activity.register_activity_register;
 import com.example.motion.VolleyError.TokenInvalidError;
 import com.example.motion.R;
 
+import java.util.List;
+
+import static android.content.Context.ACTIVITY_SERVICE;
+
 public class BaseNetworkFragment extends Fragment {
 
     protected RequestQueue requestQueue;
+    private boolean isLoginActivityStarted;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestQueue = Volley.newRequestQueue(getContext());
+        isLoginActivityStarted = false;
     }
 
     @Override
@@ -85,11 +92,20 @@ public class BaseNetworkFragment extends Fragment {
             }
             if(e instanceof TokenInvalidError){
                 Toast.makeText(getContext(), "登陆状态失效，请尝试重新登陆", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getContext(), register_activity_register.class);
-                startActivity(intent);
+                if(!isLoginActivityStarted){
+                    isLoginActivityStarted = true;
+                    Intent intent = new Intent(getContext(), register_activity_register.class);
+                    startActivity(intent);
+                }
                 return;
             }
             Toast.makeText(getContext(), "未知错误", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        isLoginActivityStarted = false;
     }
 }

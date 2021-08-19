@@ -293,10 +293,12 @@ public class register_activity_register extends BaseNetworkActivity implements V
                 break;
 
             case R.id.iv_delete:
-              Intent intent = new Intent(this, viewpager_activity_main.class);
-              intent.putExtra("id",4);
-              startActivity(intent);
-              break;
+                //Intent intent = new Intent(this, viewpager_activity_main.class);
+                //intent.putExtra("id",4);
+                //startActivity(intent);
+
+                finish();
+                break;
 
 
             case R.id.btn_agree:
@@ -355,8 +357,8 @@ public class register_activity_register extends BaseNetworkActivity implements V
                                             editor.putString("headPortrait",headPortrait).commit();
                                             editor.putString("token",token).commit();
                                             editor.putString("phoneNumber",mobile).commit();
-                                            Intent intent = new Intent(register_activity_register.this, viewpager_activity_main.class);
-                                            startActivity(intent);
+                                            //Intent intent = new Intent(register_activity_register.this, viewpager_activity_main.class);
+                                            //startActivity(intent);
                                             finish();
                                         }
                                         else if(obj.getInt("code")==600){
@@ -399,6 +401,7 @@ public class register_activity_register extends BaseNetworkActivity implements V
         super.onStop();
         if(!isLoginSuccess){
             UserInfoManager.getUserInfoManager(this).removeToken();
+            //Log.d("ranlychan"," onstop Login not Success");
         }
     }
 }

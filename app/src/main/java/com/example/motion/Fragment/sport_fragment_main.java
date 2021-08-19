@@ -66,6 +66,7 @@ import com.example.motion.Activity.register_activity_register;
 import com.example.motion.Activity.search_course_activity;
 
 import com.example.motion.Activity.sport_activity_course_detail;
+import com.example.motion.Activity.sport_activity_course_selection;
 import com.example.motion.Entity.MultipleItem;
 import com.example.motion.Entity.User;
 import com.example.motion.Entity.sportMainItem;
@@ -121,9 +122,22 @@ public class sport_fragment_main extends BaseNetworkFragment implements
     private View.OnClickListener onClickListener;
     private PopupWindow mPopWindow;
     BasePopupView popupView;
-    /**
-     * 未界面控件
+
+
+    /*
+    * “更多” 的点击区域
      */
+    private LinearLayout llMoreCourseCollection;
+    private LinearLayout llMoreCourseHistory;
+    private LinearLayout llMoreCourseDownloaded;
+
+    /*
+    * “添加练习”按钮
+     */
+    private TextView tvAddCourse;
+
+    private LinearLayout llLoginContainer;
+    private LinearLayout llNotLoginContainer;
     private LinearLayout llNotLoginBar;
     private RecyclerView rvPracticed;
     private RecyclerView rvCollected;
@@ -135,10 +149,10 @@ public class sport_fragment_main extends BaseNetworkFragment implements
     private List<MultipleItem> collectedList = new ArrayList();
     private List<MultipleItem> downloadList = new ArrayList();
 
-    private String dialogMessage = "";
+    //private String dialogMessage = "";
     private Handler handler;
-    private SharedPreferences readSP;
-    private String token;
+    //private SharedPreferences readSP;
+    //private String token;
 
     private boolean hasNext;
     private final int COURSE_NUM_IN_ONE_PAGE = 10;
@@ -173,22 +187,27 @@ public class sport_fragment_main extends BaseNetworkFragment implements
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view;
+        View view = inflater.inflate(R.layout.sport_fragment_main, container, false);
+        initView(view);
+        initHandler();
 
+        /*
         if(UserInfoManager.getUserInfoManager(getContext()).isTokenEmpty()){
             view = inflater.inflate(R.layout.sport_fragment_main_not_login, container, false);
             initNotLoginView(view);
         }else{
-            view = inflater.inflate(R.layout.sport_fragment_main, container, false);
-            initView(view);
-            initHandler();
-            checkToken();
+
+
+            //checkToken();
             //getHttpCalendar();
             //initData();
 //            initPracticedList();
 //            initCollectionList();
-            initDownloadList();
+
         }
+
+         */
+
 
         return view;
     }
@@ -198,13 +217,18 @@ public class sport_fragment_main extends BaseNetworkFragment implements
         super.onStart();
         initLocalData();
         if(!UserInfoManager.getUserInfoManager(getContext()).isTokenEmpty()){
+            llLoginContainer.setVisibility(View.VISIBLE);
+            llNotLoginContainer.setVisibility(View.GONE);
             initData();
             Log.d("ranlychan","token not empty");
         }else{
+            llLoginContainer.setVisibility(View.GONE);
+            llNotLoginContainer.setVisibility(View.VISIBLE);
+            Toast.makeText(getActivity(),"请登录", Toast.LENGTH_SHORT).show();
             Log.d("ranlychan","token empty");
         }
     }
-
+/*
     private void checkToken() {
         readSP=getActivity().getSharedPreferences("saveSp",MODE_PRIVATE);
         token = readSP.getString("token","");
@@ -214,6 +238,8 @@ public class sport_fragment_main extends BaseNetworkFragment implements
             startActivity(intent);
         }
     }
+
+ */
 
     private void initHandler(){
         handler = new Handler(Looper.getMainLooper()){
@@ -228,8 +254,9 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                         Toast.makeText(getActivity(), "请求成功", Toast.LENGTH_SHORT).show();
                         break;
                     case LOAD_PRACTICED_COURSES_FAILED:
+                        checkVolleyError(msg.obj);
                         Log.d("HANDLER","LOAD_PRACTICED_COURSES_FAILED");
-                        Toast.makeText(getActivity(), "LOAD_PRACTICED_COURSES_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity(), "LOAD_PRACTICED_COURSES_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
                         break;
                     case LOAD_COLLECTION_SUCCESS:
                         Log.d("HANDLER","LOAD_COLLECTION_SUCCESS");
@@ -239,11 +266,13 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                         Toast.makeText(getActivity(), "请求成功", Toast.LENGTH_SHORT).show();
                         break;
                     case LOAD_COLLECTION_FAILED:
+                        checkVolleyError(msg.obj);
                         Log.d("HANDLER","LOAD_COLLECTION_COURSES_FAILED");
-                        Toast.makeText(getActivity(), "LOAD_COLLECTION_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity(), "LOAD_COLLECTION_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
                         break;
                     case LOAD_USER_INFO_FAILED:
-                        Log.d("me_fragment_main_Handler","LOAD_USER_INFO_FAILED");
+                        checkVolleyError(msg.obj);
+                        //Log.d("me_fragment_main_Handler","LOAD_USER_INFO_FAILED");
                         break;
                     case LOAD_USER_INFO_SUCCESS:
                         Log.d("me_fragment_main_Handler","LOAD_USER_INFO_SUCCESS");
@@ -255,7 +284,6 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                         downloadAdapter.notifyDataSetChanged();
                         break;
                     case LOAD_DOWNLOADED_COURSES_FAILED:
-
                         Log.d("me_fragment_main_Handler","LOAD_DOWNLOADED_COURSES_FAILED");
                         Toast.makeText(getContext(), "LOAD_DOWNLOADED_COURSES_FAILED,"+msg.obj, Toast.LENGTH_SHORT).show();
                         break;
@@ -263,6 +291,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
             }
         };
     }
+
     private void initLocalData(){
         user = UserInfoManager.getUserInfoManager(getContext()).getUser();
 
@@ -324,6 +353,22 @@ public class sport_fragment_main extends BaseNetworkFragment implements
     }
 
     private void initView(View view){
+        llMoreCourseCollection = view.findViewById(R.id.ll_more_course_collection);
+        llMoreCourseHistory = view.findViewById(R.id.ll_more_course_history);
+        llMoreCourseDownloaded = view.findViewById(R.id.ll_more_course_downloaded);
+        llMoreCourseCollection.setOnClickListener(this);
+        llMoreCourseHistory.setOnClickListener(this);
+        llMoreCourseDownloaded.setOnClickListener(this);
+
+        tvAddCourse = view.findViewById(R.id.tv_add_course);
+        tvAddCourse.setOnClickListener(this);
+
+        llNotLoginBar = view.findViewById(R.id.ll_not_login);
+        llNotLoginBar.setOnClickListener(this);
+
+        llLoginContainer = view.findViewById(R.id.ll_logined_container);
+        llNotLoginContainer = view.findViewById(R.id.ll_not_login_container);
+
         ImageView img2= view.findViewById(R.id.diet_main_search);
         //setStatusBarDarkMode();
         mTextMonthDay = view.findViewById(R.id.tv_month_day);
@@ -450,11 +495,13 @@ public class sport_fragment_main extends BaseNetworkFragment implements
 
 
     }
-
+/*
     private void initNotLoginView(View view){
         llNotLoginBar = view.findViewById(R.id.ll_not_login);
         llNotLoginBar.setOnClickListener(this);
     }
+
+ */
 
 
     @Override
@@ -463,6 +510,22 @@ public class sport_fragment_main extends BaseNetworkFragment implements
             case R.id.ll_not_login:
                 Intent intent = new Intent(getActivity(), register_activity_register.class);
                 startActivity(intent);
+                break;
+            case R.id.ll_more_course_collection:
+                Intent moreCourseCollectionIntent = new Intent(getActivity(),me_activity_mycollections.class);
+                startActivity(moreCourseCollectionIntent);
+                break;
+            case R.id.ll_more_course_history:
+                Intent moreCourseHistoryIntent = new Intent(getActivity(), me_activity_mycourse.class);
+                startActivity(moreCourseHistoryIntent);
+                break;
+            case R.id.ll_more_course_downloaded:
+                Intent moreCourseDownloadedIntent = new Intent(getActivity(), me_activity_downloaded_courses.class);
+                startActivity(moreCourseDownloadedIntent);
+                break;
+            case R.id.tv_add_course:
+                Intent courseSelectionIntent = new Intent(getActivity(), sport_activity_course_selection.class);
+                startActivity(courseSelectionIntent);
                 break;
         } }
     @Override
@@ -564,18 +627,24 @@ public class sport_fragment_main extends BaseNetworkFragment implements
     }
 
     protected void initData() {
-        getHttpUserInfo();
-        getHttpSportInfo();
-        getHttpCalendar();
-        getHttpPracticedCourse(new HashMap());
-        getHttpCollectedCourse(new HashMap());
-        initDownloadList();
+        try{
+            getHttpUserInfo();
+            getHttpSportInfo();
+            getHttpCalendar();
+            getHttpPracticedCourse(new HashMap());
+            getHttpCollectedCourse(new HashMap());
+            initDownloadList();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     private void getHttpUserInfo(){
         String url = "http://106.55.25.94:8080/api/community/getUserdata?token=" + UserInfoManager.getUserInfoManager(getContext()).getToken();
 
-        MyStringRequest getTagsStringRequest = new MyStringRequest(Request.Method.GET,  url, new Response.Listener<String>() {
+        MyStringRequest getHttpUserInfoRequest = new MyStringRequest(Request.Method.GET,  url, new Response.Listener<String>() {
             @Override
             public void onResponse(String responseStr) {
                 try {
@@ -600,12 +669,12 @@ public class sport_fragment_main extends BaseNetworkFragment implements
 
                 Message msg = handler.obtainMessage();
                 msg.what = LOAD_USER_INFO_FAILED;
-                msg.obj = volleyError.toString();
+                msg.obj = volleyError;
                 handler.sendMessage(msg);
             }
         });
-        getTagsStringRequest.setTag("getHttp");
-        requestQueue.add(getTagsStringRequest);
+        getHttpUserInfoRequest.setTag("getHttp");
+        requestQueue.add(getHttpUserInfoRequest);
 
     }
 
@@ -711,7 +780,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
 
         String url = "http://106.55.25.94:8080/api/course/getPracticedCourse?size=" + COURSE_NUM_IN_ONE_PAGE;
         if(params.isEmpty()){
-            url+="&page=1&token="+token;
+            url+="&page=1&token="+UserInfoManager.getUserInfoManager(getContext()).getToken();
         }else{
             Iterator iter = params.keySet().iterator();
             while (iter.hasNext()) {
@@ -775,7 +844,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
                 Log.d("sport_activity_course_selection","getHttpCourse_onErrorResponse");
                 Message msg = handler.obtainMessage();
                 msg.what = LOAD_PRACTICED_COURSES_FAILED;
-                msg.obj = volleyError.toString();
+                msg.obj = volleyError;
                 handler.sendMessage(msg);
 
             }
@@ -790,7 +859,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
 
         String url = "http://106.55.25.94:8080/api/course/getCollectionCourse?size=" + COURSE_NUM_IN_ONE_PAGE;
         if(params.isEmpty()){
-            url+="&page=1&token="+token;
+            url+="&page=1&token="+UserInfoManager.getUserInfoManager(getContext()).getToken();
         }else{
             Iterator iter = params.keySet().iterator();
             while (iter.hasNext()) {
@@ -930,6 +999,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
 
     }
 
+/*
     protected void initPracticedList(){
         sportMainItem practicedCourse;
         for (int i = 0; i < 3; i++) {
@@ -955,6 +1025,8 @@ public class sport_fragment_main extends BaseNetworkFragment implements
             collectedList.add(new MultipleItem(MultipleItem.sport_main_item,collectedCourse));
         }
     }
+
+ */
 
 
     private Calendar getSchemeCalendar(int year, int month, int day, int color) {

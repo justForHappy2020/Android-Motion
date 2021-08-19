@@ -1,6 +1,7 @@
 package com.example.motion.Activity;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -20,13 +21,17 @@ import com.android.volley.toolbox.Volley;
 import com.example.motion.R;
 import com.example.motion.VolleyError.TokenInvalidError;
 
+import java.util.List;
+
 public class BaseNetworkActivity extends Activity{
     protected RequestQueue requestQueue;
+    private boolean isLoginActivityStarted;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestQueue = Volley.newRequestQueue(this);
+        isLoginActivityStarted = false;
     }
 
     @Override
@@ -82,11 +87,20 @@ public class BaseNetworkActivity extends Activity{
             }
             if(e instanceof TokenInvalidError){
                 Toast.makeText(getApplicationContext(), "登陆状态失效，请尝试重新登陆", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, register_activity_register.class);
-                startActivity(intent);
+                if(!isLoginActivityStarted){
+                    isLoginActivityStarted = true;
+                    Intent intent = new Intent(this, register_activity_register.class);
+                    startActivity(intent);
+                }
                 return;
             }
             Toast.makeText(getApplicationContext(), "未知错误", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        isLoginActivityStarted = false;
     }
 }

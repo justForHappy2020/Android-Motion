@@ -165,8 +165,8 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
 
     private void initPreSelect(){
         preSelectedCourseTagIds = new int[2];
-        preSelectedCourseTagIds[0] = getIntent().getIntExtra("SelectedGroupId",0);
-        preSelectedCourseTagIds[1] = getIntent().getIntExtra("SelectedTagId",0);
+        preSelectedCourseTagIds[0] = getIntent().getIntExtra("SelectedGroupId",TAG_ALL);
+        preSelectedCourseTagIds[1] = getIntent().getIntExtra("SelectedTagId",TAG_ALL);
     }
 
     private void initData(){

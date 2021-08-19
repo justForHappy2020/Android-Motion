@@ -99,7 +99,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.register_activity_register"
-            android:launchMode="singleTop"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait">
 
         </activity>
