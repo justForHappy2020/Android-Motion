@@ -18,7 +18,7 @@
 
         <ImageView
             android:id="@+id/iv_back_dl_courses"
-            android:layout_width="@dimen/default_back_button_width"
+            android:layout_width="@dimen/default_title_bar_button_width_height"
             android:layout_height="match_parent"
             android:src="@drawable/ic_arrow_left" />
 

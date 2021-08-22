@@ -16,7 +16,7 @@
 
         <ImageView
             android:id="@+id/me_feedback_back"
-            android:layout_width="@dimen/default_back_button_width"
+            android:layout_width="@dimen/default_title_bar_button_width_height"
             android:layout_height="match_parent"
             android:src="@drawable/ic_arrow_left" />
 
@@ -29,7 +29,7 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginEnd="@dimen/default_back_button_width"/>
+            android:layout_marginEnd="@dimen/default_title_bar_button_width_height"/>
 
     </LinearLayout>
     <RelativeLayout

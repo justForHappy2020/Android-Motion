@@ -11,7 +11,7 @@
     <dimen name="dd_dimen_6px">2.669983dip</dimen>
     <dimen name="dd_dimen_28px">12.439972dip</dimen>
     <dimen name="default_title_bar_height">60dp</dimen>
-    <dimen name="default_back_button_width">25dp</dimen>
+    <dimen name="default_title_bar_button_width_height">24dp</dimen>
 
 
 </resources>
