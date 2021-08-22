@@ -67,9 +67,6 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
     private AlertDialog.Builder builder;
     private String dialogMessage = "";
     private SharedPreferences readSP;
-
-//    private String testToken = "aa650cbc-d18a-42fd-926b-98cf1327e2b3";
-
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.me_fragment_mycourse_collections,container,false);
 
@@ -152,11 +149,16 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
                         JSONObject jsonCourseObject = JSONArrayCourse.getJSONObject(i);
                         //相应的内容
                         me_mycourse_collections courseCollected = new me_mycourse_collections();
-                        courseCollected.setCourseId(jsonCourseObject.getLong("courseId"));
-                        courseCollected.setCollectionsName1(jsonCourseObject.getString("courseName"));
-                        courseCollected.setImgUrls(jsonCourseObject.getString("backgroundUrl"));
-                        courseCollected.setCollectionsName2(jsonCourseObject.getString("targetAge"));
-                        courseCollected.setIsOnline(jsonCourseObject.getInt("online"));
+                        Long courseId =jsonCourseObject.getLong("courseId");
+                        String courseName = jsonCourseObject.getString("courseName");
+                        String backgroundUrl = jsonCourseObject.getString("backgroundUrl");
+                        String targetAge = jsonCourseObject.getString("targetAge");
+                        int online = jsonCourseObject.getInt("online");
+                        courseCollected.setCourseId(courseId);
+                        courseCollected.setCollectionsName1(courseName);
+                        courseCollected.setImgUrls(backgroundUrl);
+                        courseCollected.setCollectionsName2(targetAge);
+                        courseCollected.setIsOnline(online);
 
                         JSONArray JSONArrayLabels = jsonCourseObject.getJSONArray("labels");
                         String labels = "";
@@ -219,7 +221,6 @@ public class me_fragment_mycourse_collections extends BaseNetworkFragment {
                 }
             }
         });
-
         rvCourseCollected.setAdapter(courseAdapter);
         rvCourseCollected.setNestedScrollingEnabled(false);
 

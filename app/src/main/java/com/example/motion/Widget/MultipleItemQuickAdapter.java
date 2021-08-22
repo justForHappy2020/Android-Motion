@@ -41,6 +41,7 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
         addItemType(MultipleItem.Me_mycourse_reserve,R.layout.me_item_mycourse_reserve);
         addItemType(MultipleItem.Me_mycollections_articals,R.layout.me_item_mycollections_articals);
         addItemType(MultipleItem.sport_main_item,R.layout.sport_main_item);
+        addItemType(MultipleItem.sport_main_collection_item,R.layout.sport_main_collection_item);
     }
 
     @Override
@@ -85,7 +86,7 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
                         .error(R.drawable.ic_load_pic_error)
                         .transform(new CenterCrop(getContext()), new GlideRadiusTransform(getContext(),15))
                         .into((ImageView) helper.getView(R.id.user_head));
-            break;
+                break;
             case MultipleItem.SHAREABB:
                 helper.setText(R.id.users_id, item.getShareAbb().getNickName())
                         .setText(R.id.content, item.getShareAbb().getContent())
@@ -241,7 +242,19 @@ public class MultipleItemQuickAdapter extends BaseMultiItemQuickAdapter<Multiple
                         .transform(new CenterCrop(getContext()), new GlideRadiusTransform(getContext(),15))
                         .into((ImageView) helper.getView(R.id.sportMainItemImg));
                 break;
+            case MultipleItem.sport_main_collection_item:
+                helper.setText(R.id.sportMainItemCollectionCourseName,item.getSportMainCollectionItem().getCollectionCourseName())
+                        .setText(R.id.sportMainItemCollectionTargetAge,item.getSportMainCollectionItem().getCollectionTargetAge())
+                        .setText(R.id.sportMainItemCollectionLables,item.getSportMainCollectionItem().getCollectionLables());
+                Glide.with(getContext())
+                        .load(item.getSportMainCollectionItem().getCollectionimgUrl())
+                        .placeholder(R.drawable.headprotrait)
+                        .error(R.drawable.ic_load_pic_error)
+                        .transform(new CenterCrop(getContext()), new GlideRadiusTransform(getContext(),15))
+                        .into((ImageView) helper.getView(R.id.sportMainCollectionItemImg));
+                break;
         }
     }
+
 
 }

@@ -145,8 +145,8 @@ public class sport_fragment_main extends BaseNetworkFragment implements
     private MultipleItemQuickAdapter practicedAdapter;
     private MultipleItemQuickAdapter collectionAdapter;
     private MultipleItemQuickAdapter downloadAdapter;
-    private List<MultipleItem> practicedList = new ArrayList();
-    private List<MultipleItem> collectedList = new ArrayList();
+    private List<MultipleItem> practicedList = new ArrayList(3);
+    private List<MultipleItem> collectedList = new ArrayList(3);
     private List<MultipleItem> downloadList = new ArrayList();
 
     //private String dialogMessage = "";
@@ -155,7 +155,7 @@ public class sport_fragment_main extends BaseNetworkFragment implements
     //private String token;
 
     private boolean hasNext;
-    private final int COURSE_NUM_IN_ONE_PAGE = 10;
+    private final int COURSE_NUM_IN_ONE_PAGE = 3;
     private User user = new User();
 
     private final int LOAD_PRACTICED_COURSES_SUCCESS = 1;

@@ -67,9 +67,6 @@ public class me_fragment_mycourse_reserve extends BaseNetworkFragment {
     private String dialogMessage = "";
     private SharedPreferences readSP;
     private String token;
-
-//    private String testToken ="aa650cbc-d18a-42fd-926b-98cf1327e2b3";
-
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.me_fragment_mycourse_reserve,container,false);
 
@@ -117,11 +114,9 @@ public class me_fragment_mycourse_reserve extends BaseNetworkFragment {
     }
     private void getHttpCourse(Map params){
         List<MultipleItem> onePageCourses = new ArrayList<>();
-        String url = "http://106.55.25.94:8080/api/course/getCollectionCourse?size=" + COURSE_NUM_IN_ONE_PAGE;
+        String url = "http://106.55.25.94:8080/api/user/userHasBooked?size=" + COURSE_NUM_IN_ONE_PAGE;
         if(params.isEmpty()){
             url+="&page=1&token="+token;//真实token
-//            url+="&page=1&token="+testToken;//测试token
-
         }else{
             Iterator iter = params.keySet().iterator();
             while (iter.hasNext()) {
@@ -149,13 +144,18 @@ public class me_fragment_mycourse_reserve extends BaseNetworkFragment {
                     JSONArray JSONArrayCourse = jsonObject2.getJSONArray("courseList");
                     for (int i = 0; i < JSONArrayCourse.length(); i++) {
                         JSONObject jsonCourseObject = JSONArrayCourse.getJSONObject(i);
+                        Long courseId =jsonCourseObject.getLong("courseId");
+                        String courseName = jsonCourseObject.getString("courseName");
+                        String backgroundUrl = jsonCourseObject.getString("backgroundUrl");
+                        String targetAge = jsonCourseObject.getString("targetAge");
+                        int online = jsonCourseObject.getInt("online");
                         //相应的内容
                         me_mycourse_reserve courseReserved = new me_mycourse_reserve();
-                        courseReserved.setCourseId(jsonCourseObject.getLong("courseId"));
-                        courseReserved.setReserveName1(jsonCourseObject.getString("courseName"));
-                        courseReserved.setImgUrls(jsonCourseObject.getString("backgroundUrl"));
-                        courseReserved.setReserveName2(jsonCourseObject.getString("targetAge"));
-                        courseReserved.setIsOnline(jsonCourseObject.getInt("online"));
+                        courseReserved.setCourseId(courseId);
+                        courseReserved.setReserveName1(courseName);
+                        courseReserved.setImgUrls(backgroundUrl);
+                        courseReserved.setReserveName2(targetAge);
+                        courseReserved.setIsOnline(online);
 
                         JSONArray JSONArrayLabels = jsonCourseObject.getJSONArray("labels");
                         String labels = "";
@@ -204,7 +204,6 @@ public class me_fragment_mycourse_reserve extends BaseNetworkFragment {
 
         showingReserveList = new ArrayList<>();
         courseAdapter = new MultipleItemQuickAdapter(showingReserveList);
-
         courseAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
@@ -217,7 +216,6 @@ public class me_fragment_mycourse_reserve extends BaseNetworkFragment {
                 }
             }
         });
-
         rvCourseReserved.setAdapter(courseAdapter);
         rvCourseReserved.setNestedScrollingEnabled(false);
 

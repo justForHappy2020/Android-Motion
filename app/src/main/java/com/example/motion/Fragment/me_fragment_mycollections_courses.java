@@ -102,9 +102,6 @@ public class me_fragment_mycollections_courses extends BaseNetworkFragment {
 
     private SharedPreferences readSP;
     private String token ;
-
-//    private String testToken = "aa650cbc-d18a-42fd-926b-98cf1327e2b3";
-
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.me_fragment_mycourse_collections,container,false);
 

@@ -21,8 +21,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.example.motion.Activity.register_activity_register;
+import com.example.motion.Activity.sport_activity_course_detail;
 import com.example.motion.Entity.MultipleItem;
 import com.example.motion.Entity.me_mycourse_history;
 import com.example.motion.R;
@@ -58,9 +61,6 @@ public class me_fragment_mycourse_history extends BaseNetworkFragment {
     private String dialogMessage = "";
     private SharedPreferences readSP;
     private String token;
-
-//    private String testToken ="aa650cbc-d18a-42fd-926b-98cf1327e2b3";
-
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.me_fragment_mycourse_history,container,false);
 
@@ -187,6 +187,21 @@ public class me_fragment_mycourse_history extends BaseNetworkFragment {
         rvCoursePracticed.setAdapter(courseAdapter);
         showingHistoryList = new ArrayList<>();
         courseAdapter = new MultipleItemQuickAdapter(showingHistoryList);
+        courseAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter quickAdapter, @NonNull View view, int position) {
+                //Log.d("Adapter","Click");
+                Intent intent;
+                intent = new Intent(getActivity(), sport_activity_course_detail.class);
+/*                for(int i = 0 ; i < dataSet.size() ; i++){
+                    courseList = dataSet.get(i);
+                    if(courseList.size()<=position)position = position - courseList.size();
+                    else break;
+                }*/
+                intent.putExtra("course", showingHistoryList.get(position).getCourse());
+                startActivity(intent);
+            }
+        });
         rvCoursePracticed.setAdapter(courseAdapter);
         rvCoursePracticed.setNestedScrollingEnabled(false);
 

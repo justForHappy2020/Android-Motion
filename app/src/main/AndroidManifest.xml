@@ -101,7 +101,6 @@
             android:name=".Activity.register_activity_register"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait">
-
         </activity>
         <activity
             android:name=".Activity.my_activity_me_data"
