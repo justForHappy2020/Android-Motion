@@ -12,38 +12,31 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="64dp"
+            android:layout_height="@dimen/default_title_bar_height"
             android:background="@color/me_view_bg_color"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
 
 
             <ImageView
                 android:id="@+id/meMyCollectionsGoBack"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/left_arrow_white"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_width="@dimen/default_back_button_width"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_arrow_left"
                 />
 
             <TextView
-                android:layout_width="60dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="5"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:text="我的收藏"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
+                android:textSize="20sp"
                 android:textStyle="bold"
-                android:textSize="30dp"
-                />
-            <Space
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="#3E3C42"
-                android:src="@drawable/left_arrow_white"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                />
+                android:layout_marginEnd="@dimen/default_back_button_width"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

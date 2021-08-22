@@ -7,31 +7,32 @@
     android:background="#FAFAFA"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#673ab7"
-        android:orientation="horizontal">
+        android:layout_height="@dimen/default_title_bar_height"
+        android:background="@color/purple_main"
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp">
 
         <ImageView
             android:id="@+id/iv_back"
-            android:layout_width="40dp"
+            android:layout_width="@dimen/default_back_button_width"
             android:layout_height="match_parent"
-            android:paddingStart="10dp"
-            android:src="@drawable/leftarrow_white" />
+            android:src="@drawable/ic_arrow_left" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:foregroundGravity="center_vertical"
             android:gravity="center"
-            android:padding="5dp"
             android:text="身体数据"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginEnd="@dimen/default_back_button_width"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"

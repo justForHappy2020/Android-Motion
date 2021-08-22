@@ -1,7 +1,6 @@
 package com.example.motion.Activity;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +19,6 @@ import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.example.motion.Entity.Course;
 import com.example.motion.R;
 import com.example.motion.Utils.CourseCacheUtil;
@@ -48,7 +46,7 @@ public class me_activity_downloaded_courses extends NeedTokenActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_me_downloaded_courses);
+        setContentView(R.layout.me_activity_downloaded_courses);
         intiView();
         initAdapter();
         initRecyclerView();
