@@ -67,7 +67,5 @@ dependencies {
     })
     implementation 'com.lxj:xpopup:1.9.0'
     //implementation 'androidx.gridlayout:gridlayout:1.0.0'
-    implementation 'com.github.getActivity:TitleBar:8.6'
-    implementation 'com.pgyer:analytics:4.2.3'
 
 }
