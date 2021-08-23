@@ -1,12 +1,14 @@
 package com.example.motion.Activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -34,15 +36,16 @@ import com.example.motion.Utils.UserInfoManager;
 import com.example.motion.Utils.CourseCacheUtil;
 import com.example.motion.Utils.OnProcessStateChangeListener;
 import com.example.motion.Widget.MultipleItemQuickAdapter;
-import com.example.motion.VolleyRequest.MyStringRequest;
 import com.example.motion.VolleyRequest.PostJsonRequest;
 import com.example.motion.Widget.RelatedCoursesAdapter;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.zzhoujay.richtext.RichText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -82,6 +85,16 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
     private RelatedCoursesAdapter courseAdapter;
 
     private Handler handler;
+
+
+    private int currentOne;
+    private ImageButton ivLastAction;
+    private ImageButton ivNextAction;
+    private ImageView ivHeaderImage;
+    private Button btnStartAction;
+    private TextView tvActionName;
+    private TextView tvActionContent;
+
 
     private static final int INIT_RELATED_COURSES_SUCCESS = 1;
     private static final int INIT_RELATED_COURSES_FAILED= 2;
@@ -189,6 +202,44 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
         btSelectCourse = findViewById(R.id.btn_course_select);
         rvCourseActions = findViewById(R.id.rv_course_movements);
         rvRelatedCourses = findViewById(R.id.rv_course_related);
+    }
+
+    private void initActionDetailView(View actionDetailView){
+        tvActionName = actionDetailView.findViewById(R.id.movement_detail_name);
+        ivLastAction =  actionDetailView.findViewById(R.id.movement_detail_last);
+        ivNextAction =  actionDetailView.findViewById(R.id.movement_detail_next);
+        ivHeaderImage =  actionDetailView.findViewById(R.id.movement_detail_mainimage);
+        btnStartAction =  actionDetailView.findViewById(R.id.movement_detail_start);
+        tvActionContent =  actionDetailView.findViewById(R.id.movement_detail_content);
+
+        ivLastAction.setOnClickListener(this);
+        ivNextAction.setOnClickListener(this);
+        btnStartAction.setOnClickListener(this);
+
+        RichText.initCacheDir(this);
+        switchContent(currentOne);
+    }
+
+    private void switchContent(int position){
+        if(currentOne == 0) {
+            ivLastAction.setEnabled(false);
+            ivNextAction.setEnabled(true);
+        }
+        if(currentOne == actionList.size()-1){
+            ivLastAction.setEnabled(true);
+            ivNextAction.setEnabled(false);
+        }
+        if(currentOne>0 && currentOne<actionList.size()-1){
+            ivLastAction.setEnabled(true);
+            ivNextAction.setEnabled(true);
+        }
+
+        Glide.with(this).load(actionList.get(currentOne).getActionImgs()).placeholder(R.drawable.ic_placeholder).into(ivHeaderImage);
+        tvActionName.setText(actionList.get(position).getActionName());
+        RichText.fromMarkdown(actionList.get(position).getIntro())
+                .showBorder(false)
+                .bind(this)
+                .into(tvActionContent);
     }
 
     private void initEvent(){
@@ -361,11 +412,31 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
         actionAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                /*
                 Intent intent = new Intent(getBaseContext(),sport_activity_course_action_detail.class);
                 intent.putExtra("courseActionPosition",position);
                 intent.putExtra("actionList",(Serializable) actionList);
                 intent.putExtra("course",course);
                 startActivity(intent);
+                 */
+
+                currentOne = position;
+                BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(sport_activity_course_detail.this);
+                View actionDetailView = getLayoutInflater().inflate(R.layout.sport_dialog_course_action_detail, null);
+                initActionDetailView(actionDetailView);
+
+                mBottomSheetDialog.setContentView(actionDetailView);
+                mBottomSheetDialog.getWindow().findViewById(R.id.design_bottom_sheet).setBackgroundColor(Color.TRANSPARENT);
+
+                BottomSheetBehavior behavior = BottomSheetBehavior.from((View)actionDetailView.getParent());
+                ViewGroup.LayoutParams params = actionDetailView.getLayoutParams();
+                params.height = behavior.getPeekHeight();
+                actionDetailView.setLayoutParams(params);
+                behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+                mBottomSheetDialog.show();
+
+
             }
         });
 
@@ -541,25 +612,7 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
 
                 switch (course.getIsOnline()){
                     case CourseTag.TAG_ONLINE_YES:
-                        CourseCacheUtil ccu = new CourseCacheUtil(this,getCacheDir());
-                        ccu.setOnChangeListener(new OnProcessStateChangeListener() {
-                            @Override
-                            public void onProcessDone(boolean isSuccess, Course courseWithActions,Object message) {
-                                if(isSuccess){
-
-                                    Intent intent = new Intent(getBaseContext(),sport_activity_course_start.class);
-                                    intent.putExtra("courseWithActions",courseWithActions);
-                                    startActivity(intent);
-
-                                    Log.d("course_detail","CourseCacheUtil_cache_success");
-                                }else{
-                                    Log.d("course_detail","CourseCacheUtil_cache_fail,"+(String)message);
-                                    Toast.makeText(sport_activity_course_detail.this, "CourseCacheUtil_cache_fail,"+(String)message, Toast.LENGTH_LONG).show();
-                                }
-                            }
-
-                        });
-                        ccu.process(course,actionList);
+                        startCourse();
                         break;
                     case CourseTag.TAG_ONLINE_NO:
                         if(course.getIsOnline() == CourseTag.TAG_ONLINE_NO){
@@ -567,19 +620,43 @@ public class sport_activity_course_detail extends NeedTokenActivity implements V
                         }
                         break;
                 }
-
-                //---only for test---
-
-                /*
-                Intent intent = new Intent(this,sport_activity_course_start.class);
-                intent.putExtra("course",course);
-                intent.putExtra("actionList", (Serializable) ccu.cacheCourse(course,actionList));
-                startActivity(intent);
-                 */
-                //-------------------
-
                 break;
+            case R.id.movement_detail_last:
+                if(currentOne>=1){
+                    switchContent(--currentOne);
+                }
+                break;
+            case R.id.movement_detail_next:
+                if(currentOne<=actionList.size()-1){
+                    switchContent(++currentOne);
+                }
+                break;
+            case R.id.movement_detail_start:
+                startCourse();
         }
+    }
+
+    private void startCourse(){
+        CourseCacheUtil ccu = new CourseCacheUtil(this,getCacheDir());
+        ccu.setOnChangeListener(new OnProcessStateChangeListener() {
+            @Override
+            public void onProcessDone(boolean isSuccess, Course courseWithActions,Object message) {
+                if(isSuccess){
+
+                    Intent intent = new Intent(getBaseContext(),sport_activity_course_start.class);
+                    intent.putExtra("courseWithActions",courseWithActions);
+                    startActivity(intent);
+
+                    Log.d("course_detail","CourseCacheUtil_cache_success");
+                }else{
+                    Log.d("course_detail","CourseCacheUtil_cache_fail,"+(String)message);
+                    Toast.makeText(sport_activity_course_detail.this, "CourseCacheUtil_cache_fail,"+(String)message, Toast.LENGTH_LONG).show();
+                }
+            }
+
+        });
+        ccu.process(course,actionList);
+
     }
 
 }

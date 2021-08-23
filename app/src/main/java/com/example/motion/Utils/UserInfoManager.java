@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.example.motion.Entity.User;
 import com.raizlabs.android.dbflow.annotation.NotNull;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -35,6 +36,7 @@ public class UserInfoManager {
         userInfoManager.user.setNickName(userInfoManager.sp.getString("nickName",""));
         userInfoManager.user.setHeadPortraitUrl(userInfoManager.sp.getString("headPortrait",""));
         userInfoManager.user.setPhoneNumber(userInfoManager.sp.getString("phoneNumber",""));
+        CrashReport.setUserId(userInfoManager.sp.getString("phoneNumber",""));
         userInfoManager.user.setGender(userInfoManager.sp.getInt("gender",0));
         userInfoManager.user.setToken(userInfoManager.sp.getString("token",""));
         userInfoManager.user.setCreateTime(userInfoManager.sp.getString("userCreateTime",""));
