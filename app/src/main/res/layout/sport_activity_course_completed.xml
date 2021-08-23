@@ -34,6 +34,7 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -63,7 +64,7 @@
                 android:layout_height="175dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:background="@color/white"
+                android:background="@drawable/view_radius_white"
                 android:elevation="5dp"
                 android:padding="16dp">
 
@@ -95,7 +96,6 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_nickname"
                     android:layout_alignBottom="@+id/iv_head"
-                    android:layout_marginTop="9dp"
                     android:layout_toEndOf="@+id/iv_head"
                     tools:text="2021/01/27 08:00" />
 
@@ -191,7 +191,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-                android:background="@color/white"
+                android:background="@drawable/view_radius_white"
                 android:elevation="5dp"
                 android:orientation="vertical"
                 android:padding="20dp">
@@ -244,7 +244,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/btn_post_it"
+                android:id="@+id/btn_ok"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
@@ -252,7 +252,7 @@
                 android:layout_marginEnd="50dp"
                 android:layout_marginBottom="18dp"
                 android:background="@drawable/button_radius_purple"
-                android:text="@string/sport_completed_course_post_it"
+                android:text="@string/sport_course_completed_ok"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />

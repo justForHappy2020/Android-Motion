@@ -90,7 +90,7 @@
     <string name="sport_completed_course_feelings_easy">太简单了</string>
     <string name="sport_completed_course_feelings_hard">太难了</string>
     <string name="sport_completed_course_feelings_notbad">还不错</string>
-    <string name="sport_completed_course_post_it_hint">“让其他小朋友看到你的努力～“</string>
+    <string name="sport_completed_course_post_it_hint">让其他小朋友看到你的努力～</string>
     <string name="sport_course_start_break_skip_hint">是否要跳过休息？</string>
     <string name="sport_dialog_download_exit">退出训练</string>
     <string name="sport_dialog_download_downloading">正在下载</string>

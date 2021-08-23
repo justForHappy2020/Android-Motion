@@ -25,7 +25,7 @@ import java.nio.charset.Charset;
 import static androidx.core.content.ContextCompat.startActivity;
 import static com.example.motion.MontionRequest.BaseServer.TOKEN_INVALID;
 
-public class                                MyStringRequest extends StringRequest {
+public class MyStringRequest extends StringRequest {
     public MyStringRequest(int method, String url, Response.Listener<String> listener, @Nullable Response.ErrorListener errorListener) {
         super(method, url, listener, errorListener);
     }
