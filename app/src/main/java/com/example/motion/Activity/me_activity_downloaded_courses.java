@@ -23,6 +23,7 @@ import com.example.motion.Entity.Course;
 import com.example.motion.R;
 import com.example.motion.Utils.CourseCacheUtil;
 import com.example.motion.Widget.DownloadedCoursesAdapter;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
 import java.util.List;
