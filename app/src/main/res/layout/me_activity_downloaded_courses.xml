@@ -7,6 +7,24 @@
     android:orientation="vertical"
     tools:context=".Activity.me_activity_downloaded_courses">
 
+    <!--
+    <com.hjq.bar.TitleBar
+        android:id="@+id/tb_me_activity_downloaded_courses"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/default_title_bar_height"
+        android:background="@color/purple_main"
+        app:title="@string/me_activity_downloaded_courses_title_bar"
+        app:titleStyle="bold"
+        app:titleColor="@color/white"
+        app:titleSize="20sp"
+        app:leftIcon="@drawable/ic_arrow_left"
+        app:leftSize="@dimen/default_title_bar_button_width_height"
+        app:rightTitle="@string/me_activity_downloaded_courses_edit"
+        app:rightSize="16sp"
+        app:rightColor="@color/orange_main"
+        />
+        -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/default_title_bar_height"

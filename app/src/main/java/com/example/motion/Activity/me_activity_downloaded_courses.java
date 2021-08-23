@@ -23,6 +23,8 @@ import com.example.motion.Entity.Course;
 import com.example.motion.R;
 import com.example.motion.Utils.CourseCacheUtil;
 import com.example.motion.Widget.DownloadedCoursesAdapter;
+import com.hjq.bar.OnTitleBarListener;
+import com.hjq.bar.TitleBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +43,6 @@ public class me_activity_downloaded_courses extends NeedTokenActivity implements
     private TextView tvEdit;
     private ImageView ivBack;
     private CourseCacheUtil ccu;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
