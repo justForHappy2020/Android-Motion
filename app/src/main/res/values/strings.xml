@@ -90,7 +90,7 @@
     <string name="sport_completed_course_feelings_easy">太简单了</string>
     <string name="sport_completed_course_feelings_hard">太难了</string>
     <string name="sport_completed_course_feelings_notbad">还不错</string>
-    <string name="sport_completed_course_post_it_hint">“让其他小朋友看到你的努力～“</string>
+    <string name="sport_completed_course_post_it_hint">让其他小朋友看到你的努力～</string>
     <string name="sport_course_start_break_skip_hint">是否要跳过休息？</string>
     <string name="sport_dialog_download_exit">退出训练</string>
     <string name="sport_dialog_download_downloading">正在下载</string>
@@ -116,5 +116,7 @@
     <string name="me_activity_downloaded_courses_edit">编辑</string>
     <string name="me_activity_downloaded_courses_state_load_fail">本地缓存课程数据读取失败</string>
     <string name="download_courses_nodata">暂无已缓存课程</string>
+    <string name="homepage_nav_hot">人气课</string>
+    <string name="homepage_nav_more">更多</string>
 
 </resources>

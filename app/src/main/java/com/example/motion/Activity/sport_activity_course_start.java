@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
@@ -14,11 +15,12 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.ProgressBar;
@@ -29,19 +31,21 @@ import android.widget.VideoView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
+import com.bumptech.glide.Glide;
 import com.example.motion.Entity.Action;
 import com.example.motion.Entity.Course;
 import com.example.motion.R;
 import com.example.motion.Utils.HttpUtils;
 import com.example.motion.Widget.SportBreakDialog;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.zzhoujay.richtext.RichText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 public class sport_activity_course_start extends Activity implements View.OnClickListener{
@@ -100,6 +104,16 @@ public class sport_activity_course_start extends Activity implements View.OnClic
     private View nextActionBar;
 
     private SportBreakDialog breakDialog;
+
+    private int currentOne;
+    private ImageButton ivDetailLastAction;
+    private ImageButton ivDetailNextAction;
+    private ImageView ivDetailHeaderImage;
+    private Button btnDetailStartAction;
+    private TextView tvDetailActionName;
+    private TextView tvDetailActionContent;
+    private LinearLayout llDetailControlBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -645,11 +659,37 @@ public class sport_activity_course_start extends Activity implements View.OnClic
                 handler.handleMessage(msg);
                 break;
             case R.id.btn_detail:
+                /*
                 intent = new Intent(this,sport_activity_course_action_detail.class);
                 intent.putExtra("course",course);
                 intent.putExtra("courseActionPosition",courseActionPosition);
                 intent.putExtra("actionList",(Serializable) actionList);
                 startActivity(intent);
+
+                 */
+
+                mVideoView.pause();
+                currentOne = courseActionPosition;
+                BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(sport_activity_course_start.this);
+                View actionDetailView = getLayoutInflater().inflate(R.layout.sport_dialog_course_action_detail, null);
+                initActionDetailView(actionDetailView);
+
+                mBottomSheetDialog.setContentView(actionDetailView);
+                mBottomSheetDialog.getWindow().findViewById(R.id.design_bottom_sheet).setBackgroundColor(Color.TRANSPARENT);
+
+                BottomSheetBehavior behavior = BottomSheetBehavior.from((View)actionDetailView.getParent());
+                ViewGroup.LayoutParams params = actionDetailView.getLayoutParams();
+                params.height = behavior.getPeekHeight();
+                actionDetailView.setLayoutParams(params);
+                behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+                mBottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        mVideoView.start();
+                    }
+                });
+                mBottomSheetDialog.show();
                 break;
             case R.id.ib_quit:
                 mVideoView.pause();
@@ -674,6 +714,46 @@ public class sport_activity_course_start extends Activity implements View.OnClic
                 break;
 
         }
+    }
+
+    private void initActionDetailView(View actionDetailView){
+        llDetailControlBar = actionDetailView.findViewById(R.id.ll_control_bar);
+        llDetailControlBar.setVisibility(View.GONE);
+        tvDetailActionName = actionDetailView.findViewById(R.id.movement_detail_name);
+        ivDetailLastAction =  actionDetailView.findViewById(R.id.movement_detail_last);
+        ivDetailNextAction =  actionDetailView.findViewById(R.id.movement_detail_next);
+        ivDetailHeaderImage =  actionDetailView.findViewById(R.id.movement_detail_mainimage);
+        btnDetailStartAction =  actionDetailView.findViewById(R.id.movement_detail_start);
+        tvDetailActionContent =  actionDetailView.findViewById(R.id.movement_detail_content);
+
+        ivDetailLastAction.setOnClickListener(this);
+        ivDetailNextAction.setOnClickListener(this);
+        btnDetailStartAction.setOnClickListener(this);
+
+        RichText.initCacheDir(this);
+        switchContent(currentOne);
+    }
+
+    private void switchContent(int position){
+        if(currentOne == 0) {
+            ivDetailLastAction.setEnabled(false);
+            ivDetailNextAction.setEnabled(true);
+        }
+        if(currentOne == actionList.size()-1){
+            ivDetailLastAction.setEnabled(true);
+            ivDetailNextAction.setEnabled(false);
+        }
+        if(currentOne>0 && currentOne<actionList.size()-1){
+            ivDetailLastAction.setEnabled(true);
+            ivDetailNextAction.setEnabled(true);
+        }
+
+        Glide.with(this).load(actionList.get(currentOne).getActionImgs()).placeholder(R.drawable.ic_placeholder).into(ivDetailHeaderImage);
+        tvDetailActionName.setText(actionList.get(position).getActionName());
+        RichText.fromMarkdown(actionList.get(position).getIntro())
+                .showBorder(false)
+                .bind(this)
+                .into(tvDetailActionContent);
     }
 
     private void showNextAction(String actionName,Boolean isShow){

@@ -9,821 +9,884 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="309dp">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="250dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:background="@drawable/bg_sport_fragment_main"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/ll2"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:background="@null"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-
-                    <TextView
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="19dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:text="@string/bottom_tab_sport"
-                        android:textColor="@color/orange_main"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
-
-
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="20" />
-                    <ImageView
-                        android:id="@+id/sport_main_search"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_margin="20dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/ic_search_orange" />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:id="@+id/ll1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="25dp"
-                    android:layout_marginBottom="15dp"
-                    android:background="@drawable/view_radius_white"
-                    android:elevation="10dp"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:orientation="horizontal"
-                        android:paddingTop="10dp"
-                        android:paddingEnd="10dp">
-
-
-                        <Space
-                            android:layout_width="wrap_content"
-                            android:layout_height="1dp"
-                            android:layout_gravity="bottom"
-                            android:layout_weight="1" />
-
-                        <ImageView
-                            android:id="@+id/iv_myplace"
-                            android:layout_width="30dp"
-                            android:layout_height="match_parent"
-                            android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/rightarrow" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/space2"
-                        android:layout_width="match_parent"
-                        android:layout_height="98dp"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:paddingStart="20dp"
-                        android:paddingTop="30dp">
-
-                        <TextView
-                            android:id="@+id/sport_main_user_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="李月亮小朋友"
-                            android:textColor="#000000"
-                            android:textSize="16dp"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="在Motion的第"
-                                android:textColor="#000000"
-                                android:textSize="25dp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/sport_main_days_count"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="4"
-                                android:textColor="#000000"
-                                android:textSize="25dp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="天"
-                                android:textColor="#000000"
-                                android:textSize="25dp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-
-                    </LinearLayout>
-
-
-                    <TableLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="20dp"
-                        android:paddingStart="20dp"
-                        android:paddingTop="20dp"
-                        android:paddingEnd="20dp">
-
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center">
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:text="训练课程数"
-                                    android:textSize="18dp" />
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:id="@+id/sport_main_course_count"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:text="4"
-                                        android:textSize="20dp"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:text="节"
-                                        android:textSize="20dp"
-                                        android:textStyle="bold" />
-                                </LinearLayout>
-                            </LinearLayout>
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:text="练习时长"
-                                    android:textSize="18dp" />
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:id="@+id/sport_main_exercise_time_count"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:text="24"
-                                        android:textSize="20dp"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:text="分钟"
-                                        android:textSize="20dp"
-                                        android:textStyle="bold" />
-                                </LinearLayout>
-                            </LinearLayout>
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="最大连续天数"
-                                    android:textSize="18dp" />
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:id="@+id/sport_main_continue_days_count"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:text="6"
-                                        android:textSize="20dp"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:text="天"
-                                        android:textSize="20dp"
-                                        android:textStyle="bold" />
-                                </LinearLayout>
-                            </LinearLayout>
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1" />
-                        </TableRow>
-
-                    </TableLayout>
-
-
-                </LinearLayout>
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="9" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_logined_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="40dp">
+                android:layout_below="@+id/ll2"
+                android:layout_marginTop="-20dp"
+                android:orientation="vertical">
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/sport_main_head"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:paddingStart="20dp"
                     android:src="@drawable/test_img2"
-                    app:riv_border_color="#ffffff"
+                    app:riv_border_color="@color/white"
                     app:riv_border_width="1dp"
                     app:riv_oval="true">
 
                 </com.makeramen.roundedimageview.RoundedImageView>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-45dp"
+                    android:elevation="-1dp"
+                    android:orientation="vertical">
 
+                    <LinearLayout
+                        android:id="@+id/ll1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="25dp"
+                        android:layout_marginBottom="15dp"
+                        android:background="@drawable/view_radius_white"
+                        android:elevation="10dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/space2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:paddingTop="35dp">
+
+                            <TextView
+                                android:id="@+id/sport_main_user_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:textColor="#000000"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                tools:text="李月亮小朋友" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="在Motion的第"
+                                    android:textColor="#000000"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/sport_main_days_count"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:paddingStart="3sp"
+                                    android:paddingEnd="3sp"
+                                    android:textColor="@color/purple_main"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    tools:text="4" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="天"
+                                    android:textColor="#000000"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                        <TableLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="20dp"
+                            android:paddingStart="20dp"
+                            android:paddingTop="20dp"
+                            android:paddingEnd="20dp">
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center">
+
+                                <Space
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="训练课程数"
+                                        android:textSize="18dp" />
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:id="@+id/sport_main_course_count"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:text="4"
+                                            android:textColor="@color/black_text"
+                                            android:textSize="20dp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:text="节"
+                                            android:textColor="@color/black_text"
+                                            android:textSize="20dp"
+                                            android:textStyle="bold" />
+                                    </LinearLayout>
+                                </LinearLayout>
+
+                                <Space
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="练习时长"
+                                        android:textSize="18dp" />
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:id="@+id/sport_main_exercise_time_count"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:text="24"
+                                            android:textColor="@color/black_text"
+                                            android:textSize="20dp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:text="分钟"
+                                            android:textColor="@color/black_text"
+                                            android:textSize="20dp"
+                                            android:textStyle="bold" />
+                                    </LinearLayout>
+                                </LinearLayout>
+
+                                <Space
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="最大连续天数"
+                                        android:textSize="18dp" />
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:id="@+id/sport_main_continue_days_count"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:text="6"
+                                            android:textColor="@color/black_text"
+                                            android:textSize="20dp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:text="天"
+                                            android:textColor="@color/black_text"
+                                            android:textSize="20dp"
+                                            android:textStyle="bold" />
+                                    </LinearLayout>
+                                </LinearLayout>
+
+                                <Space
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1" />
+                            </TableRow>
+
+                        </TableLayout>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:orientation="vertical"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:src="@drawable/calendar_img" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="我的训练日记"
+                            android:textColor="@color/purple_light"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                    <!--            <LinearLayout-->
+                    <!--                android:layout_width="match_parent"-->
+                    <!--                android:layout_height="wrap_content">-->
+
+                    <!--                <com.haibin.calendarview.CalendarView-->
+                    <!--                    android:id="@+id/calendarView"-->
+                    <!--                    android:layout_width="match_parent"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:background="@color/white"-->
+                    <!--                    app:calendar_height="50dp"-->
+                    <!--                    app:current_month_text_color="#101010"-->
+                    <!--                    app:current_month_lunar_text_color="#CFCFCF"-->
+                    <!--                    app:min_year="2004"-->
+                    <!--                    app:other_month_text_color="#e1e1e1"-->
+                    <!--                    app:scheme_text="假"-->
+                    <!--                    app:scheme_text_color="#333"-->
+                    <!--                    app:scheme_theme_color="@color/purple_main"-->
+                    <!--                    app:selected_text_color="@color/white"-->
+                    <!--                    app:selected_theme_color="#D1C4E9"-->
+                    <!--                    app:current_day_text_color="@color/gray"-->
+                    <!--                    app:week_start_with="mon"-->
+                    <!--                    app:week_background="#fff"-->
+                    <!--                    app:month_view_show_mode="mode_only_current"-->
+                    <!--                    app:lunar_text_size="0dp"-->
+                    <!--                    app:week_text_color="#111"-->
+                    <!--                    app:calendar_padding="25dp"/>-->
+
+                    <!--            </LinearLayout>-->
+                    <LinearLayout
+                        android:id="@+id/colorfulCalendar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <!--                <include layout="@layout/activity_colorful_calendar"/>-->
+                        <RelativeLayout
+                            android:id="@+id/rl_tool"
+                            android:layout_width="match_parent"
+                            android:layout_height="52dp">
+
+                            <TextView
+                                android:id="@+id/tv_month_day"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="16dp"
+                                android:textColor="#000000"
+                                android:textSize="26sp"
+                                android:textStyle="bold"
+                                tools:ignore="RtlSymmetry" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_toRightOf="@+id/tv_month_day"
+                                android:orientation="vertical"
+                                android:paddingLeft="6dp"
+                                android:paddingTop="12dp"
+                                android:paddingRight="6dp"
+                                android:paddingBottom="12dp"
+                                tools:ignore="RelativeOverlap">
+
+                                <TextView
+                                    android:id="@+id/tv_year"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:textColor="#000000"
+                                    android:textSize="10sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_lunar"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:textColor="#000000"
+                                    android:textSize="10sp"
+                                    tools:ignore="SmallSp" />
+                            </LinearLayout>
+
+                            <FrameLayout
+                                android:id="@+id/fl_current"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="12dp"
+                                android:background="@drawable/bg_ripple">
+
+                                <ImageView
+                                    android:id="@+id/ib_calendar"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:contentDescription="@string/app_name"
+                                    android:scaleType="centerInside"
+                                    android:src="@mipmap/ic_calendar"
+                                    android:tint="#000000" />
+
+                                <TextView
+                                    android:id="@+id/tv_current_day"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="2dp"
+                                    android:gravity="center"
+                                    android:text="13"
+                                    android:textColor="#000000"
+                                    android:textSize="12sp" />
+                            </FrameLayout>
+                        </RelativeLayout>
+
+                        <com.haibin.calendarview.CalendarLayout
+                            android:id="@+id/calendarLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#fff"
+                            android:orientation="vertical">
+
+                            <com.haibin.calendarview.CalendarView
+                                android:id="@+id/calendarView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="#fff"
+                                app:calendar_padding="10dp"
+                                app:current_month_lunar_text_color="#CFCFCF"
+                                app:current_month_text_color="#333333"
+                                app:min_year="2004"
+                                app:month_view="com.example.motion.Activity.calendar.ColorfulMonthView"
+                                app:month_view_show_mode="mode_only_current"
+                                app:other_month_text_color="#e1e1e1"
+                                app:scheme_lunar_text_color="#ffffff"
+                                app:scheme_text="假"
+                                app:scheme_text_color="#fff"
+                                app:scheme_theme_color="#128c4b"
+                                app:selected_lunar_text_color="#fff"
+                                app:selected_text_color="#fff"
+                                app:selected_theme_color="@color/purple_main"
+                                app:week_background="#fff"
+                                app:week_text_color="#111"
+                                app:week_view="com.example.motion.Activity.calendar.ColorfulWeekView"
+                                app:year_view_day_text_color="#333333"
+                                app:year_view_day_text_size="9sp"
+                                app:year_view_month_text_color="@color/orange_main"
+                                app:year_view_month_text_size="20sp"
+                                app:year_view_scheme_color="#f17706" />
+
+                        </com.haibin.calendarview.CalendarLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/edit_radius_nogray"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <Space
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:src="@drawable/ic_md_error" />
+
+                        <Space
+                            android:layout_width="5dp"
+                            android:layout_height="match_parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Motion建议：每周至少锻炼3次，坚持30分钟"
+                            android:textSize="16dp" />
+
+                        <Space
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent" />
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="vertical"
+                        android:paddingBottom="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:paddingStart="9dp"
+                                android:paddingEnd="9dp">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1">
+
+                                    <ImageView
+                                        android:layout_width="24dp"
+                                        android:layout_height="24dp"
+                                        android:src="@drawable/ic_sports" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="最近常练"
+                                        android:textColor="@color/purple_main"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+
+                                <Space
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="10" />
+
+                                <LinearLayout
+                                    android:id="@+id/ll_more_course_history"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="More"
+                                        android:textColor="@color/purple_main"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold" />
+
+                                    <ImageView
+                                        android:id="@+id/iv_sport_practiced"
+                                        android:layout_width="24dp"
+                                        android:layout_height="24dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:paddingRight="2dp"
+                                        android:scaleType="centerInside"
+                                        android:src="@drawable/ic_fas_fa_angle_right" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvSportMainPracticed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#F6F6F6"
+                        tools:itemCount="2"
+                        tools:listitem="@layout/sport_main_item" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="vertical"
+                        android:paddingBottom="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:paddingStart="9dp"
+                                android:paddingEnd="9dp">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1">
+
+                                    <ImageView
+                                        android:layout_width="24dp"
+                                        android:layout_height="24dp"
+                                        android:src="@drawable/ic_sports" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="我的收藏"
+                                        android:textColor="@color/purple_main"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+
+                                <Space
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="10" />
+
+                                <LinearLayout
+                                    android:id="@+id/ll_more_course_collection"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="More"
+                                        android:textColor="@color/purple_main"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold" />
+
+                                    <ImageView
+                                        android:id="@+id/iv_sport_collected"
+                                        android:layout_width="24dp"
+                                        android:layout_height="24dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:paddingRight="2dp"
+                                        android:src="@drawable/ic_fas_fa_angle_right" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvSportMainCollection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#F6F6F6" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="vertical"
+                        android:paddingBottom="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:paddingStart="9dp"
+                                android:paddingEnd="9dp">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1">
+
+                                    <ImageView
+                                        android:layout_width="24dp"
+                                        android:layout_height="24dp"
+                                        android:src="@drawable/ic_sports" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="我的下载"
+                                        android:textColor="@color/purple_main"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+
+                                <Space
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="10" />
+
+                                <LinearLayout
+                                    android:id="@+id/ll_more_course_downloaded"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="More"
+                                        android:textColor="@color/purple_main"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold" />
+
+                                    <ImageView
+                                        android:id="@+id/iv_sport_download"
+                                        android:layout_width="24dp"
+                                        android:layout_height="24dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:paddingRight="2dp"
+                                        android:src="@drawable/ic_fas_fa_angle_right" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvSportMainDownload"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#F6F6F6"
+                        tools:itemCount="2"
+                        tools:listitem="@layout/sport_main_item" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#F0F0F2" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+                <TextView
+                    android:id="@+id/tv_add_course"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginBottom="78dp"
+                    android:background="@drawable/rect_rounded_left_right_arc_add"
+                    android:gravity="center"
+                    android:text="+  添加练习"
+                    android:textColor="#673AB7"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll2"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="sans-serif-black"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="19dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/bottom_tab_sport"
+                    android:textColor="@color/orange_main"
+                    android:textSize="24sp"
+                    android:textStyle="bold"/>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="20" />
+
+                <ImageView
+                    android:id="@+id/sport_main_search"
+                    android:layout_width="@dimen/default_title_bar_button_width_height"
+                    android:layout_height="@dimen/default_title_bar_button_width_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="20dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_search_orange" />
             </LinearLayout>
 
         </RelativeLayout>
+
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:src="@drawable/calendar_img" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="我的训练日记"
-                    android:textColor="@color/purple_light"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-            <!--            <LinearLayout-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content">-->
-
-            <!--                <com.haibin.calendarview.CalendarView-->
-            <!--                    android:id="@+id/calendarView"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:background="@color/white"-->
-            <!--                    app:calendar_height="50dp"-->
-            <!--                    app:current_month_text_color="#101010"-->
-            <!--                    app:current_month_lunar_text_color="#CFCFCF"-->
-            <!--                    app:min_year="2004"-->
-            <!--                    app:other_month_text_color="#e1e1e1"-->
-            <!--                    app:scheme_text="假"-->
-            <!--                    app:scheme_text_color="#333"-->
-            <!--                    app:scheme_theme_color="@color/purple_main"-->
-            <!--                    app:selected_text_color="@color/white"-->
-            <!--                    app:selected_theme_color="#D1C4E9"-->
-            <!--                    app:current_day_text_color="@color/gray"-->
-            <!--                    app:week_start_with="mon"-->
-            <!--                    app:week_background="#fff"-->
-            <!--                    app:month_view_show_mode="mode_only_current"-->
-            <!--                    app:lunar_text_size="0dp"-->
-            <!--                    app:week_text_color="#111"-->
-            <!--                    app:calendar_padding="25dp"/>-->
-
-            <!--            </LinearLayout>-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/colorfulCalendar">
-                <!--                <include layout="@layout/activity_colorful_calendar"/>-->
-                <RelativeLayout
-                    android:id="@+id/rl_tool"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp">
-
-                    <TextView
-                        android:id="@+id/tv_month_day"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="16dp"
-                        android:textColor="#000000"
-                        android:textSize="26sp"
-                        android:textStyle="bold"
-                        tools:ignore="RtlSymmetry" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_toRightOf="@+id/tv_month_day"
-                        android:orientation="vertical"
-                        android:paddingBottom="12dp"
-                        android:paddingLeft="6dp"
-                        android:paddingRight="6dp"
-                        android:paddingTop="12dp"
-                        tools:ignore="RelativeOverlap">
-
-                        <TextView
-                            android:id="@+id/tv_year"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:textColor="#000000"
-                            android:textSize="10sp" />
-
-                        <TextView
-                            android:id="@+id/tv_lunar"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:textColor="#000000"
-                            android:textSize="10sp"
-                            tools:ignore="SmallSp" />
-                    </LinearLayout>
-
-                    <FrameLayout
-                        android:id="@+id/fl_current"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="12dp"
-                        android:background="@drawable/bg_ripple">
-
-                        <ImageView
-                            android:id="@+id/ib_calendar"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:contentDescription="@string/app_name"
-                            android:scaleType="centerInside"
-                            android:src="@mipmap/ic_calendar"
-                            android:tint="#000000" />
-
-                        <TextView
-                            android:id="@+id/tv_current_day"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="2dp"
-                            android:gravity="center"
-                            android:text="13"
-                            android:textColor="#000000"
-                            android:textSize="12sp" />
-                    </FrameLayout>
-                </RelativeLayout>
-
-                <com.haibin.calendarview.CalendarLayout
-                    android:id="@+id/calendarLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#fff"
-                    android:orientation="vertical">
-
-                    <com.haibin.calendarview.CalendarView
-                        android:id="@+id/calendarView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#fff"
-                        app:calendar_padding="10dp"
-                        app:current_month_lunar_text_color="#CFCFCF"
-                        app:current_month_text_color="#333333"
-                        app:min_year="2004"
-                        app:month_view="com.example.motion.Activity.calendar.ColorfulMonthView"
-                        app:month_view_show_mode="mode_only_current"
-                        app:other_month_text_color="#e1e1e1"
-                        app:scheme_lunar_text_color="#ffffff"
-                        app:scheme_text="假"
-                        app:scheme_text_color="#fff"
-                        app:scheme_theme_color="#128c4b"
-                        app:selected_lunar_text_color="#fff"
-                        app:selected_text_color="#fff"
-                        app:selected_theme_color="@color/purple_main"
-                        app:week_background="#fff"
-                        app:week_text_color="#111"
-                        app:week_view="com.example.motion.Activity.calendar.ColorfulWeekView"
-                        app:year_view_day_text_color="#333333"
-                        app:year_view_day_text_size="9sp"
-                        app:year_view_month_text_color="@color/orange_main"
-                        app:year_view_month_text_size="20sp"
-                        app:year_view_scheme_color="#f17706" />
-
-                </com.haibin.calendarview.CalendarLayout>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:orientation="horizontal"
-                android:background="@drawable/edit_radius_nogray"
-                android:layout_gravity="center"
-                android:gravity="center"
-                >
-                <Space
-                    android:layout_width="10dp"
-                    android:layout_height="match_parent"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_md_error"
-                    android:gravity="center_vertical"/>
-                <Space
-                    android:layout_width="5dp"
-                    android:layout_height="match_parent"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Motion建议：每周至少锻炼3次，坚持30分钟"
-                    android:textSize="16dp"/>
-                <Space
-                    android:layout_width="10dp"
-                    android:layout_height="match_parent"/>
-
-            </LinearLayout>
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:layout_marginTop="20dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingStart="9dp"
-                        android:paddingEnd="9dp">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1">
-
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@drawable/ic_sports" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:text="最近常练"
-                                android:textColor="@color/purple_main"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <Space
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="10" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="More"
-                                android:textColor="@color/purple_main"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                            <ImageView
-                                android:id="@+id/iv_sport_practiced"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_gravity="center_vertical"
-                                android:paddingRight="2dp"
-                                android:scaleType="centerInside"
-                                android:src="@drawable/ic_fas_fa_angle_right" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvSportMainPracticed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#F6F6F6"
-                tools:itemCount="2"
-                tools:listitem="@layout/sport_main_item" />
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="20dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:layout_marginTop="20dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingStart="9dp"
-                        android:paddingEnd="9dp">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1">
-
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@drawable/ic_sports" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:text="我的收藏"
-                                android:textColor="@color/purple_main"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <Space
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="10" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="More"
-                                android:textColor="@color/purple_main"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                            <ImageView
-                                android:id="@+id/iv_sport_collected"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_gravity="center_vertical"
-                                android:paddingRight="2dp"
-                                android:src="@drawable/ic_fas_fa_angle_right" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvSportMainCollection"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#F6F6F6"
-                tools:listitem="@layout/sport_main_collection_item" />
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="20dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:layout_marginTop="20dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingStart="9dp"
-                        android:paddingEnd="9dp">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1">
-
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@drawable/ic_sports" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:text="我的下载"
-                                android:textColor="@color/purple_main"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <Space
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="10" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="More"
-                                android:textColor="@color/purple_main"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                            <ImageView
-                                android:id="@+id/iv_sport_download"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_gravity="center_vertical"
-                                android:paddingRight="2dp"
-                                android:src="@drawable/ic_fas_fa_angle_right" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvSportMainDownload"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#F6F6F6"
-                tools:itemCount="2"
-                tools:listitem="@layout/sport_main_item" />
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="20dp"/>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="20dp"/>
-
-
-        </LinearLayout>
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="20dp"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#F0F0F2"/>
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="20dp"/>
-
-        <TextView
+            android:id="@+id/ll_not_login_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginBottom="78dp"
-            android:background="@drawable/rect_rounded_left_right_arc_add"
             android:gravity="center"
-            android:text="+  添加练习"
-            android:textColor="#673AB7"
-            android:textSize="18dp" />
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/ll_not_login"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_gravity="center|center_vertical"
+                android:background="@drawable/edit_radius_nogray"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="false"
+                    android:gravity="center_vertical"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_md_error" />
+
+                <Space
+                    android:layout_width="5dp"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_not_login"
+                    android:textSize="16dp" />
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

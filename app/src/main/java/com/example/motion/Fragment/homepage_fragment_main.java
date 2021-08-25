@@ -35,6 +35,10 @@ import com.example.motion.Widget.CourseGroupAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.motion.Entity.CourseTag.TAG_ALL;
+import static com.example.motion.Entity.CourseTag.TAG_SORT_HOT;
+import static com.example.motion.Entity.CourseTagGroup.TAG_GROUP_SORT;
+
 public class homepage_fragment_main extends BaseNetworkFragment {
     private final int LOAD_TAGS_SUCCESS = 1;
     private final int LOAD_TAGS_FAILED = 2;
@@ -88,14 +92,16 @@ public class homepage_fragment_main extends BaseNetworkFragment {
                         courseGroupAdapter.notifyDataSetChanged();
                         break;
                     case LOAD_TAGS_FAILED:
+                        checkVolleyError(msg.obj);
                         Log.d("HANDLER","HOMEPAGE_LOAD_TAGS_FAILED"+msg.obj);
-                        Toast.makeText(getContext(), "LOAD_TAGS_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getContext(), "LOAD_TAGS_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
                         break;
                     case LOAD_BANNER_SUCCESS:
                         bannerAdapter.notifyDataSetChanged();
                         Log.d("HANDLER","LOAD_BANNER_SUCCESS");
                         break;
                     case LOAD_BANNER_FAILED:
+                        //checkVolleyError(msg.obj);
                         Log.d("HANDLER","LOAD_BANNER_FAILED");
                         break;
                 }
@@ -104,10 +110,11 @@ public class homepage_fragment_main extends BaseNetworkFragment {
     }
 
     private void initView(View view){
-        ivMoreCourse = view.findViewById(R.id.ivNavItem6);
+        //ivMoreCourse = view.findViewById(R.id.ivNavItem6);
         rvCourseTagGroup = view.findViewById(R.id.rv_homepage_course_tag_group);
         rvBanner = view.findViewById(R.id.rv_banner);
 
+        /*
         ivMoreCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,6 +122,8 @@ public class homepage_fragment_main extends BaseNetworkFragment {
                 startActivity(intent);
             }
         });
+
+         */
     }
 
     private void initCourseTagGroupRecyclerView(){
@@ -171,6 +180,8 @@ public class homepage_fragment_main extends BaseNetworkFragment {
         rvBanner.setLayoutManager(layoutM);
 
         bannerTagList = new ArrayList<>();
+        addLocalBannerTags(bannerTagList);
+
         bannerAdapter = new BannerAdapter(R.layout.homepage_item_banner_tag,bannerTagList);
 
         rvBanner.setAdapter(bannerAdapter);
@@ -178,7 +189,6 @@ public class homepage_fragment_main extends BaseNetworkFragment {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 Intent intent = new Intent(getActivity(),sport_activity_course_selection.class);
-
                 intent.putExtra("SelectedGroupId",bannerTagList.get(position).getSortId());
                 intent.putExtra("SelectedTagId",bannerTagList.get(position).getTagId());
                 startActivity(intent);
@@ -187,6 +197,7 @@ public class homepage_fragment_main extends BaseNetworkFragment {
     }
 
     private void getHttpCourseTags() {
+
         requestQueue.add(new GetCourseTagGroupRequest(new Response.Listener<List<CourseTagGroup>>() {
             @Override
             public void onResponse(List<CourseTagGroup> response) {
@@ -270,7 +281,8 @@ public class homepage_fragment_main extends BaseNetworkFragment {
             @Override
             public void onResponse(List<BannerTag> response) {
                 bannerTagList.clear();
-                bannerTagList.addAll(response);
+                addLocalBannerTags(bannerTagList);
+                bannerTagList.addAll(1,response);
 
                 Message msg = handler.obtainMessage();
                 msg.what = LOAD_BANNER_SUCCESS;
@@ -285,5 +297,30 @@ public class homepage_fragment_main extends BaseNetworkFragment {
                 handler.sendMessage(msg);
             }
         }));
+    }
+
+    private void addLocalBannerTags(List<BannerTag> list){
+
+        /**
+         * 添加人气课图标
+         */
+        BannerTag hotBannerTag = new BannerTag();
+        hotBannerTag.setBannerName(getString(R.string.homepage_nav_hot));
+        hotBannerTag.setTagId(TAG_SORT_HOT);
+        hotBannerTag.setImgDrawableId(R.drawable.ic_homepage_hot);
+        hotBannerTag.setImgUrl(null);
+        hotBannerTag.setSortId(TAG_GROUP_SORT);
+        list.add(hotBannerTag);
+
+        /**
+         * 添加"全部"图标
+         */
+        BannerTag allBannerTag = new BannerTag();
+        allBannerTag.setBannerName(getString(R.string.homepage_nav_more));
+        allBannerTag.setTagId(TAG_ALL);
+        allBannerTag.setImgDrawableId(R.drawable.ic_homepage_add);
+        allBannerTag.setImgUrl(null);
+        allBannerTag.setSortId(TAG_ALL);
+        list.add(allBannerTag);
     }
 }

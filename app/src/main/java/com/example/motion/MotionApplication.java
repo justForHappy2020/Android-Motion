@@ -7,6 +7,8 @@ import com.example.motion.Utils.UserInfoManager;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowLog;
 import com.raizlabs.android.dbflow.config.FlowManager;
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.crashreport.CrashReport;
 
 
 public class MotionApplication extends Application{
@@ -18,6 +20,9 @@ public class MotionApplication extends Application{
         super.onCreate();
         context = this;
         dbFlowInit();
+
+        //CrashReport.initCrashReport(getApplicationContext());
+        Bugly.init(getApplicationContext(), "a6b8dfa5cb", true);
     }
 
     private void dbFlowInit(){

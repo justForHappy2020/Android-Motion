@@ -11,5 +11,12 @@
     <dimen name="dd_dimen_6px">2.669983dip</dimen>
     <dimen name="dd_dimen_28px">12.439972dip</dimen>
 
+    <!-- 标题栏高度和图标边长 -->
+    <dimen name="default_title_bar_height">60dp</dimen>
+    <dimen name="default_title_bar_button_width_height">24dp</dimen>
+
+    <!-- 课程详情页的动作详情顶部留空的高度 -->
+    <dimen name="sport_dialog_action_detail_head_space_height">60dp</dimen>
+
 
 </resources>

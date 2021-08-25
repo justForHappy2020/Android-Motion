@@ -27,6 +27,8 @@ public class CourseGroupAdapter extends BaseQuickAdapter<CourseTagGroup, BaseVie
     protected void convert(BaseViewHolder helper, CourseTagGroup tagGroup) {
         if(helper.getLayoutPosition()%2!=0){
             helper.getView(R.id.ll_course_tag_group_header).setBackgroundResource(R.drawable.homepage_types_radius_orange);
+        }else{
+            helper.getView(R.id.ll_course_tag_group_header).setBackgroundResource(R.drawable.homepage_types_radius_purple);
         }
         try {
             helper.setText(R.id.tv_course_tag_group_name, tagGroup.getGroupName())

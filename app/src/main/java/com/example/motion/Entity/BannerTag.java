@@ -4,6 +4,7 @@ public class BannerTag {
     private int sortId;
     private int tagId;
     private String imgUrl;
+    private int imgDrawableId;
     private String bannerName;
 
     public int getSortId() {
@@ -36,5 +37,13 @@ public class BannerTag {
 
     public void setBannerName(String bannerName) {
         this.bannerName = bannerName;
+    }
+
+    public int getImgDrawableId() {
+        return imgDrawableId;
+    }
+
+    public void setImgDrawableId(int imgDrawableId) {
+        this.imgDrawableId = imgDrawableId;
     }
 }

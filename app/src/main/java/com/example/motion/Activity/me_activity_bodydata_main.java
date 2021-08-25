@@ -343,11 +343,14 @@ public class me_activity_bodydata_main  extends NeedTokenActivity implements Vie
     private void generateChartData() {
         List<Line> lines = new ArrayList<Line>();
         List<PointValue> values = new ArrayList<PointValue>();
-        for(int i = 0;i < recordList.size();i++){
-            values.add(new PointValue(i,recordList.get(i).getHealthRecord().getWeight()));
+        String x;
+        for(int i = recordList.size()-1; i >= 0 ;i--){
+            x = recordList.get(i).getHealthRecord().getCreateTime();
+            x =x.substring(5,7)+x.substring(8,10) + "." + x.substring(11,13) + x.substring(14,16);
+            values.add(new PointValue(Float.parseFloat(x) , recordList.get(i).getHealthRecord().getWeight()));
         }
         Line line = new Line(values);
-        line.setColor(ChartUtils.COLORS[0]);
+        line.setColor(Color.parseColor("#673AB7"));
         line.setShape(shape);
         line.setCubic(isCubic);
         line.setFilled(isFilled);
@@ -368,7 +371,7 @@ public class me_activity_bodydata_main  extends NeedTokenActivity implements Vie
                 //axisX.setName("Axis X");
                 axisY.setName("体重");
             }
-            data.setAxisXBottom(axisX);
+            data.setAxisXBottom(null);
             data.setAxisYLeft(axisY);
         } else {
             data.setAxisXBottom(null);

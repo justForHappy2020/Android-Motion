@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="300dp"
+    android:layout_height="200dp"
+    android:background="@color/_xpopup_white_color"
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="28dp"
+    android:orientation="horizontal"
+    >
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/calendar_popup_close"
+        android:layout_width="20dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="250dp"
+        android:background="@drawable/calendar_popup_quit"
+        android:textSize="20dp" />
+</LinearLayout>
+    <TextView
+        android:id="@+id/tv_calendar_popup_practiceday"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:text="4月15日"
+        android:textSize="25dp"
+        android:gravity="center_horizontal"
+        android:textColor="#673AB7"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        >
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/ic_popup_thumb"
+            android:gravity="center_horizontal"
+
+            android:layout_marginLeft="20dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="已训练"
+        android:textSize="15dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="练习时长: "
+            android:textSize="20dp"
+            android:layout_marginLeft="20dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tv_calendar_PracticeTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="45分钟"
+            android:textSize="20dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="练习内容: "
+            android:layout_marginLeft="20dp"
+            android:textStyle="bold"
+            android:textSize="20dp"/>
+        <TextView
+            android:id="@+id/tv_calendar_PracticeContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="核心力量"
+            android:textSize="20dp"/>
+    </LinearLayout>
+
+</LinearLayout>

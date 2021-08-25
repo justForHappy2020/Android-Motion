@@ -4,7 +4,14 @@ import java.io.Serializable;
 import java.util.List;
 
 public class CourseTagGroup implements Serializable {
+    /**
+     * 课程是否上线父标签id
+     */
     public static final int TAG_GROUP_IS_ONLINE  = -1;
+
+    /**
+     * 课程排序父标签id
+     */
     public static final int TAG_GROUP_SORT  = -2;
 
     private int groupId;

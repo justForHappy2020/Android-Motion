@@ -47,6 +47,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.motion.Entity.CourseTag.TAG_ALL;
+
 public class sport_activity_course_selection extends BaseNetworkActivity implements View.OnClickListener {
     private final int LOAD_COURSES_SUCCESS = 1;
     private final int LOAD_TAGS_SUCCESS = 2;
@@ -100,7 +102,12 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
 
     private void initDefaultSelectionParams(){
         defaultSelectionParam = new HashMap<>();
-        defaultSelectionParam.put("courseClassIdstr",String.valueOf(preSelectedCourseTagIds[1]));//有问题的写法，待banner方案完善以后再改
+
+        if(preSelectedCourseTagIds[1] != TAG_ALL){
+            defaultSelectionParam.put("courseClassIdstr",String.valueOf(preSelectedCourseTagIds[1]));//有问题的写法，待banner方案完善以后再改
+        }else{
+            defaultSelectionParam.put("courseClassIdstr","");
+        }
         defaultSelectionParam.put("size",String.valueOf(COURSE_NUM_IN_ONE_PAGE));
         defaultSelectionParam.put("page",String.valueOf(currentPage));
         defaultSelectionParam.put("isHot","1");
@@ -158,8 +165,8 @@ public class sport_activity_course_selection extends BaseNetworkActivity impleme
 
     private void initPreSelect(){
         preSelectedCourseTagIds = new int[2];
-        preSelectedCourseTagIds[0] = getIntent().getIntExtra("SelectedGroupId",0);
-        preSelectedCourseTagIds[1] = getIntent().getIntExtra("SelectedTagId",0);
+        preSelectedCourseTagIds[0] = getIntent().getIntExtra("SelectedGroupId",TAG_ALL);
+        preSelectedCourseTagIds[1] = getIntent().getIntExtra("SelectedTagId",TAG_ALL);
     }
 
     private void initData(){

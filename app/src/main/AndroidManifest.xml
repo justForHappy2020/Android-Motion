@@ -27,6 +27,13 @@
         android:name="android.permission.CHANGE_CONFIGURATION"
         tools:ignore="ProtectedPermissions" />
 
+    <!--腾讯Bugly所需权限-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+
     <application
         android:name=".MotionApplication"
         android:allowBackup="true"
@@ -39,6 +46,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
+
+
+        <!--
+        Bugly调试模式的行为特性如下：
+        ·输出详细的Bugly SDK的Log；
+        ·每一条Crash都会被立即上报；
+        ·自定义日志将会在Logcat中输出。
+        建议在测试阶段建议设置成true，发布时设置为false。
+        -->
+
+        <activity
+            android:name="com.tencent.bugly.beta.ui.BetaActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale"
+            android:theme="@android:style/Theme.Translucent" />
+
         <activity android:name=".Activity.me_activity_downloaded_courses"></activity>
         <activity
             android:name=".Activity.me_activity_bodydata_main"
@@ -61,7 +84,6 @@
         <activity
             android:name=".Activity.sport_activity_course_start"
             android:configChanges="orientation|screenSize" />
-        <activity android:name=".Activity.sport_activity_course_action_detail" />
         <activity android:name=".Activity.search_result_activity" />
         <activity android:name=".Activity.sport_activity_course_selection" />
         <activity android:name=".Activity.search_course_activity" />
@@ -75,8 +97,15 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!--
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+
         </activity>
         <activity
             android:name=".Activity.me_activity_bindphone_usephone"
@@ -92,11 +121,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.register_activity_register"
-            android:launchMode="singleTop"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Activity.my_activity_me_data"

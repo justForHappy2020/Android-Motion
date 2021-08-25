@@ -61,7 +61,6 @@ public class me_fragment_mycourse_history extends BaseNetworkFragment {
     private String dialogMessage = "";
     private SharedPreferences readSP;
     private String token;
-//    private String testToken ="aa650cbc-d18a-42fd-926b-98cf1327e2b3";
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.me_fragment_mycourse_history,container,false);
 
@@ -97,11 +96,11 @@ public class me_fragment_mycourse_history extends BaseNetworkFragment {
                         courseAdapter.notifyDataSetChanged();
                         courseAdapter.getLoadMoreModule().loadMoreComplete();
 
-                        Toast.makeText(getActivity(), "请求成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "请求成功", Toast.LENGTH_SHORT).show();
                         break;
                     case LOAD_COURSES_FAILED:
                         Log.d("HANDLER","LOAD_COURSES_FAILED");
-                        Toast.makeText(getActivity(), "LOAD_COURSES_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "LOAD_COURSES_FAILED,"+msg.obj, Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -163,20 +162,14 @@ public class me_fragment_mycourse_history extends BaseNetworkFragment {
                     Message msg = handler.obtainMessage();
                     msg.what = LOAD_COURSES_SUCCESS;
                     handler.sendMessage(msg);
-                    //test tool
-                    dialogMessage+="\n\ngetHttpCourse response:\n"+jsonRootObject.toString();
-                    //end of test tool
                 }catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             public void onErrorResponse(VolleyError volleyError) {
+                checkVolleyError(volleyError);
                 Log.d("sport_activity_course_selection","getHttpCourse_onErrorResponse");
-
-                //test tool
-                dialogMessage+="\ngetHttpCourse error: "+volleyError.toString();
-                //end of test tool
 
                 Message msg = handler.obtainMessage();
                 msg.what = LOAD_COURSES_FAILED;

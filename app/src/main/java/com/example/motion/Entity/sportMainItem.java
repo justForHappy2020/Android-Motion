@@ -1,6 +1,7 @@
 package com.example.motion.Entity;
 
 public class sportMainItem {
+    private Long courseId;
     private String courseName;
     private String TargetAge;
     private String Lables;

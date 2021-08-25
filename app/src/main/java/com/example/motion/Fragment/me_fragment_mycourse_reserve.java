@@ -67,7 +67,6 @@ public class me_fragment_mycourse_reserve extends BaseNetworkFragment {
     private String dialogMessage = "";
     private SharedPreferences readSP;
     private String token;
-//    private String testToken ="aa650cbc-d18a-42fd-926b-98cf1327e2b3";
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.me_fragment_mycourse_reserve,container,false);
 
@@ -118,7 +117,6 @@ public class me_fragment_mycourse_reserve extends BaseNetworkFragment {
         String url = "http://106.55.25.94:8080/api/user/userHasBooked?size=" + COURSE_NUM_IN_ONE_PAGE;
         if(params.isEmpty()){
             url+="&page=1&token="+token;//真实token
-//            url+="&page=1&token="+testToken;//测试token
         }else{
             Iterator iter = params.keySet().iterator();
             while (iter.hasNext()) {
@@ -201,24 +199,21 @@ public class me_fragment_mycourse_reserve extends BaseNetworkFragment {
     public void initData(){
 
         rvCourseReserved.setLayoutManager(new LinearLayoutManager(getActivity()));
-        courseAdapter = new MultipleItemQuickAdapter(showingReserveList);
-        rvCourseReserved.setAdapter(courseAdapter);
+        //courseAdapter = new MultipleItemQuickAdapter(showingReserveList);
+        //rvCourseReserved.setAdapter(courseAdapter);
 
         showingReserveList = new ArrayList<>();
         courseAdapter = new MultipleItemQuickAdapter(showingReserveList);
         courseAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(@NonNull BaseQuickAdapter quickAdapter, @NonNull View view, int position) {
-                //Log.d("Adapter","Click");
-                Intent intent;
-                intent = new Intent(getActivity(), sport_activity_course_detail.class);
-/*                for(int i = 0 ; i < dataSet.size() ; i++){
-                    courseList = dataSet.get(i);
-                    if(courseList.size()<=position)position = position - courseList.size();
-                    else break;
-                }*/
-                intent.putExtra("course", showingReserveList.get(position).getCourse());
-                startActivity(intent);
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                try {
+                    Intent intent = new Intent(getContext(), sport_activity_course_detail.class);
+                    intent.putExtra("courseId",showingReserveList.get(position).getMe_mycourse_reserve().getCourseId());
+                    startActivity(intent);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
         rvCourseReserved.setAdapter(courseAdapter);

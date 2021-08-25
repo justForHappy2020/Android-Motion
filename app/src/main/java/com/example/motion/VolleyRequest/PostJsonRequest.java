@@ -68,8 +68,11 @@ public class PostJsonRequest extends Request<String> {
             JSONObject root = new JSONObject(parsed);
             switch(root.getInt("code")){
                 case TOKEN_INVALID:
-                    Intent intent = new Intent(MotionApplication.context, register_activity_register.class);
-                    startActivity(MotionApplication.context,intent,null);
+                    /**
+                     * 这个跳转处理逻辑似乎不应该放在这里
+                     */
+                    //Intent intent = new Intent(MotionApplication.context, register_activity_register.class);
+                    //startActivity(MotionApplication.context,intent,null);
                     return Response.error(new VolleyError("TOKEN_INVALID"));
             }
         } catch (JSONException e) {
